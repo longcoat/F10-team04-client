@@ -5,9 +5,14 @@ import { gql, useMutation } from "@apollo/client";
 export const CREATE_USER = gql`
   mutation createUser($createUserInput: CreateUserInput!) {
     createUser(createUserInput: $createUserInput) {
-      _id
+      id
       email
-      name
+      password
+      nickName
+      region
+      gender
+      age
+      like
     }
   }
 `;
@@ -32,6 +37,7 @@ export default function JoinPage() {
   });
 
   const onClickSubmit = async (data: any) => {
+    console.log(data)
     try {
       const result = await createUser({
         variables: {
@@ -54,14 +60,14 @@ export default function JoinPage() {
   };
     return(
         <form onSubmit={handleSubmit(onClickSubmit)}>
-        이메일 : <input type="text" register={register("email")}/>
-        비밀번호 : <input type="password" register={register("password")}/>
-        비밀번호 확인 : <input type="password" register={register("rePassword")}/>
-        닉네임 : <input type="text" register={register("nickName")}/>
-        Level : <input type="text" register={register("level")}/>
-        지역 : <input type="text" register={register("region")}/>
-        성별 : <input type="text" register={register("gender")}/>
-        나이 : <input type="number" register={register("age")}/>
+        이메일 : <input type="text" {...register("email")}/>
+        비밀번호 : <input type="password" {...register("password")}/>
+        비밀번호 확인 : <input type="password"  {...register("rePassword")}/>
+        닉네임 : <input type="text" {...register("nickName")}/>
+        Level : <input type="text" {...register("level")}/>
+        지역 : <input type="text" {...register("region")}/>
+        성별 : <input type="text" {...register("gender")}/>
+        나이 : <input type="text" {...register("age")}/>
         <button>회원가입</button>
         </form>
     )
