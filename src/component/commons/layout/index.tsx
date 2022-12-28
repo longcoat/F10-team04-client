@@ -36,12 +36,12 @@ export default function Layout(props: ILayoutProps) {
 
   return (
     <>
-      {!isHidden && <LayoutNav />}
+      {/* {!isHidden && <LayoutNav />}
       {!isHidden2 && <LayoutBanner />}
       {!isHidden3 && <TodayItems />}
-      <BodyWrapper>
+      <BodyWrapper> */}
         <div>{props.children}</div>
-      </BodyWrapper>
+      {/* </BodyWrapper> */}
     </>
   );
 }
