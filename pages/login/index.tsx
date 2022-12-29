@@ -18,7 +18,7 @@ export default function LoginPage() {
   console.log(data);
   return (
     <>
-      <div>{data?.fetchUsers?.email}</div>
+      <div>data</div>
     </>
   );
 }
