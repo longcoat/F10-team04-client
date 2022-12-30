@@ -7,7 +7,7 @@ import TodayItems from "./sideBanner";
 import LayoutFooter from "./footer/footer";
 
 const BodyWrapper = styled.div``;
-
+const HIDDEN_LAYOUT = ["/login", "/join"];
 interface ILayoutProps {
   children: JSX.Element;
 }
@@ -34,12 +34,13 @@ export default function Layout(props: ILayoutProps) {
     router.asPath.includes("myPage") ||
     router.asPath.includes("boards") ||
     router.asPath.includes("highlights");
+  const isHiddenLayout = HIDDEN_LAYOUT.includes(router.asPath);
 
   return (
     <>
       <LayoutHeader />
       <div>{props.children}</div>
-      <LayoutFooter />
+      {!isHiddenLayout && <LayoutFooter />}
     </>
   );
 }
