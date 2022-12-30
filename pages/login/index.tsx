@@ -1,24 +1,21 @@
 import { gql, useQuery } from "@apollo/client";
+import LoginPage from "../../src/component/units/LoginPage/LoginPage.container";
 
-export const FETCH_USERS = gql`
-  query {
-    fetchUsers {
-      id
-      email
-      nickName
-      password
-      region
-      like
-      age
-    }
-  }
-`;
-export default function LoginPage() {
-  const { data } = useQuery(FETCH_USERS);
-  console.log(data);
-  return (
-    <>
-      <div>data</div>
-    </>
-  );
+// export const FETCH_USERS = gql`
+//   query {
+//     fetchUsers {
+//       id
+//       email
+//       nickName
+//       password
+//       region
+//       like
+//       age
+//     }
+//   }
+// `;
+export default function Login() {
+  // const { data } = useQuery(FETCH_USERS);
+  // console.log(data);
+  return <LoginPage />;
 }
