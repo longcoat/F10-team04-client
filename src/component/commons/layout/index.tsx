@@ -4,6 +4,7 @@ import LayoutHeader from "./header/header";
 import LayoutNav from "./nav/nav.container";
 import styled from "@emotion/styled";
 import TodayItems from "./sideBanner";
+import LayoutFooter from "./footer/footer";
 
 const BodyWrapper = styled.div``;
 
@@ -36,8 +37,9 @@ export default function Layout(props: ILayoutProps) {
 
   return (
     <>
-        <LayoutHeader />
-        <div>{props.children}</div>
+      <LayoutHeader />
+      <div>{props.children}</div>
+      <LayoutFooter />
     </>
   );
 }
