@@ -1,59 +1,44 @@
 import styled from "@emotion/styled";
 
-export const Header = styled.div`
-  padding-top: 10px;
-  height: 110px;
-`;
-
 export const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-export const RightWrapper = styled.div`
-  width: 30%;
-  height: 110;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding-right: 50px;
-`;
+width: 100%;
+padding: 20px 80px 20px 80px;
+display: flex;
+position: fixed;
+justify-content: space-between;
+align-items: center;
+&:hover{
+  background-color: rgba(255, 255, 255, 0.6);
+  transition: all 0.3s;
+  color: black;
+  
+  .menu {
+    color: #151515
+  }
+}
+`
+export const LeftSide = styled.div`
+`
+export const Logo = styled.div`
+font-size: 32px;
+font-weight: 800;
+letter-spacing: -0.011em;
+text-align: left;
+color: white;
+cursor: pointer;
+`
+export const RightSide = styled.div`
+width: 40%;
+display: flex;
+justify-content: space-between;
+`
+export const Menu = styled.div`
+font-family: Code Next-Trial;
+font-size: 32px;
+font-weight: 400;
+letter-spacing: -0.011em;
+text-align: center;
+color: white;
+cursor: pointer;
+`
 
-export const LeftWrapper = styled.div`
-  margin-top: 5px;
-  margin-left: 0px;
-  color: white;
-`;
-export const SiteName = styled.a`
-  font-size: 50px;
-`;
-
-export const Logo = styled.a`
-  font-size: 50px;
-`;
-export const Date = styled.div`
-  font-size: 15px;
-  line-height: 14px;
-  color: rgba(197, 123, 151, 0.8);
-  font-weight: 900;
-  padding-left: 130px;
-`;
-export const InnerLogo = styled.div`
-  font-size: 0px;
-  font-weight: bold;
-  font-family: "live";
-  font-style: italic;
-  color: #5729ff;
-  cursor: pointer;
-`;
-
-export const InnerButton = styled.button`
-  border: none;
-  background-color: white;
-  font-size: 20px;
-  margin: 10px;
-  color: rgba(197, 123, 151, 0.8);
-  position: relative;
-  top: 10px;
-  cursor: pointer;
-  margin: 0 20px;
-`;

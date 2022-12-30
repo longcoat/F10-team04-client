@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import LayoutBanner from "./banner";
-import LayoutHeader from "./header/header.container";
+import LayoutHeader from "./header/header";
 import LayoutNav from "./nav/nav.container";
 import styled from "@emotion/styled";
 import TodayItems from "./sideBanner";
@@ -36,12 +36,8 @@ export default function Layout(props: ILayoutProps) {
 
   return (
     <>
-      {/* {!isHidden && <LayoutNav />}
-      {!isHidden2 && <LayoutBanner />}
-      {!isHidden3 && <TodayItems />}
-      <BodyWrapper> */}
+        <LayoutHeader />
         <div>{props.children}</div>
-      {/* </BodyWrapper> */}
     </>
   );
 }
