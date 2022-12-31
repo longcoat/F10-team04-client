@@ -2,6 +2,7 @@ import LayoutHeader from '../../commons/layout/header/header'
 import * as S from './landingPage.styles'
 
 export default function LandingPageA() {
+    
     return(
         <S.Wrapper>
             <S.Container>
