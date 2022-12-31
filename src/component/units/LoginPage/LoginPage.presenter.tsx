@@ -1,55 +1,70 @@
 import { CheckOutlined } from "@ant-design/icons";
 import * as S from "./LoginPage.styles";
-export default function LoginUIPage() {
+export default function LoginUIPage(props) {
   return (
     <S.Wrapper>
       <S.Container>
-        <S.LoginWrapper>
+        <S.LoginWrapper onSubmit={props.handleSubmit(props.onClickLogin)}>
           <S.Title>RunGether</S.Title>
           <S.Main>
             <S.LoginText>로그인</S.LoginText>
             <S.InputWrapper>
               <S.HeadWrapper>
                 <S.HeadTitle>아이디</S.HeadTitle>
-                <S.Dot>*</S.Dot>
+                {!props.emailAct && <S.Dot>*</S.Dot>}
               </S.HeadWrapper>
 
               <S.Middle>
-                <S.MiddleInput placeholder="example@naver.com" />
+                <S.MiddleInput 
+                type="text"
+                maxLength={50}
+                name="email"
+                {...props.register("email")}
+                placeholder="example@naver.com" 
+                onChange={props.onChangeEmail}/>
               </S.Middle>
-              <S.Bottom>인증하기 버튼을 눌러주세요</S.Bottom>
+              <div style={{ color: "red" }}>{props.formState.errors.name?.message}</div>
+              {/* <S.Bottom>인증하기 버튼을 눌러주세요</S.Bottom> */}
             </S.InputWrapper>
             <S.InputWrapper>
               <S.HeadWrapper>
                 <S.HeadTitle>비밀번호</S.HeadTitle>
-                <S.Dot>*</S.Dot>
+               {!props.pwAct && <S.Dot>*</S.Dot>}
               </S.HeadWrapper>
 
               <S.Middle>
-                <S.MiddleInput placeholder="비밀번호를 입력해주세요." />
+                <S.MiddleInput 
+                type="password"
+                placeholder="비밀번호를 입력해주세요." 
+                maxLength={16}
+                name="password"
+                {...props.register("password")}
+                onChange={props.onChangePw}
+                />
               </S.Middle>
               <S.Bottom2>
                 <S.BottomItem>
                   영문
-                  <CheckOutlined style={{ paddingLeft: "4px" }} />
+                  <CheckOutlined style={{ paddingLeft: "4px" , color: props.pwAct1 && "#EC0E2A" }} />
                 </S.BottomItem>
                 <S.BottomItem>
                   숫자
-                  <CheckOutlined style={{ paddingLeft: "4px" }} />
+                  <CheckOutlined style={{ paddingLeft: "4px",color: props.pwAct2 && "#EC0E2A" }} />
                 </S.BottomItem>
                 <S.BottomItem>
                   특수문자
-                  <CheckOutlined style={{ paddingLeft: "4px" }} />
+                  <CheckOutlined style={{ paddingLeft: "4px",color: props.pwAct3 && "#EC0E2A" }} />
                 </S.BottomItem>
                 <S.BottomItem>
                   8자리 이상
-                  <CheckOutlined style={{ paddingLeft: "4px" }} />
+                  <CheckOutlined style={{ paddingLeft: "4px",color: props.pwAct4 && "#EC0E2A" }} />
                 </S.BottomItem>
               </S.Bottom2>
             </S.InputWrapper>
           </S.Main>
           <S.Footer>
-            <S.LoginButton>로그인</S.LoginButton>
+            <S.LoginButton
+            >로그인</S.LoginButton>
           </S.Footer>
         </S.LoginWrapper>
       </S.Container>
