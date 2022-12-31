@@ -14,7 +14,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-export const LoginWrapper = styled.div`
+export const LoginWrapper = styled.form`
   width: 754px;
   height: 1100px;
   background-color: #fff;
