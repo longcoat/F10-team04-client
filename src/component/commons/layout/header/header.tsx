@@ -20,7 +20,7 @@ export default function LayoutHeader() {
         </S.Logo>
       </S.LeftSide>
       <S.RightSide>
-        <S.Menu className="menu">Members</S.Menu>
+        <S.Menu onClick={() => router.push("/members")} className="menu">Members</S.Menu>
         <S.Menu onClick={() => router.push("/community")} className="menu">
           Community
         </S.Menu>
