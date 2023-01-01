@@ -66,3 +66,9 @@ export const Menu2 = styled.div`
     display: block;
   }
 `;
+export const SidebarWrap = styled.div`
+  display: none;
+  @media only screen and (max-width: 1024px) {
+    display: block;
+  }
+`;
