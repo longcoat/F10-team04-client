@@ -27,7 +27,7 @@ export default function LayoutHeader() {
         <S.Menu onClick={() => router.push("/login")} className="menu">
           Login
         </S.Menu>
-        <S.Menu className="menu">Join</S.Menu>
+        <S.Menu onClick={() => router.push("/joinA")} className="menu">Join</S.Menu>
         <S.Menu2>
           <MenuOutlined className="sidemenu" onClick={toggleSide} />
         </S.Menu2>

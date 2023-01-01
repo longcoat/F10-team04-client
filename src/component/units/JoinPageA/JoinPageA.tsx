@@ -1,7 +1,10 @@
 import * as S from "./JoinPage.styles";
 import { CheckOutlined } from "@ant-design/icons";
+import { useRouter } from "next/router";
 
 export default function JoinPageA() {
+  const router = useRouter()
+
   return (
     <>
       <S.Container>
@@ -79,7 +82,7 @@ export default function JoinPageA() {
               RunGether에서 사용할 닉네임을 입력해주세요.
             </S.InfoSubtitle>
             <S.Footer>
-              <S.NextButton>다음</S.NextButton>
+              <S.NextButton onClick={() => router.push("/joinB")}>다음</S.NextButton>
             </S.Footer>
           </S.JoinContainer>
         </S.JoinWrapper>
