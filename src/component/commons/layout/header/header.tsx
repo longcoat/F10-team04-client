@@ -31,7 +31,9 @@ export default function LayoutHeader() {
         <S.Menu2>
           <MenuOutlined className="sidemenu" onClick={toggleSide} />
         </S.Menu2>
-        <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+        <S.SidebarWrap>
+          <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+        </S.SidebarWrap>
       </S.RightSide>
     </S.Wrapper>
   );

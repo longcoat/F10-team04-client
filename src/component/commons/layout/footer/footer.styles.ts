@@ -25,6 +25,7 @@ export const LeftHead = styled.div`
   font-size: 36px;
   line-height: 53px;
   color: #fff;
+  cursor: pointer;
 `;
 export const LeftMiddle = styled.div`
   padding-top: 40px;
@@ -40,7 +41,9 @@ export const LeftIconWrap = styled.div`
   width: 40px;
   height: 40px;
 `;
-export const LeftIcon = styled.img``;
+export const LeftIcon = styled.img`
+  cursor: pointer;
+`;
 export const WrapperRight = styled.div`
   display: flex;
   width: 50%;
@@ -58,7 +61,7 @@ export const RightSubText = styled.div`
   font-size: 18px;
   line-height: 26px;
   text-transform: uppercase;
-
+  cursor: pointer;
   color: #ffffff;
 `;
 export const RightText2 = styled.div`
