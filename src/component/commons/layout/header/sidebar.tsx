@@ -1,7 +1,7 @@
 import { CloseOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
 import React, { useRef, useEffect } from "react";
-import styled from "styled-components";
+import styled from "@emotion/styled";
 
 const SideBarWrap = styled.div`
   z-index: 5;

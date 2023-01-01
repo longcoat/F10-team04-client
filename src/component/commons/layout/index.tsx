@@ -14,31 +14,15 @@ interface ILayoutProps {
 
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();
+
   const isHidden =
-    router.asPath.includes("log_in") ||
-    router.asPath.includes("new") ||
-    router.asPath.includes("edit") ||
-    router.asPath.includes("sign_up");
-  const isHidden2 =
-    router.asPath.includes("log_in") ||
-    router.asPath.includes("new") ||
-    router.asPath.includes("edit") ||
-    router.asPath.includes("sign_up") ||
-    router.asPath.includes("myPage") ||
-    router.asPath.includes("highlights");
-  const isHidden3 =
-    router.asPath.includes("log_in") ||
-    router.asPath.includes("new") ||
-    router.asPath.includes("edit") ||
-    router.asPath.includes("sign_up") ||
-    router.asPath.includes("myPage") ||
-    router.asPath.includes("boards") ||
-    router.asPath.includes("highlights");
+  router.asPath.includes("members") 
   const isHiddenLayout = HIDDEN_LAYOUT.includes(router.asPath);
 
   return (
     <>
       <LayoutHeader />
+     { isHidden && <LayoutBanner />}
       <div>{props.children}</div>
       {!isHiddenLayout && <LayoutFooter />}
     </>
