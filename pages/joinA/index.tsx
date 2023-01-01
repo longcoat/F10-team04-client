@@ -1,8 +1,8 @@
 import { Modal } from "antd";
 import { useForm } from "react-hook-form";
 import { gql, useMutation } from "@apollo/client";
-import JoinPageA from "../../src/component/units/JoinPage/JoinPageA";
-import JoinPageB from "../../src/component/units/JoinPage/JoinPageB";
+import JoinPageA from "../../src/component/units/JoinPageA/JoinPageA";
+import JoinPageB from "../../src/component/units/JoinPageA/JoinPageB";
 
 // export const CREATE_USER = gql`
 //   mutation createUser($createUserInput: CreateUserInput!) {
@@ -72,8 +72,7 @@ export default function Join() {
     //   <button>회원가입</button>
     // </form>
     <>
-      {/* <JoinPageA /> */}
-      <JoinPageB />
+      <JoinPageA />
     </>
   );
 }
