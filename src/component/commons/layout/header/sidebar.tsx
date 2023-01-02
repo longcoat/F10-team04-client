@@ -4,6 +4,7 @@ import React, { useRef, useEffect } from "react";
 import styled from "@emotion/styled";
 
 const SideBarWrap = styled.div`
+  display: none;
   z-index: 5;
   padding: 12px;
   border-radius: 15px 0 0 15px;
@@ -17,6 +18,9 @@ const SideBarWrap = styled.div`
   &.open {
     right: 0;
     transition: 0.5s ease;
+  }
+  @media only screen and (max-width: 1024px) {
+    display: block;
   }
 `;
 

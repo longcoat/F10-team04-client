@@ -1,13 +1,21 @@
+import { useRouter } from "next/router";
 import * as S from "./footer.styles";
 export default function LayoutFooter() {
+  const router = useRouter();
+
   return (
     <S.Wrapper>
       <S.FooterHead>
         <S.WrapperLeft>
-          <S.LeftHead>CODE CAMP.</S.LeftHead>
+          <S.LeftHead onClick={() => router.push("/")}>CODE CAMP.</S.LeftHead>
           <S.LeftMiddle>FOLLOW US ON</S.LeftMiddle>
           <S.LeftIconWrap>
-            <S.LeftIcon src="./images/github.png"></S.LeftIcon>
+            <a
+              href="https://github.com/code-bootcamp/F10-team04-client"
+              target="__blank"
+            >
+              <S.LeftIcon src="./images/github.png"></S.LeftIcon>
+            </a>
           </S.LeftIconWrap>
         </S.WrapperLeft>
         <S.WrapperRight>

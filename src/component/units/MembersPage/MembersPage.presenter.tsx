@@ -1,6 +1,6 @@
-import { SearchOutlined } from '@ant-design/icons'
-import UserCard from '../../commons/userCard/01-userCard'
-import * as S from './MembersPage.styles'
+import { SearchOutlined } from "@ant-design/icons";
+import UserCard from "../../commons/userCard/01-userCard";
+import * as S from "./MembersPage.styles";
 
 const AreaOption = [
   {
@@ -121,6 +121,7 @@ const AreaOption = [
 ]
 
 export default function MembersUi(props) {
+
     return(
         <S.Wrapper>
             <S.SearchWrap>
@@ -187,9 +188,9 @@ export default function MembersUi(props) {
   
             )} 
             </S.Items>
-        </S.ResultWrap>
-        }
 
-        </S.Wrapper>
-    )
+        </S.ResultWrap>
+      )}
+    </S.Wrapper>
+  );
 }
