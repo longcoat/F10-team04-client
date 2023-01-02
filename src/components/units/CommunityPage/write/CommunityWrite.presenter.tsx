@@ -5,6 +5,52 @@ import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import KakaoMapUI from "../../../commons/map/mapsearch";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+// 날짜 (시간)선택 ==================
+import { DatePicker, Space } from "antd";
+import type { RangePickerProps } from "antd/es/date-picker";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+
+dayjs.extend(customParseFormat);
+
+const { RangePicker } = DatePicker;
+
+const range = (start: number, end: number) => {
+  const result = [];
+  for (let i = start; i < end; i++) {
+    result.push(i);
+  }
+  return result;
+};
+
+// eslint-disable-next-line arrow-body-style
+const disabledDate: RangePickerProps["disabledDate"] = (current) => {
+  // Can not select days before today and today
+  return current && current < dayjs().endOf("day");
+};
+
+const disabledDateTime = () => ({
+  disabledHours: () => range(0, 24).splice(4, 20),
+  disabledMinutes: () => range(30, 60),
+  disabledSeconds: () => [55, 56],
+});
+
+const disabledRangeTime: RangePickerProps["disabledTime"] = (_, type) => {
+  if (type === "start") {
+    return {
+      disabledHours: () => range(0, 60).splice(4, 20),
+      disabledMinutes: () => range(30, 60),
+      disabledSeconds: () => [55, 56],
+    };
+  }
+  return {
+    disabledHours: () => range(0, 60).splice(20, 4),
+    disabledMinutes: () => range(0, 31),
+    disabledSeconds: () => [55, 56],
+  };
+};
+//========================================
+
 export default function CommunityWriteUI(props: any) {
   const [open, setOpen] = useState(false);
   return (
@@ -72,7 +118,18 @@ export default function CommunityWriteUI(props: any) {
                 </S.InputWrapper>
                 <S.InputWrapper>
                   <S.InputTitle>시간</S.InputTitle>
-                  <S.selectBox />
+                  <DatePicker
+                    style={{
+                      border: "1px solid #8b8b8b",
+                      borderRadius: "16px",
+                      width: "242px",
+                      height: "63px",
+                    }}
+                    format="YYYY-MM-DD HH:mm:ss"
+                    disabledDate={disabledDate}
+                    disabledTime={disabledDateTime}
+                    showTime={{ defaultValue: dayjs("00:00:00", "HH:mm:ss") }}
+                  />
                 </S.InputWrapper>
                 <S.InputWrapper>
                   <S.InputTitle>운동 능력</S.InputTitle>
