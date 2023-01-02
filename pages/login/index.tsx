@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import LoginPage from "../../src/components/units/LoginPage/LoginPage.container";
+import LoginPage from "../../src/component/units/LoginPage/LoginPage.container";
 
 // export const FETCH_USERS = gql`
 //   query {
