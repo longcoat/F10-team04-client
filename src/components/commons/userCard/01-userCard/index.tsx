@@ -1,6 +1,5 @@
-import { UseFormRegisterReturn } from "react-hook-form";
 import styled from "@emotion/styled";
-import { HeartFilled, HeartOutlined, RocketOutlined, UsergroupAddOutlined} from "@ant-design/icons";
+import { HeartFilled, HeartOutlined, UserAddOutlined, UsergroupAddOutlined} from "@ant-design/icons";
 import { useState } from "react";
 
 
@@ -29,9 +28,9 @@ export default function UserCard(props) {
         <Level>인기도</Level>
         </HeartWrap>
         <ButtonWrap>
-      {!addActive ? <UsergroupAddOutlined onClick={onClickAdd} style={{width:"20%", fontSize: "22px",paddingTop:"6px"
+      {!addActive ? <UserAddOutlined  onClick={onClickAdd} style={{width:"20%", fontSize: "22px",paddingTop:"6px"
                                       ,height: "35px" ,borderRadius:"16px"}}/>
-        :<UsergroupAddOutlined onClick={onClickAdd} style={{width:"20%", fontSize: "22px",paddingTop:"6px"
+        :<UserAddOutlined onClick={onClickAdd} style={{width:"20%", fontSize: "22px",paddingTop:"6px"
                                       ,height: "35px" ,borderRadius:"16px", color:"#3C59A6"}}/>}
         <Button>메시지</Button>
         </ButtonWrap>

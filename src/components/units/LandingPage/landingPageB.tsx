@@ -1,6 +1,8 @@
+import { useRouter } from "next/router";
 import * as S from "./landingPage.styles";
 
 export default function LandingPageB() {
+  const router = useRouter()
   return (
     <S.Wrapper_2>
       <S.TitleBox>
@@ -25,7 +27,11 @@ export default function LandingPageB() {
             웹에 있는 다양한 가이드 런을 확인해 보세요. 필요한 가이드를 선택하고
             지금 바로, 문 밖으로 나가보세요.{" "}
           </S.Contents_2>
-          <S.MemberBtn href="/members">FIND MEMBER</S.MemberBtn>
+          <S.MemberBtn>
+            <S.Btn onClick={() => router.push("/members")}>
+            FIND MEMBER
+            </S.Btn>
+            </S.MemberBtn>
         </S.ContentsBox>
       </S.MainContents>
     </S.Wrapper_2>

@@ -1,4 +1,5 @@
 import { SearchOutlined } from "@ant-design/icons";
+import { useState } from "react";
 import UserCard from "../../commons/userCard/01-userCard";
 import * as S from "./MembersPage.styles";
 
@@ -136,6 +137,28 @@ const levelOption = [
 ];
 
 export default function MembersUi(props) {
+  const [menuAct, setMenuAct] = useState(true)
+  const [menuAct1, setMenuAct1] = useState(false)
+  const onClickMenu1 = () => {
+      if(!menuAct){
+        if(menuAct1){
+          setMenuAct(prev => !prev)
+          setMenuAct1(prev => !prev)
+        }else{
+          setMenuAct(prev => !prev)
+        }
+    }
+  }
+  const onClickMenu2 = () => {
+    if(!menuAct1){
+      if(menuAct){
+        setMenuAct(prev => !prev)
+        setMenuAct1(prev => !prev)
+      }else{
+        setMenuAct1(prev => !prev)
+      }
+  }
+}
   return (
     <S.Wrapper>
       <S.SearchWrap>
@@ -144,6 +167,7 @@ export default function MembersUi(props) {
             <S.Ctg_title>지역</S.Ctg_title>
             <S.Selectbar>
               <S.SelectArea
+                onChange={props.onChangeLo}
                 defaultValue={AreaOption[0]}
                 style={{ width: "100%", borderRadius: "10px" }}
                 options={AreaOption}
@@ -154,6 +178,7 @@ export default function MembersUi(props) {
             <S.Ctg_title>최애 운동</S.Ctg_title>
             <S.Selectbar>
               <S.SelectArea
+                onChange={props.onChangeFav}
                 defaultValue={FavOption[0]}
                 style={{ width: "100%", borderRadius: "10px" }}
                 options={FavOption}
@@ -164,6 +189,7 @@ export default function MembersUi(props) {
             <S.Ctg_title>나이</S.Ctg_title>
             <S.Selectbar>
               <S.SelectArea
+                onChange={props.onChangeAge}
                 defaultValue={AgeOption[0]}
                 style={{ width: "100%", borderRadius: "10px" }}
                 options={AgeOption}
@@ -174,6 +200,7 @@ export default function MembersUi(props) {
             <S.Ctg_title>운동 레벨</S.Ctg_title>
             <S.Selectbar>
               <S.SelectArea
+                onChange={props.onChangeLevel}
                 defaultValue={levelOption[0]}
                 style={{ width: "100%", borderRadius: "10px" }}
                 options={levelOption}
@@ -182,7 +209,7 @@ export default function MembersUi(props) {
           </S.Category>
         </S.SelectSide>
         <S.ButtonSide>
-          <S.Button>검색하기</S.Button>
+          <S.Button onClick={props.onClickBtn}>검색하기</S.Button>
         </S.ButtonSide>
       </S.SearchWrap>
       {props.isNo ? (
@@ -196,6 +223,10 @@ export default function MembersUi(props) {
       ) : (
         <S.ResultWrap>
           <S.ResultTitle>검색결과</S.ResultTitle>
+          <S.TabMenu>
+            <S.Item isActive={menuAct} onClick={onClickMenu1}>최신순</S.Item>
+            <S.Item isActive={menuAct1} onClick={onClickMenu2}>인기순</S.Item>
+          </S.TabMenu>
           <S.Items>
             {props.data?.fetchUsers.map((el) => (
               <UserCard key={el.id} el={el} />

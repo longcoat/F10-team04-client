@@ -1,99 +1,19 @@
 import * as S from "./JoinPage.styles";
-import { ArrowLeftOutlined, CheckOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, CheckOutlined, EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { useState } from "react";
-const AreaOption = [
-  {
-    value: "서울특별시",
-    label: "서울특별시",
-  },
-  {
-    value: "인천광역시",
-    label: "인천광역시",
-  },
-  {
-    value: "세종특별자치시",
-    label: "세종특별자치시",
-  },
-  {
-    value: "대전광역시",
-    label: "대전광역시",
-  },
-  {
-    value: "부산광역시",
-    label: "부산광역시",
-  },
-  {
-    value: "대구광역시",
-    label: "대구광역시",
-  },
-  {
-    value: "광주광역시",
-    label: "광주광역시",
-  },
-  {
-    value: "울산광역시",
-    label: "울산광역시",
-  },
-  {
-    value: "제주특별자치도",
-    label: "제주특별자치도",
-  },
-];
-const AgeOption = [
-  {
-    value: "10대",
-    label: "10대",
-  },{
-    value: "20대",
-    label: "20대",
-  },{
-    value: "30대",
-    label: "30대",
-  },{
-    value: "40대",
-    label: "40대",
-  },{
-    value: "50대",
-    label: "50대",
-  },{
-    value: "60대 이상",
-    label: "60대 이상",
-  },
-]
-const FavOption = [
-  {
-    value: "런닝",
-    label: "런닝",
-  },{
-    value: "걷기",
-    label: "걷기",
-  },{
-    value: "풋살",
-    label: "풋살",
-  },{
-    value: "배드민턴",
-    label: "배드민턴",
-  },{
-    value: "테니스",
-    label: "테니스",
-  },{
-    value: "수영",
-    label: "수영",
-  },{
-    value: "족구",
-    label: "족구",
-  },{
-    value: "탁구",
-    label: "탁구",
-  },{
-    value: "야구",
-    label: "야구",
-  },
-]
+const AreaOption = [ { value: "서울특별시",label: "서울특별시"},{ value: "인천광역시",label: "인천광역시"},{ value: "세종특별자치시",label: "세종특별자치시"},
+                     { value: "대전광역시",label: "대전광역시"},{ value: "부산광역시",label: "부산광역시"},{ value: "대구광역시",label: "대구광역시"},
+                     { value: "광주광역시",label: "광주광역시"},{ value: "울산광역시",label: "울산광역시"},{ value: "제주특별자치도",label: "제주특별자치도"}];
+const AgeOption = [{ value: "10대",label: "10대"},{ value: "20대",label: "20대"},{ value: "30대",label: "30대"},
+                   { value: "40대",label: "40대"},{ value: "50대",label: "50대"},{value: "60대 이상",label: "60대 이상" }]
+const FavOption = [{ value: "런닝",label: "런닝"},{ value: "걷기",label: "걷기"},{ value: "풋살",label: "풋살"},
+                   { value: "배드민턴",label: "배드민턴"},{ value: "테니스",label: "테니스"},{ value: "수영",label: "수영"},{value: "족구",label: "족구"},
+                   { value: "탁구",label: "탁구"},{ value: "야구",label: "야구"},]
 
 
 export default function JoinPageUi(props) {
   const [isNext, setIsNext] = useState(false)
+  const [isHidden, setIsHidden] = useState(false)
   const onClickNext = () => {
     if(props.email.includes("@") 
     && props.password.match(/^(?=.*[a-zA-Z]).{0,16}$/)
@@ -111,6 +31,9 @@ export default function JoinPageUi(props) {
   }
   const onClickBack = () => {
     setIsNext(false)
+  }
+  const onClickEye = () => {
+    setIsHidden(prev => !prev)
   }
   return (
     <>
@@ -147,9 +70,11 @@ export default function JoinPageUi(props) {
               <S.PassInput
               value={props.password}
               onChange={props.onChangePw}
-                type="password"
+                type={isHidden ? "text" : "password"}
                 placeholder="비밀번호를 입력해주세요."
               />
+            {!isHidden ? <EyeOutlined onClick={onClickEye} style={{ fontSize:"20px", position: "relative", right: "40px", color:"#C71515"}}/>
+             : <EyeInvisibleOutlined onClick={onClickEye} style={{ fontSize:"20px", position: "relative", right: "40px", color:"#C71515"}}/>}
             </S.PassInputBox>
             <S.Error>
               <S.Type>
