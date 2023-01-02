@@ -12,7 +12,7 @@ export default function LandingPageB() {
         <S.ImgBox
           style={{
             backgroundImage:
-              "url(https://s3-alpha-sig.figma.com/img/2b16/7506/88081abebe082f271b88a415fe33d347?Expires=1673222400&Signature=OydCThp6fxDTXvogiVR0cC2CIZqntsbzfSWhkgMBjAM7mCTRsvRA2PbUDyltjwglsFUZrE~Q6H1MXZjmNWSPdriyWHTUnX0G3sXu3m3KchycZtPqQbDqgD5FhQ1Xtxjoibk24711mqiOYq2jbZQBja9hPtPDK925wtRtI-ciunQKjjEHRAADVU~0UXdt~eploR58vdOJnBAisl8LVDQNdrlgN4j1tEDxWFaDVPduZokiXaPHTCWCKfn0ZbM5LRdWBTXBXZcpaD-ya9qJSu6DzoW8x7f0VhTWTM0dhd7uk-XiIskwB6x9xIsvntzct8iLDL9J2whLtFiX5VnW7MqZAA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4)",
+              "url(https://hally.com/wp-content/uploads/2021/08/PHMKGN21-SOI5k10kbl-0721-3-r1.jpg)",
           }}
         ></S.ImgBox>
         <S.ContentsBox>

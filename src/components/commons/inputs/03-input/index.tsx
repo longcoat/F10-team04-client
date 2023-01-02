@@ -67,16 +67,16 @@ const Wrapper = styled.div`
   display: flex;
 `;
 const UploadImage = styled.img`
-  width: 78px;
-  height: 78px;
+  width: 250px;
+  height: 250px;
   margin-right: 24px;
   cursor: pointer;
 `;
 
 const UploadButton = styled.button`
   margin-top: 20px;
-  width: 78px;
-  height: 78px;
+  width: 250px;
+  height: 250px;
   border-radius: 50px;
   background-color: #bdbdbd;
   margin-right: 24px;

@@ -115,7 +115,6 @@ export const MainContents = styled.div`
 export const ImgBox = styled.div`
   width: 55%;
   height: 500px;
-  background-position: center;
   background-size: cover;
   @media only screen and (max-width: 1024px) {
     width: 50%;

@@ -2,7 +2,7 @@ import { CheckOutlined } from "@ant-design/icons";
 import * as S from "./LoginPage.styles";
 export default function LoginUIPage(props) {
   return (
-    <S.Wrapper>
+    <S.Wrapper onSubmit={props.isEdit ? props.onClickUpdate : props.onSubmit}>
       <S.Container>
         <S.LoginWrapper onSubmit={props.handleSubmit(props.onClickLogin)}>
           <S.Title>RunGether</S.Title>
@@ -91,6 +91,5 @@ export default function LoginUIPage(props) {
         </S.LoginWrapper>
       </S.Container>
     </S.Wrapper>
-    
   );
 }

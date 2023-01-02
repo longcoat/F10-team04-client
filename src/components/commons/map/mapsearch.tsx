@@ -177,7 +177,7 @@ export default function KakaoMapUI(props: any) {
             주소 검색
           </Button>
         </SearchWrapper>
-        <Map id="map" style={{ width: 600, height: 400 }}></Map>
+        <Map id="map" style={{ width: 856, height: 300 }}></Map>
       </Wrapper>
     </>
   );
@@ -197,6 +197,7 @@ const Input = styled.input`
   border-radius: 16px;
   width: 284px;
   height: 63px;
+  padding-left: 10px;
 `;
 const Text = styled.div`
   display: flex;
@@ -219,4 +220,5 @@ const Button = styled.button`
 `;
 const Map = styled.div`
   width: 856px;
+  height: 300px;
 `;
