@@ -1,4 +1,4 @@
-import CommunityWrite from "../../../src/component/units/CommunityPage/write/CommunityWrite.container";
+import CommunityWrite from "../../../src/components/units/CommunityPage/write/CommunityWrite.container";
 
 export default function CommunityWritePage() {
   return <CommunityWrite />;
