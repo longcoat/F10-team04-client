@@ -1,8 +1,7 @@
 import { Modal } from "antd";
 import { useForm } from "react-hook-form";
 import { gql, useMutation } from "@apollo/client";
-import JoinPageA from "../../src/component/units/JoinPageA/JoinPageA";
-import JoinPageB from "../../src/component/units/JoinPageB/JoinPageB";
+import JoinPageA from "../../src/component/units/JoinPage/JoinPage.container";
 
 // export const CREATE_USER = gql`
 //   mutation createUser($createUserInput: CreateUserInput!) {
