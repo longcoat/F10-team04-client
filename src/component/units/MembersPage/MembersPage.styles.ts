@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import { Select } from "antd";
+
 
 export const Wrapper = styled.div`
 padding: 48px 0px;
@@ -32,21 +34,45 @@ text-align: left;
 padding-bottom: 15px;
 padding-left: 17px;
 `
-export const Select = styled.select`
-color: #8B8B8B;
-font-size: 20px;
-font-weight: 400;
-line-height: 34px;
-letter-spacing: -0.47999998927116394px;
-text-align: left;
-padding: 7px 14px;
-width: 100%;
-height: 40px;
-border-radius: 16px;
-border: none;
-background-color: rgba(25, 29, 35, 0.05);
-cursor: pointer;
-`
+// export const Select = styled.select`
+// color: #8B8B8B;
+// font-size: 20px;
+// font-weight: 400;
+// line-height: 34px;
+// letter-spacing: -0.47999998927116394px;
+// text-align: left;
+// padding: 7px 14px;
+// width: 100%;
+// height: 40px;
+// border-radius: 16px;
+// border: none;
+// background-color: rgba(25, 29, 35, 0.05);
+// cursor: pointer;
+// `
+export const Selectbar = styled.div`
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    /* width: 40px; */
+  }
+
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    color: #8B8B8B;
+    position: relative;
+    background-color: rgba(25, 29, 35, 0.05);
+    border: none;
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.css-18xu70h {
+    width: 100%;
+    border:  none;
+    color: #8B8B8B;
+}
+`;
+export const SelectArea = styled(Select)`
+  width: 100%;
+  border: 2px solid #d9d9d9;
+  color: #8B8B8B;
+`;
 export const ButtonSide = styled.div`
 width: 20%;
 display: flex;
