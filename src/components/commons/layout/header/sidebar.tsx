@@ -65,6 +65,8 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any }) {
     <SideBarWrap id="sidebar" ref={outside} className={isOpen ? "open" : ""}>
       <CloseOutlined alt="close" onClick={toggleSide} onKeyDown={toggleSide} />
       <ul>
+        <Menu onClick={() => router.push("/login")}>Login</Menu>
+        <Menu onClick={() => router.push("/join")}>Join</Menu>
         <Menu>Members</Menu>
         <Menu onClick={() => router.push("/community")}>Community</Menu>
         <Menu>MyMenu</Menu>

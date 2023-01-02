@@ -36,7 +36,7 @@ export default function JoinPageA() {
   const [gender, setGender] = useState("")
   const [level, setLevel] = useState("")
 
-const [createUser] = useMutation(CREATE_USER)
+// const [createUser] = useMutation(CREATE_USER)
   
   const onChangeEmail = (e) => {
     setEmail(e.target.value)
@@ -202,7 +202,7 @@ const [createUser] = useMutation(CREATE_USER)
           },
         },
       });
-      router.push(``);
+      router.push(`/`);
       console.log(result);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });

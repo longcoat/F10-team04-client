@@ -10,7 +10,6 @@ export const Wrapper = styled.div`
   &:hover {
     background-color: rgba(255, 255, 255, 0.6);
     transition: all 0.3s;
-    color: black;
 
     .menu {
       color: #151515;
@@ -39,6 +38,9 @@ export const RightSide = styled.div`
   width: 40%;
   display: flex;
   justify-content: space-between;
+  @media only screen and (max-width: 1024px) {
+    justify-content: flex-end;
+  }
 `;
 export const Menu = styled.div`
   font-family: Code Next-Trial;
@@ -50,6 +52,7 @@ export const Menu = styled.div`
   cursor: pointer;
   @media only screen and (max-width: 1024px) {
     font-size: 20px;
+    display: none;
   }
 `;
 export const Menu2 = styled.div`

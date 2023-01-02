@@ -53,7 +53,7 @@ export default function LoginPage() {
   const onClickLogin = (data) => {
     if (data.email !== "" && data.password !== "") {
       setIsActive(true);
-      alert("로그인 환료");
+      alert("로그인 완료");
     }
   };
   return (

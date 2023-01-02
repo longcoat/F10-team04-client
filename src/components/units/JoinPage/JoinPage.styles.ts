@@ -194,6 +194,8 @@ export const NextButton = styled.button`
 
 export const PassInputBox = styled.div`
   padding-top: 5px;
+  display: flex;
+  align-items: center;
 `;
 
 export const ImgBox = styled.div`
