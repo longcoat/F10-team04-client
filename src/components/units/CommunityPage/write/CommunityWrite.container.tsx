@@ -3,8 +3,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { schema } from "./CommunityWrite.validation";
-import { gql } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 const UPLOAD_FILE = gql`
   mutation uploadFile($file: Upload!) {
@@ -15,6 +16,8 @@ const UPLOAD_FILE = gql`
 `;
 
 export default function CommunityWrite() {
+  // const [createBoard] = useMutation(CREATE_BOARD);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -72,5 +75,52 @@ export default function CommunityWrite() {
     // onChange가 됐다고 react-hook-form에 알려주는 기능
     trigger("contents");
   };
-  return <CommunityWriteUI register={register} />;
+
+  // const onSubmit = handleSubmit(async (data) => {
+  //   // const results = await Promise.all(
+  //   //   imageFile.map((el) => el && uploadFile({ variables: { file: el } }))
+  //   // );
+  //   // const resultUrls = results.map((el) => {
+  //   //   // el.data가 없으면 파일을 업로드 하지 않은 것이기 때문에 빈 문자열로 받는다.
+  //   //   return el ? el?.data.uploadFile.url : "";
+  //   // });
+  //   try {
+  //     const result = await createBoard({
+  //       variables: {
+  //         createUseditemInput: {
+  //           ...data,
+  //           // images: resultUrls,
+  //         },
+  //       },
+  //     });
+  //     router.push(`/community/${result.data.communityId._id}`);
+  //   } catch (e) {
+  //     if (e instanceof Error) alert(e.message);
+  //   }
+  // });
+
+  return (
+    <CommunityWriteUI
+      // onSubmit={onSubmit}
+      errors={formState.errors}
+      isValid={formState.isValid}
+      register={register}
+      imageUrl={imageUrl}
+      // onChangeImage={onChangeImage}
+      setValue={setValue}
+      trigger={trigger}
+      onChangeContents={onChangeContents}
+      // onClickImage={onClickImage}
+      // onCompleteAddressSearch={onCompleteAddressSearch}
+      // setAddress={setAddress}
+      // address={address}
+      // onClickUpdate={onClickUpdate}
+      // isEdit={props.isEdit}
+      // data={props.data}
+      // hashArr={hashArr}
+      // setHashArr={setHashArr}
+      getValues={getValues}
+      formState={formState}
+    />
+  );
 }

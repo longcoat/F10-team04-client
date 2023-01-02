@@ -6,4 +6,3 @@ export const Wrapper = styled.img`
   background-size: cover;
   background-position-y: 43%;
 `;
- 

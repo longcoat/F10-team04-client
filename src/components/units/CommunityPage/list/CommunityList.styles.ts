@@ -18,6 +18,7 @@ export const Title = styled.div`
   color: #000000;
 `;
 export const MenuWrapper = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
 `;

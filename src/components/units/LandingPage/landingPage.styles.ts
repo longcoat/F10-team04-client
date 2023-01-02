@@ -59,7 +59,6 @@ export const MainContents = styled.div`
 export const ImgBox = styled.div`
   width: 55%;
   height: 500px;
-  background-position: center;
   background-size: cover;
 `;
 export const ContentsBox = styled.div`

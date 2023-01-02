@@ -52,12 +52,14 @@ export const InputBox = styled.input`
   border-radius: 16px;
   width: 242px;
   height: 63px;
+  padding-left: 10px;
 `;
 export const selectBox = styled.select`
   border: 1px solid #8b8b8b;
   border-radius: 16px;
   width: 242px;
   height: 63px;
+  padding-left: 10px;
 `;
 // export const Selectbar = styled.div`
 //   width: 242px;
