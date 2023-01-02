@@ -10,8 +10,45 @@ import { DatePicker, Space } from "antd";
 import type { RangePickerProps } from "antd/es/date-picker";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import Input03 from "../../../commons/inputs/03-input";
+import styled from "@emotion/styled";
 
 dayjs.extend(customParseFormat);
+
+const ModalCustom = styled(Modal)`
+  .ant-modal-header {
+    padding: 16px 24px;
+    padding-top: 30px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+    border-radius: 2px 2px 0 0;
+    height: 80px;
+  }
+  .ant-modal-title {
+    color: #fff;
+  }
+  .ant-modal-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .ant-modal-footer > .ant-btn-primary {
+    width: 161px;
+    height: 63px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+  }
+  .ant-modal-footer > .ant-btn-default {
+    width: 161px;
+    height: 63px;
+    background-color: #f6f6f6;
+    color: #8b8b8b;
+    border: none;
+  }
+`;
 
 const { RangePicker } = DatePicker;
 
@@ -68,7 +105,7 @@ export default function CommunityWriteUI(props: any) {
       >
         작성하기
       </Button>
-      <Modal
+      <ModalCustom
         title="게시물 작성"
         centered
         open={open}
@@ -79,7 +116,7 @@ export default function CommunityWriteUI(props: any) {
         <S.Wrapper>
           <S.Header>
             {" "}
-            <S.Image>썸네일 등록</S.Image>
+            <Input03 type="file" />
             <S.InputWrap1>
               <S.InputWrap2>
                 <S.InputWrapper>
@@ -142,7 +179,6 @@ export default function CommunityWriteUI(props: any) {
               </S.InputWrap3>
             </S.InputWrap1>
           </S.Header>
-          <KakaoMapUI />
           <S.InputWrapper>
             <S.InputTitle>내용</S.InputTitle>
             <ReactQuill
@@ -155,9 +191,11 @@ export default function CommunityWriteUI(props: any) {
               // value={props.getValues("contents") || ""}
             />
           </S.InputWrapper>
+          <KakaoMapUI />
+
           <S.Main></S.Main>
         </S.Wrapper>
-      </Modal>
+      </ModalCustom>
     </>
   );
 }
