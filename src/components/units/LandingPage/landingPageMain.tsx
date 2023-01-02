@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import LayoutFooter from "../../commons/layout/footer/footer";
 
 import LandingPageA from "./landingPageA";
 import LandingPageB from "./landingPageB";
@@ -10,6 +11,7 @@ export default function LandingPageMain() {
       <LandingPageA />
       <LandingPageB />
       <LandingPageC />
+      <LayoutFooter />
     </Wrapper>
   );
 }
