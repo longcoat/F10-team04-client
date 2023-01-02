@@ -126,41 +126,12 @@ export const BoardBox = styled.div`
 `;
 
 export const FriendList = styled.div`
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 28px;
-  /* identical to box height */
-
-  text-align: center;
-  letter-spacing: -0.002em;
-
-  color: #c71515;
   padding-right: 90px;
 `;
 
-export const ChatList = styled.div`
-  font-family: "AppleSDGothicNeoM00";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 22px;
-  text-align: center;
-  letter-spacing: -0.002em;
-
-  color: #0b0b0b;
-`;
+export const ChatList = styled.div``;
 
 export const PickList = styled.div`
-  font-family: "AppleSDGothicNeoM00";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 22px;
-  text-align: center;
-  letter-spacing: -0.002em;
-
-  color: #0b0b0b;
   margin-right: 90px;
 `;
 
@@ -221,7 +192,6 @@ export const Items = styled.div`
 
 export const ListContainer = styled.div`
   padding-top: 60px;
-  background-color: blue;
 `;
 
 export const ReactIconBox = styled.div``;
@@ -230,11 +200,11 @@ export const IconBox = styled.div`
   color: #8b8b8b;
 `;
 export const RightIconUpBox = styled.div`
-  padding-left: 60px;
+  padding-left: 30px;
   color: #8b8b8b;
 `;
 export const RightIconDownBox = styled.div`
-  padding-left: 90px;
+  padding-left: 30px;
   color: #8b8b8b;
 `;
 
@@ -330,5 +300,137 @@ export const ThumbnailBox = styled.div`
   width: 120px;
   height: 90px;
   padding-top: 20px;
+  border-radius: 12px;
 `;
-export const ThumbnailImage = styled.img``;
+export const ThumbnailImage = styled.img`
+  border-radius: 12px;
+`;
+
+export const FriendListText = styled.div`
+  font-family: "AppleSDGothicNeoM00";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+  text-align: center;
+  letter-spacing: -0.002em;
+  color: #0b0b0b;
+  padding: 0 16px 10px 16px;
+
+  border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
+  color: ${(props) => (props.isActive ? "#C71515" : "none")};
+  /* identical to box height */
+`;
+
+export const PickListText = styled.div`
+  font-family: "AppleSDGothicNeoM00";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+  text-align: center;
+  letter-spacing: -0.002em;
+  padding: 0 16px 10px 16px;
+
+  color: #0b0b0b;
+
+  border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
+  color: ${(props) => (props.isActive ? "#C71515" : "none")};
+`;
+
+export const ChatListText = styled.div`
+  font-family: "AppleSDGothicNeoM00";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+  text-align: center;
+  letter-spacing: -0.002em;
+  padding: 0 16px 10px 16px;
+
+  color: #0b0b0b;
+
+  border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
+  color: ${(props) => (props.isActive ? "#C71515" : "none")};
+`;
+
+// export const Item = styled.div`
+//   width: 25%;
+//   margin-right: 20px;
+//   display: flex;
+//   flex-direction: column;
+//   background: #ffffff;
+//   box-shadow: 0px 0px 9px rgba(153, 153, 151, 0.25);
+//   border-radius: 12px;
+// `;
+// export const Img = styled.img`
+//   background-size: cover;
+//   width: 100%;
+//   height: 204px;
+//   border-radius: 12px;
+// `;
+// export const Main = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   padding-left: 18px;
+// `;
+// export const Title2 = styled.div`
+//   padding-top: 15px;
+//   font-style: normal;
+//   font-weight: 400;
+//   font-size: 28px;
+//   line-height: 39px;
+//   /* identical to box height */
+
+//   letter-spacing: -0.0024em;
+
+//   color: #0b0b0b;
+// `;
+// export const Contents = styled.div`
+//   padding-top: 8px;
+//   font-weight: 400;
+//   font-size: 15px;
+//   line-height: 21px;
+//   letter-spacing: -0.0024em;
+
+//   color: #8b8b8b;
+// `;
+// export const Sports = styled.div`
+//   padding-top: 18px;
+//   font-weight: 400;
+//   font-size: 12px;
+//   line-height: 17px;
+//   /* identical to box height */
+
+//   display: flex;
+//   letter-spacing: -0.0024em;
+
+//   color: #0b0b0b;
+// `;
+// export const Footer = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   padding-top: 23px;
+//   padding-bottom: 20px;
+//   align-items: center;
+// `;
+// export const Location = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+// `;
+// export const Icon = styled.img`
+//   width: 24px;
+//   height: 24px;
+// `;
+// export const LocaionText = styled.div`
+//   font-weight: 400;
+//   font-size: 12px;
+//   line-height: 34px;
+//   /* identical to box height, or 283% */
+//   padding-left: 6px;
+//   letter-spacing: -0.48px;
+
+//   color: #8b8b8b;
+// `;
