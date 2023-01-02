@@ -69,5 +69,6 @@ export default function LoginUIPage(props) {
         </S.LoginWrapper>
       </S.Container>
     </S.Wrapper>
+    
   );
 }

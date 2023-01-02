@@ -7,7 +7,7 @@ import TodayItems from "./sideBanner";
 import LayoutFooter from "./footer/footer";
 
 const BodyWrapper = styled.div``;
-const HIDDEN_LAYOUT = ["/login", "/join"];
+const HIDDEN_LAYOUT = ["/login", "/joinA", "/joinB"];
 interface ILayoutProps {
   children: JSX.Element;
 }

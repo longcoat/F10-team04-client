@@ -9,7 +9,13 @@ export const Container = styled.div`
 export const JoinWrapper = styled.div`
   width: 754px;
   margin: 0 auto;
-  padding: 50px 3%;
+  padding: 50px 120px;
+  background: white;
+`;
+export const JoinForm = styled.form`
+  width: 754px;
+  margin: 0 auto;
+  padding: 50px 120px;
   background: white;
 `;
 
@@ -43,7 +49,6 @@ export const JoinContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0 120px;
 `;
 
 export const JoinTitle = styled.div`
@@ -250,25 +255,33 @@ export const SexButtonBox = styled.div`
 `;
 
 export const SexButton1 = styled.button`
-  background: #0b0b0b;
+  /* background: #0b0b0b;
   border-radius: 9px;
   cursor: pointer;
   border: 0;
   width: 50%;
   padding: 14px 0;
   color: white;
+  font-size: 20px; */
+  border: ${(props) => (props.isActive ? "2px solid black" : "2px solid #d9d9d9")};
+  background-color: ${(props) => (props.isActive ? "#0b0b0b" : "white")};
+  border-radius: 9px;
+  cursor: pointer;
+  width: 50%;
+  padding: 14px 0;
+  color: ${(props) => (props.isActive ? "white" : "#d9d9d9")};
   font-size: 20px;
 `;
 
 export const SexButton2 = styled.button`
-  border: 2px solid #d9d9d9;
-  background-color: white;
+  border: ${(props) => (props.isActive ? "2px solid black" : "2px solid #d9d9d9")};
+  background-color: ${(props) => (props.isActive ? "#0b0b0b" : "white")};
   border-radius: 9px;
   cursor: pointer;
   width: 50%;
   margin-left: 20px;
   padding: 14px 0;
-  color: #d9d9d9;
+  color: ${(props) => (props.isActive ? "white" : "#d9d9d9")};
   font-size: 20px;
 `;
 
@@ -289,10 +302,10 @@ export const ExerciseButton1 = styled.button`
   border-radius: 9px;
   cursor: pointer;
   padding: 14px 0;
-  color: white;
+  background-color: ${(props) => (props.isActive ? "#0b0b0b" : "white")};
   font-size: 20px;
-  background-color: white;
-  border: 2px solid #d9d9d9;
+  color: ${(props) => (props.isActive ? "white" : "#d9d9d9")};
+  border: ${(props) => (props.isActive ? "2px solid black" : "2px solid #d9d9d9")};
   color: #d9d9d9;
 `;
 
@@ -304,20 +317,20 @@ export const ExerciseButton2 = styled.button`
   padding: 14px 0;
   color: white;
   font-size: 20px;
-  background-color: white;
-  border: 2px solid #d9d9d9;
-  color: #d9d9d9;
+  background-color: ${(props) => (props.isActive ? "#0b0b0b" : "white")};
+  border: ${(props) => (props.isActive ? "2px solid black" : "2px solid #d9d9d9")};
+  color: ${(props) => (props.isActive ? "white" : "#d9d9d9")};
 `;
 
 export const ExerciseButton3 = styled.button`
   width: 33%;
   margin-left: 20px;
-  background: #0b0b0b;
+  background-color: ${(props) => (props.isActive ? "#0b0b0b" : "white")};
   border-radius: 9px;
   cursor: pointer;
-  border: 0;
+  border: ${(props) => (props.isActive ? "2px solid black" : "2px solid #d9d9d9")};
   padding: 14px 0;
-  color: white;
+  color: ${(props) => (props.isActive ? "white" : "#d9d9d9")};
   font-size: 20px;
 `;
 export const CompleteButton = styled.button`
@@ -344,6 +357,8 @@ export const CompleteButtonBox = styled.div`
 
 export const SelectArea = styled(Select)`
   width: 100%;
+  border: none;
+  color: #8B8B8B;
 `;
 
 export const Selectbar = styled.div`
