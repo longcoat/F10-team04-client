@@ -13,10 +13,10 @@ export default function Members() {
   const [age_R, setAge_R] = useState("")
   const [level_R, setLevel_R] = useState("")
   const [fav_R, setFav_R] = useState("")
-  const { data } = useQuery(FETCH_USERS);
+  // const { data } = useQuery(FETCH_USERS);
   const result = []
 
-  console.log(data);
+  // console.log(data);
   const onChangeLevel = (e) => {
     setLevel(e)
   }
@@ -38,19 +38,19 @@ export default function Members() {
       setIsNo(true)
     }
 }
-  data?.forEach((el)=> {
-    if(el.h.includes(Lo_R) === true &&
-      el.l.includes(age_R) === true &&
-      el.a.includes(level_R) === true &&
-      el.a.includes(fav_R) === true
-      ) {
-          result.push(el) 
-      }
-  })
+  // data?.forEach((el)=> {
+  //   if(el.h.includes(Lo_R) === true &&
+  //     el.l.includes(age_R) === true &&
+  //     el.a.includes(level_R) === true &&
+  //     el.a.includes(fav_R) === true
+  //     ) {
+  //         result.push(el) 
+  //     }
+  // })
 
   return <MembersUi 
   isNo={isNo} 
-  data={data}
+  // data={data}
   onChangeLevel={onChangeLevel}
   onChangeLo={onChangeLo}
   onChangeAge={onChangeAge}
