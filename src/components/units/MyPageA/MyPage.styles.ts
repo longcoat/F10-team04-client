@@ -1,15 +1,28 @@
 import styled from "@emotion/styled";
 
+export const Box = styled.div`
+  overflow: hidden;
+`;
+
 export const Container = styled.div`
-  padding: 90px 0px;
+  overflow: hidden;
+  padding: 48px 0px;
   margin: 0px auto;
-  width: 1400px;
+  /* max-width: 1640px; */
+  max-width: 1400px;
+  width: 100%;
+  @media only screen and (max-width: 1024px) {
+    background-color: #ff0000;
+  }
+  @media only screen and (max-width: 768px) {
+    background-color: blue;
+  }
   display: flex;
   flex-direction: column;
 `;
 
 export const Wrapper = styled.div`
-  padding: 100px 200px;
+  padding: 100px;
 `;
 
 export const ProfileBox = styled.div`
@@ -76,11 +89,27 @@ export const Modify = styled.div`
 export const FriendBox = styled.div`
   display: flex;
   flex-direction: row;
+  @media only screen and (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+  }
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const HeartBox = styled.div`
   display: flex;
   flex-direction: row;
+  @media only screen and (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+  }
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const FameText = styled.div`
@@ -96,6 +125,11 @@ export const FameText = styled.div`
   color: #0b0b0b;
   margin-left: 10px;
   padding-top: 7px;
+  @media only screen and (max-width: 1024px) {
+    padding-right: 20px;
+  }
+  @media only screen and (max-width: 768px) {
+  }
 `;
 
 export const FriendText = styled.div`
@@ -111,6 +145,12 @@ export const FriendText = styled.div`
   color: #0b0b0b;
   margin-left: 10px;
   padding-top: 7px;
+  @media only screen and (max-width: 1024px) {
+    margin-left: 3px;
+    padding-right: 20px;
+  }
+  @media only screen and (max-width: 768px) {
+  }
 `;
 
 export const FriendTextBox = styled.div``;
@@ -127,6 +167,11 @@ export const BoardBox = styled.div`
 
 export const FriendList = styled.div`
   padding-right: 90px;
+  @media only screen and (max-width: 1024px) {
+    padding-right: 0;
+  }
+  @media only screen and (max-width: 768px) {
+  }
 `;
 
 export const ChatList = styled.div``;
@@ -145,9 +190,7 @@ export const ChatListBox = styled.div`
 
 export const PickListBox = styled.div``;
 
-export const BoardCategoryWrapper = styled.div`
-  padding: 0 300px 0 300px;
-`;
+export const BoardCategoryWrapper = styled.div``;
 export const Nim = styled.div`
   font-family: "Code Next-Trial";
   font-style: normal;
@@ -182,6 +225,14 @@ export const FollowBox = styled.div`
 export const HeartBox1 = styled.div`
   display: flex;
   flex-direction: row;
+  @media only screen and (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+  }
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 export const Items = styled.div`
   display: flex;
@@ -198,14 +249,29 @@ export const ReactIconBox = styled.div``;
 
 export const IconBox = styled.div`
   color: #8b8b8b;
+  @media only screen and (max-width: 1024px) {
+    padding-left: 5px;
+  }
+  @media only screen and (max-width: 768px) {
+  }
 `;
 export const RightIconUpBox = styled.div`
   padding-left: 30px;
   color: #8b8b8b;
+  @media only screen and (max-width: 1024px) {
+    padding-left: 10px;
+  }
+  @media only screen and (max-width: 768px) {
+  }
 `;
 export const RightIconDownBox = styled.div`
   padding-left: 30px;
   color: #8b8b8b;
+  @media only screen and (max-width: 1024px) {
+    padding-left: 10px;
+  }
+  @media only screen and (max-width: 768px) {
+  }
 `;
 
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡ보드리스트 부분ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -353,6 +419,16 @@ export const ChatListText = styled.div`
   border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
   color: ${(props) => (props.isActive ? "#C71515" : "none")};
 `;
+
+export const MyPageImageBox = styled.div`
+  width: 100%;
+  height: 100%;
+  padding-top: 90px;
+`;
+
+export const MyPageImage = styled.img``;
+
+// 운동게시글
 
 // export const Item = styled.div`
 //   width: 25%;
