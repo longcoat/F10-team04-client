@@ -1,22 +1,29 @@
 import styled from "@emotion/styled";
+import * as M from "../../../../src/commons/styles/mediaQueries";
+import { globalContainer } from "../../../commons/styles/commonStyles";
 
-export const Box = styled.div`
-  overflow: hidden;
-`;
+export const Containerbox = styled(globalContainer)``;
 
 export const Container = styled.div`
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 48px 0px;
-  margin: 0px auto;
+  /* margin: 0px auto; */
   /* max-width: 1640px; */
-  max-width: 1400px;
-  width: 100%;
-  @media only screen and (max-width: 1024px) {
+  /* max-width: 1400px; */
+  /* width: 100%; */
+  /* @media only screen and (max-width: 1024px) {
     background-color: #ff0000;
   }
   @media only screen and (max-width: 768px) {
     background-color: blue;
+  } */
+  ${M.mediaL} {
+    background-color: red;
   }
+  ${M.mediaM} {
+    background-color: blue;
+  }
+
   display: flex;
   flex-direction: column;
 `;
