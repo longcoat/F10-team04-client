@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
   width: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
 
@@ -11,15 +12,18 @@ export const Container = styled.div`
   background-image: url("https://s3-alpha-sig.figma.com/img/c9d6/5741/997431524e28a88bcba6dcf44fc0d96f?Expires=1673222400&Signature=YQJZ-dVcvTQIqNd29GauY8QoC2hNHo3lUn6zOYhCLzVVro2foX41aTG0GmMmZGX1SR9e6M0CZKStXIsl4e1dum1jkuIDd1TUrjHA9ZYt7GdkoOOipPVcpUAPUdWuFiJ15Ob5Aq9Wj7MiG0JcsuR-vqxvmSqZ5xYhYt7suUbJcVMdIr6WLRr7iPjCmEfirlDp5yDnH5Q7FYM7RxZyTnmmSmfzKt4UIWY8JPVShReAq7Fo2qP9bhkkL42-XStPgNEfGHyYe67wMIM~BmU1iCIe1vaiaCOba-Tpe3fC4ZyFYwWmKVRbIx4L9ViWRff-CmATTCsCfJO9~~-dScQcmAM8mA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4");
   background-size: cover;
   background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @media only screen and (max-width: 1024px) {
     background-position-x: -130px;
   }
 
 `;
 export const MainTextBox = styled.div`
-  padding-top: 558px;
+padding-top: 20% ;
   @media only screen and (max-width: 1024px) {
-    padding-top: 660px;
+    padding-top: 20% ;
   }
 
 `;

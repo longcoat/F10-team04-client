@@ -12,7 +12,7 @@ export const JoinWrapper = styled.div`
   padding: 50px 120px;
   background: white;
 `;
-export const JoinForm = styled.form`
+export const JoinForm = styled.div`
   width: 754px;
   margin: 0 auto;
   padding: 50px 120px;

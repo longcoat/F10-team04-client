@@ -8,7 +8,7 @@ import styled from "@emotion/styled";
 import LayoutFooter from "./footer/footer";
 
 const BodyWrapper = styled.div``;
-const HIDDEN_LAYOUT = ["/login", "/join", "/"];
+const HIDDEN_LAYOUT = ["/login", "/join", "/", "/photoReview"];
 interface ILayoutProps {
   children: JSX.Element;
 }
@@ -16,7 +16,8 @@ interface ILayoutProps {
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();
 
-  const isHidden = router.asPath.includes("members");
+  const isHidden = router.asPath.includes("members") ||
+                   router.asPath.includes("photoReview")
   const isHidden2 = router.asPath.includes("community");
   const isHiddenLayout = HIDDEN_LAYOUT.includes(router.asPath);
 

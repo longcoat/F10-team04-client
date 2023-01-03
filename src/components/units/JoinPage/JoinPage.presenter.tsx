@@ -58,10 +58,18 @@ export default function JoinPageUi(props) {
                 type="text"
                 placeholder="example@naver.com"
               ></S.DupInput>
-
-              <S.DupButton>인증하기</S.DupButton>
+              <S.DupButton onClick={props.onClickSendEmail}>인증하기</S.DupButton>
             </S.DuplicationBox>
             <S.InfoSubtitle>인증하기 버튼을 눌러주세요</S.InfoSubtitle>
+           {props.sendEmail ? <S.DuplicationBox>
+              <S.DupInput
+              onChange={props.onChangeEmailToken}
+              value={props.token}
+                type="text"
+                placeholder="인증 번호를 입력해주요."
+              ></S.DupInput>
+              <S.DupButton onClick={props.onClickCheckEmail}>인증번호 확인</S.DupButton>
+            </S.DuplicationBox> : ""}
             <S.InfoBox>
               <S.InfoTitle >비밀번호</S.InfoTitle>
               {!props.pwAct && <S.RedDot>*</S.RedDot>}
@@ -117,7 +125,7 @@ export default function JoinPageUi(props) {
                 type="text"
                 placeholder="닉네임을 입력해주세요."
               ></S.DupInput>
-              <S.DupButton>중복확인</S.DupButton>
+              <S.DupButton onClick={props.onClickCheckNickname}>중복확인</S.DupButton>
             </S.DuplicationBox>
             <S.InfoSubtitle>
               RunGether에서 사용할 닉네임을 입력해주세요.

@@ -1,10 +1,29 @@
-import { gql } from "graphql-request";
+import { gql } from "@apollo/client";
 
 export const CREATE_USER = gql`
   mutation createUser($createUserInput: CreateUserInput!) {
     createUser(createUserInput: $createUserInput) {
      id
      email
+    }
+  }
+`;
+
+export const SEND_TOKEN_TO_EMAIL = gql`
+  mutation sendTokenToEmail($email: String!) {
+    sendTokenToEmail(email: $email)
+  }
+`;
+
+export const CHECK_TOKEN_EMAIL = gql`
+  mutation checkTokenEmail($email: String!,$token: String!) {
+    checkTokenEmail(email: $email,token: $token)
+  }
+`;
+export const CHECK_NICKNAME = gql`
+  mutation checkNickName($nickname: String!) {
+    checkNickName(nickname: $nickname) {
+      nickname
     }
   }
 `;
