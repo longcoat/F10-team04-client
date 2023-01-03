@@ -2,8 +2,8 @@ import * as S from "./JoinPage.styles";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import JoinPageUi from "./JoinPage.presenter";
-import { CREATE_USER } from "./joinPage.query";
-import { useMutation } from "@apollo/client";
+import { CHECK_NICKNAME, CHECK_TOKEN_EMAIL, CREATE_USER, SEND_TOKEN_TO_EMAIL } from "./joinPage.query";
+import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
 
 export default function JoinPageA() {
@@ -24,19 +24,29 @@ export default function JoinPageA() {
   const [level1, setLevel1] = useState(false)
   const [level2, setLevel2] = useState(false)
   const [level3, setLevel3] = useState(false)
+  const [sendEmail, setSendEmail] = useState(false)
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [rePassword, setRePassword] = useState("")
-  const [nickName, setNickName] = useState("")
+  const [cpassword, setCPassword] = useState("")
+  const [nickname, setNickname] = useState("")
   const [name, setName] = useState("")
   const [age, setAge] = useState("10대")
   const [region, setRegion] = useState("서울특별시")
-  const [fav, setFav] = useState("런닝")
+  const [prefer, setPrefer] = useState("런닝")
   const [gender, setGender] = useState("")
-  const [level, setLevel] = useState("")
+  const [grade, setGrade] = useState("")
+  const [image, setImage] = useState("")
+  const [token, setToken] = useState("")
 
-// const [createUser] = useMutation(CREATE_USER)
+const [createUser] = useMutation(CREATE_USER)
+const [sendTokenToEmail] = useMutation(SEND_TOKEN_TO_EMAIL);
+const [checkTokenEmail] = useMutation(CHECK_TOKEN_EMAIL);
+const [checkNickName] = useMutation(CHECK_NICKNAME);
+
+  const onChangeEmailToken = (e) => {
+    setToken(e.target.value)
+  }
   
   const onChangeEmail = (e) => {
     setEmail(e.target.value)
@@ -47,7 +57,7 @@ export default function JoinPageA() {
     }
   }
   const onChangePwCon = (e) => {
-    setRePassword(e.target.value)
+    setCPassword(e.target.value)
     if(e.target.value !== "") {
       setPwCon(true)
     }else{
@@ -55,7 +65,7 @@ export default function JoinPageA() {
     }
   }
   const onChangeNickName = (e) => {
-    setNickName(e.target.value)
+    setNickname(e.target.value)
     if(e.target.value !== "") {
       setNickNameAct(true)
     }else{
@@ -129,15 +139,15 @@ export default function JoinPageA() {
     setLevelAct(true)
     if(!level1){
       if(level2) {
-        setLevel(e.target.innerText)
+        setGrade(e.target.innerText)
         setLevel1(prev => !prev)
         setLevel2(prev => !prev)
       }else if(level3) {
-        setLevel(e.target.innerText)
+        setGrade(e.target.innerText)
         setLevel1(prev => !prev)
         setLevel3(prev => !prev)
       }else{
-        setLevel(e.target.innerText)
+        setGrade(e.target.innerText)
         setLevel1(prev => !prev)
       }
     }
@@ -146,15 +156,15 @@ export default function JoinPageA() {
     setLevelAct(true)
     if(!level2){
       if(level1) {
-        setLevel(e.target.innerText)
+        setGrade(e.target.innerText)
         setLevel1(prev => !prev)
         setLevel2(prev => !prev)
       }else if(level3) {
-        setLevel(e.target.innerText)
+        setGrade(e.target.innerText)
         setLevel2(prev => !prev)
         setLevel3(prev => !prev)
       }else{
-        setLevel(e.target.innerText)
+        setGrade(e.target.innerText)
         setLevel2(prev => !prev)
       }
     }
@@ -163,15 +173,15 @@ export default function JoinPageA() {
     setLevelAct(true)
     if(!level3){
       if(level1) {
-        setLevel(e.target.innerText)
+        setGrade(e.target.innerText)
         setLevel1(prev => !prev)
         setLevel3(prev => !prev)
       }else if(level2) {
-        setLevel(e.target.innerText)
+        setGrade(e.target.innerText)
         setLevel2(prev => !prev)
         setLevel3(prev => !prev)
       }else{
-        setLevel(e.target.innerText)
+        setGrade(e.target.innerText)
         setLevel3(prev => !prev)
       }
     }
@@ -183,22 +193,57 @@ export default function JoinPageA() {
     setRegion(e)
   }
   const onChangeFav = (e) => {
-    setFav(e)
+    setPrefer(e)
   }
 
-  const onClickSubmit = async (data: any) => {
+  const onClickSendEmail = async () => {
+    try{
+      const result = await sendTokenToEmail({
+        variables : {
+          email
+        }
+      })
+      setSendEmail(true)
+      console.log(result)
+    }catch (error){
+      if (error instanceof Error) Modal.error({ content: error });
+    }
+  }
+
+  const onClickCheckEmail = async () => {
+    const result = await checkTokenEmail({
+      variables : {
+        email,
+        token
+      }
+    })
+    alert("이메일 인증이 완료되었습니다.")
+  }
+
+  const onClickCheckNickname = async () => {
+    const result = await checkNickName({
+      variables : {
+        nickname
+      }
+    })
+    console.log(result)
+  }
+
+  const onClickSubmit = async () => {
     try {
       const result = await createUser({
         variables: {
           createUserInput: {
             email,
-            nickName,
+            nickname,
             password,
-            level,
+            cpassword,
+            grade,
             region,
-            rePassword,
+            prefer,
             age,
-            gender
+            gender,
+            image
           },
         },
       });
@@ -212,6 +257,7 @@ export default function JoinPageA() {
 
   return (
    <JoinPageUi
+   sendEmail={sendEmail}
    emailAct={emailAct}
    pwAct={pwAct}
    pwAct1={pwAct1}
@@ -230,8 +276,13 @@ export default function JoinPageA() {
    level3={level3}
    email={email}
    password={password}
-   rePassword={rePassword}
-   nickName={nickName}
+   cpassword={cpassword}
+   nickname={nickname}
+   token={token}
+   onClickCheckNickname={onClickCheckNickname}
+   onClickCheckEmail={onClickCheckEmail}
+   onChangeEmailToken={onChangeEmailToken}
+   onClickSendEmail={onClickSendEmail}
    onChangeAge={onChangeAge}
    onChangeLo={onChangeLo}
    onChangeFav={onChangeFav}

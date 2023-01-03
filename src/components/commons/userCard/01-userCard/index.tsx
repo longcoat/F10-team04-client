@@ -53,7 +53,7 @@ const Wrapper = styled.div`
     cursor: pointer;
 `;
 const Img = styled.div`
-width: 103px;
+width: 100%;
 height: 103px;
 border-radius:100% ;
 border: 1px solid black;
