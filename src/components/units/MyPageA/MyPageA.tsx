@@ -59,10 +59,10 @@ export default function MyPageA(props) {
     }
   };
   return (
-    <>
-      <div>
-        <div>이미지</div>
-      </div>
+    <S.Box>
+      {/* <S.MyPageImageBox>
+        <S.MyPageImage src="/mypage.png" />
+      </S.MyPageImageBox> */}
       <S.Container>
         <S.Wrapper>
           <S.ProfileBox>
@@ -189,6 +189,6 @@ export default function MyPageA(props) {
         </S.ListContainer>
         {/* 보드리스트 게시글목록 할 때 부분 */}
       </S.Container>
-    </>
+    </S.Box>
   );
 }

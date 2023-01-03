@@ -17,6 +17,7 @@ export default function Layout(props: ILayoutProps) {
   const router = useRouter();
 
   const isHidden = router.asPath.includes("members");
+  const isMypage = router.asPath.includes("mypage");
   const isHidden2 = router.asPath.includes("community");
   const isHiddenLayout = HIDDEN_LAYOUT.includes(router.asPath);
 
@@ -24,6 +25,7 @@ export default function Layout(props: ILayoutProps) {
     <>
       <LayoutHeader />
       {isHidden2 && <LayoutBanner2 />}
+      {isMypage && <LayoutBanner />}
       {isHidden && <LayoutBanner />}
       <div>{props.children}</div>
       {!isHiddenLayout && <LayoutFooter />}
