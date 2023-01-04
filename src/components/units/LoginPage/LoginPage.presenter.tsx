@@ -1,10 +1,10 @@
 import { CheckOutlined } from "@ant-design/icons";
 import * as S from "./LoginPage.styles";
-export default function LoginUIPage(props) {
+export default function LoginUIPage(props: any) {
   return (
-    <S.Wrapper onSubmit={props.isEdit ? props.onClickUpdate : props.onSubmit}>
+    <S.Wrapper>
       <S.Container>
-        <S.LoginWrapper onSubmit={props.handleSubmit(props.onClickLogin)}>
+        <S.LoginWrapper onSubmit={props.handleSubmit(props.onClickLog)}>
           <S.Title>RunGether</S.Title>
           <S.Main>
             <S.LoginText>로그인</S.LoginText>

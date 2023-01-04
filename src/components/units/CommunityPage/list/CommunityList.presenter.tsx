@@ -38,7 +38,7 @@ export default function CommunityListUi(props: any) {
             실시간
           </S.Menu>
           <S.Menu2 isActive={second} onClick={onClicksecond}>
-            마감순
+            관심순
           </S.Menu2>
         </S.MenuWrap>
         <CommunityWrite></CommunityWrite>
