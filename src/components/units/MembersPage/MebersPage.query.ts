@@ -5,12 +5,12 @@ export const FETCH_USERS = gql`
     fetchUsers {
       id
       email
-      nickName
-      password
+      nickname
       region
-      like
+      prefer
       gender
       age
+      grade
     }
   }
 `;

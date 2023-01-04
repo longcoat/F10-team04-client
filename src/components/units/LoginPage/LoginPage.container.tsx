@@ -83,12 +83,14 @@ export default function LoginPage() {
       setPwAct4(false);
     }
   };
+
   // const onClickLogin = (data) => {
   //   if (data.email !== "" && data.password !== "") {
   //     setIsActive(true);
   //     alert("로그인 완료");
   //   }
   // };
+
   return (
     <LoginUIPage
       onClickLog={onClickLog}
