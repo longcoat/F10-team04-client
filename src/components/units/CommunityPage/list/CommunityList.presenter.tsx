@@ -6,13 +6,40 @@ import CommunityWrite from "../write/CommunityWrite.container";
 import CommunityDetailUIPage from "../detail/CommunityDetail.presenter";
 import CommunityDetailPage from "../detail/CommunityDetail.container";
 export default function CommunityListUi(props: any) {
+  const [first, setFirst] = useState(true);
+  const [second, setSecond] = useState(false);
+
+  const onClickfirst = (e) => {
+    if (!first) {
+      if (second) {
+        setFirst((prev) => !prev);
+        setSecond((prev) => !prev);
+      } else {
+        setFirst((prev) => !prev);
+      }
+    }
+  };
+  const onClicksecond = (e) => {
+    if (!second) {
+      if (first) {
+        setFirst((prev) => !prev);
+        setSecond((prev) => !prev);
+      } else {
+        setSecond((prev) => !prev);
+      }
+    }
+  };
   return (
     <S.Wrapper>
       <S.Title>검색결과</S.Title>
       <S.MenuWrapper>
         <S.MenuWrap>
-          <S.Menu>실시간</S.Menu>
-          <S.Menu2>마감순</S.Menu2>
+          <S.Menu isActive={first} onClick={onClickfirst}>
+            실시간
+          </S.Menu>
+          <S.Menu2 isActive={second} onClick={onClicksecond}>
+            마감순
+          </S.Menu2>
         </S.MenuWrap>
         <CommunityWrite></CommunityWrite>
       </S.MenuWrapper>
