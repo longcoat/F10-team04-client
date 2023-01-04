@@ -111,7 +111,7 @@ export default function CommunityWriteUI(props: any) {
         open={open}
         onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
-        width={1380}
+        width={1100}
       >
         <S.Wrapper>
           <S.Header>
@@ -184,8 +184,8 @@ export default function CommunityWriteUI(props: any) {
             <ReactQuill
               // onChange={props.onChangeContents}
               style={{
-                width: "856px",
-                height: "300px",
+                width: "1000px",
+                height: "400px",
                 marginBottom: "40px",
               }}
               // value={props.getValues("contents") || ""}

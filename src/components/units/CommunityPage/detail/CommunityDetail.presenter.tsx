@@ -3,6 +3,42 @@ import { Button, Modal } from "antd";
 import { HeartFilled, RightOutlined } from "@ant-design/icons";
 import * as S from "./CommunityDetail.styles";
 import KakaoMapView from "../../../commons/map/mapview";
+import styled from "@emotion/styled";
+const ModalCustom = styled(Modal)`
+  .ant-modal-header {
+    padding: 16px 24px;
+    padding-top: 30px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+    border-radius: 2px 2px 0 0;
+    height: 80px;
+  }
+  .ant-modal-title {
+    color: #fff;
+  }
+  .ant-modal-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .ant-modal-footer > .ant-btn-primary {
+    width: 161px;
+    height: 63px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+  }
+  .ant-modal-footer > .ant-btn-default {
+    width: 161px;
+    height: 63px;
+    background-color: #f6f6f6;
+    color: #8b8b8b;
+    border: none;
+  }
+`;
+
 export default function CommunityDetailUIPage(props: any) {
   const [open, setOpen] = useState(false);
   return (
@@ -11,13 +47,13 @@ export default function CommunityDetailUIPage(props: any) {
         style={{ paddingRight: 10 }}
         onClick={() => setOpen(true)}
       />
-      <Modal
-        title="Modal 1000px width"
+      <ModalCustom
+        title="한강 러닝🏃🏻"
         centered
         open={open}
         onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
-        width={1380}
+        width={1000}
       >
         <S.Wrapper>
           <S.Header>
@@ -37,7 +73,7 @@ export default function CommunityDetailUIPage(props: any) {
               </S.Left>
               <S.Right>
                 <HeartFilled style={{ color: "red", marginRight: "10px" }} />
-                인기도:200
+                찜한 게시물:200
               </S.Right>
             </S.UerInfo>
           </S.Head>
@@ -56,7 +92,7 @@ export default function CommunityDetailUIPage(props: any) {
             <KakaoMapView />
           </S.Main>
         </S.Wrapper>
-      </Modal>
+      </ModalCustom>
     </>
   );
 }

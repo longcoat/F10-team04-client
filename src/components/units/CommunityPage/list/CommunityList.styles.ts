@@ -28,25 +28,33 @@ export const MenuWrap = styled.div`
   flex-direction: row;
 `;
 export const Menu = styled.div`
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 28px;
-  /* identical to box height */
-  padding-right: 53px;
-  letter-spacing: -0.002em;
-
-  color: #c71515;
-  text-decoration: underline;
-`;
-export const Menu2 = styled.div`
+  font-family: "AppleSDGothicNeoM00";
   font-style: normal;
   font-weight: 400;
   font-size: 17px;
   line-height: 22px;
   text-align: center;
   letter-spacing: -0.002em;
-  padding-right: 53px;
   color: #0b0b0b;
+  padding: 0 16px 10px 16px;
+
+  border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
+  color: ${(props) => (props.isActive ? "#C71515" : "none")};
+`;
+export const Menu2 = styled.div`
+  font-family: "AppleSDGothicNeoM00";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+  text-align: center;
+  letter-spacing: -0.002em;
+  padding: 0 16px 10px 16px;
+
+  color: #0b0b0b;
+
+  border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
+  color: ${(props) => (props.isActive ? "#C71515" : "none")};
 `;
 export const Button = styled.button`
   width: 170px;

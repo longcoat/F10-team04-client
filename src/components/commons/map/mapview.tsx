@@ -58,7 +58,7 @@ export default function KakaoMapView(props: IKakaoMapViewProps) {
   return (
     <>
       <div>
-        <div id="map" style={{ width: 850, height: 400, marginTop: 40 }}></div>
+        <div id="map" style={{ width: 1000, height: 400, marginTop: 40 }}></div>
       </div>
     </>
   );
