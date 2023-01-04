@@ -2,7 +2,7 @@ import * as S from "./JoinPage.styles";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import JoinPageUi from "./JoinPage.presenter";
-import { CHECK_NICKNAME, CHECK_TOKEN_EMAIL, CREATE_USER, SEND_TOKEN_TO_EMAIL } from "./joinPage.query";
+import { CHECK_NICKNAME, CHECK_NICK_NAME, CHECK_TOKEN_EMAIL, CREATE_USER, SEND_TOKEN_TO_EMAIL } from "./joinPage.query";
 import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
 
@@ -42,7 +42,7 @@ export default function JoinPageA() {
 const [createUser] = useMutation(CREATE_USER)
 const [sendTokenToEmail] = useMutation(SEND_TOKEN_TO_EMAIL);
 const [checkTokenEmail] = useMutation(CHECK_TOKEN_EMAIL);
-const [checkNickName] = useMutation(CHECK_NICKNAME);
+const [checkNickName] = useMutation(CHECK_NICK_NAME);
 
   const onChangeEmailToken = (e) => {
     setToken(e.target.value)
@@ -226,7 +226,11 @@ const [checkNickName] = useMutation(CHECK_NICKNAME);
         nickname
       }
     })
-    console.log(result)
+    if(result.data.checkNickName === "false") {
+      alert("중복된 닉네임입니다.")
+    }else{
+      alert("사용 가능한 닉네임입니다.")
+    }
   }
 
   const onClickSubmit = async () => {
