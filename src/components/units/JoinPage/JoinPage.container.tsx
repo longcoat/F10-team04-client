@@ -25,6 +25,7 @@ export default function JoinPageA() {
   const [level2, setLevel2] = useState(false)
   const [level3, setLevel3] = useState(false)
   const [sendEmail, setSendEmail] = useState(false)
+  const [nickNameCheck, setNickNameCheck] = useState(false)
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -229,6 +230,7 @@ const [checkNickName] = useMutation(CHECK_NICK_NAME);
     if(result.data.checkNickName === "false") {
       alert("중복된 닉네임입니다.")
     }else{
+      setNickNameCheck(true)
       alert("사용 가능한 닉네임입니다.")
     }
   }
@@ -283,6 +285,7 @@ const [checkNickName] = useMutation(CHECK_NICK_NAME);
    cpassword={cpassword}
    nickname={nickname}
    token={token}
+   nickNameCheck={nickNameCheck}
    onClickCheckNickname={onClickCheckNickname}
    onClickCheckEmail={onClickCheckEmail}
    onChangeEmailToken={onChangeEmailToken}
