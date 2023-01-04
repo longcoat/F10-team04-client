@@ -81,8 +81,8 @@ export default function JoinPageUi(props) {
                 type={isHidden ? "text" : "password"}
                 placeholder="비밀번호를 입력해주세요."
               />
-            {!isHidden ? <EyeOutlined onClick={onClickEye} style={{ fontSize:"20px", position: "relative", right: "40px", color:"#C71515"}}/>
-             : <EyeInvisibleOutlined onClick={onClickEye} style={{ fontSize:"20px", position: "relative", right: "40px", color:"#C71515"}}/>}
+            {!isHidden ? <EyeOutlined onClick={onClickEye} style={{ fontSize:"20px", position: "relative", right: "40px", color:"#d9d9d9"}}/>
+             : <EyeInvisibleOutlined onClick={onClickEye} style={{ fontSize:"20px", position: "relative", right: "40px", color:"#d9d9d9"}}/>}
             </S.PassInputBox>
             <S.Error>
               <S.Type>
