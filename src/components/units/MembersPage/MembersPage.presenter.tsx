@@ -1,4 +1,5 @@
 import { SearchOutlined } from "@ant-design/icons";
+import { result } from "lodash";
 import { useState } from "react";
 import UserCard from "../../commons/userCard/01-userCard";
 import * as S from "./MembersPage.styles";
@@ -228,7 +229,7 @@ export default function MembersUi(props) {
             <S.Item isActive={menuAct1} onClick={onClickMenu2}>인기순</S.Item>
           </S.TabMenu>
           <S.Items>
-            {props.data?.fetchUsers.map((el) => (
+            {props.result?.map((el) => (
               <UserCard key={el.id} el={el} />
             ))}
           </S.Items>

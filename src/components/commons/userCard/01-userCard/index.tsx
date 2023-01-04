@@ -15,12 +15,12 @@ export default function UserCard(props) {
   return(
     <Wrapper>
         <Img></Img>
-        <Name>{props.el.nickName}</Name>
+        <Name>{props.el.nickname}</Name>
         <UserInfo>
-            <Item>#축구</Item>
+            <Item>#{props.el.prefer}</Item>
             <Item>#{props.el.age}</Item>
             <Item>#{props.el.region}</Item>
-            <Item>#Pro</Item>
+            <Item>#{props.el.grade}</Item>
         </UserInfo>
         <HeartWrap>
        {isActive ? <HeartFilled onClick={onClickHeart} style={{fontSize: "28px" ,color: "#C71515"}} />
@@ -53,7 +53,7 @@ const Wrapper = styled.div`
     cursor: pointer;
 `;
 const Img = styled.div`
-width: 100%;
+width: 103px;
 height: 103px;
 border-radius:100% ;
 border: 1px solid black;

@@ -20,10 +20,8 @@ export const CHECK_TOKEN_EMAIL = gql`
     checkTokenEmail(email: $email,token: $token)
   }
 `;
-export const CHECK_NICKNAME = gql`
+export const CHECK_NICK_NAME = gql`
   mutation checkNickName($nickname: String!) {
-    checkNickName(nickname: $nickname) {
-      nickname
-    }
+    checkNickName(nickname: $nickname)
   }
 `;

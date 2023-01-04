@@ -20,11 +20,14 @@ export default function JoinPageUi(props) {
     && props.password.match(/^(?=.*[0-9]).{0,16}$/)
     && props.password.match(/^(?=.*[!@#$%^*+=-]).{0,16}$/)
     && props.password.match(/^.{8,16}$/)
-    && props.password === props.rePassword){
+    && props.password === props.cpassword
+    && props.data?.checkNickName === 'true'){
       setIsNext(prev => !prev)
       // console.log(props.email, props.pw, props.nickName)
     }else if(!props.email.includes("@") ){
       alert("이메일 형식을 확인해주세요.")
+    }else if(!props.data?.checkNickName){
+      alert("닉네임 중복을 확인하세요.")
     }else{
       alert("비밀번호를 확인해주세요.")
     }
