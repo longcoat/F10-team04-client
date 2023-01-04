@@ -16,7 +16,8 @@ interface ILayoutProps {
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();
 
-  const isHidden = router.asPath.includes("members");
+  const isHidden = router.asPath.includes("members") ||
+                   router.asPath.includes("photoReview") 
   const isMypage = router.asPath.includes("mypage");
 
   const isHidden2 = router.asPath.includes("community");

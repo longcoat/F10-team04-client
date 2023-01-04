@@ -62,6 +62,7 @@ export const contents = styled.p`
 export const Wrapper_2 = styled.div`
   margin: 0px auto;
   width: 1400px;
+  height: 100vh;
   @media only screen and (max-width: 1024px) {
     width: 1000px;
   }
@@ -77,9 +78,9 @@ export const Title_2 = styled.h1`
   line-height: 91px;
   letter-spacing: -0.011em;
   text-align: left;
-  padding-top: 84px;
+  padding-top: 50px;
   padding-left: 80px;
-  padding-bottom: 110px;
+  padding-bottom: 50px;
   @media only screen and (max-width: 1024px) {
     font-size: 80px;
   }
@@ -196,8 +197,8 @@ export const Title_3 = styled.h1`
   letter-spacing: -0.011em;
   text-align: left;
   padding-right: 80px;
-  padding-top: 84px;
-  padding-bottom: 90px;
+  padding-top: 50px;
+  padding-bottom: 70px;
   @media only screen and (max-width: 1024px) {
     font-size: 80px;
   }
