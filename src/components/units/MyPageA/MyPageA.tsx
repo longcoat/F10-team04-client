@@ -93,16 +93,7 @@ export default function MyPageA(props) {
                       <S.FameText>팔로우 200</S.FameText>
                     </S.FameTextBox>
                   </S.HeartBox1>
-                  <S.HeartBox>
-                    <S.RightIconUpBox>
-                      <BiUserPlus style={{ fontSize: "40px" }} />
-                    </S.RightIconUpBox>
-                    <S.FameTextBox>
-                      <S.FameText>인기도 200</S.FameText>
-                    </S.FameTextBox>
-                  </S.HeartBox>
                 </S.FriendHeartBox>
-                <S.FollowFollowingBox></S.FollowFollowingBox>
               </S.InformationBox>
             </S.InfoBox>
           </S.ProfileBox>
