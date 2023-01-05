@@ -4,7 +4,6 @@ import { DatePicker, Modal} from "antd";
 import styled from '@emotion/styled';
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import ReactQuill from 'react-quill';
 import KakaoMapUI from "../map/mapsearch";
 import { useState } from 'react';
 import { boardImageState, modalState } from '../../../commons/stores';
@@ -12,6 +11,11 @@ import { useRecoilState } from 'recoil';
 import { CREATE_BOARD } from '../../units/CommunityPage/write/CommunityWrite.queries';
 import { useMutation } from '@apollo/client';
 import Uploads01 from '../uploads/01/Uploads01.container';
+import dynamic from 'next/dynamic';
+
+const ReactQuill = dynamic( async() => await import('react-quill'), {
+    ssr : false
+})
 
 const AreaOption = [
     { value: "서울특별시", label: "서울특별시" },
@@ -112,15 +116,13 @@ const AreaOption = [
   };
 
 export default function InModalWrite(props) {
-    const [ModalOpen, setModalOpen] = useRecoilState(modalState);
-    const [image, setImage] = useRecoilState(boardImageState);
-    const [recruitRegion, setRecruitRegion] = useState("서울특별시")
+    const [ModalOpen, setModalOpen] = useRecoilState(modalState);    const [recruitRegion, setRecruitRegion] = useState("서울특별시")
     const [recruitGrade, setRecruitGrade] = useState("Beginner")
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const [appointment, setAppointment] = useState("")
     const [recruitSports, setRecruitSports] = useState("")
-    // const [image, setImage] = useState("")
+    const [image, setImage] = useState("")
     
     const [createBoard] = useMutation(CREATE_BOARD);
     

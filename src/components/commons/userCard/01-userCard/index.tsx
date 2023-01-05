@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { HeartFilled, HeartOutlined, UserAddOutlined, UsergroupAddOutlined} from "@ant-design/icons";
+import { HeartFilled, HeartOutlined, UserAddOutlined} from "@ant-design/icons";
 import { useState } from "react";
 
 

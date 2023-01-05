@@ -25,3 +25,8 @@ export const FETCH_BOARD = gql`
     }
   }
 `;
+export const PICK_BOARD = gql`
+  mutation pickBoard($boardId:String!) {
+    pickBoard(boardId: $boardId)
+  }
+`;

@@ -15,6 +15,29 @@ export const FETCH_ALL_BOARDS = gql`
       appointment
       recruitGrade
       recruitSports
+      attendCount
+      recruitPeople
+    }
+  }
+`;
+
+export const FETCH_ALL_BOARDS_WITH_PICK_BOARD = gql`
+  query fetchAllBoardsWithPickCount($page: Int) {
+    fetchAllBoardsWithPickCount(page: $page) {
+      id
+      title
+      content
+      createdAt
+      image{
+        id
+        imgUrl
+      }
+      recruitRegion
+      appointment
+      recruitGrade
+      recruitSports
+      attendCount
+      recruitPeople
     }
   }
 `;

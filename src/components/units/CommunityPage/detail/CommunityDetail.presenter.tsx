@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
-import { HeartFilled, RightOutlined } from "@ant-design/icons";
+import { HeartFilled, HeartOutlined, RightOutlined } from "@ant-design/icons";
 import * as S from "./CommunityDetail.styles";
 import KakaoMapView from "../../../commons/map/mapview";
 import styled from "@emotion/styled";
@@ -27,14 +27,14 @@ export default function CommunityDetailUIPage(props: any) {
                 </S.MapWrap>
               </S.Left>
               <S.Right>
-                <HeartFilled style={{ marginRight: "10px" }} />
+              <HeartOutlined onClick={props.onClickPick} style={{ marginRight: "10px", lineHeight:"35px" }} />
                 {props.data?.fetchBoard.pickCount}
               </S.Right>
             </S.UerInfo>
           </S.Head>
           <S.Line />
           <S.Main>
-            <S.Title>{props.data?.fetchBoard.title}</S.Title>
+          <S.Title2>{props.data?.fetchBoard.title}</S.Title2>
             <S.Detail>
               <S.Sports>{props.data?.fetchBoard.recruitSports}</S.Sports>
               <S.Com>・</S.Com>
@@ -44,6 +44,17 @@ export default function CommunityDetailUIPage(props: any) {
             {props.data?.fetchBoard.title}
             </S.Contents>
             <KakaoMapView />
+            <S.BtnWrap>
+            <S.Button1 onClick={props.onClickClose}>
+                닫기
+            </S.Button1>
+            <S.Button2>
+              수정하기
+              </S.Button2>
+              <S.Button3>
+              참가하기
+              </S.Button3>
+          </S.BtnWrap>
           </S.Main>
         </S.Wrapper>
         </>
