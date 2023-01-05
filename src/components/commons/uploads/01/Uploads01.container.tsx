@@ -2,11 +2,10 @@ import { useMutation } from "@apollo/client";
 import { ChangeEvent, useRef } from "react";
 import { checkValidationImage } from "./Uploads01.validation";
 import Uploads01UI from "./Uploads01.presenter";
-import { IUploads01Props } from "./Uploads01.types";
 import { UPLOAD_FILE } from "./Uploads01.queries";
 import { Modal } from "antd";
 
-export default function Uploads01(props: IUploads01Props) {
+export default function Uploads01(props) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploadFile] = useMutation(UPLOAD_FILE);
 
@@ -20,7 +19,9 @@ export default function Uploads01(props: IUploads01Props) {
 
     try {
       const result = await uploadFile({ variables: { file } });
-      props.onChangeFileUrls(result.data.uploadFile.url, props.index);
+      console.log(result.data.uploadFile)
+      console.log(props.image)
+      props.onChangeImage(result.data.uploadFile);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
@@ -29,7 +30,7 @@ export default function Uploads01(props: IUploads01Props) {
   return (
     <Uploads01UI
       fileRef={fileRef}
-      fileUrl={props.fileUrl}
+      fileUrl={props.image}
       defaultFileUrl={props.defaultFileUrl}
       onClickUpload={onClickUpload}
       onChangeFile={onChangeFile}

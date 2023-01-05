@@ -16,7 +16,6 @@ export default function Members() {
   const { data } = useQuery(FETCH_USERS);
   const result = []
 
-  console.log(data);
   const onChangeLevel = (e) => {
     setLevel(e)
   }
@@ -34,20 +33,34 @@ export default function Members() {
     setAge_R(age)
     setLevel_R(level)
     setFav_R(fav)
-    if(result.length === 0) {
-      setIsNo(true)
+    if(result.length === 0 && setIsNo) {
+      setIsNo(prev => !prev)
     }
 }
   data?.fetchUsers.forEach((el)=> {
-    if(el.region?.includes(Lo_R) === true &&
-      el.age?.includes(age_R) === true &&
-      el.grade?.includes(level_R) === true &&
-      el.prefer?.includes(fav_R) === true
+    if(el.region?.includes(Lo) === true &&
+      el.age?.includes(age) === true &&
+      el.grade?.includes(level) === true &&
+      el.prefer?.includes(fav) === true
       ) {
           result.push(el) 
       }
+      
   })
+  useEffect(() =>{
+    if(result.length === 0
+      ) {
+         setIsNo(true)
+         return
+      }else{
+        setIsNo(false)
+      }
+  },[result])
+ 
+  console.log(isNo)
 
+
+ console.log(result)
   return <MembersUi 
   isNo={isNo} 
   data={data}

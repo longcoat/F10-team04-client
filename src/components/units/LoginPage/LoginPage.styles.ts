@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Select } from "antd";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -126,4 +127,31 @@ export const LoginButton = styled.button`
   background: #0b0b0b;
   border-radius: 16px;
   cursor: pointer;
+`;
+export const Selectbar = styled.div`
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    /* width: 40px; */
+  }
+
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    color: #8B8B8B;
+    position: relative;
+    background-color: rgba(25, 29, 35, 0.05);
+    border: none;
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    @media only screen and (max-width: 768px) {
+      font-size: 10px;
+  }
+}
+.css-18xu70h {
+    width: 100%;
+    border:  none;
+    color: #8B8B8B;
+}
+`;
+export const SelectArea = styled(Select)`
+  width: 100%;
+  border: 2px solid #d9d9d9;
+  color: #8B8B8B;
 `;

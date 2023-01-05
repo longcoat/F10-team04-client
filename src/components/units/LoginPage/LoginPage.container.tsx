@@ -22,30 +22,28 @@ export default function LoginPage() {
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
   });
-  const [login] = useMutation(LOGIN);
+  const [loginUser] = useMutation(LOGIN);
   const [, setAccessToken] = useRecoilState(accessTokenState);
-  const onClickLog = async (data) => {
-    console.log("sdfsdf");
-    console.log(data);
+  const onClickSubmit = async (data: any) => {
     try {
-      //1.로그인 뮤테이션 날려서 accessToken 받아오기
-      const result = await login({
-        variables: { data },
+      const result = await loginUser({
+        variables: {
+          email: data.email,
+          password: data.password,
+        },
       });
-      const accessToken = result.data?.login;
-      // console.log(accessToken);
-      //2.받아온 accessToken을 globalState에 저장하기
+      console.log(result.data.login)
+      const accessToken = result?.data.login;
+
       if (accessToken === undefined) {
-        Modal.error({ content: "로그인 먼저 해주세요" });
-        return;
+        Modal.error({ content: "로그인을 먼저 해주세요." });
       }
       setAccessToken(accessToken);
       localStorage.setItem("accessToken", accessToken);
-      //3.로그인 성공 페이지로 이동하기
-      // console.log(accessToken);
-      void router.push("/");
+
+      router.push("/");
     } catch (error) {
-      if (error instanceof Error) Modal.error({ content: error.message });
+      if (error instanceof Error) Modal.error({ content: error });
     }
   };
 
@@ -83,17 +81,9 @@ export default function LoginPage() {
       setPwAct4(false);
     }
   };
-
-  // const onClickLogin = (data) => {
-  //   if (data.email !== "" && data.password !== "") {
-  //     setIsActive(true);
-  //     alert("로그인 완료");
-  //   }
-  // };
-
   return (
     <LoginUIPage
-      onClickLog={onClickLog}
+    onClickSubmit={onClickSubmit}
       formState={formState}
       emailAct={emailAct}
       pwAct={pwAct}
