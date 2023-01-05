@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
-import { HeartFilled, HeartOutlined, UserAddOutlined } from "@ant-design/icons";
+
+import { HeartFilled, HeartOutlined, UserAddOutlined} from "@ant-design/icons";
+
 import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
