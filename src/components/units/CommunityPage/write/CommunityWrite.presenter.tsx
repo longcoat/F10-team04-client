@@ -74,11 +74,14 @@ export default function CommunityWriteUI(props: any) {
         type="primary"
         onClick={() => setModalOpen(true)}
         style={{
-          width: "170px",
-          height: "61px",
-          borderRadius: "8px",
-          background: "black",
-          border: "none",
+          padding: "0px 15px 10px 15px",
+          fontSize: "17px",
+          fontWeight: "400",
+          lineHeight: "22px",
+          textAlign: "center",
+          color: "rgba(0, 0, 0, 0.85)",
+          backgroundColor: "#fff",
+          border: "1px solid #fff"
         }}
       >
         작성하기

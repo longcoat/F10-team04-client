@@ -151,7 +151,7 @@ export default function KaKaoMapDetail(){
     },[])
     return(
         <>
-            <div id="map" style={{width:500 ,height:500}}></div> 
+            <div id="map" style={{width:"100%" ,height:400, marginTop:"20px"}}></div> 
         </>
     )
 }

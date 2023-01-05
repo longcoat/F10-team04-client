@@ -31,7 +31,7 @@ export default function CommunityDetailUIPage(props: any) {
                 </S.MapWrap>
               </S.Left>
               <S.Right>
-                <HeartFilled style={{ color: "red", marginRight: "10px" }} />
+                <HeartFilled style={{ color: "red", marginRight: "10px"}} />
                 찜한 게시물:200
               </S.Right>
             </S.UerInfo>
