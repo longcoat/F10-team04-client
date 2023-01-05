@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
 import { HeartFilled, RightOutlined } from "@ant-design/icons";
-import * as S from "./CommunityDetail.styles";
-import KakaoMapView from "../../../commons/map/mapview";
+import * as S from "../../units/CommunityPage/detail/CommunityDetail.styles";
 import styled from "@emotion/styled";
-import { timeForToday } from "../../../../commons/library/utils2";
+import { useRecoilState } from "recoil";
+import { modalState2 } from "../../../commons/stores";
+import KakaoMapView from "../map/mapview";
+import KaKaoMapDetail from "../map/mapview";
 
 
 export default function CommunityDetailUIPage(props: any) {
+  const [ModalOpen, setModalOpen] = useRecoilState(modalState2);
   return (
     <>
-    <S.Wrapper>
+
+        <S.Wrapper>
           <S.Header>
             <S.Img src="./images/example.png"></S.Img>
           </S.Header>
@@ -20,32 +24,32 @@ export default function CommunityDetailUIPage(props: any) {
             </S.AvatarWrap>
             <S.UerInfo>
               <S.Left>
-                <S.UserName>{props.data?.fetchBoard.user.nickname}</S.UserName>
+                <S.UserName></S.UserName>
                 <S.MapWrap>
                   <S.MapIcon src="./images/list/map.png"></S.MapIcon>
-                  <S.MapText>{props.data?.fetchBoard.recruitRegion}</S.MapText>
+                  <S.MapText>서울특별시 서초구 반포동</S.MapText>
                 </S.MapWrap>
               </S.Left>
               <S.Right>
-                <HeartFilled style={{ marginRight: "10px" }} />
-                {props.data?.fetchBoard.pickCount}
+                <HeartFilled style={{ color: "red", marginRight: "10px" }} />
+                찜한 게시물:200
               </S.Right>
             </S.UerInfo>
           </S.Head>
           <S.Line />
           <S.Main>
-            <S.Title>{props.data?.fetchBoard.title}</S.Title>
+            <S.Title>한강 러닝🏃🏻</S.Title>
             <S.Detail>
-              <S.Sports>{props.data?.fetchBoard.recruitSports}</S.Sports>
+              <S.Sports>러닝</S.Sports>
               <S.Com>・</S.Com>
-              <S.Create>{timeForToday(props.data?.fetchBoard.createdAt)}</S.Create>
+              <S.Create>39분 전</S.Create>
             </S.Detail>
             <S.Contents>
-            {props.data?.fetchBoard.title}
+              본인 굉장히 빠르다. 같이 동기 부여하면서 경쟁 러너 구합니당.!!
             </S.Contents>
-            <KakaoMapView />
+            <KaKaoMapDetail />
           </S.Main>
         </S.Wrapper>
-        </>
+    </>
   );
 }

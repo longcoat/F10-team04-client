@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Modal } from "antd";
 
 export const Wrapper = styled.form`
   padding: 48px 0px;
@@ -73,16 +74,23 @@ export const ItemWrapper = styled.div`
   padding-top: 50px;
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   flex-direction: row;
+  border: 1px solid red;
 `;
 export const Item = styled.div`
-  width: 25%;
-  margin-right: 20px;
+  width: 19%;
+  height: 400px;
   display: flex;
   flex-direction: column;
   background: #ffffff;
   box-shadow: 0px 0px 9px rgba(153, 153, 151, 0.25);
   border-radius: 12px;
+  border: 1px solid red;
+  &:nth-of-type(5n) {
+    margin-right: 0;
+  }
 `;
 export const Img = styled.img`
   background-size: cover;
@@ -93,7 +101,7 @@ export const Img = styled.img`
 export const Main = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 18px;
+  padding:0px 18px;
 `;
 export const Title2 = styled.div`
   padding-top: 15px;
@@ -132,8 +140,7 @@ export const Footer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-top: 23px;
-  padding-bottom: 20px;
+  padding-top: 23px; 
   align-items: center;
 `;
 export const Location = styled.div`
@@ -152,6 +159,39 @@ export const LocaionText = styled.div`
   /* identical to box height, or 283% */
   padding-left: 6px;
   letter-spacing: -0.48px;
-
   color: #8b8b8b;
+`;
+export const ModalCustom = styled(Modal)`
+  .ant-modal-header {
+    padding: 16px 24px;
+    padding-top: 30px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+    border-radius: 2px 2px 0 0;
+    height: 80px;
+  }
+  .ant-modal-title {
+    color: #fff;
+  }
+  .ant-modal-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .ant-modal-footer > .ant-btn-primary {
+    width: 161px;
+    height: 63px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+  }
+  .ant-modal-footer > .ant-btn-default {
+    width: 161px;
+    height: 63px;
+    background-color: #f6f6f6;
+    color: #8b8b8b;
+    border: none;
+  }
 `;

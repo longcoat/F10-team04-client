@@ -1,11 +1,16 @@
 import { RightOutlined, SearchOutlined } from "@ant-design/icons";
 import * as S from "./CommunityList.styles";
 import React, { useState } from "react";
-
 import CommunityWrite from "../write/CommunityWrite.container";
-import CommunityDetailUIPage from "../detail/CommunityDetail.presenter";
 import CommunityDetailPage from "../detail/CommunityDetail.container";
+import InfiniteScroll from "react-infinite-scroller";
+import DOMPurify from "dompurify";
+import { Modal } from "antd";
+import { modalState2 } from "../../../../commons/stores";
+import { useRecoilState } from "recoil";
+
 export default function CommunityListUi(props: any) {
+  const [ModalOpen, setModalOpen] = useRecoilState(modalState2);
   const [first, setFirst] = useState(true);
   const [second, setSecond] = useState(false);
 
@@ -30,6 +35,17 @@ export default function CommunityListUi(props: any) {
     }
   };
   return (
+<>
+    <S.ModalCustom
+    centered
+    open={ModalOpen}
+    onOk={() => setModalOpen(false)}
+    onCancel={() => setModalOpen(false)}
+    width={1000}
+    zIndex={10}
+  >
+    <CommunityDetailPage   boardId={props.boardId}/>
+    </S.ModalCustom>
     <S.Wrapper>
       <S.Title>검색결과</S.Title>
       <S.MenuWrapper>
@@ -43,191 +59,34 @@ export default function CommunityListUi(props: any) {
         </S.MenuWrap>
         <CommunityWrite></CommunityWrite>
       </S.MenuWrapper>
+      <InfiniteScroll pageStart={0} loadMore={props.onLoadMore} hasMore={true}>
       <S.ItemWrapper>
-        <S.Item>
+      {props.data?.fetchAllBoards.map((el, index) => (
+        <S.Item key={el.id}>
           <S.Img src="./images/list/1.png"></S.Img>
           <S.Main>
-            <S.Title2>당산 게이트볼</S.Title2>
-            <S.Contents>
-              당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대 #19시 #
-              Beginner #16일
-            </S.Contents>
-            <S.Sports>게이트볼</S.Sports>
+            <S.Title2>{el.title}</S.Title2>
+            {typeof window !== "undefined" && (
+                <S.Contents
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(el.content),
+                  }}
+                ></S.Contents>
+              )}
+            <S.Sports>{el.recruitSports}</S.Sports>
             <S.Footer>
               <S.Location>
                 <S.Icon src="./images/list/map.png"></S.Icon>
-                <S.LocaionText>서울특별시</S.LocaionText>
+                <S.LocaionText>{el.recruitRegion}</S.LocaionText>
               </S.Location>
-
-              <CommunityDetailPage />
+              <RightOutlined onClick={props.onClickDetail(el.id)} />
             </S.Footer>
           </S.Main>
         </S.Item>
-        <S.Item>
-          <S.Img src="./images/list/1.png"></S.Img>
-          <S.Main>
-            <S.Title2>당산 게이트볼</S.Title2>
-            <S.Contents>
-              당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대 #19시 #
-              Beginner #16일
-            </S.Contents>
-            <S.Sports>게이트볼</S.Sports>
-            <S.Footer>
-              <S.Location>
-                <S.Icon src="./images/list/map.png"></S.Icon>
-                <S.LocaionText>서울특별시</S.LocaionText>
-              </S.Location>
-              <RightOutlined style={{ paddingRight: 10 }} />
-            </S.Footer>
-          </S.Main>
-        </S.Item>
-        <S.Item>
-          <S.Img src="./images/list/1.png"></S.Img>
-          <S.Main>
-            <S.Title2>당산 게이트볼</S.Title2>
-            <S.Contents>
-              당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대 #19시 #
-              Beginner #16일
-            </S.Contents>
-            <S.Sports>게이트볼</S.Sports>
-            <S.Footer>
-              <S.Location>
-                <S.Icon src="./images/list/map.png"></S.Icon>
-                <S.LocaionText>서울특별시</S.LocaionText>
-              </S.Location>
-              <RightOutlined style={{ paddingRight: 10 }} />
-            </S.Footer>
-          </S.Main>
-        </S.Item>
-        <S.Item>
-          <S.Img src="./images/list/1.png"></S.Img>
-          <S.Main>
-            <S.Title2>당산 게이트볼</S.Title2>
-            <S.Contents>
-              당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대 #19시 #
-              Beginner #16일
-            </S.Contents>
-            <S.Sports>게이트볼</S.Sports>
-            <S.Footer>
-              <S.Location>
-                <S.Icon src="./images/list/map.png"></S.Icon>
-                <S.LocaionText>서울특별시</S.LocaionText>
-              </S.Location>
-              <RightOutlined style={{ paddingRight: 10 }} />
-            </S.Footer>
-          </S.Main>
-        </S.Item>
-        <S.Item>
-          <S.Img src="./images/list/1.png"></S.Img>
-          <S.Main>
-            <S.Title2>당산 게이트볼</S.Title2>
-            <S.Contents>
-              당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대 #19시 #
-              Beginner #16일
-            </S.Contents>
-            <S.Sports>게이트볼</S.Sports>
-            <S.Footer>
-              <S.Location>
-                <S.Icon src="./images/list/map.png"></S.Icon>
-                <S.LocaionText>서울특별시</S.LocaionText>
-              </S.Location>
-              <RightOutlined style={{ paddingRight: 10 }} />
-            </S.Footer>
-          </S.Main>
-        </S.Item>
+        ))}
       </S.ItemWrapper>
-      <S.ItemWrapper>
-        <S.Item>
-          <S.Img src="./images/list/1.png"></S.Img>
-          <S.Main>
-            <S.Title2>당산 게이트볼</S.Title2>
-            <S.Contents>
-              당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대 #19시 #
-              Beginner #16일
-            </S.Contents>
-            <S.Sports>게이트볼</S.Sports>
-            <S.Footer>
-              <S.Location>
-                <S.Icon src="./images/list/map.png"></S.Icon>
-                <S.LocaionText>서울특별시</S.LocaionText>
-              </S.Location>
-              <RightOutlined style={{ paddingRight: 10 }} />
-            </S.Footer>
-          </S.Main>
-        </S.Item>
-        <S.Item>
-          <S.Img src="./images/list/1.png"></S.Img>
-          <S.Main>
-            <S.Title2>당산 게이트볼</S.Title2>
-            <S.Contents>
-              당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대 #19시 #
-              Beginner #16일
-            </S.Contents>
-            <S.Sports>게이트볼</S.Sports>
-            <S.Footer>
-              <S.Location>
-                <S.Icon src="./images/list/map.png"></S.Icon>
-                <S.LocaionText>서울특별시</S.LocaionText>
-              </S.Location>
-              <RightOutlined style={{ paddingRight: 10 }} />
-            </S.Footer>
-          </S.Main>
-        </S.Item>
-        <S.Item>
-          <S.Img src="./images/list/1.png"></S.Img>
-          <S.Main>
-            <S.Title2>당산 게이트볼</S.Title2>
-            <S.Contents>
-              당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대 #19시 #
-              Beginner #16일
-            </S.Contents>
-            <S.Sports>게이트볼</S.Sports>
-            <S.Footer>
-              <S.Location>
-                <S.Icon src="./images/list/map.png"></S.Icon>
-                <S.LocaionText>서울특별시</S.LocaionText>
-              </S.Location>
-              <RightOutlined style={{ paddingRight: 10 }} />
-            </S.Footer>
-          </S.Main>
-        </S.Item>
-        <S.Item>
-          <S.Img src="./images/list/1.png"></S.Img>
-          <S.Main>
-            <S.Title2>당산 게이트볼</S.Title2>
-            <S.Contents>
-              당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대 #19시 #
-              Beginner #16일
-            </S.Contents>
-            <S.Sports>게이트볼</S.Sports>
-            <S.Footer>
-              <S.Location>
-                <S.Icon src="./images/list/map.png"></S.Icon>
-                <S.LocaionText>서울특별시</S.LocaionText>
-              </S.Location>
-              <RightOutlined style={{ paddingRight: 10 }} />
-            </S.Footer>
-          </S.Main>
-        </S.Item>
-        <S.Item>
-          <S.Img src="./images/list/1.png"></S.Img>
-          <S.Main>
-            <S.Title2>당산 게이트볼</S.Title2>
-            <S.Contents>
-              당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대 #19시 #
-              Beginner #16일
-            </S.Contents>
-            <S.Sports>게이트볼</S.Sports>
-            <S.Footer>
-              <S.Location>
-                <S.Icon src="./images/list/map.png"></S.Icon>
-                <S.LocaionText>서울특별시</S.LocaionText>
-              </S.Location>
-              <RightOutlined style={{ paddingRight: 10 }} />
-            </S.Footer>
-          </S.Main>
-        </S.Item>
-      </S.ItemWrapper>
+      </InfiniteScroll>
     </S.Wrapper>
+    </>
   );
 }

@@ -9,7 +9,10 @@ export const CREATE_BOARD = gql`
       recruitRegion
       recruitGrade
       recruitSports
-      image
+      image{
+      id
+      imgUrl
+    }
     }
   }
 `;
