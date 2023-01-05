@@ -4,7 +4,7 @@ export default function LoginUIPage(props: any) {
   return (
     <S.Wrapper>
       <S.Container>
-        <S.LoginWrapper onSubmit={props.handleSubmit(props.onClickLog)}>
+        <S.LoginWrapper onSubmit={props.handleSubmit(props.onClickSubmit)}>
           <S.Title>RunGether</S.Title>
           <S.Main>
             <S.LoginText>로그인</S.LoginText>
@@ -86,7 +86,7 @@ export default function LoginUIPage(props: any) {
             </S.InputWrapper>
           </S.Main>
           <S.Footer>
-            <S.LoginButton type="button">로그인</S.LoginButton>
+            <S.LoginButton>로그인</S.LoginButton>
           </S.Footer>
         </S.LoginWrapper>
       </S.Container>

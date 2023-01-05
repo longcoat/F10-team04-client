@@ -3,7 +3,7 @@ import styled from "@emotion/styled"
 import { Modal } from "antd";
 import { useState } from "react";
 import ReviewCommentWrite from "../../units/Comment/ReviewComment/reviewComment.container"
-import ReviewWrite from "../../units/PhotoReview/ReviewWrite/Review.write.container";
+import ReviewWrite from "../../units/PhotoReview/ReviewDetail/Review.write.container";
 
 export default function PhotoReviewCard(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
