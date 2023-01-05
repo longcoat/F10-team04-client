@@ -45,7 +45,7 @@ export const RightSide = styled.div`
 `;
 export const Menu = styled.div`
   font-family: "Code Next-Trial";
-  font-size: 32px;
+  font-size: 25px;
   font-weight: 400;
   letter-spacing: -0.011em;
   text-align: center;

@@ -5,12 +5,15 @@ import { useRecoilState } from "recoil";
 import { modalState2 } from "../../../../commons/stores";
 import { FETCH_BOARD } from "../detail/CommunityDetail.queries";
 import CommunityListUi from "./CommunityList.presenter";
+
+
 import { FETCH_ALL_BOARDS, FETCH_ALL_BOARDS_WITH_PICK_BOARD} from "./CommunityList.queries";
 
 export default function CommunityList() {
   const [ModalOpen, setModalOpen] = useRecoilState(modalState2);
   const [boardId, setBoardId] = useState("")
   const [level, setLevel] = useState("")
+
   const { data, refetch, fetchMore } = useQuery(FETCH_ALL_BOARDS);
   const [Lo, setLo] = useState("")
   const { data : Pick, refetch: pickRefetch, fetchMore: pickFetchMore } = useQuery(FETCH_ALL_BOARDS_WITH_PICK_BOARD);
@@ -38,6 +41,8 @@ export default function CommunityList() {
       },
     });
   };
+
+
   const onLoadMore2 = () => {
     if (!data) return;
 
@@ -99,4 +104,5 @@ export default function CommunityList() {
   onLoadMore={onLoadMore}
   onClickDetail={onClickDetail}
   />;
+
 }

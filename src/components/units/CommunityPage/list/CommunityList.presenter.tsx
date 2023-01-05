@@ -56,6 +56,7 @@ export default function CommunityListUi(props: any) {
   };
 
   return (
+
 <>
     <S.ModalCustom
     centered
@@ -175,6 +176,7 @@ export default function CommunityListUi(props: any) {
         </S.ResultWrap>
      
     </S.Wrapper>
+
     </>
   );
 }

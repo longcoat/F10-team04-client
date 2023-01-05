@@ -1,11 +1,13 @@
 import { CheckOutlined } from "@ant-design/icons";
+import { useRouter } from "next/router";
 import * as S from "./LoginPage.styles";
 export default function LoginUIPage(props: any) {
+  const router = useRouter();
   return (
     <S.Wrapper>
       <S.Container>
         <S.LoginWrapper onSubmit={props.handleSubmit(props.onClickSubmit)}>
-          <S.Title>RunGether</S.Title>
+          <S.Title onClick={() => router.push("/")}>RunGether</S.Title>
           <S.Main>
             <S.LoginText>로그인</S.LoginText>
             <S.InputWrapper>

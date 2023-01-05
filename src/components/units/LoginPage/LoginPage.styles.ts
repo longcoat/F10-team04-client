@@ -25,6 +25,7 @@ export const Title = styled.div`
   font-weight: 800;
   font-size: 54px;
   line-height: 55px;
+  cursor: pointer;
   /* identical to box height, or 102% */
   letter-spacing: -0.011em;
   display: flex;
@@ -134,7 +135,7 @@ export const Selectbar = styled.div`
   }
 
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-    color: #8B8B8B;
+    color: #8b8b8b;
     position: relative;
     background-color: rgba(25, 29, 35, 0.05);
     border: none;
@@ -142,16 +143,16 @@ export const Selectbar = styled.div`
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     @media only screen and (max-width: 768px) {
       font-size: 10px;
+    }
   }
-}
-.css-18xu70h {
+  .css-18xu70h {
     width: 100%;
-    border:  none;
-    color: #8B8B8B;
-}
+    border: none;
+    color: #8b8b8b;
+  }
 `;
 export const SelectArea = styled(Select)`
   width: 100%;
   border: 2px solid #d9d9d9;
-  color: #8B8B8B;
+  color: #8b8b8b;
 `;
