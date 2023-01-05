@@ -45,6 +45,7 @@ export default function LayoutHeader() {
   const onClickLogOut = async () => {
     try {
       await logout();
+      window.localStorage.removeItem("accessToken");
       router.push("/");
       location.reload();
     } catch (error) {
@@ -66,15 +67,16 @@ export default function LayoutHeader() {
         <S.Menu onClick={() => router.push("/community")} className="menu">
           Community
         </S.Menu>
+        <S.Menu onClick={onClcikMoveToUser} className="menu">
+          {data ? "Mypage" : "Sign up"}
+        </S.Menu>
         <S.Menu
           onClick={data ? onClickLogOut : onClickMoveToLogin}
           className="menu"
         >
-          {data ? "logout" : "login"}
+          {data ? "Logout" : "Login"}
         </S.Menu>
-        <S.Menu onClick={onClcikMoveToUser} className="menu">
-          {data ? "mypage" : "sign up"}
-        </S.Menu>
+
         <S.Menu2>
           <MenuOutlined className="sidemenu" onClick={toggleSide} />
         </S.Menu2>
