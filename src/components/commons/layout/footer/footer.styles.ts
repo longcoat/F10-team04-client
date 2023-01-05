@@ -23,7 +23,7 @@ export const WrapperLeft = styled.div`
 export const LeftHead = styled.div`
   width: 100%;
   padding-top: 76px;
-  padding-left: 20px;
+  padding-left: 80px;
   font-weight: 700;
   font-size: 36px;
   line-height: 53px;
@@ -32,7 +32,7 @@ export const LeftHead = styled.div`
 `;
 export const LeftMiddle = styled.div`
   padding-top: 40px;
-  padding-left: 20px;
+  padding-left: 80px;
   font-weight: 600;
   font-size: 18px;
   line-height: 26px;
@@ -42,7 +42,7 @@ export const LeftMiddle = styled.div`
 `;
 export const LeftIconWrap = styled.div`
   padding-top: 20px;
-  padding-left: 20px;
+  padding-left: 80px;
   width: 40px;
   height: 40px;
 `;
@@ -67,7 +67,7 @@ export const FooterLast = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding-left: 20px;
+  padding: 0 80px;
   ${mediaL} {
     flex-shrink: 0;
   }
@@ -87,7 +87,6 @@ export const FooterLeft = styled.div`
 
   ${mediaL} {
     font-size: 18px;
-    padding-right: 203px;
   }
   ${mediaM} {
     padding-right: 78px;
@@ -145,7 +144,8 @@ export const LText = styled.div`
     padding-right: 180px;
   }
   ${mediaM} {
-    padding-right: 120px;
+    padding-right: 70px;
+    padding-left: 60px;
   }
 `;
 

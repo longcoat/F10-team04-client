@@ -36,7 +36,6 @@ export default function LayoutFooter() {
       <S.FooterLine />
       <S.FooterLast>
         <S.FooterLeft>@BEDLAMS TM, ALL RIGHTS RESERVED</S.FooterLeft>
-
         <S.LastText>COOKIE POLICY</S.LastText>
         <S.LastText>LEGAL NOTICE</S.LastText>
         <S.LastText>COOKIE CONSENT OPTIONS</S.LastText>
