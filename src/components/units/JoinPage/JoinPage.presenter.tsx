@@ -40,22 +40,19 @@ const FavOption = [
 export default function JoinPageUi(props) {
   const [isNext, setIsNext] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  console.log(props.data?.checkNickName)
   const onClickNext = () => {
-
-
-
     if(props.email.includes("@") 
     && props.password.match(/^(?=.*[a-zA-Z]).{0,16}$/)
     && props.password.match(/^(?=.*[0-9]).{0,16}$/)
     && props.password.match(/^(?=.*[!@#$%^*+=-]).{0,16}$/)
     && props.password.match(/^.{8,16}$/)
     && props.password === props.cpassword
-    && props.data?.checkNickName === 'true'){
+    && props.nickNameCheck ){
       setIsNext(prev => !prev)
-      // console.log(props.email, props.pw, props.nickName)
     }else if(!props.email.includes("@") ){
       alert("이메일 형식을 확인해주세요.")
-    }else if(!props.data?.checkNickName){
+    }else if(!props.nickNameCheck){
       alert("닉네임 중복을 확인하세요.")
     }else{
       alert("비밀번호를 확인해주세요.")
@@ -110,25 +107,20 @@ export default function JoinPageUi(props) {
               ) : (
                 ""
               )}
-              <S.InfoBox>
+              <S.InfoBox1>
+                <S.Wrap>
                 <S.InfoTitle>비밀번호</S.InfoTitle>
                 {!props.pwAct && <S.RedDot>*</S.RedDot>}
-              </S.InfoBox>
-              <S.PassInputBox>
-                <S.PassInput
-                  value={props.password}
-                  onChange={props.onChangePw}
-                  type={isHidden ? "text" : "password"}
-                  placeholder="비밀번호를 입력해주세요."
-                />
+                </S.Wrap>
                 {!isHidden ? (
                   <EyeOutlined
                     onClick={onClickEye}
                     style={{
                       fontSize: "20px",
                       position: "relative",
-                      right: "40px",
-                      color: "#C71515",
+                      right:"20px",
+                      top: "56px",
+                      color: "#d9d9d9",
                     }}
                   />
                 ) : (
@@ -137,11 +129,21 @@ export default function JoinPageUi(props) {
                     style={{
                       fontSize: "20px",
                       position: "relative",
-                      right: "40px",
-                      color: "#C71515",
+                      right:"20px",
+                      top: "56px",
+                      color: "#d9d9d9",
                     }}
                   />
                 )}
+              </S.InfoBox1>
+              <S.PassInputBox>
+                <S.PassInput
+                  value={props.password}
+                  onChange={props.onChangePw}
+                  type={isHidden ? "text" : "password"}
+                  placeholder="비밀번호를 입력해주세요."
+                />
+                
               </S.PassInputBox>
               <S.Error>
                 <S.Type>

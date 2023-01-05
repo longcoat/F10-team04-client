@@ -1,23 +1,19 @@
-import { gql } from "graphql-request";
+
+import { gql } from "@apollo/client";
 
 export const CREATE_BOARD = gql`
-  mutation createUseditem($createUseditemInput: CreateUseditemInput!) {
-    createUseditem(createUseditemInput: $createUseditemInput) {
-      _id
-      name
-      remarks
-      contents
-      price
-      tags
-      images
-      pickedCount
-      useditemAddress {
-        _id
-        zipcode
-        address
-        addressDetail
-      }
-      soldAt
+  mutation createBoard($createBoardInput: CreateBoardInput!) {
+    createBoard(createBoardInput: $createBoardInput) {
+      title
+      content
+      appointment
+      recruitRegion
+      recruitGrade
+      recruitSports
+      image{
+      id
+      imgUrl
+    }
     }
   }
 `;

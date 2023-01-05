@@ -19,26 +19,27 @@ export default function LayoutFooter() {
           </S.LeftIconWrap>
         </S.WrapperLeft>
         <S.WrapperRight>
-          <S.RightText>
-            <S.RightSubText>MEMBERS</S.RightSubText>
-            <S.RightSubText>CLUB</S.RightSubText>
-            <S.RightSubText>MESSAGE</S.RightSubText>
-            <S.RightSubText>GITHUB</S.RightSubText>
-          </S.RightText>
-          <S.RightText2>
-            <S.RightSubText>ABOUT</S.RightSubText>
-            <S.RightSubText>CONTACT</S.RightSubText>
-          </S.RightText2>
+          <S.RightTextBox>
+            <S.LTextBox>
+              <S.LText>MEMBERS</S.LText>
+              <S.LText>CLUB</S.LText>
+              <S.LText>MESSAGE</S.LText>
+              <S.LText>GITHUB</S.LText>
+            </S.LTextBox>
+            <S.RTextBox>
+              <S.RText>ABOUT</S.RText>
+              <S.RText>CONTACT</S.RText>
+            </S.RTextBox>
+          </S.RightTextBox>
         </S.WrapperRight>
       </S.FooterHead>
       <S.FooterLine />
       <S.FooterLast>
         <S.FooterLeft>@BEDLAMS TM, ALL RIGHTS RESERVED</S.FooterLeft>
-        <S.FooterRight>
-          <S.LastText>COOKIE POLICY</S.LastText>
-          <S.LastText>LEGAL NOTICE</S.LastText>
-          <S.LastText>COOKIE CONSENT OPTIONS</S.LastText>
-        </S.FooterRight>
+
+        <S.LastText>COOKIE POLICY</S.LastText>
+        <S.LastText>LEGAL NOTICE</S.LastText>
+        <S.LastText>COOKIE CONSENT OPTIONS</S.LastText>
       </S.FooterLast>
     </S.Wrapper>
   );

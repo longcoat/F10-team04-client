@@ -103,6 +103,12 @@ export const InfoBox = styled.div`
   flex-direction: row;
   padding-top: 37px;
 `;
+export const InfoBox1 = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-top: 37px;
+  justify-content: space-between;
+`;
 
 export const RedDot = styled.div`
   color: #eb5757;
@@ -232,6 +238,9 @@ export const GrayLine = styled.div`
 export const Line = styled.div`
   padding-top: 46px;
 `;
+export const Wrap = styled.div`
+display: flex;
+`
 
 export const CommonInput = styled.input`
   width: 100%;

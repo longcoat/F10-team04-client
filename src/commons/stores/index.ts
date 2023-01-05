@@ -16,3 +16,15 @@ export const restoreAccessTokenLoadable = selector({
   },
 });
 
+export const modalState = atom({
+  key: "modalState",
+  default: false,
+});
+export const modalState2 = atom({
+  key: "modalState2",
+  default: false,
+});
+export const boardImageState = atom({
+  key: "boardImageState",
+  default: "",
+});

@@ -17,12 +17,6 @@ export const Container = styled.div`
   @media only screen and (max-width: 768px) {
     background-color: blue;
   } */
-  ${M.mediaL} {
-    background-color: red;
-  }
-  ${M.mediaM} {
-    background-color: blue;
-  }
 
   display: flex;
   flex-direction: column;
@@ -96,11 +90,12 @@ export const Modify = styled.div`
 export const FriendBox = styled.div`
   display: flex;
   flex-direction: row;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     display: flex;
     flex-direction: column;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
     display: flex;
     flex-direction: column;
   }
@@ -109,11 +104,12 @@ export const FriendBox = styled.div`
 export const HeartBox = styled.div`
   display: flex;
   flex-direction: row;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     display: flex;
     flex-direction: column;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
     display: flex;
     flex-direction: column;
   }
@@ -132,10 +128,11 @@ export const FameText = styled.div`
   color: #0b0b0b;
   margin-left: 10px;
   padding-top: 7px;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     padding-right: 20px;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
   }
 `;
 
@@ -152,11 +149,12 @@ export const FriendText = styled.div`
   color: #0b0b0b;
   margin-left: 10px;
   padding-top: 7px;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     margin-left: 3px;
     padding-right: 20px;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
   }
 `;
 
@@ -174,10 +172,10 @@ export const BoardBox = styled.div`
 
 export const FriendList = styled.div`
   padding-right: 90px;
-  @media only screen and (max-width: 1024px) {
-    padding-right: 0;
+  ${M.mediaL} {
+    padding-right: 0px;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
   }
 `;
 
@@ -232,11 +230,12 @@ export const FollowBox = styled.div`
 export const HeartBox1 = styled.div`
   display: flex;
   flex-direction: row;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     display: flex;
     flex-direction: column;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
     display: flex;
     flex-direction: column;
   }
@@ -256,28 +255,28 @@ export const ReactIconBox = styled.div``;
 
 export const IconBox = styled.div`
   color: #8b8b8b;
-  @media only screen and (max-width: 1024px) {
+  ${M.mediaL} {
     padding-left: 5px;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
   }
 `;
 export const RightIconUpBox = styled.div`
   padding-left: 30px;
   color: #8b8b8b;
-  @media only screen and (max-width: 1024px) {
-    padding-left: 10px;
+  ${M.mediaL} {
+    padding-left: 5px;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
   }
 `;
 export const RightIconDownBox = styled.div`
   padding-left: 30px;
   color: #8b8b8b;
-  @media only screen and (max-width: 1024px) {
-    padding-left: 10px;
+  ${M.mediaL} {
+    padding-left: 5px;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
   }
 `;
 
