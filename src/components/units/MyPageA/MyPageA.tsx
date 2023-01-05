@@ -5,6 +5,7 @@ import { FaRegHeart } from "react-icons/bi";
 import { useState } from "react";
 import { RightOutlined } from "@ant-design/icons";
 import { gql, useQuery } from "@apollo/client";
+import AttendList from "./AttendList";
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
     fetchUserLoggedIn {
@@ -217,35 +218,7 @@ export default function MyPageA(props) {
           ) : (
             ""
           )}
-          {color3 ? (
-            <S.BoardListWrapper>
-              <S.BoardList>
-                <S.ImageListProfileBox>
-                  <S.ImageListProfile src="/profile.png" />
-                </S.ImageListProfileBox>
-                <S.InfoTextWrapper>
-                  <S.InfoTextBox>
-                    <S.Title>
-                      진짜 오늘 반포쪽에서 100킬로 이상끼리 모여서 한번
-                      조져보고싶어요 나오기
-                    </S.Title>
-                    <S.MeetTime>시간 12월 11일 15시</S.MeetTime>
-                  </S.InfoTextBox>
-                  <S.Content>
-                    <S.ContentText>
-                      진짜 한번만 세자리수 밑으로 가보고 싶으신 분들만...
-                    </S.ContentText>
-                    <S.ReviewBtn>참가취소</S.ReviewBtn>
-                  </S.Content>
-                </S.InfoTextWrapper>
-                <S.ThumbnailBox>
-                  <S.ThumbnailImage src="/thumbnailsample.png" />
-                </S.ThumbnailBox>
-              </S.BoardList>
-            </S.BoardListWrapper>
-          ) : (
-            ""
-          )}
+          {color3 ? <AttendList /> : ""}
           {color4 ? (
             <S.BoardListWrapper>
               <S.BoardList>
