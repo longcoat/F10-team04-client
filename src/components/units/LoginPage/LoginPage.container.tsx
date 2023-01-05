@@ -23,7 +23,7 @@ export default function LoginPage() {
     resolver: yupResolver(schema),
   });
   const [loginUser] = useMutation(LOGIN);
-  const [, setAccessToken] = useRecoilState(accessTokenState);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const onClickSubmit = async (data: any) => {
     try {
       const result = await loginUser({
@@ -32,9 +32,7 @@ export default function LoginPage() {
           password: data.password,
         },
       });
-      console.log(result.data.login)
       const accessToken = result?.data.login;
-
       if (accessToken === undefined) {
         Modal.error({ content: "로그인을 먼저 해주세요." });
       }

@@ -1,17 +1,13 @@
 import { RangePickerProps } from 'antd/lib/date-picker';
 import * as S from '../../units/CommunityPage/write/CommunityWrite.styles'
-import { DatePicker, Modal, Space } from "antd";
+import { DatePicker, Modal} from "antd";
 import styled from '@emotion/styled';
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import Input03 from '../inputs/03-input';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { schema } from '../../units/LoginPage/LoginPage.validation';
 import ReactQuill from 'react-quill';
 import KakaoMapUI from "../map/mapsearch";
 import { useState } from 'react';
-import { modalState } from '../../../commons/stores';
+import { boardImageState, modalState } from '../../../commons/stores';
 import { useRecoilState } from 'recoil';
 import { CREATE_BOARD } from '../../units/CommunityPage/write/CommunityWrite.queries';
 import { useMutation } from '@apollo/client';
@@ -117,13 +113,14 @@ const AreaOption = [
 
 export default function InModalWrite(props) {
     const [ModalOpen, setModalOpen] = useRecoilState(modalState);
+    const [image, setImage] = useRecoilState(boardImageState);
     const [recruitRegion, setRecruitRegion] = useState("서울특별시")
     const [recruitGrade, setRecruitGrade] = useState("Beginner")
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
     const [appointment, setAppointment] = useState("")
     const [recruitSports, setRecruitSports] = useState("")
-    const [image, setImage] = useState("")
+    // const [image, setImage] = useState("")
     
     const [createBoard] = useMutation(CREATE_BOARD);
     
@@ -142,6 +139,7 @@ export default function InModalWrite(props) {
               },
             },
           });
+          setModalOpen(false)
           console.log(result);
         } catch (error) {
           if (error instanceof Error) Modal.error({ content: error });
@@ -154,7 +152,6 @@ export default function InModalWrite(props) {
         setRecruitSports(e.target.value)
     }
       const onChangeDate = (e) => {
-        console.log(e?._d)
         setAppointment(e?._d)
       }
       const onChangeContent= (value) => {
@@ -164,17 +161,18 @@ export default function InModalWrite(props) {
    
       };
       const onChangeLo = (e) => {
-        console.log(e)
-        setRecruitGrade(e)
+        setRecruitRegion(e)
+
       }
       const onChangeGrade =(e) =>{
-        console.log(e)
-        setRecruitRegion(e)
+        setRecruitGrade(e)
       }
-      const onChangeImage =() =>{
-        const newImage = image;
-        setImage(newImage);
+      const onChangeImage =(fileUrl) =>{
+        const newFile = fileUrl
+        setImage(newFile)
       }
+ 
+     
     return(
         <S.Wrapper >
         <S.Header>

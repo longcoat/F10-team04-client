@@ -6,18 +6,16 @@ export const Wrapper = styled.div`
 `;
 export const Header = styled.div`
   width: 100%;
-  height: 387px;
+  height: 300px;
 `;
 export const Img = styled.img`
   width: 100%;
-  height: 387px;
+  height: 300px;
 `;
 export const Head = styled.div`
+  padding-top: 30px;
   display: flex;
   flex-direction: row;
-  margin-top: 50px;
-  padding-left: 20px;
-  padding-right: 20px;
 `;
 export const AvatarWrap = styled.div`
   width: 128px;
@@ -30,8 +28,9 @@ export const UerInfo = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
-  margin-top: 64px;
+  padding-left: 30px;
 `;
 export const Left = styled.div``;
 export const UserName = styled.div`
@@ -41,15 +40,12 @@ export const UserName = styled.div`
   font-size: 44px;
   line-height: 62px;
   /* identical to box height, or 141% */
-
   letter-spacing: -0.002em;
-
   color: #0b0b0b;
 `;
 export const MapWrap = styled.div`
   display: flex;
   flex-direction: row;
-  padding-left: 50px;
 `;
 export const MapIcon = styled.img`
   width: 32px;
