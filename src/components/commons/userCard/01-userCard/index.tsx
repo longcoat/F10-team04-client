@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-import { HeartFilled, HeartOutlined, UserAddOutlined} from "@ant-design/icons";
+import { HeartFilled, HeartOutlined, UserAddOutlined } from "@ant-design/icons";
 
 import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
@@ -26,7 +26,11 @@ export default function UserCard(props) {
     await followUser({
       variables: { userId: userId },
     });
-    Modal.success({ content: "팔로우 완료!" });
+    if (addActive === false) {
+      Modal.success({ content: "팔로우 완료!" });
+    } else if (addActive === true) {
+      Modal.error({ content: "팔로우 취소!" });
+    }
   };
   return (
     <Wrapper>
@@ -66,7 +70,7 @@ export default function UserCard(props) {
           />
         ) : (
           <UserAddOutlined
-            onClick={onClickAdd}
+            onClick={onClickAdd(props.el.id)}
             style={{
               width: "20%",
               fontSize: "22px",
