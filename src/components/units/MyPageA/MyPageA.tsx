@@ -162,17 +162,16 @@ export default function MyPageA(props) {
           {color1 ? (
             <S.BoardListWrapper>
               <S.BoardList>
-                <S.ImageListProfileBox>
-                  <S.ImageListProfile src="/profile.png" />
-                </S.ImageListProfileBox>
                 <S.InfoTextWrapper>
                   <S.InfoTextBox>
-                    <S.Title>제목제목제목</S.Title>
-                    <S.Section>지역지역지역</S.Section>
-                    <S.Time>시간시간시간</S.Time>
+                    <S.Title>
+                      끝날때까지 끝난게 아니라 생각합니다....열심히해볼게요
+                    </S.Title>
                   </S.InfoTextBox>
                   <S.Content>
-                    <S.ContentText>내용내용내용</S.ContentText>
+                    <S.ContentText>
+                      호호호호호호호호호호호호호 마 남자아이가
+                    </S.ContentText>
                   </S.Content>
                 </S.InfoTextWrapper>
                 <S.ThumbnailBox>
@@ -183,158 +182,89 @@ export default function MyPageA(props) {
           ) : (
             ""
           )}
-
           {color2 ? (
-            <S.BoardContainer>
-              <S.BoardCard>
-                <S.BImgBox>
-                  <S.BoardImg src="/riverrunning.png" />
-                </S.BImgBox>
-                <S.ContentsWrapper>
-                  <S.BTitle>제목쓸거한강모여</S.BTitle>
-                  <S.BContents>내용내용내용내용내용내용</S.BContents>
-                  <S.BExercise>운동종목인풋데이터</S.BExercise>
-                  <S.BArea>
-                    {/* <S.LocatonIcon src="/images/list/map.png" /> */}
-                    <div>서울 특별시</div>
-                    <div></div>
-                  </S.BArea>
-                </S.ContentsWrapper>
-              </S.BoardCard>
-            </S.BoardContainer>
+            <S.BoardListWrapper>
+              <S.BoardList>
+                <S.ImageListProfileBox>
+                  <S.ImageListProfile src="/profile.png" />
+                </S.ImageListProfileBox>
+                <S.InfoTextWrapper>
+                  <S.InfoTextBox>
+                    <S.Title>
+                      오늘 잠수교쪽에서 300찍을꺼니까 진짜 준비된 사람만 나오기
+                    </S.Title>
+                    <S.MeetTime>시간 12월 11일 15시</S.MeetTime>
+                  </S.InfoTextBox>
+                  <S.Content>
+                    <S.ContentText>
+                      아나 진짜 오늘 운동 박살한번 내버릴라니까 죽을 준비 된
+                      분만 오쇼
+                    </S.ContentText>
+                    <S.ReviewBtn>리뷰쓰기</S.ReviewBtn>
+                  </S.Content>
+                </S.InfoTextWrapper>
+                <S.ThumbnailBox>
+                  <S.ThumbnailImage src="/thumbnailsample.png" />
+                </S.ThumbnailBox>
+              </S.BoardList>
+            </S.BoardListWrapper>
           ) : (
             ""
           )}
-
-          {/* <S.ExerciseBox>
-            {color2 ? (
-              <S.ItemBox>
-                <S.Item>
-                  <S.Img src="./images/list/1.png"></S.Img>
-                  <S.Main>
-                    <S.Title2>당산 게이트볼</S.Title2>
-                    <S.Contents>
-                      당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대
-                      #19시 # Beginner #16일
-                    </S.Contents>
-                    <S.Sports>게이트볼</S.Sports>
-                    <S.Footer>
-                      <S.Location>
-                        <S.Icon src="./images/list/map.png"></S.Icon>
-                        <S.LocaionText>서울특별시</S.LocaionText>
-                      </S.Location>
-                      <RightOutlined style={{ paddingRight: 10 }} />
-                    </S.Footer>
-                  </S.Main>
-                </S.Item>
-              </S.ItemBox>
-            ) : (
-              ""
-            )}
-            {color2 ? (
-              <S.ItemBox>
-                <S.Item>
-                  <S.Img src="./images/list/1.png"></S.Img>
-                  <S.Main>
-                    <S.Title2>당산 게이트볼</S.Title2>
-                    <S.Contents>
-                      당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대
-                      #19시 # Beginner #16일
-                    </S.Contents>
-                    <S.Sports>게이트볼</S.Sports>
-                    <S.Footer>
-                      <S.Location>
-                        <S.Icon src="./images/list/map.png"></S.Icon>
-                        <S.LocaionText>서울특별시</S.LocaionText>
-                      </S.Location>
-                      <RightOutlined style={{ paddingRight: 10 }} />
-                    </S.Footer>
-                  </S.Main>
-                </S.Item>
-              </S.ItemBox>
-            ) : (
-              ""
-            )}
-            {color2 ? (
-              <S.ItemBox>
-                <S.Item>
-                  <S.Img src="./images/list/1.png"></S.Img>
-                  <S.Main>
-                    <S.Title2>당산 게이트볼</S.Title2>
-                    <S.Contents>
-                      당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대
-                      #19시 # Beginner #16일
-                    </S.Contents>
-                    <S.Sports>게이트볼</S.Sports>
-                    <S.Footer>
-                      <S.Location>
-                        <S.Icon src="./images/list/map.png"></S.Icon>
-                        <S.LocaionText>서울특별시</S.LocaionText>
-                      </S.Location>
-                      <RightOutlined style={{ paddingRight: 10 }} />
-                    </S.Footer>
-                  </S.Main>
-                </S.Item>
-              </S.ItemBox>
-            ) : (
-              ""
-            )}
-            {color2 ? (
-              <S.ItemBox>
-                <S.Item>
-                  <S.Img src="./images/list/1.png"></S.Img>
-                  <S.Main>
-                    <S.Title2>당산 게이트볼</S.Title2>
-                    <S.Contents>
-                      당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대
-                      #19시 # Beginner #16일
-                    </S.Contents>
-                    <S.Sports>게이트볼</S.Sports>
-                    <S.Footer>
-                      <S.Location>
-                        <S.Icon src="./images/list/map.png"></S.Icon>
-                        <S.LocaionText>서울특별시</S.LocaionText>
-                      </S.Location>
-                      <RightOutlined style={{ paddingRight: 10 }} />
-                    </S.Footer>
-                  </S.Main>
-                </S.Item>
-              </S.ItemBox>
-            ) : (
-              ""
-            )}{" "}
-            {color2 ? (
-              <S.ItemBox>
-                <S.Item>
-                  <S.Img src="./images/list/1.png"></S.Img>
-                  <S.Main>
-                    <S.Title2>당산 게이트볼</S.Title2>
-                    <S.Contents>
-                      당산역 근처 게이트볼 하실 분 구합니다. <br></br># 50대
-                      #19시 # Beginner #16일
-                    </S.Contents>
-                    <S.Sports>게이트볼</S.Sports>
-                    <S.Footer>
-                      <S.Location>
-                        <S.Icon src="./images/list/map.png"></S.Icon>
-                        <S.LocaionText>서울특별시</S.LocaionText>
-                      </S.Location>
-                      <RightOutlined style={{ paddingRight: 10 }} />
-                    </S.Footer>
-                  </S.Main>
-                </S.Item>
-              </S.ItemBox>
-            ) : (
-              ""
-            )}
-          </S.ExerciseBox> */}
-
-          {/* <S.Items> */}
-          {/* {props.data?.fetchUsers.map((el) => ( */}
-          {/* <UserCard key={el.id} el={el} /> */}
-          {/* ))} */}
-          {/* </S.Items> */}
-          {/* <UserCard aaaa={aaa} /> */}
+          {color3 ? (
+            <S.BoardListWrapper>
+              <S.BoardList>
+                <S.ImageListProfileBox>
+                  <S.ImageListProfile src="/profile.png" />
+                </S.ImageListProfileBox>
+                <S.InfoTextWrapper>
+                  <S.InfoTextBox>
+                    <S.Title>
+                      진짜 오늘 반포쪽에서 100킬로 이상끼리 모여서 한번
+                      조져보고싶어요 나오기
+                    </S.Title>
+                    <S.MeetTime>시간 12월 11일 15시</S.MeetTime>
+                  </S.InfoTextBox>
+                  <S.Content>
+                    <S.ContentText>
+                      진짜 한번만 세자리수 밑으로 가보고 싶으신 분들만...
+                    </S.ContentText>
+                    <S.ReviewBtn>참가취소</S.ReviewBtn>
+                  </S.Content>
+                </S.InfoTextWrapper>
+                <S.ThumbnailBox>
+                  <S.ThumbnailImage src="/thumbnailsample.png" />
+                </S.ThumbnailBox>
+              </S.BoardList>
+            </S.BoardListWrapper>
+          ) : (
+            ""
+          )}
+          {color4 ? (
+            <S.BoardListWrapper>
+              <S.BoardList>
+                <S.ImageListProfileBox>
+                  <S.ImageListProfile src="/profile.png" />
+                </S.ImageListProfileBox>
+                <S.InfoTextWrapper>
+                  <S.InfoTextBox1>
+                    <S.Title>치타뭐여이거</S.Title>
+                    <S.Nim1>님</S.Nim1>
+                  </S.InfoTextBox1>
+                  <S.Content1>
+                    <S.ContentText>최애운동</S.ContentText>
+                    <S.Section1>지역</S.Section1>
+                    <S.Sex>성별</S.Sex>
+                  </S.Content1>
+                </S.InfoTextWrapper>
+                <S.ThumbnailBox>
+                  <S.ThumbnailImage src="/thumbnailsample.png" />
+                </S.ThumbnailBox>
+              </S.BoardList>
+            </S.BoardListWrapper>
+          ) : (
+            ""
+          )}
         </S.ListContainer>
         {/* 보드리스트 게시글목록 할 때 부분 */}
       </S.Container>

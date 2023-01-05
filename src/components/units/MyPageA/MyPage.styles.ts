@@ -362,12 +362,39 @@ export const InfoTextWrapper = styled.div`
 export const InfoTextBox = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
 `;
 export const Title = styled.div`
+  font-family: "AppleSDGothicNeoM00";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 30px;
+  /* identical to box height, or 167% */
+
+  letter-spacing: -0.002em;
+
+  color: #0b0b0b;
+`;
+
+export const InfoTextBox1 = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`;
+
+export const Nim1 = styled.div`
+  padding-top: 5px;
+  color: #8b8b8b;
+`;
+
+export const MeetTime = styled.div`
+  width: 21%;
   padding-right: 20px;
   font-family: "AppleSDGothicNeoM00";
   font-style: normal;
-  font-weight: 400;
+  font-weight: 800;
   font-size: 18px;
   line-height: 30px;
   /* identical to box height, or 167% */
@@ -405,6 +432,27 @@ export const Time = styled.div`
 `;
 
 export const Content = styled.div`
+  width: 100%;
+  font-family: "AppleSDGothicNeoM00";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  /* identical to box height */
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: -0.0024em;
+
+  padding-top: 15px;
+  padding-right: 20px;
+
+  color: #0b0b0b;
+`;
+
+export const Content1 = styled.div`
+  width: 100%;
   font-family: "AppleSDGothicNeoM00";
   font-style: normal;
   font-weight: 400;
@@ -417,11 +465,36 @@ export const Content = styled.div`
   letter-spacing: -0.0024em;
 
   padding-top: 15px;
+  padding-right: 20px;
 
   color: #0b0b0b;
 `;
 export const ContentText = styled.div`
-  width: 100%;
+  padding-right: 20px;
+`;
+
+export const Section1 = styled.div`
+  padding-right: 20px;
+`;
+
+export const Sex = styled.div`
+  padding-right: 20px;
+`;
+
+// export const BtnBox = styled.div``;
+
+export const ReviewBtn = styled.button`
+  background: black;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+`;
+
+export const JoinBtn = styled.button`
+  background: black;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
 `;
 
 export const ThumbnailBox = styled.div`
@@ -607,47 +680,3 @@ export const LocaionText = styled.div`
 
   color: #8b8b8b;
 `;
-
-// 게시물 카드 부분
-export const BoardContainer = styled.div`
-  width: 280px;
-  height: 420px;
-  border: 1px solid red;
-  border-radius: 12px;
-`;
-
-export const BoardCard = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-export const BImgBox = styled.div`
-  width: 100%;
-  height: 200px;
-  background-color: blue;
-  border-radius: 12px;
-`;
-
-export const BoardImg = styled.img``;
-
-export const ContentsWrapper = styled.div``;
-
-export const BTitle = styled.div`
-  font-family: "AppleSDGothicNeoB00";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 28px;
-  line-height: 39px;
-  letter-spacing: -0.0024em;
-
-  color: #0b0b0b;
-`;
-
-export const BContents = styled.div``;
-
-export const BExercise = styled.div``;
-
-export const BArea = styled.div``;
-
-export const LocationIcon = styled.img``;
