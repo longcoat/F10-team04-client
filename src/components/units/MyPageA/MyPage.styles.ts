@@ -23,13 +23,21 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  padding: 100px;
+  padding-bottom: 100px;
 `;
 
 export const ProfileBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  padding-left: 200px;
+
+  ${M.mediaL} {
+    padding: 0 80px;
+  }
+  ${M.mediaM} {
+    padding: 0 80px;
+  }
 `;
 
 export const ProfileImageAvatarBox = styled.div``;
@@ -45,6 +53,9 @@ export const InfoBox = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 50px;
+  ${M.mediaM} {
+    padding-left: 50px;
+  }
 `;
 
 export const NickInfoBox = styled.div`
@@ -84,7 +95,13 @@ export const Modify = styled.div`
   letter-spacing: -0.002em;
 
   color: #8b8b8b;
-  padding: 45px 0 0 15px;
+  padding: 45px 0 0 37px;
+  ${M.mediaL} {
+    padding: 45px 0 0 40px;
+  }
+  ${M.mediaM} {
+    padding: 45px 0 0 137px;
+  }
 `;
 
 export const FriendBox = styled.div`
@@ -93,11 +110,12 @@ export const FriendBox = styled.div`
 
   ${M.mediaL} {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
   ${M.mediaM} {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    padding-right: 10px;
   }
 `;
 
@@ -152,13 +170,17 @@ export const FriendText = styled.div`
 
   ${M.mediaL} {
     margin-left: 3px;
-    padding-right: 20px;
+    /* padding-right: 20px; */
   }
   ${M.mediaM} {
   }
 `;
 
-export const FriendTextBox = styled.div``;
+export const FriendTextBox = styled.div`
+  ${M.mediaL} {
+    margin-left: 10px;
+  }
+`;
 
 export const FameTextBox = styled.div`
   color: #8b8b8b;
@@ -168,10 +190,17 @@ export const BoardBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  padding-left: 200px;
+  ${M.mediaL} {
+    padding-left: 80px;
+  }
+  ${M.mediaM} {
+    padding-left: 80px;
+  }
 `;
 
 export const FriendList = styled.div`
-  padding-right: 90px;
+  padding-right: 50px;
   ${M.mediaL} {
     padding-right: 0px;
   }
@@ -182,15 +211,33 @@ export const FriendList = styled.div`
 export const ChatList = styled.div``;
 
 export const PickList = styled.div`
-  margin-right: 90px;
+  margin-right: 50px;
+  ${M.mediaL} {
+    margin-right: 20px;
+  }
+  ${M.mediaM} {
+    margin-right: 27px;
+  }
 `;
 
 export const FriendListBox = styled.div`
-  padding-left: 10px;
+  ${M.mediaL} {
+    padding-right: 20px;
+  }
+  ${M.mediaM} {
+    padding-right: 27px;
+    padding-left: 0;
+  }
 `;
 
 export const ChatListBox = styled.div`
-  padding-right: 90px;
+  padding-right: 50px;
+  ${M.mediaL} {
+    padding-right: 20px;
+  }
+  ${M.mediaM} {
+    padding-right: 28px;
+  }
 `;
 
 export const PickListBox = styled.div``;
@@ -233,11 +280,11 @@ export const HeartBox1 = styled.div`
 
   ${M.mediaL} {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
   ${M.mediaM} {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
 `;
 export const Items = styled.div`
@@ -248,7 +295,7 @@ export const Items = styled.div`
 `;
 
 export const ListContainer = styled.div`
-  padding-top: 60px;
+  padding-top: 20px;
 `;
 
 export const ReactIconBox = styled.div``;
@@ -256,7 +303,6 @@ export const ReactIconBox = styled.div``;
 export const IconBox = styled.div`
   color: #8b8b8b;
   ${M.mediaL} {
-    padding-left: 5px;
   }
   ${M.mediaM} {
   }
@@ -274,7 +320,7 @@ export const RightIconDownBox = styled.div`
   padding-left: 30px;
   color: #8b8b8b;
   ${M.mediaL} {
-    padding-left: 5px;
+    padding-left: 30px;
   }
   ${M.mediaM} {
   }
@@ -283,7 +329,13 @@ export const RightIconDownBox = styled.div`
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡ보드리스트 부분ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 export const BoardListWrapper = styled.div`
-  padding: 50px 200px 0 200px;
+  padding: 0 200px 0 200px;
+  ${M.mediaL} {
+    padding: 0 80px 0 80px;
+  }
+  ${M.mediaM} {
+    padding: 0 80px 0 80px;
+  }
 `;
 
 export const BoardList = styled.div`
@@ -368,6 +420,10 @@ export const Content = styled.div`
 
   color: #0b0b0b;
 `;
+export const ContentText = styled.div`
+  width: 100%;
+`;
+
 export const ThumbnailBox = styled.div`
   width: 120px;
   height: 90px;
@@ -426,6 +482,21 @@ export const ChatListText = styled.div`
   color: ${(props) => (props.isActive ? "#C71515" : "none")};
 `;
 
+export const JoinCrewText = styled.div`
+  font-family: "AppleSDGothicNeoM00";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 22px;
+  text-align: center;
+  letter-spacing: -0.002em;
+  padding: 0 16px 10px 16px;
+  color: #0b0b0b;
+
+  border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
+  color: ${(props) => (props.isActive ? "#C71515" : "none")};
+`;
+
 export const MyPageImageBox = styled.div`
   width: 100%;
   height: 100%;
@@ -436,83 +507,147 @@ export const MyPageImage = styled.img``;
 
 // 운동게시글
 
-// export const Item = styled.div`
-//   width: 25%;
-//   margin-right: 20px;
-//   display: flex;
-//   flex-direction: column;
-//   background: #ffffff;
-//   box-shadow: 0px 0px 9px rgba(153, 153, 151, 0.25);
-//   border-radius: 12px;
-// `;
-// export const Img = styled.img`
-//   background-size: cover;
-//   width: 100%;
-//   height: 204px;
-//   border-radius: 12px;
-// `;
-// export const Main = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   padding-left: 18px;
-// `;
-// export const Title2 = styled.div`
-//   padding-top: 15px;
-//   font-style: normal;
-//   font-weight: 400;
-//   font-size: 28px;
-//   line-height: 39px;
-//   /* identical to box height */
+export const ExerciseBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0 200px;
+`;
 
-//   letter-spacing: -0.0024em;
+export const ItemBox = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* :nth-of-type(4) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  } */
+`;
 
-//   color: #0b0b0b;
-// `;
-// export const Contents = styled.div`
-//   padding-top: 8px;
-//   font-weight: 400;
-//   font-size: 15px;
-//   line-height: 21px;
-//   letter-spacing: -0.0024em;
+export const Item = styled.div`
+  width: 280px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  box-shadow: 0px 0px 9px rgba(153, 153, 151, 0.25);
+  border-radius: 12px;
+`;
+export const Img = styled.img`
+  background-size: cover;
+  width: 100%;
+  height: 204px;
+  border-radius: 12px;
+`;
+export const Main = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-left: 18px;
+`;
+export const Title2 = styled.div`
+  padding-top: 15px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 39px;
+  /* identical to box height */
 
-//   color: #8b8b8b;
-// `;
-// export const Sports = styled.div`
-//   padding-top: 18px;
-//   font-weight: 400;
-//   font-size: 12px;
-//   line-height: 17px;
-//   /* identical to box height */
+  letter-spacing: -0.0024em;
 
-//   display: flex;
-//   letter-spacing: -0.0024em;
+  color: #0b0b0b;
+`;
+export const Contents = styled.div`
+  padding-top: 8px;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 21px;
+  letter-spacing: -0.0024em;
 
-//   color: #0b0b0b;
-// `;
-// export const Footer = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   padding-top: 23px;
-//   padding-bottom: 20px;
-//   align-items: center;
-// `;
-// export const Location = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-// `;
-// export const Icon = styled.img`
-//   width: 24px;
-//   height: 24px;
-// `;
-// export const LocaionText = styled.div`
-//   font-weight: 400;
-//   font-size: 12px;
-//   line-height: 34px;
-//   /* identical to box height, or 283% */
-//   padding-left: 6px;
-//   letter-spacing: -0.48px;
+  color: #8b8b8b;
+`;
+export const Sports = styled.div`
+  padding-top: 18px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  /* identical to box height */
 
-//   color: #8b8b8b;
-// `;
+  display: flex;
+  letter-spacing: -0.0024em;
+
+  color: #0b0b0b;
+`;
+export const Footer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 23px;
+  padding-bottom: 20px;
+  align-items: center;
+`;
+export const Location = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+export const Icon = styled.img`
+  width: 24px;
+  height: 24px;
+`;
+export const LocaionText = styled.div`
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 34px;
+  /* identical to box height, or 283% */
+  padding-left: 6px;
+  letter-spacing: -0.48px;
+
+  color: #8b8b8b;
+`;
+
+// 게시물 카드 부분
+export const BoardContainer = styled.div`
+  width: 280px;
+  height: 420px;
+  border: 1px solid red;
+  border-radius: 12px;
+`;
+
+export const BoardCard = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const BImgBox = styled.div`
+  width: 100%;
+  height: 200px;
+  background-color: blue;
+  border-radius: 12px;
+`;
+
+export const BoardImg = styled.img``;
+
+export const ContentsWrapper = styled.div``;
+
+export const BTitle = styled.div`
+  font-family: "AppleSDGothicNeoB00";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 39px;
+  letter-spacing: -0.0024em;
+
+  color: #0b0b0b;
+`;
+
+export const BContents = styled.div``;
+
+export const BExercise = styled.div``;
+
+export const BArea = styled.div``;
+
+export const LocationIcon = styled.img``;
