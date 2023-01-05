@@ -6,6 +6,9 @@ import {
   EyeOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
+
+import Uploads01 from "../../commons/uploads/01/Uploads01.container";
+import { useRouter } from "next/router";
 const AreaOption = [
   { value: "서울특별시", label: "서울특별시" },
   { value: "인천광역시", label: "인천광역시" },
@@ -38,24 +41,33 @@ const FavOption = [
 ];
 
 export default function JoinPageUi(props) {
+  const router = useRouter();
   const [isNext, setIsNext] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
-  console.log(props.data?.checkNickName)
+  // 이미지 등록
+  const [image, setImage] = useState("");
+  const onChangeImage = (fileUrl) => {
+    const newFile = fileUrl;
+    setImage(newFile);
+  };
+  console.log(props.data?.checkNickName);
   const onClickNext = () => {
-    if(props.email.includes("@") 
-    && props.password.match(/^(?=.*[a-zA-Z]).{0,16}$/)
-    && props.password.match(/^(?=.*[0-9]).{0,16}$/)
-    && props.password.match(/^(?=.*[!@#$%^*+=-]).{0,16}$/)
-    && props.password.match(/^.{8,16}$/)
-    && props.password === props.cpassword
-    && props.nickNameCheck ){
-      setIsNext(prev => !prev)
-    }else if(!props.email.includes("@") ){
-      alert("이메일 형식을 확인해주세요.")
-    }else if(!props.nickNameCheck){
-      alert("닉네임 중복을 확인하세요.")
-    }else{
-      alert("비밀번호를 확인해주세요.")
+    if (
+      props.email.includes("@") &&
+      props.password.match(/^(?=.*[a-zA-Z]).{0,16}$/) &&
+      props.password.match(/^(?=.*[0-9]).{0,16}$/) &&
+      props.password.match(/^(?=.*[!@#$%^*+=-]).{0,16}$/) &&
+      props.password.match(/^.{8,16}$/) &&
+      props.password === props.cpassword &&
+      props.nickNameCheck
+    ) {
+      setIsNext((prev) => !prev);
+    } else if (!props.email.includes("@")) {
+      alert("이메일 형식을 확인해주세요.");
+    } else if (!props.nickNameCheck) {
+      alert("닉네임 중복을 확인하세요.");
+    } else {
+      alert("비밀번호를 확인해주세요.");
     }
   };
   const onClickBack = () => {
@@ -70,7 +82,7 @@ export default function JoinPageUi(props) {
         <S.Container>
           <S.JoinWrapper>
             <S.TitleBox>
-              <S.Title>RunGether</S.Title>
+              <S.Title onClick={() => router.push("/")}>RunGether</S.Title>
             </S.TitleBox>
             <S.JoinContainer>
               <S.JoinTitleBox>
@@ -109,8 +121,8 @@ export default function JoinPageUi(props) {
               )}
               <S.InfoBox1>
                 <S.Wrap>
-                <S.InfoTitle>비밀번호</S.InfoTitle>
-                {!props.pwAct && <S.RedDot>*</S.RedDot>}
+                  <S.InfoTitle>비밀번호</S.InfoTitle>
+                  {!props.pwAct && <S.RedDot>*</S.RedDot>}
                 </S.Wrap>
                 {!isHidden ? (
                   <EyeOutlined
@@ -118,7 +130,7 @@ export default function JoinPageUi(props) {
                     style={{
                       fontSize: "20px",
                       position: "relative",
-                      right:"20px",
+                      right: "20px",
                       top: "56px",
                       color: "#d9d9d9",
                     }}
@@ -129,7 +141,7 @@ export default function JoinPageUi(props) {
                     style={{
                       fontSize: "20px",
                       position: "relative",
-                      right:"20px",
+                      right: "20px",
                       top: "56px",
                       color: "#d9d9d9",
                     }}
@@ -143,7 +155,6 @@ export default function JoinPageUi(props) {
                   type={isHidden ? "text" : "password"}
                   placeholder="비밀번호를 입력해주세요."
                 />
-                
               </S.PassInputBox>
               <S.Error>
                 <S.Type>
@@ -235,7 +246,7 @@ export default function JoinPageUi(props) {
               <S.Title>RunGether</S.Title>
             </S.TitleBox>
             <S.ImgBox>
-              <S.ProfileImg src="/profile.png" />
+              <Uploads01 image={image} onChangeImage={onChangeImage} />
             </S.ImgBox>
             <S.ProfileTextBox>
               <S.ProfileText>프로필 사진 등록</S.ProfileText>

@@ -38,10 +38,11 @@ export default function LoginPage() {
       }
       setAccessToken(accessToken);
       localStorage.setItem("accessToken", accessToken);
-
+      Modal.success({ content: "로그인을 성공하였습니다." });
       router.push("/");
     } catch (error) {
-      if (error instanceof Error) Modal.error({ content: error });
+      if (error instanceof Error)
+        Modal.error({ content: "이메일을 확인해주세요." });
     }
   };
 
@@ -81,7 +82,7 @@ export default function LoginPage() {
   };
   return (
     <LoginUIPage
-    onClickSubmit={onClickSubmit}
+      onClickSubmit={onClickSubmit}
       formState={formState}
       emailAct={emailAct}
       pwAct={pwAct}
