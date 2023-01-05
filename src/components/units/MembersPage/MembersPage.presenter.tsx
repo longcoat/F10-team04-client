@@ -138,28 +138,28 @@ const levelOption = [
 ];
 
 export default function MembersUi(props) {
-  const [menuAct, setMenuAct] = useState(true)
-  const [menuAct1, setMenuAct1] = useState(false)
+  const [menuAct, setMenuAct] = useState(true);
+  const [menuAct1, setMenuAct1] = useState(false);
   const onClickMenu1 = () => {
-      if(!menuAct){
-        if(menuAct1){
-          setMenuAct(prev => !prev)
-          setMenuAct1(prev => !prev)
-        }else{
-          setMenuAct(prev => !prev)
-        }
-    }
-  }
-  const onClickMenu2 = () => {
-    if(!menuAct1){
-      if(menuAct){
-        setMenuAct(prev => !prev)
-        setMenuAct1(prev => !prev)
-      }else{
-        setMenuAct1(prev => !prev)
+    if (!menuAct) {
+      if (menuAct1) {
+        setMenuAct((prev) => !prev);
+        setMenuAct1((prev) => !prev);
+      } else {
+        setMenuAct((prev) => !prev);
       }
-  }
-}
+    }
+  };
+  const onClickMenu2 = () => {
+    if (!menuAct1) {
+      if (menuAct) {
+        setMenuAct((prev) => !prev);
+        setMenuAct1((prev) => !prev);
+      } else {
+        setMenuAct1((prev) => !prev);
+      }
+    }
+  };
   return (
     <S.Wrapper>
       <S.SearchWrap>
@@ -225,8 +225,12 @@ export default function MembersUi(props) {
         <S.ResultWrap>
           <S.ResultTitle>검색결과</S.ResultTitle>
           <S.TabMenu>
-            <S.Item isActive={menuAct} onClick={onClickMenu1}>최신순</S.Item>
-            <S.Item isActive={menuAct1} onClick={onClickMenu2}>인기순</S.Item>
+            <S.Item isActive={menuAct} onClick={onClickMenu1}>
+              최신순
+            </S.Item>
+            <S.Item isActive={menuAct1} onClick={onClickMenu2}>
+              인기순
+            </S.Item>
           </S.TabMenu>
           <S.Items>
             {props.result?.map((el) => (

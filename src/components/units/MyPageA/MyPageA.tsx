@@ -4,15 +4,21 @@ import { BiUserPlus } from "react-icons/bi";
 import { FaRegHeart } from "react-icons/bi";
 import { useState } from "react";
 import { RightOutlined } from "@ant-design/icons";
-// const aaa = [
-//   {
-//     nickName: "asd",
-//     age: "10대",
-//     region: "서울",
-//   },
-// ];
+import { gql, useQuery } from "@apollo/client";
+const FETCH_USER_LOGGED_IN = gql`
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
+      id
+      email
+      nickname
+      grade
+    }
+  }
+`;
 
 export default function MyPageA(props) {
+  const { data } = useQuery(FETCH_USER_LOGGED_IN);
+  console.log(data);
   const [color1, setColor1] = useState(true);
   const [color2, setColor2] = useState(false);
   const [color3, setColor3] = useState(false);
@@ -99,7 +105,7 @@ export default function MyPageA(props) {
             </S.ProfileImageAvatarBox>
             <S.InfoBox>
               <S.NickInfoBox>
-                <S.Nickname>춘식이님</S.Nickname>
+                <S.Nickname>{data?.fetchUserLoggedIn?.nickname}</S.Nickname>
                 <S.Nim>님</S.Nim>
                 <S.Modify>회원정보수정</S.Modify>
               </S.NickInfoBox>
