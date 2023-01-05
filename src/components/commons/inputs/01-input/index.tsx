@@ -20,15 +20,10 @@ export default function Input01(props: IInputProps) {
 }
 
 const Input = styled.input`
-  background-color: #353535;
-  color: white;
-  font-size: 23px;
-  width: 500px;
-  height: 70px;
-  margin: 20px 0px;
-  border-radius: 5px;
-  padding-left: 20px;
-  border: none;
+   border: 1px solid #8b8b8b;
+  border-radius: 16px;
+  width: 242px;
+  height: 63px;
 
   :focus {
     color: white;

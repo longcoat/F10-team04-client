@@ -10,7 +10,7 @@ const SideBarWrap = styled.div`
   border-radius: 15px 0 0 15px;
   background-color: #e7e4e1;
   height: 100%;
-  width: 55%;
+  width: 30%;
   right: -55%;
   top: 0;
   position: fixed;
@@ -24,9 +24,9 @@ const SideBarWrap = styled.div`
   }
 `;
 
-const Menu = styled.li`
+const Menu = styled.div`
   margin: 30px 8px;
-  font-family: Code Next-Trial;
+  font-family: "Code Next-Trial";
   font-size: 32px;
   font-weight: 400;
   letter-spacing: -0.011em;
@@ -64,13 +64,12 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any }) {
   return (
     <SideBarWrap id="sidebar" ref={outside} className={isOpen ? "open" : ""}>
       <CloseOutlined alt="close" onClick={toggleSide} onKeyDown={toggleSide} />
-      <ul>
-        <Menu onClick={() => router.push("/login")}>Login</Menu>
-        <Menu onClick={() => router.push("/join")}>Join</Menu>
-        <Menu>Members</Menu>
-        <Menu onClick={() => router.push("/community")}>Community</Menu>
-        <Menu>MyMenu</Menu>
-      </ul>
+
+      <Menu onClick={() => router.push("/login")}>Login</Menu>
+      <Menu onClick={() => router.push("/join")}>Join</Menu>
+      <Menu>Members</Menu>
+      <Menu onClick={() => router.push("/community")}>Community</Menu>
+      <Menu>MyMenu</Menu>
     </SideBarWrap>
   );
 }

@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
-
 `;
 export const Container = styled.div`
   width: 100%;
@@ -18,14 +17,12 @@ export const Container = styled.div`
   @media only screen and (max-width: 1024px) {
     background-position-x: -130px;
   }
-
 `;
 export const MainTextBox = styled.div`
-padding-top: 20% ;
+  padding-top: 20%;
   @media only screen and (max-width: 1024px) {
-    padding-top: 20% ;
+    padding-top: 20%;
   }
-
 `;
 export const Title = styled.h1`
   color: white;
@@ -55,8 +52,9 @@ export const contents = styled.p`
   @media only screen and (max-width: 1024px) {
     font-size: 20px;
   }
-@media only screen and (max-width: 768px) {
-  font-size: 18px;  }
+  @media only screen and (max-width: 768px) {
+    font-size: 18px;
+  }
 `;
 
 export const Wrapper_2 = styled.div`
@@ -66,8 +64,8 @@ export const Wrapper_2 = styled.div`
   @media only screen and (max-width: 1024px) {
     width: 1000px;
   }
-@media only screen and (max-width: 768px) {
-  width: 700px;  
+  @media only screen and (max-width: 768px) {
+    width: 700px;
   }
 `;
 
@@ -84,8 +82,8 @@ export const Title_2 = styled.h1`
   @media only screen and (max-width: 1024px) {
     font-size: 80px;
   }
-@media only screen and (max-width: 768px) {
-  font-size: 60px;
+  @media only screen and (max-width: 768px) {
+    font-size: 60px;
   }
 `;
 export const MEMBERS = styled.div`
@@ -102,12 +100,12 @@ export const MEMBERS = styled.div`
   top: 10px;
   z-index: -1;
   @media only screen and (max-width: 1024px) {
-  font-size: 120px;
-  right: 150px;
+    font-size: 120px;
+    right: 150px;
   }
-@media only screen and (max-width: 768px) {
-  font-size: 90px;
-  right: 110px;
+  @media only screen and (max-width: 768px) {
+    font-size: 90px;
+    right: 110px;
   }
 `;
 export const MainContents = styled.div`
@@ -115,7 +113,6 @@ export const MainContents = styled.div`
   padding-right: 80px;
   display: flex;
   justify-content: space-between;
-
 `;
 export const ImgBox = styled.div`
   width: 55%;
@@ -126,7 +123,7 @@ export const ImgBox = styled.div`
     width: 50%;
     background-position-x: -320px;
   }
-@media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 768px) {
     background-position-x: -400px;
   }
 `;
@@ -139,10 +136,8 @@ export const ContentsBox = styled.div`
   justify-content: center;
   @media only screen and (max-width: 1024px) {
     width: 40%;
-
   }
-@media only screen and (max-width: 768px) {
-
+  @media only screen and (max-width: 768px) {
   }
 `;
 
@@ -154,12 +149,11 @@ export const Contents_title = styled.h1`
   text-align: left;
   @media only screen and (max-width: 1024px) {
     line-height: 50px;
-  font-size: 36px;
-
+    font-size: 36px;
   }
-@media only screen and (max-width: 768px) {
-  line-height: 40px;
-  font-size: 30px;
+  @media only screen and (max-width: 768px) {
+    line-height: 40px;
+    font-size: 30px;
   }
 `;
 export const Btn = styled.button`
@@ -167,7 +161,7 @@ export const Btn = styled.button`
   border: none;
   padding: 3px 7px;
   cursor: pointer;
-`
+`;
 export const Contents_2 = styled.p`
   font-size: 14px;
   font-weight: 400;
@@ -177,7 +171,6 @@ export const Contents_2 = styled.p`
   margin-bottom: 50px;
 `;
 export const MemberBtn = styled.div`
-
   color: white;
   font-size: 14px;
   font-weight: 400;
@@ -202,8 +195,8 @@ export const Title_3 = styled.h1`
   @media only screen and (max-width: 1024px) {
     font-size: 80px;
   }
-@media only screen and (max-width: 768px) {
-  font-size: 60px;
+  @media only screen and (max-width: 768px) {
+    font-size: 60px;
   }
 `;
 export const MainContents2 = styled.div`
@@ -217,12 +210,12 @@ export const ContentsBox2 = styled.div`
   height: 294px;
   display: flex;
   flex-direction: column;
-  justify-content: center;  
+  justify-content: center;
   @media only screen and (max-width: 1024px) {
     width: 48%;
   }
-@media only screen and (max-width: 768px) {
-  font-size: 60px;
+  @media only screen and (max-width: 768px) {
+    font-size: 60px;
   }
 `;
 export const COMMUNITY = styled.div`
@@ -239,12 +232,12 @@ export const COMMUNITY = styled.div`
   top: 30px;
   z-index: -1;
   @media only screen and (max-width: 1024px) {
-  font-size: 110px;
-  top: 20px;
-  right: 10px;
+    font-size: 110px;
+    top: 20px;
+    right: 10px;
   }
-@media only screen and (max-width: 768px) {
-  font-size: 90px;
-  right: 30px;
+  @media only screen and (max-width: 768px) {
+    font-size: 90px;
+    right: 30px;
   }
 `;
