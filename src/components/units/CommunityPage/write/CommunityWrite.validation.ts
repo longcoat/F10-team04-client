@@ -1,15 +1,13 @@
 import * as yup from "yup";
 
 export const schema = yup.object({
-  email: yup
+  title: yup
     .string()
-    .email("이메일 형식에 적합하지 않습니다.")
-    .required("이메일은 필수 입력입니다."),
-  password: yup
+    .required("제목은 필수 입력입니다."),
+  sports: yup
     .string()
-    .matches(
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/,
-      "비밀번호는 영문, 숫자, 특수문자를 포함한 8자리 이내로 입력해주세요."
-    )
-    .required("비밀번호는 필수 입력힙니다."),
+    .required("모집운동은 필수 입력입니다."),
+    people: yup
+    .string()
+    .required("모집인원은 필수 입력입니다.")
 });
