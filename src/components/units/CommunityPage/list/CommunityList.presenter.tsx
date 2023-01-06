@@ -6,7 +6,7 @@ import CommunityDetailPage from "../detail/CommunityDetail.container";
 import InfiniteScroll from "react-infinite-scroller";
 import DOMPurify from "dompurify";
 import { Modal } from "antd";
-import { modalState2 } from "../../../../commons/stores";
+import { modalDetailState} from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
 import { getDate } from "../../../../commons/library/utils";
 
@@ -30,7 +30,7 @@ const levelOption = [
 ];
 
 export default function CommunityListUi(props: any) {
-  const [ModalOpen, setModalOpen] = useRecoilState(modalState2);
+  const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [first, setFirst] = useState(true);
   const [second, setSecond] = useState(false);
 
@@ -54,7 +54,7 @@ export default function CommunityListUi(props: any) {
       }
     }
   };
-
+console.log(props.data)
   return (
 
 <>
@@ -114,15 +114,17 @@ export default function CommunityListUi(props: any) {
             <CommunityWrite />
           </S.TabMenu>
           {first?
+          <InfiniteScroll pageStart={0} loadMore={props.onLoadMore} hasMore={true}>
            <S.Items>
             {props.result.map((el, index) => (
         <S.Item key={el.id}>
           <S.Img 
            style={{
             backgroundImage:
-              el.image === undefined || el.image === ""
+              el.image?.imgUrl === undefined || el.image?.imgUrl === ""
                 ? "url(./images/list/1.png)"
-                : `url(https://storage.googleapis.com/${el.image})`,
+                : `url(${el.image?.imgUrl})`,
+                backgroundPosition:"center"
           }}
           ></S.Img>
           <S.Main>
@@ -145,9 +147,11 @@ export default function CommunityListUi(props: any) {
         </S.Item>
         ))}
          </S.Items>
+         </InfiniteScroll>
           :
+          <InfiniteScroll pageStart={0} loadMore={props.onLoadMore} hasMore={true}>
           <S.Items>
-             {props.result2.map((el, index) => (
+             {props.result2.map((el) => (
         <S.Item key={el.id}>
           <S.Img src="./images/list/1.png"></S.Img>
           <S.Main>
@@ -171,10 +175,9 @@ export default function CommunityListUi(props: any) {
         ))}
 
           </S.Items>
+          </InfiniteScroll>
           }
-         
         </S.ResultWrap>
-     
     </S.Wrapper>
 
     </>

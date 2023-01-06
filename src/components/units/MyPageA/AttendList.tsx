@@ -29,7 +29,7 @@ export default function AttendList() {
   return (
     <>
       {data?.fetchAttendList?.map((el: any, index) => {
-        // <BoardListWrapper key={el.id}>
+        <BoardListWrapper key={el.id}>
         <BoardList key={el.id}>
           <ImageListProfileBox>
             <ImageListProfile src="/profile.png" />
@@ -48,7 +48,7 @@ export default function AttendList() {
             <ThumbnailImage src="/thumbnailsample.png" />
           </ThumbnailBox>
         </BoardList>;
-        // </BoardListWrapper>;
+        </BoardListWrapper>;
       })}
     </>
   );

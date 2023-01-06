@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { modalState2 } from "../../../../commons/stores";
+import { modalDetailState} from "../../../../commons/stores";
 import { FETCH_BOARD } from "../detail/CommunityDetail.queries";
 import CommunityListUi from "./CommunityList.presenter";
 
@@ -10,10 +10,9 @@ import CommunityListUi from "./CommunityList.presenter";
 import { FETCH_ALL_BOARDS, FETCH_ALL_BOARDS_WITH_PICK_BOARD} from "./CommunityList.queries";
 
 export default function CommunityList() {
-  const [ModalOpen, setModalOpen] = useRecoilState(modalState2);
+  const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [boardId, setBoardId] = useState("")
   const [level, setLevel] = useState("")
-
   const { data, refetch, fetchMore } = useQuery(FETCH_ALL_BOARDS);
   const [Lo, setLo] = useState("")
   const { data : Pick, refetch: pickRefetch, fetchMore: pickFetchMore } = useQuery(FETCH_ALL_BOARDS_WITH_PICK_BOARD);
@@ -24,7 +23,7 @@ export default function CommunityList() {
 
     fetchMore({
       variables: {
-        page: Math.ceil(data?.fetchAllBoards.length / 10) + 1,
+        page: Math.ceil(data?.fetchAllBoards.length / 9) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (fetchMoreResult.fetchAllBoards == undefined) {
@@ -48,7 +47,7 @@ export default function CommunityList() {
 
     pickFetchMore({
       variables: {
-        page: Math.ceil(Pick?.fetchAllBoardsWithPickCount.length / 10) + 1,
+        page: Math.ceil(Pick?.fetchAllBoardsWithPickCount.length / 9) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (fetchMoreResult.fetchAllBoardsWithPickCount == undefined) {

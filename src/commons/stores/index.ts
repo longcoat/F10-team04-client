@@ -14,16 +14,24 @@ export const restoreAccessTokenLoadable = selector({
   },
 });
 
-export const modalState = atom({
-  key: "modalState",
+export const modalWriteState = atom({
+  key: "modalWriteState",
   default: false,
 });
-export const modalState2 = atom({
-  key: "modalState2",
+export const modalEditState = atom({
+  key: "modalEditState",
+  default: false,
+});
+export const modalDetailState = atom({
+  key: "modalDetailState",
   default: false,
 });
 export const boardImageState = atom({
   key: "boardImageState",
+  default: "",
+});
+export const EditBoardId = atom({
+  key: "EditBoardId",
   default: "",
 });
 export const mapPathState = atom({

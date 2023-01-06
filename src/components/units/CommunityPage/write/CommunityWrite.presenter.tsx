@@ -1,22 +1,11 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
-import * as S from "./CommunityWrite.styles";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
-import KakaoMapUI from "../../../commons/map/mapsearch";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-// 날짜 (시간)선택 ==================
-import { DatePicker, Space } from "antd";
-import type { RangePickerProps } from "antd/es/date-picker";
-import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import Input03 from "../../../commons/inputs/03-input";
 import styled from "@emotion/styled";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { schema } from "./CommunityWrite.validation";
 import InModalWrite from "../../../commons/modal(write)";
-import { modalState } from "../../../../commons/stores";
+import { modalWriteState } from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
 
 
@@ -66,7 +55,7 @@ const ModalCustom = styled(Modal)`
 //========================================
 
 export default function CommunityWriteUI(props: any) {
-  const [ModalOpen, setModalOpen] = useRecoilState(modalState);
+  const [ModalOpen, setModalOpen] = useRecoilState(modalWriteState);
   
   return (
     <>

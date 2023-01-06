@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {  HeartOutlined} from "@ant-design/icons";
+import {  DeleteOutlined, EditOutlined, HeartFilled, HeartOutlined} from "@ant-design/icons";
 import * as S from "./CommunityDetail.styles";
 import { timeForToday } from "../../../../commons/library/utils2";
-
+import { modalEditState } from "../../../../commons/stores";
+import { useRecoilState } from "recoil";
+import InModalEdit from "../../../commons/modal(edit)";
+import { Modal } from "antd";
+import styled from "@emotion/styled";
 
 declare const window: typeof globalThis & {
   kakao: any
@@ -12,23 +16,33 @@ declare const window: typeof globalThis & {
 export default function CommunityDetailUIPage(props: any) {
   const [path, setPath] = useState([])
   const [center, setCenter] = useState([])
+  const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
+
 
 useEffect(() =>{
-  if(props.data) {
-    setPath(JSON.parse(props.data?.fetchBoard.location.path))
-    setCenter(JSON.parse(props.data?.fetchBoard.location.center))
-}
+
+    if(props.data?.fetchBoard.location.path === "[]" ||
+      props.data?.fetchBoard.location.center === "[]" ){
+      setPath([""])
+      setCenter([33.450701, 126.570667])
+    }else if(props.data?.fetchBoard.location.path &&
+      props.data?.fetchBoard.location.center
+      ){
+        setPath(JSON.parse(props.data?.fetchBoard.location.path))
+        setCenter(JSON.parse(props.data?.fetchBoard.location.center))
+    }
 },[props.data])
+
 
   useEffect(()=> {
     const script = document.createElement("script") // <script></script> 랑 동일
-    script.src = "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=dfd2187d17e3ae42f8de6ad34cb0fa34&libraries=drawing"
+    script.src = "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=156a6035a2a4c90c8d372966f723e3cc&libraries=drawing"
     document.head.appendChild(script)
 
     script.onload = () => {
 
         window.kakao.maps.load(function(){
-            let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            let mapContainer = document.getElementById('viewMap'), // 지도를 표시할 div 
             mapOptions = { 
                 center: new window.kakao.maps.LatLng(center[0], center[1]), // 지도의 중심좌표
                 level: 4 // 지도의 확대 레벨
@@ -50,8 +64,7 @@ useEffect(() =>{
       obj.latlng.Ma = Object.values(path[i])[1]
       positions.push(obj)
  }
- 
- console.log(positions)
+
 
  let linePath;
  let lineLine = new window.kakao.maps.Polyline();
@@ -78,7 +91,6 @@ useEffect(() =>{
         distance = Math.round(lineLine.getLength())
         displayCircleDot(positions[i].latlng, distance)
     }
-    console.log(linePath)
 
     function displayCircleDot(position, distance){
         if(distance > 0) {
@@ -155,6 +167,14 @@ useEffect(() =>{
 },[path, center])
   return (
     <>
+      <ModalCustom
+        title="게시물 작성"
+        centered
+        open={ModalOpen}
+        width={1100}
+      >
+        <InModalEdit data={props.data}/>
+      </ModalCustom>
       <S.Wrapper>
         <S.Header>
           <S.Img src="./images/example.png"></S.Img>
@@ -172,7 +192,9 @@ useEffect(() =>{
               </S.MapWrap>
             </S.Left>
             <S.Right>
+    
               {props.pick ? (
+                 <div>
                 <HeartFilled
                   onClick={props.onClickPick}
                   style={{
@@ -181,19 +203,26 @@ useEffect(() =>{
                     color: "#C71515",
                   }}
                 />
+                    {props.data?.fetchBoard.pickCount}
+                </div>
               ) : (
+                <div>
                 <HeartOutlined
                   onClick={props.onClickPick}
                   style={{ marginRight: "10px", lineHeight: "35px" }}
                 />
+                    {props.data?.fetchBoard.pickCount}
+                </div>
               )}
-
-              {props.data?.fetchBoard.pickCount}
             </S.Right>
           </S.UerInfo>
         </S.Head>
         <S.Line />
         <S.Main>
+        <S.IconWarp>
+              <EditOutlined onClick={props.onClickEdit(props.data?.fetchBoard.id)} style={{marginRight:"20px", cursor:"pointer"}}/>
+              <DeleteOutlined onClick={props.onClickDelete}  style={{cursor:"pointer"}}/>
+              </S.IconWarp>
           <S.Title2>{props.data?.fetchBoard.title}</S.Title2>
 
           <S.Detail>
@@ -204,11 +233,11 @@ useEffect(() =>{
             </S.Create>
           </S.Detail>
           <S.Contents>{props.data?.fetchBoard.title}</S.Contents>
-             <div id="map" style={{width:"100%" ,height:400, marginTop:"20px"}}></div> 
+           <div id="viewMap" style={{width:"100%" ,height:400, marginTop:"20px"}}></div> 
           <S.BtnWrap>
             <S.Button1 onClick={props.onClickClose}>닫기</S.Button1>
-            <S.Button2>수정하기</S.Button2>
-            <S.Button3 onClick={props.onClickAttend}>
+            <S.Button3 
+            onClick={props.data?.fetchBoard.recruitPeople === props.data?.fetchBoard.attendCount ? props.onClickNoAtt :props.onClickAttend}>
               {!props.attend ? "참여하기" : "참가취소"}
             </S.Button3>
 
@@ -218,3 +247,44 @@ useEffect(() =>{
     </>
   );
 }
+const ModalCustom = styled(Modal)`
+  .ant-modal-header {
+    padding: 16px 24px;
+    padding-top: 30px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+    border-radius: 2px 2px 0 0;
+    height: 80px;
+  }
+  .ant-modal-title {
+    color: #fff;
+  }
+  .ant-modal-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .ant-modal-footer > .ant-btn-primary {
+    width: 161px;
+    height: 63px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+  }
+  .ant-modal-footer > .ant-btn-default {
+    width: 161px;
+    height: 63px;
+    background-color: #f6f6f6;
+    color: #8b8b8b;
+    border: none;
+  }
+  .ant-modal-footer {
+    height: 0px;
+    border: none;
+}
+.ant-btn {
+    visibility: hidden;
+}
+`;

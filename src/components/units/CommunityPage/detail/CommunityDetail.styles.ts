@@ -12,17 +12,26 @@ export const Img = styled.img`
   width: 100%;
   height: 300px;
 `;
+export const IconWarp = styled.div`
+width: 100%;
+display: flex;
+justify-content: flex-end;
+font-size: 20px;
+`
 export const Head = styled.div`
   padding-top: 30px;
   display: flex;
   flex-direction: row;
 `;
 export const AvatarWrap = styled.div`
-  width: 128px;
-  height: 128px;
+  width: 110px;
+  height: 100px;
+  border: 1px solid red;
 `;
 
-export const Avatar = styled.img``;
+export const Avatar = styled.img`
+width: 100%;
+`;
 
 export const UerInfo = styled.div`
   width: 100%;
@@ -37,7 +46,7 @@ export const UserName = styled.div`
   font-family: "AppleSDGothicNeoB00";
   font-style: normal;
   font-weight: 400;
-  font-size: 44px;
+  font-size: 30px;
   line-height: 62px;
   /* identical to box height, or 141% */
   letter-spacing: -0.002em;
@@ -48,14 +57,14 @@ export const MapWrap = styled.div`
   flex-direction: row;
 `;
 export const MapIcon = styled.img`
-  width: 32px;
-  height: 32px;
+  width: 25px;
+  height: 25px;
   margin-right: 10px;
 `;
 export const MapText = styled.div`
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 15px;
   line-height: 30px;
   /* identical to box height, or 167% */
 
@@ -65,7 +74,7 @@ export const MapText = styled.div`
 `;
 export const Right = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   font-weight: 400;
   font-size:25px;
   line-height: 30px;
