@@ -4,18 +4,16 @@ import { DatePicker, Modal } from "antd";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-
-
-import KakaoMapUI from "../map/mapsearch";
 import { useState } from 'react';
-import { boardImageState, mapCenterState, mapPathState, modalWriteState } from '../../../commons/stores';
+import { EditBoardId, mapCenterState, mapPathState, modalEditState} from '../../../commons/stores';
 import { useRecoilState } from 'recoil';
-import { CREATE_BOARD } from '../../units/CommunityPage/write/CommunityWrite.queries';
+import { CREATE_BOARD, UPDATE_BOARD } from '../../units/CommunityPage/write/CommunityWrite.queries';
 import { useMutation } from '@apollo/client';
 import Uploads01 from '../uploads/01/Uploads01.container';
 import dynamic from 'next/dynamic';
 import { FETCH_ALL_BOARDS } from "../../units/CommunityPage/list/CommunityList.queries";
 import { useRouter } from "next/router";
+import { IUpdateUseditemInput } from "../../units/CommunityPage/write/Community.type";
 
 const ReactQuill = dynamic( async() => await import('react-quill'), {
     ssr : false
@@ -120,11 +118,12 @@ const disabledRangeTime: RangePickerProps["disabledTime"] = (_, type) => {
   };
 };
 
-export default function InModalWrite(props) {
+export default function InModalEdit(props) {
   const router = useRouter()
   const [center, setCenter] = useRecoilState(mapCenterState);
   const [path, setPath] = useRecoilState(mapPathState);
-  const [ModalOpen, setModalOpen] = useRecoilState(modalWriteState);
+  const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
+  const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
   const [recruitRegion, setRecruitRegion] = useState("서울특별시");
   const [recruitGrade, setRecruitGrade] = useState("Beginner");
   const [title, setTitle] = useState("");
@@ -134,38 +133,50 @@ export default function InModalWrite(props) {
   const [recruitPeople, setRecruitPeople] = useState(0)
   const [image, setImage] = useState("")
 
-  const [createBoard] = useMutation(CREATE_BOARD);
+  const [updateBoard] = useMutation(UPDATE_BOARD);
+  console.log(props.data?.fetchBoard.image)
+  const onClickUpdate = async () => {
+    const updateBoardInput: IUpdateUseditemInput= {};
+    if (props.data?.fetchBoard.title) updateBoardInput.title = props.data.fetchBoard.title;
+    if (props.data?.fetchBoard.content) updateBoardInput.content = props.data.fetchBoard.content;
+    if (props.data?.fetchBoard.recruitSports) updateBoardInput.recruitSports = props.data.fetchBoard.recruitSports;
+    if (props.data?.fetchBoard.recruitGrade) updateBoardInput.recruitGrade = props.data.fetchBoard.recruitGrade;
+    if (props.data?.fetchBoard.recruitRegion) updateBoardInput.recruitRegion = props.data.fetchBoard.recruitRegion;
+    if (props.data?.fetchBoard.recruitPeople) updateBoardInput.recruitPeople = props.data.fetchBoard.recruitPeople;
+      if (props.data?.fetchBoard.image?.imgUrl) updateBoardInput.image = props.data.fetchBoard.image?.imgUrl;
+    if (props.data?.fetchBoard.location.path || props.data.fetchBoard.location.center) {
+      updateBoardInput.location = {};
+      if (props.data?.fetchBoard.location.path) updateBoardInput.location.path = props.data.fetchBoard.location.path;
+      if (props.data?.fetchBoard.location.center)
+      updateBoardInput.location.center = props.data.fetchBoard.location.center;
+    }
 
-  const onClickSubmit = async () => {
     try {
-      const result = await createBoard({
+      const result = await updateBoard({
         variables: {
-          createBoardInput: {
-            title,
-            content,
-            appointment,
-            recruitSports,
-            recruitGrade,
-            recruitRegion,
-            image,
-            recruitPeople: Number(recruitPeople),
+          boardId: String(editBoardId),
+          updateBoardInput :{
+            title: updateBoardInput.title,
+            content: updateBoardInput.content,
+            recruitSports: updateBoardInput.recruitSports,
+            recruitGrade: updateBoardInput.recruitGrade,
+            recruitRegion: updateBoardInput.recruitRegion,
+            recruitPeople: updateBoardInput.recruitPeople,
+            image : image,
             location: {
-              path,
-              center
+              path : updateBoardInput.location.path,
+              center: updateBoardInput.location.center
             }
-          },
-          refetchQueries: [{ query: FETCH_ALL_BOARDS }],
-        },
+          }
+        },refetchQueries: [{ query: FETCH_ALL_BOARDS }],
       });
       setModalOpen(false);
      router.push(`/community/`)
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
-
-   
-
     }
   };
+
   const onChangePeople = (e) => {
     setRecruitPeople(e.target.value)
   }
@@ -179,8 +190,7 @@ export default function InModalWrite(props) {
     setAppointment(e?._d);
   };
   const onChangeContent = (value) => {
-    // event가 들어오는 것이 아니다. html의 속성이 아닌 ReactQuill의 속성이기 때문이다. value가 바로 들어온다.
-    setContent(value === "<p><br></p>" ? "" : value); // setValue를 사용하면 register로 등록하지 않고 강제로 값을 넣어줄 수 있다.
+    setContent(value === "<p><br></p>" ? "" : value); 
   };
   const onChangeLo = (e) => {
     setRecruitRegion(e);
@@ -192,19 +202,17 @@ export default function InModalWrite(props) {
     const newFile = fileUrl;
     setImage(newFile);
   };
-  console.log(path, center)
 
   return (
     <S.Wrapper>
       <S.Header>
-        {/* {" "} */}
         <Uploads01 image={image} onChangeImage={onChangeImage} />
         <S.InputWrap1>
           <S.InputWrap2>
             <S.InputWrapper>
               <S.Ctg_title>제목</S.Ctg_title>
               <S.InputBox
-                placeholder="한강 러닝🏃🏻 하실분 ~~!!"
+                defaultValue={props.data?.fetchBoard.title}
                 type="text"
                 onChange={onChangeTitle}
               />
@@ -212,14 +220,16 @@ export default function InModalWrite(props) {
             <S.InputWrapper>
               <S.Ctg_title>모집운동</S.Ctg_title>
               <S.InputBox
-                placeholder="풋살"
+                defaultValue={props.data?.fetchBoard.recruitSports}
                 type="text"
                 onChange={onChangeSports}
               />
             </S.InputWrapper>
             <S.InputWrapper>
               <S.Ctg_title>모집인원</S.Ctg_title>
-              <S.InputBox onChange={onChangePeople} placeholder="ex) 7" type="text" />
+              <S.InputBox onChange={onChangePeople} 
+              defaultValue={props.data?.fetchBoard.recruitPeople}
+              type="text" />
             </S.InputWrapper>
           </S.InputWrap2>
           <S.InputWrap3>
@@ -227,8 +237,8 @@ export default function InModalWrite(props) {
               <S.Ctg_title>지역</S.Ctg_title>
               <S.Selectbar>
                 <S.SelectArea
+                  defaultValue={props.data?.fetchBoard.recruitRegion}
                   onChange={onChangeLo}
-                  defaultValue={AreaOption[0]}
                   style={{ width: "100%", borderRadius: "10px" }}
                   options={AreaOption}
                 />
@@ -256,8 +266,8 @@ export default function InModalWrite(props) {
               <S.Ctg_title>운동 레벨</S.Ctg_title>
               <S.Selectbar>
                 <S.SelectArea
+                  defaultValue={props.data?.fetchBoard.recruitGrade}
                   onChange={onChangeGrade}
-                  defaultValue={exOption[0]}
                   style={{ width: "100%", borderRadius: "10px" }}
                   options={exOption}
                 />
@@ -269,6 +279,7 @@ export default function InModalWrite(props) {
       <S.InputWrapper1>
         <S.Ctg_title2>내용</S.Ctg_title2>
         <ReactQuill
+        defaultValue={props.data?.fetchBoard.content}
           onChange={onChangeContent}
           style={{
             width: "100%",
@@ -278,12 +289,12 @@ export default function InModalWrite(props) {
           // value={props.getValues("contents") || ""}
         />
       </S.InputWrapper1>
-      <KakaoMapUI />
+      {/* <KakaoMapUI data={props.data} /> */}
       <S.ButtonWrap>
         <S.Button1 type="button" onClick={() => setModalOpen(false)}>
           취소하기
         </S.Button1>
-        <S.Button2 onClick={onClickSubmit}>작성하기</S.Button2>
+        <S.Button2 onClick={onClickUpdate}>수정하기</S.Button2>
       </S.ButtonWrap>
     </S.Wrapper>
   );

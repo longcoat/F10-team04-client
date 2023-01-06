@@ -17,6 +17,7 @@ export default function KaKaoMapPage() {
   const [address, setAddress] = useState("");
   const [center1, setCenter1] = useRecoilState(mapCenterState);
   const [path1, setPath1] = useRecoilState(mapPathState);
+  // let geocoder:any
 
   const onToggleModal = () => {
     setIsOpen((prev) => !prev);
@@ -27,19 +28,24 @@ export default function KaKaoMapPage() {
     setAddress(data.address);
   };
 
+  
+
   useEffect(() => {
     const script = document.createElement("script"); // <script></script> 랑 동일
     script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=dfd2187d17e3ae42f8de6ad34cb0fa34&libraries=services,drawing";
+      "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=156a6035a2a4c90c8d372966f723e3cc&libraries=services,drawing";
     document.head.appendChild(script);
 
     script.onload = () => {
       window.kakao.maps.load(function () {
-        let mapContainer = document.getElementById("map"), // 지도를 표시할 div
+   
+        let mapContainer = document.getElementById("SearchMap"), // 지도를 표시할 div
           mapOptions = {
             center: new window.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
             level: 4, // 지도의 확대 레벨
           };
+
+      
         var map = new window.kakao.maps.Map(mapContainer, mapOptions);
 
         var drawingFlag = false; // 선이 그려지고 있는 상태를 가지고 있을 변수입니다
@@ -47,20 +53,19 @@ export default function KaKaoMapPage() {
         var clickLine; // 마우스로 클릭한 좌표로 그려질 선 객체입니다
         var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
         var dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
-
-        let geocoder = new window.kakao.maps.services.Geocoder();
+ 
+ 
+        var geocoder = new window.kakao.maps.services.Geocoder();
+    
+       
 
         // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(
+        geocoder?.addressSearch(
           address ? address : "제주특별자치도 제주시 첨단로 242",
           function (result, status) {
             // 정상적으로 검색이 완료됐으면
             if (status === window.kakao.maps.services.Status.OK) {
-              // setValue("lat", Number(result[0].y));
-              // void trigger("lat");
-              // setValue("lng", Number(result[0].x));
-              // void trigger("lng");
-
+          
               const coords = new window.kakao.maps.LatLng(
                 result[0].y,
                 result[0].x
@@ -71,7 +76,7 @@ export default function KaKaoMapPage() {
             }
           }
         );
-
+        
         // 지도에 클릭 이벤트를 등록합니다
         // 지도를 클릭하면 선 그리기가 시작됩니다 그려진 선이 있으면 지우고 다시 그립니다
         window.kakao.maps.event.addListener(
@@ -355,6 +360,7 @@ export default function KaKaoMapPage() {
         }
       });
     };
+    console.log(111)
   }, [address]);
   useEffect(() =>{
     setPath1(JSON.stringify(path))
@@ -368,7 +374,7 @@ export default function KaKaoMapPage() {
       </Button>
       <QuestionCircleOutlined style={{ fontSize:"20px"}}/>
       </ButtonWrap>
-      <div id="map" style={{ width: '100%', height: 400 }}></div>
+      <div id="SearchMap" style={{ width: '100%', height: 400 }}></div>
       {isOpen && (
         <Modal open={true} onOk={onToggleModal} onCancel={onToggleModal}>
           <DaumPostcodeEmbed onComplete={handleComplete} />

@@ -13,6 +13,7 @@ export const FETCH_BOARD = gql`
       recruitGrade
       recruitSports
       createdAt
+      recruitPeople
       user {
         id
         email
@@ -37,5 +38,10 @@ export const PICK_BOARD = gql`
 export const ATTEND_LIST = gql`
   mutation attendList($boardId: String!) {
     attendList(boardId: $boardId)
+  }
+`;
+export const DELETE_BOARD = gql`
+  mutation deleteBoard($boardId: String!) {
+    deleteBoard(boardId: $boardId)
   }
 `;

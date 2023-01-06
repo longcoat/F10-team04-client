@@ -30,7 +30,6 @@ export default function ApolloSetting(props: IApolloSettingProps) {
       setAccessToken(newAccessToken);
     });
   }, []);
-  console.log(accessToken);
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     if (typeof graphQLErrors !== "undefined") {
       for (const err of graphQLErrors) {
