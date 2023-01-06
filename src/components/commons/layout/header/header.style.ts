@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import * as M from "../../../../commons/styles/mediaQueries";
 
 export const Wrapper = styled.div`
   overflow: hidden;
@@ -24,6 +25,7 @@ export const Wrapper = styled.div`
   }
 `;
 export const LeftSide = styled.div``;
+
 export const Logo = styled.div`
   font-size: 32px;
   font-weight: 800;
@@ -31,7 +33,8 @@ export const Logo = styled.div`
   text-align: left;
   color: white;
   cursor: pointer;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     font-size: 25px;
   }
 `;
@@ -39,7 +42,7 @@ export const RightSide = styled.div`
   width: 40%;
   display: flex;
   justify-content: space-between;
-  @media only screen and (max-width: 1024px) {
+  ${M.mediaL} {
     justify-content: flex-end;
   }
 `;
@@ -51,7 +54,8 @@ export const Menu = styled.div`
   text-align: center;
   color: white;
   cursor: pointer;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     font-size: 20px;
     display: none;
   }
@@ -66,13 +70,14 @@ export const Menu2 = styled.div`
   color: white;
   cursor: pointer;
 
-  @media only screen and (max-width: 1024px) {
+  ${M.mediaL} {
     display: block;
   }
 `;
 export const SidebarWrap = styled.div`
   display: none;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     display: block;
   }
 `;

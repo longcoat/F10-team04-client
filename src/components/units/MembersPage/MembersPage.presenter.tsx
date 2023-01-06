@@ -163,64 +163,66 @@ export default function MembersUi(props) {
   return (
     <S.Wrapper>
       <S.SearchWrap>
-        <S.SelectSide>
-          <S.Category>
-            <S.Ctg_title>지역</S.Ctg_title>
-            <S.Selectbar>
-              <S.SelectArea
-                onChange={props.onChangeLo}
-                defaultValue={AreaOption[0]}
-                style={{ width: "100%", borderRadius: "10px" }}
-                options={AreaOption}
-              />
-            </S.Selectbar>
-          </S.Category>
-          <S.Category>
-            <S.Ctg_title>최애 운동</S.Ctg_title>
-            <S.Selectbar>
-              <S.SelectArea
-                onChange={props.onChangeFav}
-                defaultValue={FavOption[0]}
-                style={{ width: "100%", borderRadius: "10px" }}
-                options={FavOption}
-              />
-            </S.Selectbar>
-          </S.Category>
-          <S.Category>
-            <S.Ctg_title>나이</S.Ctg_title>
-            <S.Selectbar>
-              <S.SelectArea
-                onChange={props.onChangeAge}
-                defaultValue={AgeOption[0]}
-                style={{ width: "100%", borderRadius: "10px" }}
-                options={AgeOption}
-              />
-            </S.Selectbar>
-          </S.Category>
-          <S.Category>
-            <S.Ctg_title>운동 레벨</S.Ctg_title>
-            <S.Selectbar>
-              <S.SelectArea
-                onChange={props.onChangeLevel}
-                defaultValue={levelOption[0]}
-                style={{ width: "100%", borderRadius: "10px" }}
-                options={levelOption}
-              />
-            </S.Selectbar>
-          </S.Category>
-        </S.SelectSide>
-        <S.ButtonSide>
+        {/* <S.SelectSide> */}
+        <S.Category>
+          <S.Ctg_title>지역</S.Ctg_title>
+          <S.Selectbar>
+            <S.SelectArea
+              onChange={props.onChangeLo}
+              defaultValue={AreaOption[0]}
+              style={{ width: "100%", borderRadius: "10px" }}
+              options={AreaOption}
+            />
+          </S.Selectbar>
+        </S.Category>
+        <S.Category>
+          <S.Ctg_title>최애 운동</S.Ctg_title>
+          <S.Selectbar>
+            <S.SelectArea
+              onChange={props.onChangeFav}
+              defaultValue={FavOption[0]}
+              style={{ width: "100%", borderRadius: "10px" }}
+              options={FavOption}
+            />
+          </S.Selectbar>
+        </S.Category>
+        <S.Category>
+          <S.Ctg_title>나이</S.Ctg_title>
+          <S.Selectbar>
+            <S.SelectArea
+              onChange={props.onChangeAge}
+              defaultValue={AgeOption[0]}
+              style={{ width: "100%", borderRadius: "10px" }}
+              options={AgeOption}
+            />
+          </S.Selectbar>
+        </S.Category>
+        <S.Category>
+          <S.Ctg_title1>운동 레벨</S.Ctg_title1>
+          <S.Selectbar>
+            <S.SelectArea
+              onChange={props.onChangeLevel}
+              defaultValue={levelOption[0]}
+              style={{ width: "100%", borderRadius: "10px" }}
+              options={levelOption}
+            />
+          </S.Selectbar>
+        </S.Category>
+        {/* </S.SelectSide> */}
+        {/* <S.ButtonSide>
           <S.Button onClick={props.onClickBtn}>검색하기</S.Button>
-        </S.ButtonSide>
+        </S.ButtonSide> */}
       </S.SearchWrap>
       {props.isNo ? (
-        <S.NoSearch>
-          <S.IconBox>
-            <SearchOutlined style={{ color: "white", fontSize: "180px" }} />
-          </S.IconBox>
-          <S.H1>관련된 멤버가 없습니다.</S.H1>
-          <S.P>다른 키워드로 검색해보세요!</S.P>
-        </S.NoSearch>
+        <div>
+          <S.NoSearch>
+            <S.IconBox>
+              <SearchOutlined style={{ color: "white", fontSize: "180px" }} />
+            </S.IconBox>
+            <S.H1>관련된 멤버가 없습니다.</S.H1>
+            <S.P>다른 키워드로 검색해보세요!</S.P>
+          </S.NoSearch>
+        </div>
       ) : (
         <S.ResultWrap>
           <S.ResultTitle>검색결과</S.ResultTitle>
