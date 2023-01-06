@@ -5,50 +5,84 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { mapCenterViewState, mapPathViewState, modalState2 } from "../../../../commons/stores";
 import CommunityDetailUIPage from "./CommunityDetail.presenter";
-import { FETCH_BOARD, PICK_BOARD } from "./CommunityDetail.queries";
+import {
+  ATTEND_LIST,
+  FETCH_BOARD,
+  PICK_BOARD,
+} from "./CommunityDetail.queries";
 
 export default function CommunityDetailPage(props) {
   const [ModalOpen, setModalOpen] = useRecoilState(modalState2);
+
   const [mapCenter, setMapCenter] = useRecoilState(mapCenterViewState);
   const [mapPath, setMapPath] = useRecoilState(mapPathViewState);
   const [pick, setPick] = useState(false)
   const router = useRouter()
 
-  const [pickBoard] = useMutation(PICK_BOARD);
-  const { data } = useQuery(
-    FETCH_BOARD,
-    {
-      variables: {
-        boardId: String(props.boardId),
-      },
-    }
-  );
 
-  const onClickClose =() => {
-    setModalOpen(prev=>!prev)
-  }
-  const onClickPick = async () => {
+  const [attendBoard] = useMutation(ATTEND_LIST);
+  const [attend, setAttend] = useState(false);
+  const onClickAttend = async () => {
     try {
-      const result = await pickBoard({
+      const result = await attendBoard({
         variables: {
-          boardId: String(props.boardId)
-        }, refetchQueries: [
+          boardId: String(props.boardId),
+        },
+        refetchQueries: [
           {
             query: FETCH_BOARD,
             variables: { boardId: String(props.boardId) },
           },
         ],
       });
-      setPick(prev => !prev)
+      setAttend((prev) => !prev);
+      if (attend === false) {
+        Modal.success({ content: "참여완료" });
+      } else if (attend === true) {
+        Modal.error({ content: "참가취소" });
+      }
+    } catch (error) {
+      if (error instanceof Error) Modal.error({ content: "에러" });
+    }
+  };
+
+  const [pickBoard] = useMutation(PICK_BOARD);
+  const { data } = useQuery(FETCH_BOARD, {
+    variables: {
+      boardId: String(props.boardId),
+    },
+  });
+
+  const onClickClose = () => {
+    setModalOpen((prev) => !prev);
+  };
+  const onClickPick = async () => {
+    try {
+      const result = await pickBoard({
+        variables: {
+          boardId: String(props.boardId),
+        },
+        refetchQueries: [
+          {
+            query: FETCH_BOARD,
+            variables: { boardId: String(props.boardId) },
+          },
+        ],
+      });
+      setPick((prev) => !prev);
       console.log(result);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
     }
-  }
-  return <CommunityDetailUIPage 
-  data={data} 
-  pick={pick}
-  onClickClose={onClickClose}
-  onClickPick={onClickPick}
-  />;
+  };
+  return (
+    <CommunityDetailUIPage
+      data={data}
+      pick={pick}
+      onClickClose={onClickClose}
+      onClickPick={onClickPick}
+      onClickAttend={onClickAttend}
+      attend={attend}
+    />
+  );
 }

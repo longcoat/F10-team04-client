@@ -18,7 +18,7 @@ export const FETCH_BOARD = gql`
         email
         nickname
       }
-      image{
+      image {
         id
         imgUrl
       }
@@ -30,7 +30,12 @@ export const FETCH_BOARD = gql`
   }
 `;
 export const PICK_BOARD = gql`
-  mutation pickBoard($boardId:String!) {
+  mutation pickBoard($boardId: String!) {
     pickBoard(boardId: $boardId)
+  }
+`;
+export const ATTEND_LIST = gql`
+  mutation attendList($boardId: String!) {
+    attendList(boardId: $boardId)
   }
 `;
