@@ -189,7 +189,8 @@ export default function MyPageA(props) {
           ) : (
             ""
           )}
-          {color2 ? (
+          {color2 ? <AttendList /> : ""}
+          {color3 ? (
             <S.BoardListWrapper>
               <S.BoardList>
                 <S.ImageListProfileBox>
@@ -218,7 +219,6 @@ export default function MyPageA(props) {
           ) : (
             ""
           )}
-          {color3 ? <AttendList /> : ""}
           {color4 ? (
             <S.BoardListWrapper>
               <S.BoardList>

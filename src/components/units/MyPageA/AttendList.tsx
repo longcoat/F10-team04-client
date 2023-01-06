@@ -25,10 +25,10 @@ const FETCH_ATTEND_LIST = gql`
 
 export default function AttendList() {
   const { data } = useQuery(FETCH_ATTEND_LIST);
-  console.log(data?.fetchAttendList[0].board);
+  console.log(data?.fetchAttendList.board);
   return (
     <>
-      {data?.fetchAttendList?.map((el: any, index) => {
+      {data?.fetchAttendList?.map((el: any, index) => (
         // <BoardListWrapper key={el.id}>
         <BoardList key={el.id}>
           <ImageListProfileBox>
@@ -47,9 +47,9 @@ export default function AttendList() {
           <ThumbnailBox>
             <ThumbnailImage src="/thumbnailsample.png" />
           </ThumbnailBox>
-        </BoardList>;
+        </BoardList>
         // </BoardListWrapper>;
-      })}
+      ))}
     </>
   );
 }
