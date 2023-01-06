@@ -5,7 +5,7 @@ import { Modal } from "antd";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { appointment } from "../../../commons/library/appointment";
-import { modalState2 } from "../../../commons/stores";
+import { modalDetailState } from "../../../commons/stores";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 
 const FETCH_MY_PICK_BOARDS = gql`
@@ -35,7 +35,7 @@ export const PICK_BOARD = gql`
 
 export default function MyPickList() {
   // 리스트 클릭시 디테일 로 넘어가게
-  const [ModalOpen, setModalOpen] = useRecoilState(modalState2);
+  const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [boardId, setBoardId] = useState("");
   const onClickDetail = (boardId) => () => {
     setModalOpen((prev) => !prev);

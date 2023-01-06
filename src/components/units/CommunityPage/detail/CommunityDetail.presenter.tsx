@@ -51,28 +51,6 @@ useEffect(() =>{
         }
         var map = new window.kakao.maps.Map(mapContainer, mapOptions)
 
-        var imageSrc = "";
-         
-
-        let distanceOverlay
-        let dots = {}
-        
-        const  positions = []
- for(let i = 0;i < path.length;i++) {
-    const obj = {
-        latlng : new window.kakao.maps.LatLng()
-      }
-      obj.latlng.La = Object.values(path[i])[0]
-      obj.latlng.Ma = Object.values(path[i])[1]
-      positions.push(obj)
- }
-
-
- let linePath;
- let lineLine = new window.kakao.maps.Polyline();
- let distance;
-
-
         let distanceOverlay;
         let dots = {};
 
