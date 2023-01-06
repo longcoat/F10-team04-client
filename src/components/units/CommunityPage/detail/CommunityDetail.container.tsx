@@ -1,9 +1,9 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { modalState2 } from "../../../../commons/stores";
+import { mapCenterViewState, mapPathViewState, modalState2 } from "../../../../commons/stores";
 import CommunityDetailUIPage from "./CommunityDetail.presenter";
 import {
   ATTEND_LIST,
@@ -13,9 +13,12 @@ import {
 
 export default function CommunityDetailPage(props) {
   const [ModalOpen, setModalOpen] = useRecoilState(modalState2);
-  const [pick, setPick] = useState(false);
-  const router = useRouter();
-  // 참여하기
+
+  const [mapCenter, setMapCenter] = useRecoilState(mapCenterViewState);
+  const [mapPath, setMapPath] = useRecoilState(mapPathViewState);
+  const [pick, setPick] = useState(false)
+  const router = useRouter()
+
 
   const [attendBoard] = useMutation(ATTEND_LIST);
   const [attend, setAttend] = useState(false);

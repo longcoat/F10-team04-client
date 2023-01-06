@@ -14,6 +14,11 @@ export const CREATE_BOARD = gql`
       id
       imgUrl
     }
+    recruitPeople
+    location{
+      center
+      path
+    }
     }
   }
 `;

@@ -8,12 +8,13 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 
 import KakaoMapUI from "../map/mapsearch";
 import { useState } from 'react';
-import { boardImageState, modalState } from '../../../commons/stores';
+import { boardImageState, mapCenterState, mapPathState, modalState } from '../../../commons/stores';
 import { useRecoilState } from 'recoil';
 import { CREATE_BOARD } from '../../units/CommunityPage/write/CommunityWrite.queries';
 import { useMutation } from '@apollo/client';
 import Uploads01 from '../uploads/01/Uploads01.container';
 import dynamic from 'next/dynamic';
+import { FETCH_ALL_BOARDS } from "../../units/CommunityPage/list/CommunityList.queries";
 
 const ReactQuill = dynamic( async() => await import('react-quill'), {
     ssr : false
@@ -119,16 +120,17 @@ const disabledRangeTime: RangePickerProps["disabledTime"] = (_, type) => {
 };
 
 export default function InModalWrite(props) {
-
+  const [center, setCenter] = useRecoilState(mapCenterState);
+  const [path, setPath] = useRecoilState(mapPathState);
   const [ModalOpen, setModalOpen] = useRecoilState(modalState);
-  const [image, setImage] = useRecoilState(boardImageState);
   const [recruitRegion, setRecruitRegion] = useState("서울특별시");
   const [recruitGrade, setRecruitGrade] = useState("Beginner");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [appointment, setAppointment] = useState("");
   const [recruitSports, setRecruitSports] = useState("");
-  // const [image, setImage] = useState("")
+  const [recruitPeople, setRecruitPeople] = useState(0)
+  const [image, setImage] = useState("")
 
   const [createBoard] = useMutation(CREATE_BOARD);
 
@@ -144,6 +146,11 @@ export default function InModalWrite(props) {
             recruitGrade,
             recruitRegion,
             image,
+            recruitPeople: Number(recruitPeople),
+            location: {
+              path,
+              center
+            }
           },
         },
       });
@@ -156,6 +163,9 @@ export default function InModalWrite(props) {
 
     }
   };
+  const onChangePeople = (e) => {
+    setRecruitPeople(e.target.value)
+  }
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -179,6 +189,7 @@ export default function InModalWrite(props) {
     const newFile = fileUrl;
     setImage(newFile);
   };
+  console.log(path, center)
 
   return (
     <S.Wrapper>
@@ -205,7 +216,7 @@ export default function InModalWrite(props) {
             </S.InputWrapper>
             <S.InputWrapper>
               <S.Ctg_title>모집인원</S.Ctg_title>
-              <S.InputBox placeholder="ex) 7" type="text" />
+              <S.InputBox onChange={onChangePeople} placeholder="ex) 7" type="text" />
             </S.InputWrapper>
           </S.InputWrap2>
           <S.InputWrap3>

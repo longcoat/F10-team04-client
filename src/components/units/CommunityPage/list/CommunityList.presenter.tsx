@@ -132,7 +132,7 @@ export default function CommunityListUi(props: any) {
           </S.Tag>
             <S.SpoDate>
             <S.Sports>{el.recruitSports}</S.Sports>
-            <S.Date>{el.recruitPeople}/{el.attendCount}</S.Date>
+            <S.Date>{el.attendCount}/{el.recruitPeople}</S.Date>
             </S.SpoDate>
             <S.Footer>
               <S.Location>

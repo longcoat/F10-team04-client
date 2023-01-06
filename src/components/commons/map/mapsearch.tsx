@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import { QuestionCircleOutlined } from "@ant-design/icons";
+import { useRecoilState } from "recoil";
+import { mapCenterState, mapPathState } from "../../../commons/stores";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -13,6 +15,8 @@ export default function KaKaoMapPage() {
   const [center, setCenter] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [address, setAddress] = useState("");
+  const [center1, setCenter1] = useRecoilState(mapCenterState);
+  const [path1, setPath1] = useRecoilState(mapPathState);
 
   const onToggleModal = () => {
     setIsOpen((prev) => !prev);
@@ -297,6 +301,7 @@ export default function KaKaoMapPage() {
         // 그려진 선의 총거리 정보와 거리에 대한 도보, 자전거 시간을 계산하여
         // HTML Content를 만들어 리턴하는 함수입니다
         function getTimeHTML(distance) {
+          
           // 도보의 시속은 평균 4km/h 이고 도보의 분속은 67m/min입니다
           var walkkTime = (distance / 67) | 0;
           var walkHour = "",
@@ -351,8 +356,10 @@ export default function KaKaoMapPage() {
       });
     };
   }, [address]);
-  // console.log(path);
-  // console.log(center);
+  useEffect(() =>{
+    setPath1(JSON.stringify(path))
+    setCenter1(JSON.stringify(center))
+  },[path, center])
   return (
     <>
     <ButtonWrap>

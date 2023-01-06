@@ -24,6 +24,7 @@ export default function Uploads01(props) {
     try {
       const result = await uploadFile({ variables: { file } });
       setImage(result.data.uploadFile)
+      console.log(result.data)
       props.onChangeImage(result.data.uploadFile);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
