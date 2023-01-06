@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { HeartOutlined } from "@ant-design/icons";
+import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import * as S from "./CommunityDetail.styles";
 import { timeForToday } from "../../../../commons/library/utils2";
 
@@ -211,7 +211,13 @@ export default function CommunityDetailUIPage(props: any) {
               {timeForToday(props.data?.fetchBoard.createdAt)}
             </S.Create>
           </S.Detail>
-          <S.Contents>{props.data?.fetchBoard.title}</S.Contents>
+          <S.Contents>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: String(props.data?.fetchBoard.content),
+              }}
+            />
+          </S.Contents>
           <div
             id="map"
             style={{ width: "100%", height: 400, marginTop: "20px" }}

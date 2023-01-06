@@ -22,7 +22,7 @@ export const FETCH_BOARD = gql`
         id
         imgUrl
       }
-      location{
+      location {
         center
         path
       }
