@@ -5,8 +5,8 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
-
 import KakaoMapUI from "../map/mapsearch";
+
 import { useState } from 'react';
 import { boardImageState, mapCenterState, mapPathState, modalWriteState } from '../../../commons/stores';
 import { useRecoilState } from 'recoil';
@@ -14,13 +14,13 @@ import { CREATE_BOARD } from '../../units/CommunityPage/write/CommunityWrite.que
 import { useMutation } from '@apollo/client';
 import Uploads01 from '../uploads/01/Uploads01.container';
 import dynamic from 'next/dynamic';
+
 import { FETCH_ALL_BOARDS } from "../../units/CommunityPage/list/CommunityList.queries";
 import { useRouter } from "next/router";
 
-const ReactQuill = dynamic( async() => await import('react-quill'), {
-    ssr : false
-})
-
+const ReactQuill = dynamic(async () => await import("react-quill"), {
+  ssr: false,
+});
 
 const AreaOption = [
   { value: "서울특별시", label: "서울특별시" },
@@ -131,8 +131,8 @@ export default function InModalWrite(props) {
   const [content, setContent] = useState("");
   const [appointment, setAppointment] = useState("");
   const [recruitSports, setRecruitSports] = useState("");
-  const [recruitPeople, setRecruitPeople] = useState(0)
-  const [image, setImage] = useState("")
+  const [recruitPeople, setRecruitPeople] = useState(0);
+  const [image, setImage] = useState("");
 
   const [createBoard] = useMutation(CREATE_BOARD);
 
@@ -151,24 +151,22 @@ export default function InModalWrite(props) {
             recruitPeople: Number(recruitPeople),
             location: {
               path,
-              center
-            }
+              center,
+            },
           },
           refetchQueries: [{ query: FETCH_ALL_BOARDS }],
         },
       });
+      Modal.success({ content: "게시물 작성 완료!" });
       setModalOpen(false);
      router.push(`/community/`)
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
-
-   
-
     }
   };
   const onChangePeople = (e) => {
-    setRecruitPeople(e.target.value)
-  }
+    setRecruitPeople(e.target.value);
+  };
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -192,7 +190,7 @@ export default function InModalWrite(props) {
     const newFile = fileUrl;
     setImage(newFile);
   };
-  console.log(path, center)
+  console.log(path, center);
 
   return (
     <S.Wrapper>
@@ -219,7 +217,11 @@ export default function InModalWrite(props) {
             </S.InputWrapper>
             <S.InputWrapper>
               <S.Ctg_title>모집인원</S.Ctg_title>
-              <S.InputBox onChange={onChangePeople} placeholder="ex) 7" type="text" />
+              <S.InputBox
+                onChange={onChangePeople}
+                placeholder="ex) 7"
+                type="text"
+              />
             </S.InputWrapper>
           </S.InputWrap2>
           <S.InputWrap3>

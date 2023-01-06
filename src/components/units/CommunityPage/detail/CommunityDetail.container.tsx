@@ -3,8 +3,10 @@ import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
+
 import { EditBoardId, modalDetailState, modalEditState} from "../../../../commons/stores";
 import { FETCH_ALL_BOARDS } from "../list/CommunityList.queries";
+
 import CommunityDetailUIPage from "./CommunityDetail.presenter";
 import {
   ATTEND_LIST,
@@ -14,11 +16,13 @@ import {
 } from "./CommunityDetail.queries";
 
 export default function CommunityDetailPage(props) {
+
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [EditModalOpen, setEditModalOpen] = useRecoilState(modalEditState);
   const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
   const [pick, setPick] = useState(false)
   const router = useRouter()
+
   const [attendBoard] = useMutation(ATTEND_LIST);
   const [attend, setAttend] = useState(false);
   const [deleteBoard] = useMutation(DELETE_BOARD);

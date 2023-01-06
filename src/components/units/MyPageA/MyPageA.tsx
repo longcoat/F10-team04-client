@@ -6,6 +6,7 @@ import { useState } from "react";
 import { RightOutlined } from "@ant-design/icons";
 import { gql, useQuery } from "@apollo/client";
 import AttendList from "./AttendList";
+import MyPickList from "./MyPickList";
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
     fetchUserLoggedIn {
@@ -189,36 +190,8 @@ export default function MyPageA(props) {
           ) : (
             ""
           )}
-          {color2 ? (
-            <S.BoardListWrapper>
-              <S.BoardList>
-                <S.ImageListProfileBox>
-                  <S.ImageListProfile src="/profile.png" />
-                </S.ImageListProfileBox>
-                <S.InfoTextWrapper>
-                  <S.InfoTextBox>
-                    <S.Title>
-                      오늘 잠수교쪽에서 300찍을꺼니까 진짜 준비된 사람만 나오기
-                    </S.Title>
-                    <S.MeetTime>시간 12월 11일 15시</S.MeetTime>
-                  </S.InfoTextBox>
-                  <S.Content>
-                    <S.ContentText>
-                      아나 진짜 오늘 운동 박살한번 내버릴라니까 죽을 준비 된
-                      분만 오쇼
-                    </S.ContentText>
-                    <S.ReviewBtn>리뷰쓰기</S.ReviewBtn>
-                  </S.Content>
-                </S.InfoTextWrapper>
-                <S.ThumbnailBox>
-                  <S.ThumbnailImage src="/thumbnailsample.png" />
-                </S.ThumbnailBox>
-              </S.BoardList>
-            </S.BoardListWrapper>
-          ) : (
-            ""
-          )}
-          {color3 ? <AttendList /> : ""}
+          {color2 ? <AttendList /> : ""}
+          {color3 ? <MyPickList /> : ""}
           {color4 ? (
             <S.BoardListWrapper>
               <S.BoardList>

@@ -23,10 +23,10 @@ const AreaOption = [
   { value: "제주특별자치도", label: "제주특별자치도" },
 ];
 const levelOption = [
-  { value: "",label: "모든 레벨"},
-  { value: "Beginner",label: "Beginner"},
-  { value: "Amateur",label: "Amateur"},
-  {value: "Pro",label: "Pro"},
+  { value: "", label: "모든 레벨" },
+  { value: "Beginner", label: "Beginner" },
+  { value: "Amateur", label: "Amateur" },
+  { value: "Pro", label: "Pro" },
 ];
 
 export default function CommunityListUi(props: any) {
@@ -56,63 +56,62 @@ export default function CommunityListUi(props: any) {
   };
 console.log(props.data)
   return (
-
-<>
-    <S.ModalCustom
-    centered
-    open={ModalOpen}
-    width={900}
-  >
-    <CommunityDetailPage   boardId={props.boardId}/>
-    </S.ModalCustom>
-    <S.Wrapper>
-      <S.SearchWrap>
-        <S.SelectSide>
-          <S.Category>
-            <S.Ctg_title>지역</S.Ctg_title>
-            <S.Selectbar>
-              <S.SelectArea
-                onChange={props.onChangeLo}
-                defaultValue={AreaOption[0]}
-                style={{ width: "100%", borderRadius: "10px" }}
-                options={AreaOption}
-              />
-            </S.Selectbar>
-          </S.Category>
-          <S.Category>
-            <S.Ctg_title>운동 레벨</S.Ctg_title>
-            <S.Selectbar>
-              <S.SelectArea
-                onChange={props.onChangeLevel}
-                defaultValue={levelOption[0]}
-                style={{ width: "100%", borderRadius: "10px" }}
-                options={levelOption}
-              />
-            </S.Selectbar>
-          </S.Category>
-          <S.InputWrap>
-            <S.Ctg_title>제목 검색</S.Ctg_title>
-            <S.Selectbar>
-              <S.Input type="text"/>
-            </S.Selectbar>
-          </S.InputWrap>
-        </S.SelectSide>
-        <S.ButtonSide>
-          <S.SearchButton >검색하기</S.SearchButton>
-        </S.ButtonSide>
-      </S.SearchWrap>
-      <S.ResultWrap>
+    <>
+      <S.ModalCustom centered open={ModalOpen} width={900}>
+        <CommunityDetailPage boardId={props.boardId} />
+      </S.ModalCustom>
+      <S.Wrapper>
+        <S.SearchWrap>
+          <S.SelectSide>
+            <S.Category>
+              <S.Ctg_title>지역</S.Ctg_title>
+              <S.Selectbar>
+                <S.SelectArea
+                  onChange={props.onChangeLo}
+                  defaultValue={AreaOption[0]}
+                  style={{ width: "100%", borderRadius: "10px" }}
+                  options={AreaOption}
+                />
+              </S.Selectbar>
+            </S.Category>
+            <S.Category>
+              <S.Ctg_title>운동 레벨</S.Ctg_title>
+              <S.Selectbar>
+                <S.SelectArea
+                  onChange={props.onChangeLevel}
+                  defaultValue={levelOption[0]}
+                  style={{ width: "100%", borderRadius: "10px" }}
+                  options={levelOption}
+                />
+              </S.Selectbar>
+            </S.Category>
+            <S.InputWrap>
+              <S.Ctg_title>제목 검색</S.Ctg_title>
+              <S.Selectbar>
+                <S.Input type="text" />
+              </S.Selectbar>
+            </S.InputWrap>
+          </S.SelectSide>
+          <S.ButtonSide>
+            <S.SearchButton>검색하기</S.SearchButton>
+          </S.ButtonSide>
+        </S.SearchWrap>
+        <S.ResultWrap>
           <S.ResultWrite>
-          <S.ResultTitle>검색결과</S.ResultTitle>
-        
+            <S.ResultTitle>검색결과</S.ResultTitle>
           </S.ResultWrite>
           <S.TabMenu>
             <S.Menu1>
-            <S.Item1 isActive={first} onClick={onClickfirst}>최신순</S.Item1>
-            <S.Item1 isActive={second} onClick={onClicksecond}>인기순</S.Item1>
+              <S.Item1 isActive={first} onClick={onClickfirst}>
+                최신순
+              </S.Item1>
+              <S.Item1 isActive={second} onClick={onClicksecond}>
+                인기순
+              </S.Item1>
             </S.Menu1>
             <CommunityWrite />
           </S.TabMenu>
+
           {first?
           <InfiniteScroll pageStart={0} loadMore={props.onLoadMore} hasMore={true}>
            <S.Items>
@@ -179,6 +178,7 @@ console.log(props.data)
           }
         </S.ResultWrap>
     </S.Wrapper>
+
 
     </>
   );

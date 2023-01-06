@@ -1,3 +1,4 @@
+import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Modal } from "antd";
@@ -6,38 +7,33 @@ import { useRecoilState } from "recoil";
 import { appointment } from "../../../commons/library/appointment";
 import { modalState2 } from "../../../commons/stores";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
-import { FETCH_BOARD } from "../CommunityPage/detail/CommunityDetail.queries";
-export const FETCH_ATTEND_LIST = gql`
-  query fetchAttendList {
-    fetchAttendList {
+
+const FETCH_MY_PICK_BOARDS = gql`
+  query fetchMyPickBoards($page: Int) {
+    fetchMyPickBoards(page: $page) {
       id
-      user {
-        id
-        email
-        nickname
-        age
-        gender
-      }
       board {
         id
         title
         content
+        attendCount
         appointment
       }
-      createdAt
-      updatedAt
+      user {
+        id
+        email
+        nickname
+      }
     }
   }
 `;
-export const ATTEND_LIST = gql`
-  mutation attendList($boardId: String!) {
-    attendList(boardId: $boardId)
+export const PICK_BOARD = gql`
+  mutation pickBoard($boardId: String!) {
+    pickBoard(boardId: $boardId)
   }
 `;
 
-export default function AttendList() {
-  const { data } = useQuery(FETCH_ATTEND_LIST);
-  console.log(data);
+export default function MyPickList() {
   // 리스트 클릭시 디테일 로 넘어가게
   const [ModalOpen, setModalOpen] = useRecoilState(modalState2);
   const [boardId, setBoardId] = useState("");
@@ -45,75 +41,84 @@ export default function AttendList() {
     setModalOpen((prev) => !prev);
     setBoardId(boardId);
   };
-  const [attendBoard] = useMutation(ATTEND_LIST);
-  const [attend, setAttend] = useState(true);
-  const onClickAttend = (boardId) => async () => {
+  const [pickBoard] = useMutation(PICK_BOARD);
+  const [pick, setPick] = useState(true);
+  const onClickPick = (boardId) => async () => {
     console.log(boardId);
-    setAttend((prev) => !prev);
+    setPick((prev) => !prev);
     try {
-      const result = await attendBoard({
+      const result = await pickBoard({
         variables: {
           boardId: String(boardId),
         },
-        refetchQueries: [
-          {
-            query: FETCH_BOARD,
-            variables: { boardId },
-          },
-        ],
+        // refetchQueries: [
+        //   {
+        //     query: FETCH_BOARD,
+        //     variables: { boardId: String(props.boardId) },
+        //   },
+        // ],
       });
 
-      if (attend === false) {
-        Modal.success({ content: "참여완료" });
-      } else if (attend === true) {
-        Modal.error({ content: "참가취소" });
+      if (pick === false) {
+        Modal.success({ content: "찜하기" });
+      } else if (pick === true) {
+        Modal.error({ content: "찜취소" });
       }
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: "에러" });
     }
   };
-
+  const { data } = useQuery(FETCH_MY_PICK_BOARDS);
+  console.log(data);
   return (
     <>
-
       <ModalCustom centered open={ModalOpen} width={900}>
         <CommunityDetailPage boardId={boardId} />
       </ModalCustom>
-      {data?.fetchAttendList?.map((el: any, index) => (
-        // <BoardListWrapper key={el.id}>
-        <BoardList key={el.id} onClick={onClickDetail(el.board.id)}>
-
-          <ImageListProfileBox>
-            <ImageListProfile src="/profile.png" />
-          </ImageListProfileBox>
-          <InfoTextWrapper>
-            <InfoTextBox>
-              <Title>{el.board.title}</Title>
-              <MeetTime>{appointment(el.board.appointment)}</MeetTime>
-            </InfoTextBox>
-            <Content>
-              <ContentText>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: String(el.board.content),
-                  }}
-                />
-              </ContentText>
-              <ReviewBtn
-              // onClick={onClickAttend(el.board.id)}
-              >
-                리뷰쓰기
-              </ReviewBtn>
-            </Content>
-          </InfoTextWrapper>
-          <ThumbnailBox>
-            <ThumbnailImage src="/thumbnailsample.png" />
-          </ThumbnailBox>
-
-        </BoardList>
-        // </BoardListWrapper>;
+      {data?.fetchMyPickBoards?.map((el: any, index) => (
+        <BoardListWrapper key={el.id} onClick={onClickDetail(el.board.id)}>
+          <BoardList>
+            <ImageListProfileBox>
+              <ImageListProfile src="/profile.png" />
+            </ImageListProfileBox>
+            <InfoTextWrapper>
+              <InfoTextBox>
+                <Title>{el.board.title}</Title>
+                <MeetTime>{appointment(el.board.appointment)}</MeetTime>
+              </InfoTextBox>
+              <Content>
+                <ContentText>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: String(el.board.content),
+                    }}
+                  />
+                </ContentText>
+                <ReviewBtn onClick={onClickPick(el.board.id)}>
+                  {pick ? (
+                    <HeartOutlined
+                      onClick={onClickPick(el.board.id)}
+                      style={{ marginRight: "10px", lineHeight: "35px" }}
+                    />
+                  ) : (
+                    <HeartFilled
+                      onClick={onClickPick(el.board.id)}
+                      style={{
+                        marginRight: "10px",
+                        lineHeight: "35px",
+                        color: "#C71515",
+                      }}
+                    />
+                  )}
+                </ReviewBtn>
+              </Content>
+            </InfoTextWrapper>
+            <ThumbnailBox>
+              <ThumbnailImage src="/thumbnailsample.png" />
+            </ThumbnailBox>
+          </BoardList>
+        </BoardListWrapper>
       ))}
-
     </>
   );
 }
