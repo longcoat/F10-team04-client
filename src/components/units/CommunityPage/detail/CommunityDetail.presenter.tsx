@@ -27,11 +27,6 @@ export default function CommunityDetailUIPage(props: any) {
             </S.Left>
             <S.Right>
               {props.pick ? (
-                <HeartOutlined
-                  onClick={props.onClickPick}
-                  style={{ marginRight: "10px", lineHeight: "35px" }}
-                />
-              ) : (
                 <HeartFilled
                   onClick={props.onClickPick}
                   style={{
@@ -39,6 +34,11 @@ export default function CommunityDetailUIPage(props: any) {
                     lineHeight: "35px",
                     color: "#C71515",
                   }}
+                />
+              ) : (
+                <HeartOutlined
+                  onClick={props.onClickPick}
+                  style={{ marginRight: "10px", lineHeight: "35px" }}
                 />
               )}
 
