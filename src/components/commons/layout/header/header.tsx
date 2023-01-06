@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import * as S from "./header.style";
 import Sidebar from "./sidebar";
+
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
     fetchUserLoggedIn {
@@ -28,6 +29,7 @@ export default function LayoutHeader() {
   };
   // 로그인시
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
+
   const onClickMoveToLogin = () => {
     if (!data) {
       router.push("/login");

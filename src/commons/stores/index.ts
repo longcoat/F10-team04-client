@@ -26,3 +26,19 @@ export const boardImageState = atom({
   key: "boardImageState",
   default: "",
 });
+export const mapPathState = atom({
+  key: "mapPathState",
+  default: "",
+});
+export const mapCenterState = atom({
+  key: "mapCenterState",
+  default: "",
+});
+export const mapPathViewState = atom({
+  key: "mapPathState",
+  default: [],
+});
+export const mapCenterViewState = atom({
+  key: "mapCenterState",
+  default: [],
+});
