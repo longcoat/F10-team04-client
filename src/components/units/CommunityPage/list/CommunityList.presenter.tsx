@@ -6,7 +6,7 @@ import CommunityDetailPage from "../detail/CommunityDetail.container";
 import InfiniteScroll from "react-infinite-scroller";
 import DOMPurify from "dompurify";
 import { Modal } from "antd";
-import { modalState2 } from "../../../../commons/stores";
+import { modalDetailState} from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
 import { getDate } from "../../../../commons/library/utils";
 
@@ -30,7 +30,7 @@ const levelOption = [
 ];
 
 export default function CommunityListUi(props: any) {
-  const [ModalOpen, setModalOpen] = useRecoilState(modalState2);
+  const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [first, setFirst] = useState(true);
   const [second, setSecond] = useState(false);
 
@@ -54,7 +54,7 @@ export default function CommunityListUi(props: any) {
       }
     }
   };
-
+console.log(props.data)
   return (
     <>
       <S.ModalCustom centered open={ModalOpen} width={900}>
@@ -111,70 +111,75 @@ export default function CommunityListUi(props: any) {
             </S.Menu1>
             <CommunityWrite />
           </S.TabMenu>
-          {first ? (
-            <S.Items>
-              {props.result.map((el, index) => (
-                <S.Item key={el.id}>
-                  <S.Img
-                    style={{
-                      backgroundImage:
-                        el.image === undefined || el.image === ""
-                          ? "url(./images/list/1.png)"
-                          : `url(https://storage.googleapis.com/${el.image})`,
-                    }}
-                  ></S.Img>
-                  <S.Main>
-                    <S.Title2>{el.title}</S.Title2>
-                    <S.Tag>
-                      <S.Level>#{el.recruitGrade}</S.Level>
-                    </S.Tag>
-                    <S.SpoDate>
-                      <S.Sports>{el.recruitSports}</S.Sports>
-                      <S.Date>
-                        {el.attendCount}/{el.recruitPeople}
-                      </S.Date>
-                    </S.SpoDate>
-                    <S.Footer>
-                      <S.Location>
-                        <S.Icon src="./images/list/map.png"></S.Icon>
-                        <S.LocaionText>{el.recruitRegion}</S.LocaionText>
-                      </S.Location>
-                      <RightOutlined onClick={props.onClickDetail(el.id)} />
-                    </S.Footer>
-                  </S.Main>
-                </S.Item>
-              ))}
-            </S.Items>
-          ) : (
-            <S.Items>
-              {props.result2.map((el, index) => (
-                <S.Item key={el.id}>
-                  <S.Img src="./images/list/1.png"></S.Img>
-                  <S.Main>
-                    <S.Title2>{el.title}</S.Title2>
-                    <S.Tag>
-                      <S.Level>#{el.recruitGrade}</S.Level>
-                    </S.Tag>
-                    <S.SpoDate>
-                      <S.Sports>{el.recruitSports}</S.Sports>
-                      <S.Date>
-                        {el.recruitPeople}/{el.attendCount}
-                      </S.Date>
-                    </S.SpoDate>
-                    <S.Footer>
-                      <S.Location>
-                        <S.Icon src="./images/list/map.png"></S.Icon>
-                        <S.LocaionText>{el.recruitRegion}</S.LocaionText>
-                      </S.Location>
-                      <RightOutlined onClick={props.onClickDetail(el.id)} />
-                    </S.Footer>
-                  </S.Main>
-                </S.Item>
-              ))}
-            </S.Items>
-          )}
+
+          {first?
+          <InfiniteScroll pageStart={0} loadMore={props.onLoadMore} hasMore={true}>
+           <S.Items>
+            {props.result.map((el, index) => (
+        <S.Item key={el.id}>
+          <S.Img 
+           style={{
+            backgroundImage:
+              el.image?.imgUrl === undefined || el.image?.imgUrl === ""
+                ? "url(./images/list/1.png)"
+                : `url(${el.image?.imgUrl})`,
+                backgroundPosition:"center"
+          }}
+          ></S.Img>
+          <S.Main>
+            <S.Title2>{el.title}</S.Title2>
+          <S.Tag>
+            <S.Level>#{el.recruitGrade}</S.Level>
+          </S.Tag>
+            <S.SpoDate>
+            <S.Sports>{el.recruitSports}</S.Sports>
+            <S.Date>{el.attendCount}/{el.recruitPeople}</S.Date>
+            </S.SpoDate>
+            <S.Footer>
+              <S.Location>
+                <S.Icon src="./images/list/map.png"></S.Icon>
+                <S.LocaionText>{el.recruitRegion}</S.LocaionText>
+              </S.Location>
+              <RightOutlined onClick={props.onClickDetail(el.id)} />
+            </S.Footer>
+          </S.Main>
+        </S.Item>
+        ))}
+         </S.Items>
+         </InfiniteScroll>
+          :
+          <InfiniteScroll pageStart={0} loadMore={props.onLoadMore} hasMore={true}>
+          <S.Items>
+             {props.result2.map((el) => (
+        <S.Item key={el.id}>
+          <S.Img src="./images/list/1.png"></S.Img>
+          <S.Main>
+            <S.Title2>{el.title}</S.Title2>
+          <S.Tag>
+            <S.Level>#{el.recruitGrade}</S.Level>
+          </S.Tag>
+            <S.SpoDate>
+            <S.Sports>{el.recruitSports}</S.Sports>
+            <S.Date>{el.recruitPeople}/{el.attendCount}</S.Date>
+            </S.SpoDate>
+            <S.Footer>
+              <S.Location>
+                <S.Icon src="./images/list/map.png"></S.Icon>
+                <S.LocaionText>{el.recruitRegion}</S.LocaionText>
+              </S.Location>
+              <RightOutlined onClick={props.onClickDetail(el.id)} />
+            </S.Footer>
+          </S.Main>
+        </S.Item>
+        ))}
+
+          </S.Items>
+          </InfiniteScroll>
+          }
         </S.ResultWrap>
-      </S.Wrapper>
+    </S.Wrapper>
+
+
     </>
   );
 }

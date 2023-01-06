@@ -75,12 +75,14 @@ export default function AttendList() {
 
   return (
     <>
+
       <ModalCustom centered open={ModalOpen} width={900}>
         <CommunityDetailPage boardId={boardId} />
       </ModalCustom>
       {data?.fetchAttendList?.map((el: any, index) => (
         // <BoardListWrapper key={el.id}>
         <BoardList key={el.id} onClick={onClickDetail(el.board.id)}>
+
           <ImageListProfileBox>
             <ImageListProfile src="/profile.png" />
           </ImageListProfileBox>
@@ -107,9 +109,11 @@ export default function AttendList() {
           <ThumbnailBox>
             <ThumbnailImage src="/thumbnailsample.png" />
           </ThumbnailBox>
+
         </BoardList>
         // </BoardListWrapper>;
       ))}
+
     </>
   );
 }
