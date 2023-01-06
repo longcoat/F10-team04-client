@@ -4,9 +4,7 @@ import { DatePicker, Modal } from "antd";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-
 import KakaoMapUI from "../map/mapsearch";
-
 import { useState } from 'react';
 import { boardImageState, mapCenterState, mapPathState, modalWriteState } from '../../../commons/stores';
 import { useRecoilState } from 'recoil';
