@@ -2,13 +2,14 @@ import { CloseOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
 import React, { useRef, useEffect } from "react";
 import styled from "@emotion/styled";
+import * as M from "../../../../commons/styles/mediaQueries";
 
 const SideBarWrap = styled.div`
   display: none;
   z-index: 5;
   padding: 12px;
   border-radius: 15px 0 0 15px;
-  background-color: #e7e4e1;
+  background-color: rgba(254, 254, 254, 0.5);
   height: 100%;
   width: 30%;
   right: -55%;
@@ -19,7 +20,8 @@ const SideBarWrap = styled.div`
     right: 0;
     transition: 0.5s ease;
   }
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     display: block;
   }
 `;
@@ -62,7 +64,12 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any }) {
   };
 
   return (
-    <SideBarWrap id="sidebar" ref={outside} className={isOpen ? "open" : ""}>
+    <SideBarWrap
+      id="sidebar"
+      ref={outside}
+      className={isOpen ? "open" : ""}
+      // style={{ zIndex: "999" }}
+    >
       <CloseOutlined alt="close" onClick={toggleSide} onKeyDown={toggleSide} />
 
       <Menu onClick={() => router.push("/login")}>Login</Menu>

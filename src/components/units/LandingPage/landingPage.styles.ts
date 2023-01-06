@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import * as M from "../../../commons/styles/mediaQueries";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -14,13 +15,15 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  @media only screen and (max-width: 1024px) {
+  /* @media only screen and (max-width: 1024px) {
     background-position-x: -130px;
+  } */
+  ${M.mediaL} {
   }
 `;
 export const MainTextBox = styled.div`
   padding-top: 20%;
-  @media only screen and (max-width: 1024px) {
+  ${M.mediaL} {
     padding-top: 20%;
   }
 `;
@@ -33,10 +36,11 @@ export const Title = styled.h1`
   line-height: 67px;
   letter-spacing: -0.011em;
   text-align: center;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     font-size: 82px;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
     font-size: 72px;
   }
 `;
@@ -49,10 +53,11 @@ export const contents = styled.p`
   letter-spacing: -0.019em;
   text-align: center;
   color: white;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     font-size: 20px;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
     font-size: 18px;
   }
 `;
@@ -61,12 +66,6 @@ export const Wrapper_2 = styled.div`
   margin: 0px auto;
   width: 1400px;
   height: 100vh;
-  @media only screen and (max-width: 1024px) {
-    width: 1000px;
-  }
-  @media only screen and (max-width: 768px) {
-    width: 700px;
-  }
 `;
 
 export const TitleBox = styled.div``;
@@ -79,10 +78,13 @@ export const Title_2 = styled.h1`
   padding-top: 50px;
   padding-left: 80px;
   padding-bottom: 50px;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     font-size: 80px;
+    padding-top: 61px;
+    padding-bottom: 19px;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
     font-size: 60px;
   }
 `;
@@ -99,11 +101,12 @@ export const MEMBERS = styled.div`
   right: 200px;
   top: 10px;
   z-index: -1;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     font-size: 120px;
     right: 150px;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
     font-size: 90px;
     right: 110px;
   }
@@ -119,11 +122,13 @@ export const ImgBox = styled.div`
   height: 500px;
   background-position: center;
   background-size: cover;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     width: 50%;
     background-position-x: -320px;
+    height: 458px;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
     background-position-x: -400px;
   }
 `;
@@ -134,10 +139,11 @@ export const ContentsBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     width: 40%;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
   }
 `;
 
@@ -147,11 +153,12 @@ export const Contents_title = styled.h1`
   line-height: 54px;
   letter-spacing: 0em;
   text-align: left;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     line-height: 50px;
     font-size: 36px;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
     line-height: 40px;
     font-size: 30px;
   }
@@ -192,10 +199,11 @@ export const Title_3 = styled.h1`
   padding-right: 80px;
   padding-top: 50px;
   padding-bottom: 70px;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     font-size: 80px;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
     font-size: 60px;
   }
 `;
@@ -211,10 +219,11 @@ export const ContentsBox2 = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     width: 48%;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
     font-size: 60px;
   }
 `;
@@ -231,12 +240,13 @@ export const COMMUNITY = styled.div`
   right: 110px;
   top: 30px;
   z-index: -1;
-  @media only screen and (max-width: 1024px) {
+
+  ${M.mediaL} {
     font-size: 110px;
     top: 20px;
     right: 10px;
   }
-  @media only screen and (max-width: 768px) {
+  ${M.mediaM} {
     font-size: 90px;
     right: 30px;
   }
