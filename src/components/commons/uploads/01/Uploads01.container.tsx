@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { ChangeEvent, useRef } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 import { checkValidationImage } from "./Uploads01.validation";
 import Uploads01UI from "./Uploads01.presenter";
 import { UPLOAD_FILE } from "./Uploads01.queries";
@@ -16,6 +16,12 @@ export default function Uploads01(props) {
     fileRef.current?.click();
   };
 
+  useEffect(() =>{
+    if(props.data) {
+      setImage(props.data.fetchBoard.image?.imgUrl)
+    }
+  },[props.data])
+console.log(image)
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value)
     const file = checkValidationImage(event.target.files?.[0]);

@@ -42,6 +42,14 @@ export const mapCenterState = atom({
   key: "mapCenterState",
   default: "",
 });
+export const mapEditPathState = atom({
+  key: "mapPathState",
+  default: "",
+});
+export const mapEditCenterState = atom({
+  key: "mapCenterState",
+  default: "",
+});
 export const mapPathViewState = atom({
   key: "mapPathState",
   default: [],
