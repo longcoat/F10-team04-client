@@ -5,8 +5,10 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { appointment } from "../../../commons/library/appointment";
 import { modalDetailState } from "../../../commons/stores";
+import { OneEllipsis } from "../../../commons/styles/commonStyles";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 import { FETCH_BOARD } from "../CommunityPage/detail/CommunityDetail.queries";
+
 export const FETCH_ATTEND_LIST = gql`
   query fetchAttendList {
     fetchAttendList {
@@ -75,14 +77,12 @@ export default function AttendList() {
 
   return (
     <>
-
       <ModalCustom centered open={ModalOpen} width={900}>
         <CommunityDetailPage boardId={boardId} />
       </ModalCustom>
       {data?.fetchAttendList?.map((el: any, index) => (
         // <BoardListWrapper key={el.id}>
         <BoardList key={el.id} onClick={onClickDetail(el.board.id)}>
-
           <ImageListProfileBox>
             <ImageListProfile src="/profile.png" />
           </ImageListProfileBox>
@@ -109,11 +109,9 @@ export default function AttendList() {
           <ThumbnailBox>
             <ThumbnailImage src="/thumbnailsample.png" />
           </ThumbnailBox>
-
         </BoardList>
         // </BoardListWrapper>;
       ))}
-
     </>
   );
 }
@@ -149,7 +147,7 @@ export const InfoTextBox = styled.div`
   width: 100%;
   justify-content: space-between;
 `;
-export const Title = styled.div`
+export const Title = styled(OneEllipsis)`
   font-family: "AppleSDGothicNeoM00";
   font-style: normal;
   font-weight: 800;
@@ -161,7 +159,7 @@ export const Title = styled.div`
 
   color: #0b0b0b;
 `;
-export const MeetTime = styled.div`
+export const MeetTime = styled(OneEllipsis)`
   width: 21%;
   padding-right: 20px;
   font-family: "AppleSDGothicNeoM00";

@@ -171,20 +171,24 @@ export default function MyPageA(props) {
             <S.BoardListWrapper>
               <S.BoardList>
                 <S.InfoTextWrapper>
-                  <S.InfoTextBox>
-                    <S.Title>
-                      끝날때까지 끝난게 아니라 생각합니다....열심히해볼게요
-                    </S.Title>
-                  </S.InfoTextBox>
-                  <S.Content>
-                    <S.ContentText>
-                      호호호호호호호호호호호호호 마 남자아이가
-                    </S.ContentText>
-                  </S.Content>
+                  <S.InfoText>
+                    <S.InfoTextBox>
+                      <S.Title>
+                        끝날때까지 끝난게 아니라 생각합니다 열심히해볼게요
+                        호호호호호호호호호ㅗ호호호호호호호호호ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ
+                      </S.Title>
+                    </S.InfoTextBox>
+                    <S.Content>
+                      <S.ContentText>
+                        호호호호호호호호호호호호호 마
+                        남자아이가testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+                      </S.ContentText>
+                    </S.Content>
+                  </S.InfoText>
+                  <S.ThumbnailBox>
+                    <S.ThumbnailImage src="/thumbnailsample.png" />
+                  </S.ThumbnailBox>
                 </S.InfoTextWrapper>
-                <S.ThumbnailBox>
-                  <S.ThumbnailImage src="/thumbnailsample.png" />
-                </S.ThumbnailBox>
               </S.BoardList>
             </S.BoardListWrapper>
           ) : (
@@ -193,25 +197,26 @@ export default function MyPageA(props) {
           {color2 ? <AttendList /> : ""}
           {color3 ? <MyPickList /> : ""}
           {color4 ? (
+            // 참가인원 부분
             <S.BoardListWrapper>
               <S.BoardList>
                 <S.ImageListProfileBox>
                   <S.ImageListProfile src="/profile.png" />
                 </S.ImageListProfileBox>
-                <S.InfoTextWrapper>
+                <S.Profile1>
                   <S.InfoTextBox1>
-                    <S.Title>치타뭐여이거</S.Title>
+                    <S.Title1>치타뭐여이거</S.Title1>
                     <S.Nim1>님</S.Nim1>
                   </S.InfoTextBox1>
                   <S.Content1>
-                    <S.ContentText>최애운동</S.ContentText>
-                    <S.Section1>지역</S.Section1>
-                    <S.Sex>성별</S.Sex>
+                    <S.Exercise>수영</S.Exercise>
+                    <S.Section2>세종특별자치시</S.Section2>
+                    <S.Sex1>남성</S.Sex1>
                   </S.Content1>
-                </S.InfoTextWrapper>
-                <S.ThumbnailBox>
+                </S.Profile1>
+                {/* <S.ThumbnailBox>
                   <S.ThumbnailImage src="/thumbnailsample.png" />
-                </S.ThumbnailBox>
+                </S.ThumbnailBox> */}
               </S.BoardList>
             </S.BoardListWrapper>
           ) : (

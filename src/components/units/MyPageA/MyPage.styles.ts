@@ -1,6 +1,9 @@
 import styled from "@emotion/styled";
 import * as M from "../../../../src/commons/styles/mediaQueries";
-import { globalContainer } from "../../../commons/styles/commonStyles";
+import {
+  globalContainer,
+  OneEllipsis,
+} from "../../../commons/styles/commonStyles";
 
 export const Containerbox = styled(globalContainer)``;
 
@@ -342,6 +345,7 @@ export const BoardList = styled.div`
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid #8b8b8b;
+  width: 100%;
 `;
 export const ImageListProfileBox = styled.div`
   padding: 25px 35px 25px 0;
@@ -352,11 +356,31 @@ export const ImageListProfile = styled.img`
 `;
 
 export const InfoTextWrapper = styled.div`
-  width: 100%;
+  width: calc(100% - 120px);
+  display: flex;
+  flex-direction: row;
+  /* padding: 0 200px 0 200px;
+  ${M.mediaL} {
+    padding: 0 80px 0 80px;
+  }
+  ${M.mediaM} {
+    padding: 0 80px 0 80px;
+  } */
+
+  /* padding: 25px 0 25px 0; */
+`;
+
+export const InfoText = styled.div`
   display: flex;
   flex-direction: column;
-
-  padding: 25px 0 25px 0;
+  width: 100%;
+  padding-top: 8px;
+  ${M.mediaL} {
+    width: 100%;
+  }
+  ${M.mediaM} {
+    width: 100%;
+  }
 `;
 
 export const InfoTextBox = styled.div`
@@ -365,7 +389,8 @@ export const InfoTextBox = styled.div`
   width: 100%;
   justify-content: space-between;
 `;
-export const Title = styled.div`
+export const Title = styled(OneEllipsis)`
+  width: 81%;
   font-family: "AppleSDGothicNeoM00";
   font-style: normal;
   font-weight: 800;
@@ -382,6 +407,7 @@ export const InfoTextBox1 = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  padding-top: 22px;
 `;
 
 export const Nim1 = styled.div`
@@ -431,7 +457,7 @@ export const Time = styled.div`
   color: #8b8b8b;
 `;
 
-export const Content = styled.div`
+export const Content = styled(OneEllipsis)`
   width: 100%;
   font-family: "AppleSDGothicNeoM00";
   font-style: normal;
@@ -469,8 +495,9 @@ export const Content1 = styled.div`
 
   color: #0b0b0b;
 `;
-export const ContentText = styled.div`
-  padding-right: 20px;
+export const ContentText = styled(OneEllipsis)`
+  width: 83%;
+  /* padding-right: 20px; */
 `;
 
 export const Section1 = styled.div`
@@ -500,7 +527,7 @@ export const JoinBtn = styled.button`
 export const ThumbnailBox = styled.div`
   width: 120px;
   height: 90px;
-  padding-top: 20px;
+  /* padding-top: 20px; */
   border-radius: 12px;
 `;
 export const ThumbnailImage = styled.img`
@@ -680,3 +707,30 @@ export const LocaionText = styled.div`
 
   color: #8b8b8b;
 `;
+
+// 참가인원 부분
+
+export const Profile1 = styled.div`
+  width: 100%;
+`;
+
+export const Title1 = styled.div`
+  font-family: "AppleSDGothicNeoM00";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 30px;
+  /* identical to box height, or 167% */
+
+  letter-spacing: -0.002em;
+
+  color: #0b0b0b;
+`;
+export const Exercise = styled.div`
+  padding-right: 2%;
+`;
+
+export const Section2 = styled.div`
+  padding-right: 2%;
+`;
+export const Sex1 = styled.div``;
