@@ -4,16 +4,17 @@ import { DatePicker, Modal } from "antd";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { useState } from 'react';
-import { EditBoardId, mapCenterState, mapPathState, modalEditState} from '../../../commons/stores';
+import { useEffect, useState } from 'react';
+import { EditBoardId, mapCenterState, mapEditCenterState, mapEditPathState, mapPathState, modalEditState} from '../../../commons/stores';
 import { useRecoilState } from 'recoil';
-import { CREATE_BOARD, UPDATE_BOARD } from '../../units/CommunityPage/write/CommunityWrite.queries';
+import { UPDATE_BOARD } from '../../units/CommunityPage/write/CommunityWrite.queries';
 import { useMutation } from '@apollo/client';
 import Uploads01 from '../uploads/01/Uploads01.container';
 import dynamic from 'next/dynamic';
 import { FETCH_ALL_BOARDS } from "../../units/CommunityPage/list/CommunityList.queries";
 import { useRouter } from "next/router";
 import { IUpdateUseditemInput } from "../../units/CommunityPage/write/Community.type";
+import KaKaoMapEdit from "../map/mapsearch(edit)";
 
 const ReactQuill = dynamic( async() => await import('react-quill'), {
     ssr : false
@@ -120,8 +121,8 @@ const disabledRangeTime: RangePickerProps["disabledTime"] = (_, type) => {
 
 export default function InModalEdit(props) {
   const router = useRouter()
-  const [center, setCenter] = useRecoilState(mapCenterState);
-  const [path, setPath] = useRecoilState(mapPathState);
+  const [center, setCenter] = useRecoilState(mapEditCenterState);
+  const [path, setPath] = useRecoilState(mapEditPathState);
   const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
   const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
   const [recruitRegion, setRecruitRegion] = useState("서울특별시");
@@ -133,8 +134,22 @@ export default function InModalEdit(props) {
   const [recruitPeople, setRecruitPeople] = useState(0)
   const [image, setImage] = useState("")
 
+useEffect(() => {
+  if(props.data){
+      setImage(props.data.fetchBoard.image?.imgUrl)
+      setCenter(props.data.fetchBoard.location?.center)
+      setPath(props.data.fetchBoard.location?.path)
+      setTitle(props.data.fetchBoard.title)
+      setContent(props.data.fetchBoard.content)
+      setAppointment(props.data.fetchBoard.appointment)
+      setRecruitSports(props.data.fetchBoard.recruitSports)
+      setRecruitPeople(props.data.fetchBoard.recruitPeople)
+      setRecruitGrade(props.data.fetchBoard.recruitGrade)
+      setRecruitRegion(props.data.fetchBoard.recruitRegion)
+    }
+},[props.data])
   const [updateBoard] = useMutation(UPDATE_BOARD);
-  console.log(props.data?.fetchBoard.image)
+  console.log(props.data?.fetchBoard.image?.id)
   const onClickUpdate = async () => {
     const updateBoardInput: IUpdateUseditemInput= {};
     if (props.data?.fetchBoard.title) updateBoardInput.title = props.data.fetchBoard.title;
@@ -143,29 +158,22 @@ export default function InModalEdit(props) {
     if (props.data?.fetchBoard.recruitGrade) updateBoardInput.recruitGrade = props.data.fetchBoard.recruitGrade;
     if (props.data?.fetchBoard.recruitRegion) updateBoardInput.recruitRegion = props.data.fetchBoard.recruitRegion;
     if (props.data?.fetchBoard.recruitPeople) updateBoardInput.recruitPeople = props.data.fetchBoard.recruitPeople;
-      if (props.data?.fetchBoard.image?.imgUrl) updateBoardInput.image = props.data.fetchBoard.image?.imgUrl;
-    if (props.data?.fetchBoard.location.path || props.data.fetchBoard.location.center) {
-      updateBoardInput.location = {};
-      if (props.data?.fetchBoard.location.path) updateBoardInput.location.path = props.data.fetchBoard.location.path;
-      if (props.data?.fetchBoard.location.center)
-      updateBoardInput.location.center = props.data.fetchBoard.location.center;
-    }
-
+    
     try {
       const result = await updateBoard({
         variables: {
           boardId: String(editBoardId),
           updateBoardInput :{
-            title: updateBoardInput.title,
-            content: updateBoardInput.content,
-            recruitSports: updateBoardInput.recruitSports,
-            recruitGrade: updateBoardInput.recruitGrade,
-            recruitRegion: updateBoardInput.recruitRegion,
-            recruitPeople: updateBoardInput.recruitPeople,
+            title: title,
+            content: content,
+            recruitSports: recruitSports,
+            recruitGrade: recruitGrade,
+            recruitRegion: recruitRegion,
+            recruitPeople: Number(recruitPeople),
             image : image,
             location: {
-              path : updateBoardInput.location.path,
-              center: updateBoardInput.location.center
+              path : path,
+              center: center
             }
           }
         },refetchQueries: [{ query: FETCH_ALL_BOARDS }],
@@ -175,6 +183,10 @@ export default function InModalEdit(props) {
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
     }
+  };
+
+  const onToggleModal = () => {
+    setModalOpen((prev) => !prev);
   };
 
   const onChangePeople = (e) => {
@@ -206,7 +218,7 @@ export default function InModalEdit(props) {
   return (
     <S.Wrapper>
       <S.Header>
-        <Uploads01 image={image} onChangeImage={onChangeImage} />
+        <Uploads01 image={image} onChangeImage={onChangeImage} data={props.data}/>
         <S.InputWrap1>
           <S.InputWrap2>
             <S.InputWrapper>
@@ -289,9 +301,9 @@ export default function InModalEdit(props) {
           // value={props.getValues("contents") || ""}
         />
       </S.InputWrapper1>
-      {/* <KakaoMapUI data={props.data} /> */}
+      <KaKaoMapEdit />
       <S.ButtonWrap>
-        <S.Button1 type="button" onClick={() => setModalOpen(false)}>
+        <S.Button1 type="button" onClick={onToggleModal}>
           취소하기
         </S.Button1>
         <S.Button2 onClick={onClickUpdate}>수정하기</S.Button2>

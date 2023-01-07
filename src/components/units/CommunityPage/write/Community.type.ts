@@ -4,7 +4,9 @@ export interface IUpdateUseditemInput {
     recruitSports: string;
     recruitGrade: string;
     recruitRegion: string;
-    image:string;
+    image:{
+        imgUrl: string;
+    }
     recruitPeople: number;
     location: {
         path:string;

@@ -102,6 +102,7 @@ export default function CommunityDetailPage(props) {
     <CommunityDetailUIPage
       data={data}
       pick={pick}
+      EditModalOpen={EditModalOpen}
       onClickEdit={onClickEdit}
       onClickDelete={onClickDelete}
       onClickNoAtt={onClickNoAtt}

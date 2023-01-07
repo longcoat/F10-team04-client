@@ -4,19 +4,20 @@ import { useEffect, useState } from "react";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { useRecoilState } from "recoil";
-import { mapCenterState, mapPathState } from "../../../commons/stores";
+import { mapEditCenterState, mapEditPathState} from "../../../commons/stores";
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function KaKaoMapPage() {
+export default function KaKaoMapEdit() {
   const [path, setPath] = useState([]);
   const [center, setCenter] = useState([]);
+  const [geo, setGeo] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
   const [address, setAddress] = useState("");
-  const [center1, setCenter1] = useRecoilState(mapCenterState);
-  const [path1, setPath1] = useRecoilState(mapPathState);
+  const [center1, setCenter1] = useRecoilState(mapEditCenterState);
+  const [path1, setPath1] = useRecoilState(mapEditPathState);
   // let geocoder:any
 
   const onToggleModal = () => {
@@ -27,8 +28,6 @@ export default function KaKaoMapPage() {
     onToggleModal();
     setAddress(data.address);
   };
-
-  
 
   useEffect(() => {
     const script = document.createElement("script"); // <script></script> 랑 동일
@@ -51,9 +50,9 @@ export default function KaKaoMapPage() {
         var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
         var dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
 
-        let geocoder = new window.kakao.maps.services.Geocoder();
+           let geocoder = new window.kakao.maps.services.Geocoder();
 
-        // 주소로 좌표를 검색합니다
+             // 주소로 좌표를 검색합니다
         geocoder.addressSearch(
           address ? address : "제주특별자치도 제주시 첨단로 242",
           function (result, status) {
@@ -74,7 +73,7 @@ export default function KaKaoMapPage() {
             }
           }
         );
-
+        
         // 지도에 클릭 이벤트를 등록합니다
         // 지도를 클릭하면 선 그리기가 시작됩니다 그려진 선이 있으면 지우고 다시 그립니다
         window.kakao.maps.event.addListener(
@@ -357,7 +356,7 @@ export default function KaKaoMapPage() {
         }
       });
     };
-  }, [address]);
+  }, [geo,address]);
   useEffect(() =>{
     setPath1(JSON.stringify(path))
     setCenter1(JSON.stringify(center))
