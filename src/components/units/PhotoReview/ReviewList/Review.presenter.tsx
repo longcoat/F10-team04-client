@@ -50,7 +50,6 @@ let a = [
 ];
 
 export default function ReviewUI() {
-  const { disableScroll, enableScroll } = usePreventBodyScroll();
 
   return (
     <>
@@ -73,28 +72,16 @@ export default function ReviewUI() {
           </S.DDD>
         </S.SideBar>
 
-        <S.Contents onMouseEnter={disableScroll} onMouseLeave={enableScroll}>
-          <ScrollMenu onWheel={onWheel}>
+        <S.Contents >
             {a.map((el) => (
-              <PhotoReviewCard key={el.n} el={el} />
+              <S.ImgBox key={el.n}
+              style={{backgroundColor:"gray"}}
+                >
+                
+              </S.ImgBox>
             ))}
-          </ScrollMenu>
         </S.Contents>
       </S.Wrapper>
     </>
   );
-}
-function onWheel(apiObj, ev): void {
-  const isThouchpad = Math.abs(ev.deltaX) !== 0 || Math.abs(ev.deltaY) < 15;
-
-  if (isThouchpad) {
-    ev.stopPropagation();
-    return;
-  }
-
-  if (ev.deltaY < 0) {
-    apiObj.scrollNext();
-  } else if (ev.deltaY > 0) {
-    apiObj.scrollPrev();
-  }
 }
