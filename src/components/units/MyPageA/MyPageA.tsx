@@ -8,6 +8,13 @@ import { gql, useQuery } from "@apollo/client";
 import AttendList from "./AttendList";
 import MyPickList from "./MyPickList";
 import MyBoardList from "./MyBoardList";
+import AttendPeople from "./AttendPeople";
+import { useRecoilState } from "recoil";
+import { modalEditState } from "../../../commons/stores";
+import styled from "@emotion/styled";
+import UserEdit from "../../commons/user(Edit)/userEdit.container";
+import { Modal } from "antd";
+
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
     fetchUserLoggedIn {
@@ -32,6 +39,8 @@ const FETCH_MY_FOLLOW_COUNT = gql`
 `;
 
 export default function MyPageA(props) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
   console.log(data);
   const { data: fetchMyFollowCount } = useQuery(FETCH_MY_FOLLOW_COUNT);
@@ -40,6 +49,10 @@ export default function MyPageA(props) {
   const [color2, setColor2] = useState(false);
   const [color3, setColor3] = useState(false);
   const [color4, setColor4] = useState(false);
+
+  const onClickEdit = () => {
+    setModalOpen((prev) => !prev);
+  };
 
   const onClickColorfirst = (e) => {
     if (!color1) {
@@ -111,9 +124,11 @@ export default function MyPageA(props) {
 
   return (
     <S.Containerbox>
-      {/* <S.MyPageImageBox>
-          <S.MyPageImage src="/mypage.png" />
-        </S.MyPageImageBox> */}
+      {ModalOpen && (
+        <ModalCustom title="게시물 수정" centered open={true} width={1100}>
+          <UserEdit data={props.data} />
+        </ModalCustom>
+      )}
       <S.Container>
         <S.Wrapper>
           <S.ProfileBox>
@@ -124,7 +139,7 @@ export default function MyPageA(props) {
               <S.NickInfoBox>
                 <S.Nickname>{data?.fetchUserLoggedIn?.nickname}</S.Nickname>
                 <S.Nim>님</S.Nim>
-                <S.Modify>회원정보수정</S.Modify>
+                <S.Modify onClick={onClickEdit}>회원정보 수정</S.Modify>
               </S.NickInfoBox>
               <S.InformationBox>
                 <S.FriendHeartBox>
@@ -191,35 +206,52 @@ export default function MyPageA(props) {
           {color1 ? <MyBoardList /> : ""}
           {color2 ? <AttendList /> : ""}
           {color3 ? <MyPickList /> : ""}
-          {color4 ? (
-            // 참가인원 부분
-            <S.BoardListWrapper>
-              <S.BoardList>
-                <S.ImageListProfileBox>
-                  <S.ImageListProfile src="/profile.png" />
-                </S.ImageListProfileBox>
-                <S.Profile1>
-                  <S.InfoTextBox1>
-                    <S.Title1>치타뭐여이거</S.Title1>
-                    <S.Nim1>님</S.Nim1>
-                  </S.InfoTextBox1>
-                  <S.Content1>
-                    <S.Exercise>수영</S.Exercise>
-                    <S.Section2>세종특별자치시</S.Section2>
-                    <S.Sex1>남성</S.Sex1>
-                  </S.Content1>
-                </S.Profile1>
-                {/* <S.ThumbnailBox>
-                  <S.ThumbnailImage src="/thumbnailsample.png" />
-                </S.ThumbnailBox> */}
-              </S.BoardList>
-            </S.BoardListWrapper>
-          ) : (
-            ""
-          )}
+          {color4 ? <AttendPeople /> : ""}
         </S.ListContainer>
         {/* 보드리스트 게시글목록 할 때 부분 */}
       </S.Container>
     </S.Containerbox>
   );
 }
+
+const ModalCustom = styled(Modal)`
+  .ant-modal-header {
+    padding: 16px 24px;
+    padding-top: 30px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+    border-radius: 2px 2px 0 0;
+    height: 80px;
+  }
+  .ant-modal-title {
+    color: #fff;
+  }
+  .ant-modal-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .ant-modal-footer > .ant-btn-primary {
+    width: 161px;
+    height: 63px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+  }
+  .ant-modal-footer > .ant-btn-default {
+    width: 161px;
+    height: 63px;
+    background-color: #f6f6f6;
+    color: #8b8b8b;
+    border: none;
+  }
+  .ant-modal-footer {
+    height: 0px;
+    border: none;
+  }
+  .ant-btn {
+    visibility: hidden;
+  }
+`;

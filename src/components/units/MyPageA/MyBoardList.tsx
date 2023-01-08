@@ -60,11 +60,6 @@ export default function MyBoardList() {
                     }}
                   />
                 </ContentText>
-                <ReviewBtn
-                // onClick={onClickAttend(el.board.id)}
-                >
-                  리뷰쓰기
-                </ReviewBtn>
               </Content>
             </InfoTextWrapper>
             <ThumbnailBox>

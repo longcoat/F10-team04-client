@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { HeartFilled, HeartOutlined, UserAddOutlined } from "@ant-design/icons";
 
 import { useState } from "react";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { FETCH_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail.queries";
 import { Modal } from "antd";
@@ -13,10 +13,26 @@ export const FOLLOW_USER = gql`
     followUser(userId: $userId)
   }
 `;
+export const FETCH_FOLLOW_COUNT = gql`
+  query fetchFollowCount($userId: String!) {
+    fetchFollowCount(userId: $userId) {
+      id
+      followCount
+      followerCount
+      user {
+        id
+      }
+    }
+  }
+`;
 export default function UserCard(props) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);
+  const { data } = useQuery(FETCH_FOLLOW_COUNT, {
+    variables: { userId: props.el.id },
+  });
+  console.log(data);
   const [followUser] = useMutation(FOLLOW_USER);
   const onClickHeart = () => {
     setIsActive((prev) => !prev);
@@ -43,18 +59,8 @@ export default function UserCard(props) {
         <Item>#{props.el.grade}</Item>
       </UserInfo>
       <HeartWrap>
-        {isActive ? (
-          <HeartFilled
-            onClick={onClickHeart}
-            style={{ fontSize: "28px", color: "#C71515" }}
-          />
-        ) : (
-          <HeartOutlined
-            onClick={onClickHeart}
-            style={{ fontSize: "28px", color: "#C71515" }}
-          />
-        )}
-        <Level>인기도</Level>
+        <Level>{data?.fetchFollowCount?.followerCount}팔로워</Level>
+        <Level>{data?.fetchFollowCount?.followCount}팔로잉</Level>
       </HeartWrap>
       <ButtonWrap>
         {!addActive ? (
