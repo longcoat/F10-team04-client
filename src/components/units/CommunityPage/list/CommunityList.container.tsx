@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { modalDetailState} from "../../../../commons/stores";
+import { modalDetailState } from "../../../../commons/stores";
 import { FETCH_BOARD } from "../detail/CommunityDetail.queries";
 import CommunityListUi from "./CommunityList.presenter";
 
@@ -12,10 +12,9 @@ import {
 } from "./CommunityList.queries";
 
 export default function CommunityList() {
-
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
-  const [boardId, setBoardId] = useState("")
-  const [level, setLevel] = useState("")
+  const [boardId, setBoardId] = useState("");
+  const [level, setLevel] = useState("");
 
   const { data, refetch, fetchMore } = useQuery(FETCH_ALL_BOARDS);
   const [Lo, setLo] = useState("");

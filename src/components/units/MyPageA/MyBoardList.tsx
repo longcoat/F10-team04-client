@@ -9,36 +9,24 @@ import { OneEllipsis } from "../../../commons/styles/commonStyles";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 import { FETCH_BOARD } from "../CommunityPage/detail/CommunityDetail.queries";
 
-export const FETCH_ATTEND_LIST = gql`
-  query fetchAttendList {
-    fetchAttendList {
+export const FETCH_MY_All_BOARDS = gql`
+  query fetchMyAllBoards($page: Int) {
+    fetchMyAllBoards(page: $page) {
       id
-      user {
-        id
-        email
-        nickname
-        age
-        gender
-      }
-      board {
-        id
-        title
-        content
-        appointment
-      }
+      title
+      content
+      attendCount
+      pickCount
+      appointment
+      recruitRegion
+      recruitGrade
       createdAt
-      updatedAt
     }
   }
 `;
-export const ATTEND_LIST = gql`
-  mutation attendList($boardId: String!) {
-    attendList(boardId: $boardId)
-  }
-`;
 
-export default function AttendList() {
-  const { data } = useQuery(FETCH_ATTEND_LIST);
+export default function MyBoardList() {
+  const { data } = useQuery(FETCH_MY_All_BOARDS);
   console.log(data);
   // 리스트 클릭시 디테일 로 넘어가게
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
@@ -47,55 +35,28 @@ export default function AttendList() {
     setModalOpen((prev) => !prev);
     setBoardId(boardId);
   };
-  const [attendBoard] = useMutation(ATTEND_LIST);
-  const [attend, setAttend] = useState(true);
-  const onClickAttend = (boardId) => async () => {
-    console.log(boardId);
-    setAttend((prev) => !prev);
-    try {
-      const result = await attendBoard({
-        variables: {
-          boardId: String(boardId),
-        },
-        refetchQueries: [
-          {
-            query: FETCH_BOARD,
-            variables: { boardId },
-          },
-        ],
-      });
-
-      if (attend === false) {
-        Modal.success({ content: "참여완료" });
-      } else if (attend === true) {
-        Modal.error({ content: "참가취소" });
-      }
-    } catch (error) {
-      if (error instanceof Error) Modal.error({ content: "에러" });
-    }
-  };
 
   return (
     <>
       <ModalCustom centered open={ModalOpen} width={900}>
         <CommunityDetailPage boardId={boardId} />
       </ModalCustom>
-      {data?.fetchAttendList?.map((el: any, index) => (
+      {data?.fetchMyAllBoards?.map((el: any, index) => (
         <BoardListWrapper key={el.id}>
-          <BoardList onClick={onClickDetail(el.board.id)}>
+          <BoardList onClick={onClickDetail(el.id)}>
             <ImageListProfileBox>
               <ImageListProfile src="/profile.png" />
             </ImageListProfileBox>
             <InfoTextWrapper>
               <InfoTextBox>
-                <Title>{el.board.title}</Title>
-                <MeetTime>{appointment(el.board.appointment)}</MeetTime>
+                <Title>{el.title}</Title>
+                <MeetTime>{appointment(el.appointment)}</MeetTime>
               </InfoTextBox>
               <Content>
                 <ContentText>
                   <div
                     dangerouslySetInnerHTML={{
-                      __html: String(el.board.content),
+                      __html: String(el.content),
                     }}
                   />
                 </ContentText>
