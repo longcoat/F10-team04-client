@@ -10,15 +10,19 @@ export default function Uploads03UI(props: IUploads01UIProps) {
   return (
     <>
       {props.fileUrl ? (
-        <BackGround>
-        <UploadImage onClick={props.onClickUpload} src={props.fileUrl} />
-        </BackGround>
-      ) : (
-        <BackGround>
+        <BackGround 
+          style={{backgroundImage: `url(${props.fileUrl})`, backgroundSize:"cover", backgroundPosition:"center"}}
+        >
         <UploadButton onClick={props.onClickUpload} type="button">
           <>+</>
         </UploadButton>
         </BackGround>
+      ) : (
+        <>
+           <UploadButton onClick={props.onClickUpload} type="button">
+           <>+</>
+         </UploadButton>
+         </>
       )}
       <UploadFileHidden
         type="file"
