@@ -7,6 +7,7 @@ import { RightOutlined } from "@ant-design/icons";
 import { gql, useQuery } from "@apollo/client";
 import AttendList from "./AttendList";
 import MyPickList from "./MyPickList";
+import MyBoardList from "./MyBoardList";
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
     fetchUserLoggedIn {
@@ -17,10 +18,24 @@ const FETCH_USER_LOGGED_IN = gql`
     }
   }
 `;
+const FETCH_MY_FOLLOW_COUNT = gql`
+  query fetchMyFollowCount {
+    fetchMyFollowCount {
+      id
+      followCount
+      followerCount
+      user {
+        id
+      }
+    }
+  }
+`;
 
 export default function MyPageA(props) {
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
   console.log(data);
+  const { data: fetchMyFollowCount } = useQuery(FETCH_MY_FOLLOW_COUNT);
+  console.log(fetchMyFollowCount);
   const [color1, setColor1] = useState(true);
   const [color2, setColor2] = useState(false);
   const [color3, setColor3] = useState(false);
@@ -118,7 +133,10 @@ export default function MyPageA(props) {
                       <BiUserPlus style={{ fontSize: "40px" }} />
                     </S.IconBox>
                     <S.FriendTextBox>
-                      <S.FriendText>팔로잉 200</S.FriendText>
+                      <S.FriendText>
+                        팔로워
+                        {fetchMyFollowCount?.fetchMyFollowCount?.followerCount}
+                      </S.FriendText>
                     </S.FriendTextBox>
                   </S.FriendBox>
                   <S.HeartBox1>
@@ -126,7 +144,10 @@ export default function MyPageA(props) {
                       <BiUserPlus style={{ fontSize: "40px" }} />
                     </S.RightIconDownBox>
                     <S.FameTextBox>
-                      <S.FameText>팔로우 200</S.FameText>
+                      <S.FameText>
+                        팔로잉
+                        {fetchMyFollowCount?.fetchMyFollowCount?.followCount}
+                      </S.FameText>
                     </S.FameTextBox>
                   </S.HeartBox1>
                 </S.FriendHeartBox>
@@ -167,33 +188,7 @@ export default function MyPageA(props) {
           </S.BoardBox>
         </S.BoardCategoryWrapper>
         <S.ListContainer>
-          {color1 ? (
-            <S.BoardListWrapper>
-              <S.BoardList>
-                <S.InfoTextWrapper>
-                  <S.InfoText>
-                    <S.InfoTextBox>
-                      <S.Title>
-                        끝날때까지 끝난게 아니라 생각합니다 열심히해볼게요
-                        호호호호호호호호호ㅗ호호호호호호호호호ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ
-                      </S.Title>
-                    </S.InfoTextBox>
-                    <S.Content>
-                      <S.ContentText>
-                        호호호호호호호호호호호호호 마
-                        남자아이가testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
-                      </S.ContentText>
-                    </S.Content>
-                  </S.InfoText>
-                  <S.ThumbnailBox>
-                    <S.ThumbnailImage src="/thumbnailsample.png" />
-                  </S.ThumbnailBox>
-                </S.InfoTextWrapper>
-              </S.BoardList>
-            </S.BoardListWrapper>
-          ) : (
-            ""
-          )}
+          {color1 ? <MyBoardList /> : ""}
           {color2 ? <AttendList /> : ""}
           {color3 ? <MyPickList /> : ""}
           {color4 ? (
