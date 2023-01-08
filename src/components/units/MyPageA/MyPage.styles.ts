@@ -105,6 +105,7 @@ export const Modify = styled.div`
   ${M.mediaM} {
     padding: 45px 0 0 137px;
   }
+  cursor: pointer;
 `;
 
 export const FriendBox = styled.div`

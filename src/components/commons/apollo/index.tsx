@@ -41,7 +41,6 @@ export default function ApolloSetting(props: IApolloSettingProps) {
             getAccessToken().then((newAccessToken) => {
               setAccessToken(newAccessToken);
 
-       
               operation.setContext({
                 headers: {
                   ...operation.getContext().headers,

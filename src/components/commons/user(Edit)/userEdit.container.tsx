@@ -7,7 +7,8 @@ import { modalEditState } from "../../../commons/stores";
 import UserEditUI from "./userEdit.presenter";
 import { CHECK_NICK_NAME, UPDATE_USER } from "./userEdit.query";
 
-export default function UserEdit() {
+export default function UserEdit(props) {
+  console.log(props.data);
   const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
   const router = useRouter();
   const [nickname, setNickname] = useState("");
@@ -155,15 +156,19 @@ export default function UserEdit() {
         },
       });
       setModalOpen((prev) => !prev);
-      router.push(`/`);
+      router.push(`/mypage`);
       console.log(result);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
     }
   };
+  const onClickClose = () => {
+    setModalOpen((prev) => !prev);
+  };
 
   return (
     <UserEditUI
+      data={props.data}
       NicknameAct={NicknameAct}
       genderAct={genderAct}
       levelAct={levelAct}
@@ -184,6 +189,7 @@ export default function UserEdit() {
       onClickLeft={onClickLeft}
       onChangeNickName={onChangeNickName}
       onClickSubmit={onClickSubmit}
+      onClickClose={onClickClose}
     />
   );
 }

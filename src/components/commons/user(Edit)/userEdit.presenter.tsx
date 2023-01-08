@@ -1,4 +1,4 @@
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, CloseOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { modalEditState } from "../../../commons/stores";
@@ -46,6 +46,15 @@ export default function UserEditUI(props) {
   return (
     <S.Container>
       <S.JoinForm>
+        <CloseOutlined
+          onClick={props.onClickClose}
+          style={{
+            position: "relative",
+            top: "50px",
+            right: "80px",
+            fontSize: "25px",
+          }}
+        />
         <S.TitleBox>
           <S.Title>RunGether</S.Title>
         </S.TitleBox>
@@ -68,6 +77,7 @@ export default function UserEditUI(props) {
             onChange={props.onChangeNickName}
             type="text"
             placeholder="닉네임을 입력해주세요."
+            defaultValue={props.data?.fetchUserLoggedIn.nickname}
           ></S.DupInput>
           <S.DupButton onClick={props.onClickCheckNickname}>
             중복확인
@@ -100,7 +110,7 @@ export default function UserEditUI(props) {
           <S.Selectbar>
             <S.SelectArea
               onChange={props.onChangeAge}
-              defaultValue={AgeOption[0]}
+              defaultValue={props.data?.fetchUserLoggedIn.age}
               style={{ width: "100%", borderRadius: "10px" }}
               options={AgeOption}
             />
@@ -113,7 +123,7 @@ export default function UserEditUI(props) {
         <S.Selectbar>
           <S.SelectArea
             onChange={props.onChangeLo}
-            defaultValue={AreaOption[0]}
+            defaultValue={props.data?.fetchUserLoggedIn.region}
             style={{ width: "100%", borderRadius: "10px" }}
             options={AreaOption}
           />

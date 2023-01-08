@@ -21,6 +21,7 @@ export const FETCH_MY_All_BOARDS = gql`
       recruitRegion
       recruitGrade
       createdAt
+      recruitPeople
     }
   }
 `;
@@ -60,6 +61,9 @@ export default function MyBoardList() {
                     }}
                   />
                 </ContentText>
+                <Date>
+                  {el.attendCount}/{el.recruitPeople}
+                </Date>
               </Content>
             </InfoTextWrapper>
             <ThumbnailBox>
@@ -166,6 +170,7 @@ export const ThumbnailBox = styled.div`
 export const ThumbnailImage = styled.img`
   border-radius: 12px;
 `;
+export const Date = styled.div``;
 export const ModalCustom = styled(Modal)`
   .ant-modal-header {
     padding: 0px 24px 16px 24px;

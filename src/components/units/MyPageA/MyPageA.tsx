@@ -21,7 +21,11 @@ const FETCH_USER_LOGGED_IN = gql`
       id
       email
       nickname
+      age
       grade
+      gender
+      prefer
+      region
     }
   }
 `;
@@ -125,8 +129,8 @@ export default function MyPageA(props) {
   return (
     <S.Containerbox>
       {ModalOpen && (
-        <ModalCustom title="게시물 수정" centered open={true} width={1100}>
-          <UserEdit data={props.data} />
+        <ModalCustom title="회원정보 수정" centered open={true} width={1100}>
+          <UserEdit data={data} />
         </ModalCustom>
       )}
       <S.Container>
