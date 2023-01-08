@@ -43,7 +43,8 @@ export default function MyPickList() {
   };
   const [pickBoard] = useMutation(PICK_BOARD);
   const [pick, setPick] = useState(true);
-  const onClickPick = (boardId) => async () => {
+  const onClickPick = (boardId) => async (e) => {
+    e.stopPropagation();
     console.log(boardId);
     setPick((prev) => !prev);
     try {
@@ -95,17 +96,14 @@ export default function MyPickList() {
                   />
                 </ContentText>
                 <ReviewBtn onClick={onClickPick(el.board.id)}>
-                  {pick ? (
+                  {!pick ? (
                     <HeartOutlined
                       onClick={onClickPick(el.board.id)}
-                      style={{ marginRight: "10px", lineHeight: "35px" }}
                     />
                   ) : (
                     <HeartFilled
                       onClick={onClickPick(el.board.id)}
                       style={{
-                        marginRight: "10px",
-                        lineHeight: "35px",
                         color: "#C71515",
                       }}
                     />
@@ -203,6 +201,11 @@ export const ContentText = styled.div`
   padding-right: 20px;
 `;
 export const ReviewBtn = styled.button`
+display: flex;
+width: 30px;
+height: 30px;
+align-items: center;
+justify-content: center;
   background: black;
   border-radius: 8px;
   color: white;
