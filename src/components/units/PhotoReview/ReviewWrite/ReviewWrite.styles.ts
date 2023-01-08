@@ -42,8 +42,16 @@ padding-top:20px;
 `
 export const Remark = styled.div`
 padding-top:20px;`
-export const Content = styled.div`
-padding-top:20px;`
+export const Content = styled.input`
+margin-top:40px;
+width: 100%;
+border: none;
+border-bottom: 1px solid #D3D3D3;
+
+:focus{
+    outline: none;
+}
+`
 export const CreatedAt = styled.div`
 padding-top: 20px;
 `
@@ -90,4 +98,16 @@ word-wrap: break-word;
 background-color: white;
 opacity: 0.2;
 }
+`
+export const imagesBox = styled.div`
+width: 10%;
+padding: 10px;
+display: flex;
+flex-direction: column;
+align-items: center;
+`
+export const Img = styled.div`
+margin: 5px 0px;
+width: 50px;
+height: 50px;
 `

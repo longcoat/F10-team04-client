@@ -30,6 +30,10 @@ export const boardImageState = atom({
   key: "boardImageState",
   default: "",
 });
+export const ReviewImagesState = atom({
+  key: "ReviewImagesState",
+  default: [],
+});
 export const EditBoardId = atom({
   key: "EditBoardId",
   default: "",
