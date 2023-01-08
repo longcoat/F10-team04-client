@@ -3,7 +3,7 @@ import styled from "@emotion/styled"
 import { Modal } from "antd";
 import { useState } from "react";
 import ReviewCommentWrite from "../../units/Comment/ReviewComment/reviewComment.container"
-import ReviewWrite from "../../units/PhotoReview/ReviewDetail/Review.write.container";
+import ReviewWrite from "../../units/PhotoReview/ReviewDetail/ReviewDetail.container";
 
 export default function PhotoReviewCard(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,9 +19,7 @@ export default function PhotoReviewCard(props) {
       };
     return(
         <>
-        <CusModal  width="1100px" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-            <ReviewWrite/>
-      </CusModal>
+    
             <Wrapper>
                 <Contents>
                <NameWrap>

@@ -1,4 +1,4 @@
-import ReviewWriteUI from "./Review.write.presenter";
+import ReviewWriteUI from "./ReviewDetail.presenter";
 
 export default function ReviewWrite() {
     return(

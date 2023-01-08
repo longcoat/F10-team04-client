@@ -1,6 +1,6 @@
 import { HeartOutlined, SmileOutlined } from '@ant-design/icons'
 import ReviewCommentWrite from '../../Comment/ReviewComment/reviewComment.container'
-import * as S from './Review.write.styles'
+import * as S from './ReviewDetail.styles'
 
 export default function ReviewWriteUI() {
     return(
@@ -13,7 +13,6 @@ export default function ReviewWriteUI() {
                 <S.Name>이름</S.Name>
                 </S.UserWrap>
                 <S.Contents>
-                    <S.TagList>#tag #tag</S.TagList>
                     <S.Remark>remarkremarkremarkremarkremark</S.Remark>
                     <S.Content>contentcontentcontentcontentcontent</S.Content>
                     <S.CreatedAt>1분전</S.CreatedAt>
