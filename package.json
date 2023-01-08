@@ -38,6 +38,8 @@
     "recoil": "^0.7.6",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6",
+    "socket.io": "^4.4.1",
+    "socket.io-client": "^4.4.1",
     "uuid": "^9.0.0",
     "yup": "^0.32.11",
     "zen-observable": "^0.10.0"

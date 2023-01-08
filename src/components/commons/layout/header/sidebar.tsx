@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React, { useRef, useEffect } from "react";
 import styled from "@emotion/styled";
 import * as M from "../../../../commons/styles/mediaQueries";
+import { gql, useMutation, useQuery } from "@apollo/client";
 
 const SideBarWrap = styled.div`
   display: none;
@@ -42,10 +43,50 @@ const ExitMenu = styled.span`
   font-size: 0.8rem;
 `;
 
+const FETCH_USER_LOGGED_IN = gql`
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
+      id
+      email
+      nickname
+    }
+  }
+`;
+export const LOGOUT_USER = gql`
+  mutation logout {
+    logout
+  }
+`;
+
 function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any }) {
+  // 로그인시
+  const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const outside = useRef<any>();
   const router = useRouter();
-
+  const onClickMoveToLogin = () => {
+    if (!data) {
+      router.push("/login");
+    }
+  };
+  const onClcikMoveToUser = () => {
+    if (data) {
+      router.push("/mypage");
+    } else {
+      router.push("/join");
+    }
+  };
+  // 로그아웃
+  const [logout] = useMutation(LOGOUT_USER);
+  const onClickLogOut = async () => {
+    try {
+      await logout();
+      window.localStorage.removeItem("accessToken");
+      router.push("/");
+      location.reload();
+    } catch (error) {
+      if (error instanceof Error) Modal.error({ content: "로그아웃 실패" });
+    }
+  };
   useEffect(() => {
     document.addEventListener("mousedown", handlerOutsie);
     return () => {
@@ -72,11 +113,18 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any }) {
     >
       <CloseOutlined alt="close" onClick={toggleSide} onKeyDown={toggleSide} />
 
-      <Menu onClick={() => router.push("/login")}>Login</Menu>
-      <Menu onClick={() => router.push("/join")}>Join</Menu>
-      <Menu>Members</Menu>
+      <Menu onClick={() => router.push("/members")}>Members</Menu>
       <Menu onClick={() => router.push("/community")}>Community</Menu>
-      <Menu>MyMenu</Menu>
+      <Menu onClick={onClcikMoveToUser} className="menu">
+        {data ? "Mypage" : "Sign up"}
+      </Menu>
+      <Menu
+        onClick={data ? onClickLogOut : onClickMoveToLogin}
+        className="menu"
+      >
+        {" "}
+        {data ? "Logout" : "Login"}
+      </Menu>
     </SideBarWrap>
   );
 }
