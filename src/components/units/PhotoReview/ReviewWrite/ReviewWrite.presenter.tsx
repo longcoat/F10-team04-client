@@ -8,15 +8,17 @@ export default function ReviewWriteUI(props) {
         <>
          <S.Wrapper>
             {/* <S.LeftSide></S.LeftSide> */}
+            <S.Img style={{backgroundImage: `url(${props.files[0]})`, backgroundSize:"cover", backgroundPosition:"center"}}></S.Img>
+            <S.imagesBox >
             {props.files.map((el, index) => (
               <Uploads03
                 key={uuidv4()}
-                files={props.files}
                 index={index}
                 fileUrl={el}
                 onChangeFileUrls={props.onChangeFileUrls}
               />
             ))}
+            </S.imagesBox>
             <S.RightSide>
                 <S.DDD>
                 <S.UserWrap>

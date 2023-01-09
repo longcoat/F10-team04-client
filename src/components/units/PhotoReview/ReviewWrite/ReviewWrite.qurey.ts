@@ -11,7 +11,6 @@ export const CREATE_REVIEW_BOARD = gql`
     createReviewBoard(createReviewBoardInput: $createReviewBoardInput,attendListId: $attendListId) {
         title
         content
-        reviewImage
     }
   }
 `;

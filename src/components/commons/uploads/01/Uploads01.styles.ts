@@ -4,6 +4,7 @@ export const UploadImage = styled.img`
   width: 200px;
   height: 200px;
   margin-right: 24px;
+  border-radius: 50px;
   cursor: pointer;
 `;
 

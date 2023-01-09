@@ -107,7 +107,7 @@ flex-direction: column;
 align-items: center;
 `
 export const Img = styled.div`
+border: 1px solid #D3D3D3;
 margin: 5px 0px;
-width: 50px;
-height: 50px;
+width: 50%;
 `

@@ -34,6 +34,10 @@ export const ReviewImagesState = atom({
   key: "ReviewImagesState",
   default: [],
 });
+export const attendListIdState = atom({
+  key: "attendListIdState",
+  default: "",
+});
 export const EditBoardId = atom({
   key: "EditBoardId",
   default: "",
