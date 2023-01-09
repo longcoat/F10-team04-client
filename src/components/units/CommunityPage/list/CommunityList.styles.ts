@@ -1,10 +1,13 @@
 import styled from "@emotion/styled";
 import { Modal, Select } from "antd";
+import {
+  globalContainer,
+  OneEllipsis,
+} from "../../../../commons/styles/commonStyles";
+import * as M from "../../../../commons/styles/mediaQueries";
 
-export const Wrapper = styled.form`
-  padding: 48px 0px;
-  margin: 0px auto;
-  width: 1400px;
+export const Wrapper = styled(globalContainer)`
+  padding: 48px 80px;
 `;
 export const Title = styled.div`
   font-style: normal;
@@ -79,10 +82,11 @@ export const ItemWrapper = styled.div`
   flex-wrap: wrap;
   flex-direction: row;
 `;
-export const Item = styled.div`
-  width: calc(25% - 20px);
+export const Item = styled(OneEllipsis)`
+  /* width: calc(25% - 20px); */
+  width: 24%;
   margin-top: 15px;
-  margin-right: 26px;
+  margin-right: 1.3%;
   margin-bottom: 20px;
   height: 400px;
   display: flex;
@@ -90,9 +94,28 @@ export const Item = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 9px rgba(153, 153, 151, 0.25);
   border-radius: 12px;
-  &:nth-of-type(4n) {
+  &:nth-of-type(4) {
     margin-right: 0;
   }
+
+  ${M.mediaL} {
+    width: 32%;
+    margin-right: 2%;
+    &:nth-of-type(3) {
+      margin-right: 0;
+    }
+  }
+
+  ${M.mediaM} {
+    width: 48%;
+    margin-right: 4%;
+
+    &:nth-of-type(2) {
+      margin-right: 0;
+    }
+  }
+  /* &:nth-of-type(4n) {
+    margin-right: 0; */
 `;
 export const Img = styled.div`
   background-size: cover;
@@ -105,7 +128,7 @@ export const Main = styled.div`
   flex-direction: column;
   padding: 0px 18px;
 `;
-export const Title2 = styled.div`
+export const Title2 = styled(OneEllipsis)`
   padding-top: 15px;
   font-style: normal;
   font-weight: 400;
@@ -196,45 +219,37 @@ export const ModalCustom = styled(Modal)`
 `;
 
 export const SearchWrap = styled.div`
-  padding: 19px 80px;
-  width: 90%;
+  padding: 19px 80px 35px 80px;
+  width: 100%;
   margin: 0px auto;
   box-shadow: 2px 2px 8px 0px #0000000f;
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
-  @media only screen and (max-width: 768px) {
-    padding: 19px 25px;
+  ${M.mediaM} {
+    padding: 19px 30px 35px 30px;
   }
 `;
 export const SelectSide = styled.div`
   display: flex;
-  width: 80%;
+  width: 83%;
   justify-content: space-between;
-  @media only screen and (max-width: 768px) {
-    width: 75%;
-  }
+  overflow: hidden;
 `;
 export const Category = styled.div`
   width: 20%;
-  @media only screen and (max-width: 1024px) {
-    width: 20%;
-  }
 `;
 export const InputWrap = styled.div`
   width: 55%;
-  @media only screen and (max-width: 1024px) {
-    width: 20%;
-  }
 `;
 export const Input = styled.input`
   width: 100%;
   color: #8b8b8b;
-  height: 30px;
+  height: 36px;
   position: relative;
   background-color: rgba(25, 29, 35, 0.05);
   border: none;
-  border-radius: 16px;
+  border-radius: 10px;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   padding-left: 20px;
 
@@ -251,11 +266,7 @@ export const Ctg_title = styled.div`
   text-align: left;
   padding-bottom: 15px;
   padding-left: 13px;
-  @media only screen and (max-width: 768px) {
-    font-size: 12px;
-    padding-left: 10px;
-    padding-bottom: 9px;
-  }
+  padding-top: 10px;
 `;
 // export const Select = styled.select`
 // color: #8B8B8B;
@@ -279,24 +290,27 @@ export const Selectbar = styled.div`
 
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     color: #8b8b8b;
+    height: 36px;
     position: relative;
     background-color: rgba(25, 29, 35, 0.05);
     border: none;
-    border-radius: 16px;
+    border-radius: 10px;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    @media only screen and (max-width: 768px) {
-      font-size: 10px;
-    }
   }
   .css-18xu70h {
     width: 100%;
     border: none;
     color: #8b8b8b;
   }
+
+  .ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+  .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
+    font-size: 14px;
+    padding: 3px 0 0 3px;
+  }
 `;
 export const SelectArea = styled(Select)`
   width: 100%;
-  border: 2px solid #d9d9d9;
   color: #8b8b8b;
 `;
 export const ButtonSide = styled.div`
@@ -304,73 +318,80 @@ export const ButtonSide = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  @media only screen and (max-width: 1024px) {
-    width: 18%;
-  }
+  padding-top: 33px;
 `;
 export const SearchButton = styled.button`
   width: 100%;
-  height: 46px;
+  height: 36px;
   background-color: #0b0b0b;
   border: none;
-  color: #fdf1f2;
-  border-radius: 16px;
+  color: white;
+  border-radius: 10px;
   cursor: pointer;
 `;
 export const ResultWrap = styled.div`
   margin: 0px auto;
-  padding: 62px 30px;
-  width: 1200px;
+  padding: 62px 0;
+  width: 100%;
+  /* width: 1200px; */
   display: flex;
   flex-direction: column;
-  @media only screen and (max-width: 768px) {
-    padding: 20px 30px;
-  }
 `;
 export const ResultTitle = styled.div`
-  padding-left: 30px;
+  padding: 0 3%;
   font-size: 44px;
-  font-weight: 400;
+  width: 100%;
+  font-weight: 600;
   line-height: 62px;
   letter-spacing: -0.002em;
   padding-bottom: 90px;
-  @media only screen and (max-width: 768px) {
-    font-size: 30px;
-    padding-bottom: 30px;
+
+  ${M.mediaM} {
+    padding-bottom: 40px;
   }
 `;
 export const Items = styled.div`
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  /* justify-content: flex-start; */
   margin-bottom: 200px;
+
+  ${M.mediaL} {
+    width: 100%;
+  }
 `;
 export const TabMenu = styled.div`
   padding-left: 33px;
-  padding-right: 33px;
   display: flex;
   width: 100%;
   justify-content: space-between;
-  @media only screen and (max-width: 768px) {
-    padding-left: 27px;
-    width: 17%;
+  ${M.mediaM} {
+    padding-left: 23px;
   }
 `;
 export const Menu1 = styled.div`
   display: flex;
   width: 15%;
   justify-content: space-between;
+
+  ${M.mediaM} {
+    width: 30%;
+  }
 `;
 export const Item1 = styled.div`
   border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
-  padding: 0px 15px 10px 15px;
+  /* padding: 0px 15px 10px 15px; */
   font-size: 17px;
   font-weight: 400;
+  width: 100%;
   line-height: 22px;
   letter-spacing: -0.002em;
   text-align: center;
   color: ${(props) => (props.isActive ? "#C71515" : "rgba(0, 0, 0, 0.85)")};
   cursor: pointer;
+  ${M.mediaM} {
+  }
 `;
 export const SpoDate = styled.div`
   padding-top: 30px;

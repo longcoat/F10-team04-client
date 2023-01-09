@@ -1,18 +1,31 @@
 import styled from "@emotion/styled";
 import { Select } from "antd";
+import * as M from "../../../../commons/styles/mediaQueries";
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 export const Header = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
+`;
+
+export const ImgBox = styled.div`
+  /* width: 284px;
+  height: 284px; */
+  width: 200px;
+  height: 200px;
+  margin: 0 20px 20px 0;
 `;
 
 export const Image = styled.div`
-  width: 284px;
-  height: 284px;
+  /* width: 284px;
+  height: 284px; */
+  width: 100%;
+  height: 100%;
   background: #f6f6f6;
   border-radius: 4px;
   text-align: center;
@@ -21,26 +34,31 @@ export const Image = styled.div`
 export const InputWrap1 = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  width: calc(100% - 220px);
+  /* justify-content: space-between; */
 `;
 export const InputWrap2 = styled.div`
   display: flex;
   height: 50%;
   flex-direction: row;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: flex-end;
+  width: 100%;
 `;
 export const InputWrap3 = styled.div`
   display: flex;
   height: 50%;
   flex-direction: row;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: flex-end;
+  /* width: calc(100% - 220px); */
+  width: 100%;
 `;
 export const InputWrapper = styled.div`
+  width: 32.3%;
   display: flex;
   flex-direction: column;
-  width: 30%;
+  margin-right: 1.5%;
 `;
 export const InputTitle = styled.div`
   font-weight: 400;
@@ -50,14 +68,16 @@ export const InputTitle = styled.div`
 
   color: #0b0b0b;
   padding-bottom: 11px;
+  width: 100%;
 `;
 export const InputBox = styled.input`
   border: none;
-  border-radius: 16px;
+  /* border-radius: 16px; */
   width: 100%;
   background-color: rgba(25, 29, 35, 0.05);
-  height: 32px;
-  padding-left: 10px;
+  height: 36px;
+  border-radius: 10px;
+  padding: 0 0 4px 13px;
 `;
 export const selectBox = styled.select`
   border: 1px solid #8b8b8b;
@@ -94,91 +114,84 @@ export const Main = styled.div`
   flex-direction: row;
 `;
 export const Category = styled.div`
-width: 30%;
-@media only screen and (max-width: 1024px) {
-  width: 20%;
-  }
-`
+  width: 32.3%;
+  margin-right: 1.5%;
+`;
+
 export const Ctg_title = styled.div`
-width: 242px;
-color: #8B8B8B;
-font-size: 16px;
-font-weight: 400;
-line-height: 9px;
-letter-spacing: 0.2933332920074463px;
-text-align: left;
-padding-bottom: 15px;
-padding-left: 13px;
-@media only screen and (max-width: 768px) {
-  font-size: 12px;
-  padding-left: 10px;
-  padding-bottom: 9px;
+  width: 242px;
+  color: #8b8b8b;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 9px;
+  letter-spacing: 0.2933332920074463px;
+  text-align: left;
+  padding-bottom: 15px;
+  padding-left: 13px;
+  ${M.mediaL} {
   }
-`
+`;
 export const Selectbar = styled.div`
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     width: 100%;
+    height: 36px;
+    padding-top: 2px;
   }
 
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-    color: #8B8B8B;
+    width: 100%;
+    color: #8b8b8b;
     position: relative;
     background-color: rgba(25, 29, 35, 0.05);
     border: none;
-    border-radius: 16px;
+    border-radius: 10px;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    @media only screen and (max-width: 768px) {
-      font-size: 10px;
   }
-}
-.css-18xu70h {
+  .css-18xu70h {
     width: 100%;
-    border:  none;
-    color: #8B8B8B;
-}
+    border: none;
+    color: #8b8b8b;
+  }
 `;
 export const SelectArea = styled(Select)`
   width: 100%;
-  border: 2px solid #d9d9d9;
-  color: #8B8B8B;
+  color: #8b8b8b;
 `;
 export const Ctg_title2 = styled.div`
-width: 100%;
-color: #8B8B8B;
-font-size: 16px;
-font-weight: 400;
-line-height: 9px;
-letter-spacing: 0.2933332920074463px;
-text-align: left;
-padding-bottom: 15px;
-padding-left: 13px;
-
-`
+  width: 100%;
+  color: #8b8b8b;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 9px;
+  letter-spacing: 0.2933332920074463px;
+  text-align: left;
+  padding-bottom: 15px;
+`;
 export const InputWrapper1 = styled.div`
-padding-top: 20px;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
 export const ButtonWrap = styled.div`
-padding-top: 20px;
-font-size: 16px;
-display: flex;
-justify-content: space-between;
-`
+  padding-top: 20px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+`;
 export const Button1 = styled.button`
-   width: 161px;
-    height: 63px;
-    background-color: #f6f6f6;
-    color: #8b8b8b;
-    border: none;
-    cursor: pointer;
-`
+  width: 161px;
+  height: 63px;
+  background-color: #f6f6f6;
+  color: #8b8b8b;
+  border: none;
+  cursor: pointer;
+`;
 export const Button2 = styled.button`
-    width: 161px;
-    height: 63px;
-    background-color: #000;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-`
+  width: 161px;
+  height: 63px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+`;

@@ -5,13 +5,18 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import KakaoMapUI from "../map/mapsearch";
-import { useState } from 'react';
-import { boardImageState, mapCenterState, mapPathState, modalWriteState } from '../../../commons/stores';
-import { useRecoilState } from 'recoil';
-import { CREATE_BOARD } from '../../units/CommunityPage/write/CommunityWrite.queries';
-import { useMutation } from '@apollo/client';
-import Uploads01 from '../uploads/01/Uploads01.container';
-import dynamic from 'next/dynamic';
+import { useState } from "react";
+import {
+  boardImageState,
+  mapCenterState,
+  mapPathState,
+  modalWriteState,
+} from "../../../commons/stores";
+import { useRecoilState } from "recoil";
+import { CREATE_BOARD } from "../../units/CommunityPage/write/CommunityWrite.queries";
+import { useMutation } from "@apollo/client";
+import Uploads01 from "../uploads/01/Uploads01.container";
+import dynamic from "next/dynamic";
 
 import { FETCH_ALL_BOARDS } from "../../units/CommunityPage/list/CommunityList.queries";
 import { useRouter } from "next/router";
@@ -119,7 +124,7 @@ const disabledRangeTime: RangePickerProps["disabledTime"] = (_, type) => {
 };
 
 export default function InModalWrite(props) {
-  const router = useRouter()
+  const router = useRouter();
   const [center, setCenter] = useRecoilState(mapCenterState);
   const [path, setPath] = useRecoilState(mapPathState);
   const [ModalOpen, setModalOpen] = useRecoilState(modalWriteState);
@@ -157,7 +162,7 @@ export default function InModalWrite(props) {
       });
       Modal.success({ content: "게시물 작성 완료!" });
       setModalOpen(false);
-     router.push(`/community/`)
+      router.push(`/community/`);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
     }
@@ -193,8 +198,10 @@ export default function InModalWrite(props) {
   return (
     <S.Wrapper>
       <S.Header>
-        {/* {" "} */}
-        <Uploads01 image={image} onChangeImage={onChangeImage} />
+        <S.ImgBox>
+          {/* {" "} */}
+          <Uploads01 image={image} onChangeImage={onChangeImage} />
+        </S.ImgBox>
         <S.InputWrap1>
           <S.InputWrap2>
             <S.InputWrapper>
@@ -240,10 +247,10 @@ export default function InModalWrite(props) {
                 onChange={onChangeDate}
                 style={{
                   border: "none",
-                  borderRadius: "16px",
+                  borderRadius: "10px",
                   width: "100%",
-                  height: "32px",
-                  padding: "4px 11px 4px",
+                  height: "36px",
+                  padding: "4px 11px ",
                   backgroundColor: "rgba(25, 29, 35, 0.05)",
                 }}
                 format="YYYY-MM-DD HH:mm:ss"
@@ -253,7 +260,7 @@ export default function InModalWrite(props) {
               />
             </S.InputWrapper>
             <S.Category>
-              <S.Ctg_title>운동 레벨</S.Ctg_title>
+              <S.Ctg_title>운동레벨</S.Ctg_title>
               <S.Selectbar>
                 <S.SelectArea
                   onChange={onChangeGrade}
