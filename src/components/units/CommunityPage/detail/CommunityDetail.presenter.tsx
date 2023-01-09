@@ -21,6 +21,7 @@ declare const window: typeof globalThis & {
 export default function CommunityDetailUIPage(props: any) {
   const [path, setPath] = useState([]);
   const [center, setCenter] = useState([]);
+
   const [isOpen, setIsOpen] = useState(false);
   const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
 
@@ -50,6 +51,7 @@ export default function CommunityDetailUIPage(props: any) {
 
     script.onload = () => {
       window.kakao.maps.load(function () {
+
         let mapContainer = document.getElementById("map"), // 지도를 표시할 div
           mapOptions = {
             center: new window.kakao.maps.LatLng(center[0], center[1]), // 지도의 중심좌표
@@ -57,7 +59,9 @@ export default function CommunityDetailUIPage(props: any) {
           };
         var map = new window.kakao.maps.Map(mapContainer, mapOptions);
 
+
         var imageSrc = "";
+
 
         let distanceOverlay;
         let dots = {};
@@ -92,11 +96,12 @@ export default function CommunityDetailUIPage(props: any) {
             StrokeColor: "#1b22ae",
             strokeOpacity: 1,
             strokeStyle: "dashed",
+
           });
           distance = Math.round(lineLine.getLength());
           displayCircleDot(positions[i].latlng, distance);
         }
-        console.log(linePath);
+
 
         function displayCircleDot(position, distance) {
           if (distance > 0) {
@@ -187,11 +192,13 @@ export default function CommunityDetailUIPage(props: any) {
   }, [path, center]);
   return (
     <>
+
       {props.EditModalOpen && (
         <ModalCustom title="게시물 수정" centered open={true} width={1100}>
           <InModalEdit data={props.data} />
         </ModalCustom>
       )}
+
       <S.Wrapper>
         <S.Header>
           <S.Img src="./images/example.png"></S.Img>
