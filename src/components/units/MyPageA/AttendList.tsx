@@ -4,7 +4,7 @@ import { Modal } from "antd";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { appointment } from "../../../commons/library/appointment";
-import { modalDetailState } from "../../../commons/stores";
+import { attendListIdState, modalDetailState } from "../../../commons/stores";
 import { OneEllipsis } from "../../../commons/styles/commonStyles";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 import { FETCH_BOARD } from "../CommunityPage/detail/CommunityDetail.queries";
@@ -41,9 +41,9 @@ export const ATTEND_LIST = gql`
 
 export default function AttendList() {
   const { data } = useQuery(FETCH_ATTEND_LIST);
-  console.log(data);
   // 리스트 클릭시 디테일 로 넘어가게
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
+  const [attendListId, setAttendListId] = useRecoilState(attendListIdState);
   const [boardId, setBoardId] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onClickMore = () => {};
@@ -62,6 +62,7 @@ export default function AttendList() {
 
   const onClickWriteReview = (attendListId) => async (e) => {
     e.stopPropagation();
+    setAttendListId(attendListId)
     setIsModalOpen(true);
   };
 

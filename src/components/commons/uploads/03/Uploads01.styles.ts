@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 
 export const UploadImage = styled.img`
-  width: 200px;
-  height: 200px;
-  margin-right: 24px;
+  width: 50px;
+  height: 50px;
+  margin-top: 20px;
   cursor: pointer;
 `;
 
@@ -12,7 +12,7 @@ export const UploadButton = styled.button`
   width: 50px;
   height: 50px;
   border-radius: 50px;
-  background-color: #bdbdbd;
+  background-color: white;
   outline: none;
   border: none;
   cursor: pointer;
@@ -28,4 +28,12 @@ width: 50%;
 display: flex;
 justify-content: flex-end;
 align-items: flex-end;
+`
+
+export const ImgBox = styled.div`
+border: 1px solid red;
+width: 50%;
+display: flex;
+flex-wrap: wrap;
+
 `

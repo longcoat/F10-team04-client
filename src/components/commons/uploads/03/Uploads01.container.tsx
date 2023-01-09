@@ -31,7 +31,7 @@ export default function Uploads03(props) {
   return (
     <Uploads03UI
       fileRef={fileRef}
-      fileUrl={props.files}
+      fileUrl={props.fileUrl}
       defaultFileUrl={props.defaultFileUrl}
       onClickUpload={onClickUpload}
       onChangeFile={onChangeFile}
