@@ -8,6 +8,8 @@ import { modalDetailState } from "../../../commons/stores";
 import { OneEllipsis } from "../../../commons/styles/commonStyles";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 import { FETCH_BOARD } from "../CommunityPage/detail/CommunityDetail.queries";
+import ReviewWrite from "../PhotoReview/ReviewWrite/ReviewWrite.container";
+import { CusModal } from "../PhotoReview/ReviewWrite/ReviewWrite.styles";
 
 export const FETCH_ATTEND_LIST = gql`
   query fetchAttendList {
@@ -43,74 +45,72 @@ export default function AttendList() {
   // 리스트 클릭시 디테일 로 넘어가게
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [boardId, setBoardId] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const onClickMore = () => {};
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const onClickDetail = (boardId) => () => {
     setModalOpen((prev) => !prev);
     setBoardId(boardId);
   };
-  const [attendBoard] = useMutation(ATTEND_LIST);
   const [attend, setAttend] = useState(true);
-  const onClickAttend = (boardId) => async () => {
-    console.log(boardId);
-    setAttend((prev) => !prev);
-    try {
-      const result = await attendBoard({
-        variables: {
-          boardId: String(boardId),
-        },
-        refetchQueries: [
-          {
-            query: FETCH_BOARD,
-            variables: { boardId },
-          },
-        ],
-      });
 
-      if (attend === false) {
-        Modal.success({ content: "참여완료" });
-      } else if (attend === true) {
-        Modal.error({ content: "참가취소" });
-      }
-    } catch (error) {
-      if (error instanceof Error) Modal.error({ content: "에러" });
-    }
+  const onClickWriteReview = (attendListId) => async (e) => {
+    e.stopPropagation();
+    setIsModalOpen(true);
   };
 
   return (
     <>
-      <ModalCustom centered open={ModalOpen} width={900}>
-        <CommunityDetailPage boardId={boardId} />
-      </ModalCustom>
+      {isModalOpen && (
+        <CusModal
+          width="1100px"
+          open={true}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <ReviewWrite />
+        </CusModal>
+      )}
+      {ModalOpen && (
+        <ModalCustom centered open={ModalOpen} width={900}>
+          <CommunityDetailPage boardId={boardId} />
+        </ModalCustom>
+      )}
       {data?.fetchAttendList?.map((el: any, index) => (
-        // <BoardListWrapper key={el.id}>
-        <BoardList key={el.id} onClick={onClickDetail(el.board.id)}>
-          <ImageListProfileBox>
-            <ImageListProfile src="/profile.png" />
-          </ImageListProfileBox>
-          <InfoTextWrapper>
-            <InfoTextBox>
-              <Title>{el.board.title}</Title>
-              <MeetTime>{appointment(el.board.appointment)}</MeetTime>
-            </InfoTextBox>
-            <Content>
-              <ContentText>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: String(el.board.content),
-                  }}
-                />
-              </ContentText>
-              <ReviewBtn
-              // onClick={onClickAttend(el.board.id)}
-              >
-                리뷰쓰기
-              </ReviewBtn>
-            </Content>
-          </InfoTextWrapper>
-          <ThumbnailBox>
-            <ThumbnailImage src="/thumbnailsample.png" />
-          </ThumbnailBox>
-        </BoardList>
-        // </BoardListWrapper>;
+        <BoardListWrapper key={el.id}>
+          <BoardList key={el.id} onClick={onClickDetail(el.board.id)}>
+            <ImageListProfileBox>
+              <ImageListProfile src="/profile.png" />
+            </ImageListProfileBox>
+            <InfoTextWrapper>
+              <InfoTextBox>
+                <Title>{el.board.title}</Title>
+                <MeetTime>{appointment(el.board.appointment)}</MeetTime>
+              </InfoTextBox>
+              <Content>
+                <ContentText>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: String(el.board.content),
+                    }}
+                  />
+                </ContentText>
+                <ReviewBtn onClick={onClickWriteReview(el.id)}>
+                  리뷰쓰기
+                </ReviewBtn>
+              </Content>
+            </InfoTextWrapper>
+            <ThumbnailBox>
+              <ThumbnailImage src="/thumbnailsample.png" />
+            </ThumbnailBox>
+          </BoardList>
+        </BoardListWrapper>
       ))}
     </>
   );

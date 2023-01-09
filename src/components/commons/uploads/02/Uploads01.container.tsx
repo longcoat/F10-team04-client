@@ -3,12 +3,14 @@ import { ChangeEvent, useEffect, useRef } from "react";
 import { checkValidationImage } from "./Uploads01.validation";
 import Uploads01UI from "./Uploads01.presenter";
 import { IUploads01Props } from "./Uploads01.types";
-import { UPLOAD_FILE } from "./Uploads01.queries";
+import { UPLOAD_FILES } from "./Uploads01.queries";
 import { Modal } from "antd";
+import { ReviewImagesState } from "../../../../commons/stores";
+import { useRecoilState } from "recoil";
 
 export default function Uploads02(props: IUploads01Props) {
   const fileRef = useRef<HTMLInputElement>(null);
-  const [uploadFile] = useMutation(UPLOAD_FILE);
+
 
   const onClickUpload = () => {
     fileRef.current?.click();
@@ -16,20 +18,15 @@ export default function Uploads02(props: IUploads01Props) {
 
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = checkValidationImage(event.target.files?.[0]);
+    props.files.push((event.target.files?.[0]))
     if (!file) return;
-
-    try {
-      const result = await uploadFile({ variables: { file } });
-      props.onChangeFileUrls(result.data.uploadFile.url, props.index);
-    } catch (error) {
-      if (error instanceof Error) Modal.error({ content: error.message });
-    }
   };
 
+  console.log(props.files)
   return (
     <Uploads01UI
       fileRef={fileRef}
-      fileUrl={props.fileUrl}
+      fileUrl={props.files}
       defaultFileUrl={props.defaultFileUrl}
       onClickUpload={onClickUpload}
       onChangeFile={onChangeFile}

@@ -163,7 +163,17 @@ export default function CommunityListUi(props: any) {
               <S.Items>
                 {props.result2.map((el) => (
                   <S.Item key={el.id}>
-                    <S.Img src="./images/list/1.png"></S.Img>
+
+                    <S.Img
+                      style={{
+                        backgroundImage:
+                          el.image?.imgUrl === undefined ||
+                          el.image?.imgUrl === ""
+                            ? "url(./images/basic.png)"
+                            : `url(${el.image?.imgUrl})`,
+                        backgroundPosition: "center",
+                      }}
+                    ></S.Img>
                     <S.Main>
                       <S.Title2>{el.title}</S.Title2>
                       <S.Tag>
@@ -172,7 +182,9 @@ export default function CommunityListUi(props: any) {
                       <S.SpoDate>
                         <S.Sports>{el.recruitSports}</S.Sports>
                         <S.Date>
-                          {el.recruitPeople}/{el.attendCount}
+
+                          {el.attendCount}/{el.recruitPeople}
+
                         </S.Date>
                       </S.SpoDate>
                       <S.Footer>

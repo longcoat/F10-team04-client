@@ -21,38 +21,47 @@ declare const window: typeof globalThis & {
 export default function CommunityDetailUIPage(props: any) {
   const [path, setPath] = useState([]);
   const [center, setCenter] = useState([]);
+
+  const [isOpen, setIsOpen] = useState(false);
   const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
 
   useEffect(() => {
-    if (
-      props.data?.fetchBoard.location.path === "[]" ||
-      props.data?.fetchBoard.location.center === "[]"
-    ) {
-      setPath([""]);
-      setCenter([33.450701, 126.570667]);
-    } else if (
-      props.data?.fetchBoard.location.path &&
-      props.data?.fetchBoard.location.center
-    ) {
-      setPath(JSON.parse(props.data?.fetchBoard.location.path));
-      setCenter(JSON.parse(props.data?.fetchBoard.location.center));
+    if (props.data) {
+      if (
+        props.data?.fetchBoard.location.path === "[]" ||
+        props.data?.fetchBoard.location.center === "[]"
+      ) {
+        setPath([""]);
+        setCenter([33.450701, 126.570667]);
+      } else if (
+        props.data?.fetchBoard.location.path !== "[]" &&
+        props.data?.fetchBoard.location.center !== "[]"
+      ) {
+        setPath(JSON.parse(props.data?.fetchBoard.location.path));
+        setCenter(JSON.parse(props.data?.fetchBoard.location.center));
+      }
     }
   }, [props.data]);
 
   useEffect(() => {
     const script = document.createElement("script"); // <script></script> 랑 동일
     script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=156a6035a2a4c90c8d372966f723e3cc&libraries=drawing";
+      "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=f0c68224b90fedf4d41381f7107ec170&libraries=drawing";
     document.head.appendChild(script);
 
     script.onload = () => {
       window.kakao.maps.load(function () {
-        let mapContainer = document.getElementById("viewMap"), // 지도를 표시할 div
+
+        let mapContainer = document.getElementById("map"), // 지도를 표시할 div
           mapOptions = {
             center: new window.kakao.maps.LatLng(center[0], center[1]), // 지도의 중심좌표
             level: 4, // 지도의 확대 레벨
           };
         var map = new window.kakao.maps.Map(mapContainer, mapOptions);
+
+
+        var imageSrc = "";
+
 
         let distanceOverlay;
         let dots = {};
@@ -84,14 +93,15 @@ export default function CommunityDetailUIPage(props: any) {
             map: map,
             path: linePath,
             strokeWeight: 3,
-            StrokeColor: "red",
+            StrokeColor: "#1b22ae",
             strokeOpacity: 1,
+            strokeStyle: "dashed",
 
-            strokeStyle: "solid",
           });
           distance = Math.round(lineLine.getLength());
           displayCircleDot(positions[i].latlng, distance);
         }
+
 
         function displayCircleDot(position, distance) {
           if (distance > 0) {
@@ -182,9 +192,13 @@ export default function CommunityDetailUIPage(props: any) {
   }, [path, center]);
   return (
     <>
-      <ModalCustom title="게시물 작성" centered open={ModalOpen} width={1000}>
-        <InModalEdit data={props.data} />
-      </ModalCustom>
+
+      {props.EditModalOpen && (
+        <ModalCustom title="게시물 수정" centered open={true} width={1100}>
+          <InModalEdit data={props.data} />
+        </ModalCustom>
+      )}
+
       <S.Wrapper>
         <S.Header>
           <S.Img src="./images/example.png"></S.Img>

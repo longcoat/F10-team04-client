@@ -30,6 +30,10 @@ export const boardImageState = atom({
   key: "boardImageState",
   default: "",
 });
+export const ReviewImagesState = atom({
+  key: "ReviewImagesState",
+  default: [],
+});
 export const EditBoardId = atom({
   key: "EditBoardId",
   default: "",
@@ -39,6 +43,14 @@ export const mapPathState = atom({
   default: "",
 });
 export const mapCenterState = atom({
+  key: "mapCenterState",
+  default: "",
+});
+export const mapEditPathState = atom({
+  key: "mapPathState",
+  default: "",
+});
+export const mapEditCenterState = atom({
   key: "mapCenterState",
   default: "",
 });

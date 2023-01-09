@@ -6,16 +6,20 @@ margin: 0px auto;
 margin-top: 60px;
 display: flex;
 padding-bottom: 50px;
+border:1px solid red;
 `
 export const Contents = styled.div`
-margin: 0px 50px;
-padding: 20px 0px;
+border: 1px solid blue;
+width: 100%;
+margin-left: 40px;
 display: flex;
-flex-direction: column;
-overflow: scroll;
-
+flex-wrap: wrap;
 `
-
+export const ImgBox =styled.div`
+border: 1px solid red;
+width: 285px;
+height: 285px;
+`
 export const SideBar = styled.div`
 margin-top: 20px;
 border-radius: 8px;

@@ -23,10 +23,13 @@ const GLOBAL_STATE = new InMemoryCache();
 
 export default function ApolloSetting(props: IApolloSettingProps) {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-  const aaa = useRecoilValueLoadable(restoreAccessTokenLoadable);
+  // const aaa = useRecoilValueLoadable(restoreAccessTokenLoadable);
 
   useEffect(() => {
-    void aaa.toPromise().then((newAccessToken) => {
+    // void aaa.toPromise().then((newAccessToken) => {
+    //   setAccessToken(newAccessToken);
+    // });
+    void getAccessToken().then((newAccessToken) => {
       setAccessToken(newAccessToken);
     });
   }, []);
@@ -38,11 +41,10 @@ export default function ApolloSetting(props: IApolloSettingProps) {
             getAccessToken().then((newAccessToken) => {
               setAccessToken(newAccessToken);
 
-              if (typeof newAccessToken !== "string") return;
               operation.setContext({
                 headers: {
                   ...operation.getContext().headers,
-                  Authorization: `Bearer ${newAccessToken}`,
+                  Authorization: `Bearer ${String(newAccessToken)}`,
                 },
               });
             })

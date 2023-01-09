@@ -122,17 +122,17 @@ export default function CommunityWriteUI(props: any) {
       >
         작성하기
       </Button>
+   {   ModalOpen &&
       <ModalCustom
         title="게시물 작성"
         centered
-        open={ModalOpen}
-        width={1000}
-        // padding-top="60px"
-        padding-top={60}
-        // padding-top={60}
+
+        open={true}
+        width={1100}
+
       >
         <InModalWrite />
-      </ModalCustom>
+      </ModalCustom>}
     </>
   );
 }
