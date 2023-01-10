@@ -31,12 +31,26 @@ import {
   useEffect,
   useState,
 } from "react";
+import { getAccessToken } from "../src/commons/library/getAccessToken";
 
 export const GlobalContext = createContext<IGlobalContext>({});
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [accessToken, setAccessToken] = useState("");
+
+  const value = {
+    accessToken,
+    setAccessToken,
+  };
+
+  useEffect(() => {
+    getAccessToken().then((newAccessToken) => {
+      setAccessToken(newAccessToken);
+    });
+  }, []);
   return (
     <div>
+      {/* <GlobalContext.Provider value={value}> */}
       <RecoilRoot>
         <ApolloSetting>
           <>
@@ -47,6 +61,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </>
         </ApolloSetting>
       </RecoilRoot>
+      {/* </GlobalContext.Provider> */}
     </div>
   );
 }
