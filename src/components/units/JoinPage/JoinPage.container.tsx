@@ -209,7 +209,7 @@ export default function JoinPageA() {
         },
       });
       setSendEmail(true);
-      console.log(result);
+      alert("인증번호가 전송되었습니다.")
     } catch (error) {
       if (error instanceof Error)
         Modal.error({ content: "이메일 형식이 올바르지 않습니다." });

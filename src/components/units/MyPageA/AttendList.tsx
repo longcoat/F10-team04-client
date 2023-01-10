@@ -4,7 +4,7 @@ import { Modal } from "antd";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { appointment } from "../../../commons/library/appointment";
-import { attendListIdState, modalDetailState } from "../../../commons/stores";
+import { attendListIdState, modalDetailState, reviewWriteModalState } from "../../../commons/stores";
 import { OneEllipsis } from "../../../commons/styles/commonStyles";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 import { FETCH_BOARD } from "../CommunityPage/detail/CommunityDetail.queries";
@@ -45,15 +45,9 @@ export default function AttendList() {
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [attendListId, setAttendListId] = useRecoilState(attendListIdState);
   const [boardId, setBoardId] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(reviewWriteModalState);
   const onClickMore = () => {};
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
 
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   const onClickDetail = (boardId) => () => {
     setModalOpen((prev) => !prev);
     setBoardId(boardId);
@@ -72,14 +66,12 @@ export default function AttendList() {
         <CusModal
           width="1100px"
           open={true}
-          onOk={handleOk}
-          onCancel={handleCancel}
         >
           <ReviewWrite />
         </CusModal>
       )}
       {ModalOpen && (
-        <ModalCustom centered open={ModalOpen} width={900}>
+        <ModalCustom centered open={true} width={900}>
           <CommunityDetailPage boardId={boardId} />
         </ModalCustom>
       )}
