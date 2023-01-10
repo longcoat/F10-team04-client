@@ -1,8 +1,9 @@
-import styled from '@emotion/styled'
+import styled from "@emotion/styled";
 
 export const Kkang = styled.div`
   width: 300px;
   height: 500px;
+  z-index: 10;
   .wrapper {
     width: 100%;
     height: 100%;
@@ -99,7 +100,7 @@ export const Kkang = styled.div`
             align-items: center;
 
             &::before {
-              content: '';
+              content: "";
               position: absolute;
               bottom: -6px;
               border-top: 6px solid #ffa24b37;
@@ -130,7 +131,7 @@ export const Kkang = styled.div`
             align-items: center;
 
             &::before {
-              content: '';
+              content: "";
               position: absolute;
               bottom: -6px;
               border-top: 6px solid #ffa24b37;
@@ -194,7 +195,7 @@ export const Kkang = styled.div`
       }
     }
   }
-`
+`;
 export const ListWrapper = styled.div`
   width: 300px;
   height: 500px;
@@ -353,4 +354,4 @@ export const ListWrapper = styled.div`
       }
     }
   }
-`
+`;

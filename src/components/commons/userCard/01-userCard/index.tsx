@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import { FETCH_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail.queries";
 import { Modal } from "antd";
 
+import ChattingBtn from "../../chattingBtn/indx";
+
 export const FOLLOW_USER = gql`
   mutation followUser($userId: String!) {
     followUser(userId: $userId)
@@ -87,7 +89,7 @@ export default function UserCard(props) {
             }}
           />
         )}
-        <Button>메시지</Button>
+        <ChattingBtn />
       </ButtonWrap>
     </Wrapper>
   );

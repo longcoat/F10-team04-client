@@ -1,13 +1,13 @@
-import { gql } from '@apollo/client'
+import { gql } from "@apollo/client";
 
 export const FETCH_USER = gql`
-  query fetchUser {
-    fetchUser {
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
       id
-      name
+      nickname
     }
   }
-`
+`;
 
 export const CREATE_ROOM = gql`
   mutation createRoom($roomName: String!) {
@@ -18,7 +18,7 @@ export const CREATE_ROOM = gql`
       created
     }
   }
-`
+`;
 export const FETCH_ROOMS = gql`
   query fetchRooms {
     fetchRooms {
@@ -28,7 +28,7 @@ export const FETCH_ROOMS = gql`
       created
     }
   }
-`
+`;
 export const FETCH_MY_ROOM_INFO = gql`
   query fetchMyRoomInfo {
     fetchMyRoomInfo {
@@ -39,4 +39,4 @@ export const FETCH_MY_ROOM_INFO = gql`
       userName
     }
   }
-`
+`;

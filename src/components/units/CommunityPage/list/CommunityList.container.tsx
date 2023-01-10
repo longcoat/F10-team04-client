@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useRecoilState } from "recoil";
 import { modalDetailState } from "../../../../commons/stores";
 import { FETCH_BOARD } from "../detail/CommunityDetail.queries";
@@ -10,8 +10,10 @@ import {
   FETCH_ALL_BOARDS,
   FETCH_ALL_BOARDS_WITH_PICK_BOARD,
 } from "./CommunityList.queries";
+import _ from "lodash";
 
 export default function CommunityList() {
+  const [keyword, setKeyword] = useState("");
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [boardId, setBoardId] = useState("");
   const [level, setLevel] = useState("");
@@ -97,6 +99,14 @@ export default function CommunityList() {
     }
   });
   console.log(data);
+  const getDebounce = _.debounce((value) => {
+    void refetch({ search: value, page: 1 });
+    setKeyword(value);
+  }, 500);
+
+  const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    getDebounce(event.currentTarget.value);
+  };
   return (
     <CommunityListUi
       result={result}
@@ -109,6 +119,8 @@ export default function CommunityList() {
       onChangeLo={onChangeLo}
       onLoadMore={onLoadMore}
       onClickDetail={onClickDetail}
+      keyword={keyword}
+      onChangeSearch={onChangeSearch}
     />
   );
 }

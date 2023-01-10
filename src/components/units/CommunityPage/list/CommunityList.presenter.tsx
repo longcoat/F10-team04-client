@@ -9,6 +9,8 @@ import { Modal } from "antd";
 import { modalDetailState } from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
 import { getDate } from "../../../../commons/library/utils";
+import { v4 as uuidv4 } from "uuid";
+import _ from "lodash";
 
 const AreaOption = [
   { value: "", label: "모든 지역" },
@@ -88,7 +90,11 @@ export default function CommunityListUi(props: any) {
             <S.InputWrap>
               <S.Ctg_title>제목 검색</S.Ctg_title>
               <S.Selectbar>
-                <S.Input type="text" />
+                <S.Input
+                  type="text"
+                  onChange={props.onChangeSearch}
+                  placeholder="제목을 입력해주세요."
+                />
               </S.Selectbar>
             </S.InputWrap>
           </S.SelectSide>
@@ -126,13 +132,27 @@ export default function CommunityListUi(props: any) {
                         backgroundImage:
                           el.image?.imgUrl === undefined ||
                           el.image?.imgUrl === ""
-                            ? "url(./images/list/1.png)"
+                            ? "url(./images/basic.png)"
                             : `url(${el.image?.imgUrl})`,
                         backgroundPosition: "center",
                       }}
                     ></S.Img>
                     <S.Main>
-                      <S.Title2>{el.title}</S.Title2>
+                      <S.Title2>
+                        {el.title
+                          .replaceAll(props.keyword, `%^&${props.keyword}%^&`)
+                          .split("%^&")
+                          .map((el) => (
+                            <span
+                              key={uuidv4()}
+                              style={{
+                                color: el === props.keyword ? "red" : "black",
+                              }}
+                            >
+                              {el}
+                            </span>
+                          ))}
+                      </S.Title2>
                       <S.Tag>
                         <S.Level>#{el.recruitGrade}</S.Level>
                       </S.Tag>
@@ -163,7 +183,6 @@ export default function CommunityListUi(props: any) {
               <S.Items>
                 {props.result2.map((el) => (
                   <S.Item key={el.id}>
-
                     <S.Img
                       style={{
                         backgroundImage:
@@ -175,16 +194,28 @@ export default function CommunityListUi(props: any) {
                       }}
                     ></S.Img>
                     <S.Main>
-                      <S.Title2>{el.title}</S.Title2>
+                      <S.Title2>
+                        {el.title
+                          .replaceAll(props.keyword, `%^&${props.keyword}%^&`)
+                          .split("%^&")
+                          .map((el) => (
+                            <span
+                              key={uuidv4()}
+                              style={{
+                                color: el === props.keyword ? "red" : "black",
+                              }}
+                            >
+                              {el}
+                            </span>
+                          ))}
+                      </S.Title2>
                       <S.Tag>
                         <S.Level>#{el.recruitGrade}</S.Level>
                       </S.Tag>
                       <S.SpoDate>
                         <S.Sports>{el.recruitSports}</S.Sports>
                         <S.Date>
-
                           {el.attendCount}/{el.recruitPeople}
-
                         </S.Date>
                       </S.SpoDate>
                       <S.Footer>
