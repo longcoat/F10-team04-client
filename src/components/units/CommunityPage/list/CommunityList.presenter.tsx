@@ -126,7 +126,7 @@ export default function CommunityListUi(props: any) {
                         backgroundImage:
                           el.image?.imgUrl === undefined ||
                           el.image?.imgUrl === ""
-                            ? "url(./images/list/1.png)"
+                            ? "url(./images/basic.png)"
                             : `url(${el.image?.imgUrl})`,
                         backgroundPosition: "center",
                       }}

@@ -39,7 +39,7 @@ export const Logo = styled.div`
   }
 `;
 export const RightSide = styled.div`
-  width: 40%;
+  width: 50%;
   display: flex;
   justify-content: space-between;
   ${M.mediaL} {

@@ -38,6 +38,10 @@ export const attendListIdState = atom({
   key: "attendListIdState",
   default: "",
 });
+export const reviewWriteModalState = atom({
+  key: "reviewWriteModalState",
+  default: false,
+});
 export const EditBoardId = atom({
   key: "EditBoardId",
   default: "",

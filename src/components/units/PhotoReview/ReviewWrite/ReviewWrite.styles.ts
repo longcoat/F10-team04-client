@@ -67,7 +67,7 @@ export const CountLine =styled.div``
 export const CusModal = styled(Modal)`
  
 .ant-modal-body {
-height: 700px;
+height: 500px;
 padding: 24px;
 padding-top: 40px;
 font-size: 14px;

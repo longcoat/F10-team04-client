@@ -55,7 +55,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
   });
 
   const uploadLink = createUploadLink({
-    uri: "https://meonjifather.shop/graphql",
+    uri: "https://backsol2.shop/graphql",
     headers: { Authorization: `Bearer ${accessToken}` },
     credentials: "include",
   });
