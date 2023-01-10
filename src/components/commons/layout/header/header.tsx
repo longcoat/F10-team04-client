@@ -63,6 +63,9 @@ export default function LayoutHeader() {
         </S.Logo>
       </S.LeftSide>
       <S.RightSide>
+      <S.Menu onClick={() => router.push("/photoReview")} className="menu">
+          PhotoReview
+        </S.Menu>
         <S.Menu onClick={() => router.push("/members")} className="menu">
           Members
         </S.Menu>

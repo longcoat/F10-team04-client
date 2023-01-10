@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
-export const FETCH_ALL_REVIEW_BOARD_IMAGES = gql`
-  query fetchAllReviewBoardImages {
-    fetchAllReviewBoardImages {
+export const FETCH_ALL_REVIEW_BOARD_IMAGE = gql`
+  query fetchReviewBoardImage($reviewBoardId: String!) {
+    fetchReviewBoardImage(reviewBoardId:$reviewBoardId) {
       id
       imgUrl
       reviewBoard{
@@ -18,6 +18,18 @@ export const FETCH_ALL_REVIEW_BOARDS = gql`
       id
       title
       content
+    }
+  }
+`;
+
+export const FETCH_ALL_REVIEW_BOARD_IMAGES = gql`
+  query fetchReviewBoardImages {
+    fetchReviewBoardImages {
+      id
+      imgUrl
+      reviewBoard{
+        id
+      }
     }
   }
 `;
