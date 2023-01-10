@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 `;
 export const Container = styled.div`
   width: 100%;
-  background-image: url("https://s3-alpha-sig.figma.com/img/c9d6/5741/997431524e28a88bcba6dcf44fc0d96f?Expires=1673222400&Signature=YQJZ-dVcvTQIqNd29GauY8QoC2hNHo3lUn6zOYhCLzVVro2foX41aTG0GmMmZGX1SR9e6M0CZKStXIsl4e1dum1jkuIDd1TUrjHA9ZYt7GdkoOOipPVcpUAPUdWuFiJ15Ob5Aq9Wj7MiG0JcsuR-vqxvmSqZ5xYhYt7suUbJcVMdIr6WLRr7iPjCmEfirlDp5yDnH5Q7FYM7RxZyTnmmSmfzKt4UIWY8JPVShReAq7Fo2qP9bhkkL42-XStPgNEfGHyYe67wMIM~BmU1iCIe1vaiaCOba-Tpe3fC4ZyFYwWmKVRbIx4L9ViWRff-CmATTCsCfJO9~~-dScQcmAM8mA__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4");
+  background-image: url("./images/main.png");
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
@@ -122,6 +122,7 @@ export const ImgBox = styled.div`
   height: 500px;
   background-position: center;
   background-size: cover;
+  background-image: url("./images/landing.png");
 
   ${M.mediaL} {
     width: 50%;
