@@ -27,6 +27,20 @@ export const FETCH_FOLLOW_COUNT = gql`
     }
   }
 `;
+export const FETCH_USER = gql`
+  query fetchUser($userId: String!) {
+    fetchUser(userId: $userId) {
+      id
+      email
+      nickname
+      age
+      gender
+      region
+      prefer
+      grade
+    }
+  }
+`;
 export default function UserCard(props) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
@@ -35,6 +49,10 @@ export default function UserCard(props) {
     variables: { userId: props.el.id },
   });
   console.log(data);
+  const { data: userData } = useQuery(FETCH_USER, {
+    variables: { userId: props.el.id },
+  });
+  console.log(userData);
   const [followUser] = useMutation(FOLLOW_USER);
   const onClickHeart = () => {
     setIsActive((prev) => !prev);
@@ -95,7 +113,7 @@ export default function UserCard(props) {
             }}
           />
         )}
-        <ChattingBtn />
+        <ChattingBtn userData={userData} />
       </ButtonWrap>
     </Wrapper>
   );

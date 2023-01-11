@@ -4,7 +4,11 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 
-import { EditBoardId, modalDetailState, modalEditState} from "../../../../commons/stores";
+import {
+  EditBoardId,
+  modalDetailState,
+  modalEditState,
+} from "../../../../commons/stores";
 import { FETCH_ALL_BOARDS } from "../list/CommunityList.queries";
 
 import CommunityDetailUIPage from "./CommunityDetail.presenter";
@@ -16,12 +20,11 @@ import {
 } from "./CommunityDetail.queries";
 
 export default function CommunityDetailPage(props) {
-
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [EditModalOpen, setEditModalOpen] = useRecoilState(modalEditState);
   const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
-  const [pick, setPick] = useState(false)
-  const router = useRouter()
+  const [pick, setPick] = useState(false);
+  const router = useRouter();
 
   const [attendBoard] = useMutation(ATTEND_LIST);
   const [attend, setAttend] = useState(false);
@@ -31,7 +34,7 @@ export default function CommunityDetailPage(props) {
       const result = await attendBoard({
         variables: {
           boardId: String(props.boardId),
-        }
+        },
       });
       setAttend((prev) => !prev);
       if (attend === false) {
@@ -46,8 +49,8 @@ export default function CommunityDetailPage(props) {
     }
   };
   const onClickNoAtt = () => {
-    alert("참가 인원이 가득 찼습니다.")
-  }
+    alert("참가 인원이 가득 찼습니다.");
+  };
   const [pickBoard] = useMutation(PICK_BOARD);
   const { data } = useQuery(FETCH_BOARD, {
     variables: {
@@ -92,11 +95,11 @@ export default function CommunityDetailPage(props) {
     }
   };
 
-  const onClickEdit = (boardId) => () =>{
-    setEditModalOpen(prev => !prev)
-    setModalOpen(prev=>!prev)
-    setEditBoardId(boardId)
-  }
+  const onClickEdit = (boardId) => () => {
+    setEditModalOpen((prev) => !prev);
+    setModalOpen((prev) => !prev);
+    setEditBoardId(boardId);
+  };
 
   return (
     <CommunityDetailUIPage
