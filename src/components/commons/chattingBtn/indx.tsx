@@ -1,10 +1,9 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 
-import Chatting from "../chatting/Chatting.container";
-import ChattingRoom from "../chattingroom/ChattingRoom.container";
+import Livechat from "../livechat/LivechatContainer";
 
-export default function ChattingBtn() {
+export default function ChattingBtn(props) {
   const [openChat, setOpenChat] = useState(false);
   const onClickOpenChat = () => {
     setOpenChat((prev) => !prev);
@@ -14,8 +13,7 @@ export default function ChattingBtn() {
       <Button onClick={onClickOpenChat}>메시지</Button>
       {openChat ? (
         <>
-          <Chatting />
-          <ChattingRoom />
+          <Livechat userData={props.userData} />
         </>
       ) : (
         ""

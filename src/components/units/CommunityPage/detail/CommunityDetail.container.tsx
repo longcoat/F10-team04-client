@@ -5,10 +5,12 @@ import { useEffect, useState } from "react";
 import { id } from "react-horizontal-scrolling-menu/dist/types/constants";
 import { useRecoilState } from "recoil";
 
+
 import { EditBoardId, modalDetailState, modalEditState} from "../../../../commons/stores";
 import { IMutation, IMutationAttendListArgs, IMutationDeleteBoardArgs, IQuery, IQueryFetchBoardArgs, IQueryFetchMyPickBoardsArgs } from "../../../../commons/types/generated/types";
 import { FETCH_ATTEND_LIST } from "../../MyPageA/AttendList";
 import { FETCH_MY_PICK_BOARDS } from "../../MyPageA/MyPickList";
+
 import { FETCH_ALL_BOARDS } from "../list/CommunityList.queries";
 
 import CommunityDetailUIPage from "./CommunityDetail.presenter";
@@ -20,13 +22,14 @@ import {
 } from "./CommunityDetail.queries";
 
 export default function CommunityDetailPage(props) {
-
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [EditModalOpen, setEditModalOpen] = useRecoilState(modalEditState);
   const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
+
   const [pick, setPick] = useState(false)
   const [attend, setAttend] = useState(false);
   const router = useRouter()
+
 
   const [attendBoard] = useMutation(ATTEND_LIST);
 
@@ -75,8 +78,10 @@ console.log(pick)
     try {
       const result = await attendBoard({
         variables: {
-          boardId: String(boardId),
-        }
+
+          boardId: String(props.boardId),
+        },
+
       });
       setAttend((prev) => !prev);
       if (attend === false) {
@@ -91,8 +96,8 @@ console.log(pick)
     }
   };
   const onClickNoAtt = () => {
-    alert("참가 인원이 가득 찼습니다.")
-  }
+    alert("참가 인원이 가득 찼습니다.");
+  };
   const [pickBoard] = useMutation(PICK_BOARD);
 
   const onClickClose = () => {
@@ -133,11 +138,11 @@ console.log(pick)
     }
   };
 
-  const onClickEdit = (boardId) => () =>{
-    setEditModalOpen(prev => !prev)
-    setModalOpen(prev=>!prev)
-    setEditBoardId(boardId)
-  }
+  const onClickEdit = (boardId) => () => {
+    setEditModalOpen((prev) => !prev);
+    setModalOpen((prev) => !prev);
+    setEditBoardId(boardId);
+  };
 
   return (
     <CommunityDetailUIPage
