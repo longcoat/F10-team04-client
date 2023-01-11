@@ -1,10 +1,14 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { id } from "react-horizontal-scrolling-menu/dist/types/constants";
 import { useRecoilState } from "recoil";
 
 import { EditBoardId, modalDetailState, modalEditState} from "../../../../commons/stores";
+import { IMutation, IMutationAttendListArgs, IMutationDeleteBoardArgs, IQuery, IQueryFetchBoardArgs, IQueryFetchMyPickBoardsArgs } from "../../../../commons/types/generated/types";
+import { FETCH_ATTEND_LIST } from "../../MyPageA/AttendList";
+import { FETCH_MY_PICK_BOARDS } from "../../MyPageA/MyPickList";
 import { FETCH_ALL_BOARDS } from "../list/CommunityList.queries";
 
 import CommunityDetailUIPage from "./CommunityDetail.presenter";
@@ -21,16 +25,57 @@ export default function CommunityDetailPage(props) {
   const [EditModalOpen, setEditModalOpen] = useRecoilState(modalEditState);
   const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
   const [pick, setPick] = useState(false)
+  const [attend, setAttend] = useState(false);
   const router = useRouter()
 
   const [attendBoard] = useMutation(ATTEND_LIST);
-  const [attend, setAttend] = useState(false);
-  const [deleteBoard] = useMutation(DELETE_BOARD);
-  const onClickAttend = async () => {
+
+  const [deleteBoard] = useMutation<
+  Pick<IMutation, "deleteBoard">,
+  IMutationDeleteBoardArgs
+>(DELETE_BOARD);
+  
+  const { data:PickList } = useQuery<
+  Pick<IQuery, "fetchMyPickBoards">,
+  IQueryFetchMyPickBoardsArgs
+>(FETCH_MY_PICK_BOARDS);
+  
+const { data } = useQuery<
+  Pick<IQuery, "fetchBoard">,
+  IQueryFetchBoardArgs
+>(FETCH_BOARD, {
+    variables: {
+      boardId: String(props.boardId),
+    },
+  });
+  const { data: AttendList } = useQuery(FETCH_ATTEND_LIST);
+
+console.log(PickList?.fetchMyPickBoards, data)
+
+  useEffect(() => {
+    PickList?.fetchMyPickBoards.forEach((el) =>{
+      if(el.board.id === data?.fetchBoard.id) {
+        setPick(true)
+        return
+      }else{
+        setPick(false)
+      }
+    })
+    AttendList?.fetchAttendList.forEach((el) =>{
+      if(el.board.id === data?.fetchBoard.id) {
+        setAttend(true)
+        return
+      }else{
+        setAttend(false)
+      }
+    })
+  },[[pick]])
+console.log(pick)
+  const onClickAttend = (boardId) => async () => {
     try {
       const result = await attendBoard({
         variables: {
-          boardId: String(props.boardId),
+          boardId: String(boardId),
         }
       });
       setAttend((prev) => !prev);
@@ -49,11 +94,7 @@ export default function CommunityDetailPage(props) {
     alert("참가 인원이 가득 찼습니다.")
   }
   const [pickBoard] = useMutation(PICK_BOARD);
-  const { data } = useQuery(FETCH_BOARD, {
-    variables: {
-      boardId: String(props.boardId),
-    },
-  });
+
   const onClickClose = () => {
     setModalOpen((prev) => !prev);
   };
@@ -82,10 +123,10 @@ export default function CommunityDetailPage(props) {
           {
             query: FETCH_BOARD,
             variables: { boardId: String(props.boardId) },
-          },
+          },{ query: FETCH_MY_PICK_BOARDS }
         ],
       });
-      setPick((prev) => !prev);
+      setPick(true);
       console.log(result);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });

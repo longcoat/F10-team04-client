@@ -50,9 +50,7 @@ padding-bottom: 20px;
 border-bottom: 1px solid #D3D3D3;
 `
 export const IconWrap =styled.div`
-padding-top: 5px;
 padding-left: 10px;
-height: 10%;
 
 `
 export const HeartLine =styled.div`
@@ -96,4 +94,9 @@ margin-top: 50px;
 overflow: hidden;
 display: flex;
 margin-top: auto 0px;
+`
+export const Comment = styled.div`
+width: 100%;
+height: 500px;
+overflow: auto;
 `

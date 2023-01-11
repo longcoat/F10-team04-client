@@ -33,3 +33,9 @@ export const FETCH_ALL_REVIEW_BOARD_IMAGE = gql`
     }
   }
 `;
+
+export const LiKE_REVIEW_BOARD = gql`
+  mutation likeReviewBoard($reviewBoardId: String!) {
+    likeReviewBoard(reviewBoardId: $reviewBoardId)
+  }
+`;

@@ -39,12 +39,14 @@ export default function ReviewWriteUI(props) {
                 <S.Contents>
                     <S.Content>{props.data?.fetchReviewBoard.content}</S.Content>
                     <S.CreatedAt>{getDate(props.data?.fetchReviewBoard.createdAt)}</S.CreatedAt>
-               <ReviewCommentList id={props.data?.fetchReviewBoard.id}/>
                 </S.Contents>
+                <S.Comment>
+                <ReviewCommentList id={props.data?.fetchReviewBoard.id}/>
+                </S.Comment>
                 </S.DDD>
                 <S.IconWrap>
                     <S.HeartLine>
-                    <HeartOutlined />
+                    <HeartOutlined onClick={props.onClickHeart}/>
                     <S.CountLine>{props.data?.fetchReviewBoard.like}</S.CountLine>
                     </S.HeartLine>
                 </S.IconWrap>

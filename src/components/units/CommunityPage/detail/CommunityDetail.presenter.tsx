@@ -281,7 +281,7 @@ export default function CommunityDetailUIPage(props: any) {
                 props.data?.fetchBoard.recruitPeople ===
                 props.data?.fetchBoard.attendCount
                   ? props.onClickNoAtt
-                  : props.onClickAttend
+                  : props.onClickAttend(props.data?.fetchBoard.id)
               }
             >
               {!props.attend ? "참여하기" : "참가취소"}

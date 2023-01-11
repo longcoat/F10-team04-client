@@ -6,9 +6,8 @@ import {
   EyeOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
-
-import Uploads01 from "../../commons/uploads/01/Uploads01.container";
 import { useRouter } from "next/router";
+import Uploads00 from "../../commons/uploads/00/Uploads01.container";
 const AreaOption = [
   { value: "서울특별시", label: "서울특별시" },
   { value: "인천광역시", label: "인천광역시" },
@@ -246,7 +245,7 @@ export default function JoinPageUi(props) {
               <S.Title>RunGether</S.Title>
             </S.TitleBox>
             <S.ImgBox>
-              <Uploads01 image={image} onChangeImage={onChangeImage} />
+              <Uploads00 image={image} onChangeImage={onChangeImage} />
             </S.ImgBox>
             <S.ProfileTextBox>
               <S.ProfileText>프로필 사진 등록</S.ProfileText>

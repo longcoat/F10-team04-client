@@ -15,6 +15,8 @@ import { FETCH_ALL_BOARDS } from "../../units/CommunityPage/list/CommunityList.q
 import { useRouter } from "next/router";
 import { IUpdateUseditemInput } from "../../units/CommunityPage/write/Community.type";
 import KaKaoMapEdit from "../map/mapsearch(edit)";
+import { IMutation, IMutationUpdateBoardArgs } from "../../../commons/types/generated/types";
+import { IUpdateBoardInput } from "../../units/CommunityPage/write/CommunityWrite.types";
 
 const ReactQuill = dynamic( async() => await import('react-quill'), {
     ssr : false
@@ -137,8 +139,6 @@ export default function InModalEdit(props) {
 useEffect(() => {
   if(props.data){
       setImage(props.data.fetchBoard.image?.imgUrl)
-      setCenter(props.data.fetchBoard.location?.center)
-      setPath(props.data.fetchBoard.location?.path)
       setTitle(props.data.fetchBoard.title)
       setContent(props.data.fetchBoard.content)
       setAppointment(props.data.fetchBoard.appointment)
@@ -146,12 +146,22 @@ useEffect(() => {
       setRecruitPeople(props.data.fetchBoard.recruitPeople)
       setRecruitGrade(props.data.fetchBoard.recruitGrade)
       setRecruitRegion(props.data.fetchBoard.recruitRegion)
+      if(props.data.fetchBoard.location?.center !==center ||
+         props.data.fetchBoard.location?.path !== path ) {
+          return
+        }else{
+          setCenter(props.data.fetchBoard.location?.center)
+          setPath(props.data.fetchBoard.location?.path)
+        }
     }
-},[props.data])
-  const [updateBoard] = useMutation(UPDATE_BOARD);
+},[props.data, path, center])
+const [updateBoard] = useMutation<
+Pick<IMutation, "updateBoard">,
+IMutationUpdateBoardArgs
+>(UPDATE_BOARD);
   console.log(props.data?.fetchBoard.image?.id)
   const onClickUpdate = async () => {
-    const updateBoardInput: IUpdateUseditemInput= {};
+    const updateBoardInput: IUpdateBoardInput= {};
     if (props.data?.fetchBoard.title) updateBoardInput.title = props.data.fetchBoard.title;
     if (props.data?.fetchBoard.content) updateBoardInput.content = props.data.fetchBoard.content;
     if (props.data?.fetchBoard.recruitSports) updateBoardInput.recruitSports = props.data.fetchBoard.recruitSports;

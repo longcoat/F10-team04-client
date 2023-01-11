@@ -545,7 +545,7 @@ export const FriendListText = styled.div`
   letter-spacing: -0.002em;
   color: #0b0b0b;
   padding: 0 16px 10px 16px;
-
+  cursor: pointer;
   border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
   color: ${(props) => (props.isActive ? "#C71515" : "none")};
   /* identical to box height */
@@ -560,7 +560,7 @@ export const PickListText = styled.div`
   text-align: center;
   letter-spacing: -0.002em;
   padding: 0 16px 10px 16px;
-
+  cursor: pointer;
   color: #0b0b0b;
 
   border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
@@ -576,7 +576,7 @@ export const ChatListText = styled.div`
   text-align: center;
   letter-spacing: -0.002em;
   padding: 0 16px 10px 16px;
-
+cursor: pointer;
   color: #0b0b0b;
 
   border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
@@ -593,7 +593,7 @@ export const JoinCrewText = styled.div`
   letter-spacing: -0.002em;
   padding: 0 16px 10px 16px;
   color: #0b0b0b;
-
+cursor: pointer;
   border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
   color: ${(props) => (props.isActive ? "#C71515" : "none")};
 `;

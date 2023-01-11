@@ -11,22 +11,29 @@ import {
   FETCH_ALL_BOARDS_WITH_PICK_BOARD,
 } from "./CommunityList.queries";
 import _ from "lodash";
+import { IQuery, IQueryFetchAllBoardsArgs, IQueryFetchAllBoardsWithPickCountArgs } from "../../../../commons/types/generated/types";
 
 export default function CommunityList() {
   const [keyword, setKeyword] = useState("");
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [boardId, setBoardId] = useState("");
   const [level, setLevel] = useState("");
-
-  const { data, refetch, fetchMore } = useQuery(FETCH_ALL_BOARDS);
   const [Lo, setLo] = useState("");
+  const result = [];
+  const result2 = [];
+
+
+  const { data, refetch, fetchMore } = useQuery<
+  Pick<IQuery, "fetchAllBoards">,
+  IQueryFetchAllBoardsArgs
+>(FETCH_ALL_BOARDS);
   const {
     data: Pick,
     refetch: pickRefetch,
     fetchMore: pickFetchMore,
   } = useQuery(FETCH_ALL_BOARDS_WITH_PICK_BOARD);
-  const result = [];
-  const result2 = [];
+
+
   const onLoadMore = () => {
     if (!data) return;
 
@@ -98,7 +105,7 @@ export default function CommunityList() {
       result2.push(el);
     }
   });
-  console.log(data);
+
   const getDebounce = _.debounce((value) => {
     void refetch({ search: value, page: 1 });
     setKeyword(value);

@@ -2,7 +2,7 @@ import { ArrowLeftOutlined, CloseOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { modalEditState } from "../../../commons/stores";
-import Uploads01 from "../uploads/01/Uploads01.container";
+import Uploads00 from "../uploads/00/Uploads01.container";
 import * as S from "./userEdit.styels";
 
 const AreaOption = [
@@ -37,12 +37,7 @@ const FavOption = [
 ];
 
 export default function UserEditUI(props) {
-  // 이미지 등록
-  const [image, setImage] = useState("");
-  const onChangeImage = (fileUrl) => {
-    const newFile = fileUrl;
-    setImage(newFile);
-  };
+
   return (
     <S.Container>
       <S.JoinForm>
@@ -59,7 +54,7 @@ export default function UserEditUI(props) {
           <S.Title>RunGether</S.Title>
         </S.TitleBox>
         <S.ImgBox>
-          <Uploads01 image={image} onChangeImage={onChangeImage} />
+          <Uploads00 image={props.image} onChangeImage={props.onChangeImage} />
         </S.ImgBox>
         <S.ProfileTextBox>
           <S.ProfileText>프로필 사진 등록</S.ProfileText>

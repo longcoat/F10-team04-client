@@ -9,6 +9,7 @@ import { FETCH_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail
 import { Modal } from "antd";
 
 import ChattingBtn from "../../chattingBtn/indx";
+import { IMutation, IMutationFollowUserArgs, IQuery, IQueryFetchFollowCountArgs } from "../../../../commons/types/generated/types";
 
 export const FOLLOW_USER = gql`
   mutation followUser($userId: String!) {
@@ -31,11 +32,18 @@ export default function UserCard(props) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);
-  const { data } = useQuery(FETCH_FOLLOW_COUNT, {
+  const { data } = useQuery<
+  Pick<IQuery, "fetchFollowCount">,
+  IQueryFetchFollowCountArgs
+>(FETCH_FOLLOW_COUNT, {
     variables: { userId: props.el.id },
   });
-  console.log(data);
-  const [followUser] = useMutation(FOLLOW_USER);
+
+  const [followUser] = useMutation<
+  Pick<IMutation, "followUser">,
+  IMutationFollowUserArgs
+>(FOLLOW_USER);
+
   const onClickHeart = () => {
     setIsActive((prev) => !prev);
   };
@@ -58,8 +66,8 @@ export default function UserCard(props) {
         <Item>#{props.el.prefer}</Item>
         <Item>#{props.el.age}</Item>
         <Item>#{props.el.region}</Item>
-        <Item>#{props.el.grade}</Item>
       </UserInfo>
+      <Item>#{props.el.grade}</Item>
       <HeartWrap>
         <Level>{data?.fetchFollowCount?.followerCount}팔로워</Level>
         <Level>{data?.fetchFollowCount?.followCount}팔로잉</Level>
@@ -98,7 +106,7 @@ export default function UserCard(props) {
 const Wrapper = styled.div`
   padding-top: 30px;
   width: 237px;
-  height: 341px;
+  height: 351px;
   border-radius: 16px;
   background-color: #f6f6f6;
   border: none;

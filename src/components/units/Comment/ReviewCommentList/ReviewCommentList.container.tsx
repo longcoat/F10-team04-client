@@ -1,10 +1,15 @@
 import { useQuery } from "@apollo/client";
+import { useState } from "react";
+import { IQuery, IQueryFetchReviewCommentsArgs } from "../../../../commons/types/generated/types";
 import ReviewCommentListUI from "./ReviewCommentList.presenter";
 import { FETCH_REVIEW_COMMENTS } from "./ReviewCommentList.query";
 
 export default function ReviewCommentList(props){
 
-    const { data, fetchMore } = useQuery(FETCH_REVIEW_COMMENTS, {
+    const { data, fetchMore } = useQuery<
+    Pick<IQuery, "fetchReviewComments">,
+    IQueryFetchReviewCommentsArgs
+  >(FETCH_REVIEW_COMMENTS, {
                  variables: { reviewBoardId: String(props.id) },
              });
 
@@ -30,6 +35,7 @@ export default function ReviewCommentList(props){
       },
     });
   };
+
     return(
         <ReviewCommentListUI 
         onLoadMore={onLoadMore}

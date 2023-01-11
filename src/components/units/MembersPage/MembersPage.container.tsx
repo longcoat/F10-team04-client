@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
+import { IQuery, IQueryFetchUserArgs } from "../../../commons/types/generated/types";
 import { FETCH_USERS } from "./MebersPage.query";
 import MembersUi from "./MembersPage.presenter";
 
@@ -13,8 +14,13 @@ export default function Members() {
   const [age_R, setAge_R] = useState("")
   const [level_R, setLevel_R] = useState("")
   const [fav_R, setFav_R] = useState("")
-  const { data } = useQuery(FETCH_USERS);
   const result = []
+
+
+  const { data } = useQuery<
+    Pick<IQuery, "fetchUsers">,
+    IQueryFetchUserArgs
+  >(FETCH_USERS);
 
   const onChangeLevel = (e) => {
     setLevel(e)
