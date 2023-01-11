@@ -129,7 +129,7 @@ export default function MyPageA(props) {
   return (
     <S.Containerbox>
       {ModalOpen && (
-        <ModalCustom title="회원정보 수정" centered open={true} width={1100}>
+        <ModalCustom title="회원정보 수정" centered open={true} width={1000}>
           <UserEdit data={data} />
         </ModalCustom>
       )}

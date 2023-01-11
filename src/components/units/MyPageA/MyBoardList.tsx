@@ -8,6 +8,7 @@ import { modalDetailState } from "../../../commons/stores";
 import { OneEllipsis } from "../../../commons/styles/commonStyles";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 import { FETCH_BOARD } from "../CommunityPage/detail/CommunityDetail.queries";
+import * as M from "../../../commons/styles/mediaQueries";
 
 export const FETCH_MY_All_BOARDS = gql`
   query fetchMyAllBoards($page: Int) {
@@ -39,7 +40,7 @@ export default function MyBoardList() {
 
   return (
     <>
-      <ModalCustom centered open={ModalOpen} width={900}>
+      <ModalCustom centered open={ModalOpen} width={1000}>
         <CommunityDetailPage boardId={boardId} />
       </ModalCustom>
       {data?.fetchMyAllBoards?.map((el: any, index) => (
@@ -77,7 +78,7 @@ export default function MyBoardList() {
 }
 
 export const BoardListWrapper = styled.div`
-  padding: 0 200px 0 200px;
+  padding: 0 80px 0 80px;
 `;
 
 export const BoardList = styled.div`
@@ -112,6 +113,7 @@ export const Title = styled(OneEllipsis)`
   font-style: normal;
   font-weight: 800;
   font-size: 18px;
+  width: 70%;
   line-height: 30px;
   /* identical to box height, or 167% */
 
@@ -119,8 +121,8 @@ export const Title = styled(OneEllipsis)`
 
   color: #0b0b0b;
 `;
-export const MeetTime = styled(OneEllipsis)`
-  width: 21%;
+export const MeetTime = styled.div`
+  width: 15%;
   padding-right: 20px;
   font-family: "AppleSDGothicNeoM00";
   font-style: normal;
@@ -132,8 +134,12 @@ export const MeetTime = styled(OneEllipsis)`
   letter-spacing: -0.002em;
 
   color: #0b0b0b;
+
+  ${M.mediaL} {
+    width: 25%;
+  }
 `;
-export const Content = styled.div`
+export const Content = styled(OneEllipsis)`
   width: 100%;
   font-family: "AppleSDGothicNeoM00";
   font-style: normal;
@@ -143,6 +149,8 @@ export const Content = styled.div`
   /* identical to box height */
 
   display: flex;
+  /* justify-content: space-between; */
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   letter-spacing: -0.0024em;
@@ -152,8 +160,17 @@ export const Content = styled.div`
 
   color: #0b0b0b;
 `;
-export const ContentText = styled.div`
+export const ContentText = styled(OneEllipsis)`
   padding-right: 20px;
+  width: 86.7%;
+
+  ${M.mediaL} {
+    width: 90.7%;
+  }
+`;
+
+export const ContentTextText = styled.div`
+  /* width: 70%; */
 `;
 export const ReviewBtn = styled.button`
   background: black;
@@ -170,7 +187,9 @@ export const ThumbnailBox = styled.div`
 export const ThumbnailImage = styled.img`
   border-radius: 12px;
 `;
-export const Date = styled.div``;
+export const Date = styled.div`
+  padding-bottom: 17px;
+`;
 export const ModalCustom = styled(Modal)`
   .ant-modal-header {
     padding: 0px 24px 16px 24px;
