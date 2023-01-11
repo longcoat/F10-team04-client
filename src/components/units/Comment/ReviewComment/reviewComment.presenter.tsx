@@ -8,6 +8,7 @@ export default function ReviewCommentWriteUI(props) {
             <S.Input
             onChange={props.onChangeContent}
             placeholder='댓글 달기...'
+            value={props.content}
             ></S.Input>
             <S.Btn onClick={props.onClickSubmit}>댓글 추가</S.Btn>
         </S.Wrapper>

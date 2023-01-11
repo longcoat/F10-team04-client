@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { checkValidationImage } from "./Uploads01.validation";
 import Uploads01UI from "./Uploads01.presenter";
@@ -6,21 +6,23 @@ import { UPLOAD_FILE } from "./Uploads01.queries";
 import { Modal } from "antd";
 import { useRecoilState } from "recoil";
 import { boardImageState} from "../../../../commons/stores";
+import { FETCH_USER_LOGGED_IN } from "../../layout/nav/nav.queries";
 
-export default function Uploads01(props) {
+export default function Uploads00(props) {
   const [image, setImage] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploadFile] = useMutation(UPLOAD_FILE);
+  const { data } = useQuery(FETCH_USER_LOGGED_IN);
 
   const onClickUpload = () => {
     fileRef.current?.click();
   };
 
   useEffect(() =>{
-    if(props.data) {
-      setImage(props.data.fetchBoard.image?.imgUrl)
+    if(data?.fetchUserLoggedIn.image?.imgUrl) {
+      setImage(data?.fetchUserLoggedIn.image?.imgUrl)
     }
-  },[props.data])
+  },[data])
 console.log(image)
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value)

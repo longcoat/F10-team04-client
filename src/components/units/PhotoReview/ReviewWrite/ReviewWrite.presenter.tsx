@@ -31,7 +31,10 @@ export default function ReviewWriteUI(props) {
                     placeholder='내용을 입력하세요.'/>
                 </S.Contents>
                 </S.DDD>
-                <button onClick={props.onClickSubmit}>등록</button>
+                <S.ButtonWrap>
+                <S.Button onClick={props.onClickCs}>취소</S.Button>
+                <S.Button onClick={props.onClickSubmit}>등록</S.Button>
+                </S.ButtonWrap>
             </S.RightSide>
         </S.Wrapper>
         </>

@@ -6,12 +6,15 @@ import { useState } from "react";
 import * as S from "./header.style";
 import Sidebar from "./sidebar";
 
-const FETCH_USER_LOGGED_IN = gql`
+export const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
     fetchUserLoggedIn {
       id
       email
       nickname
+      image{
+        imgUrl
+      }
     }
   }
 `;

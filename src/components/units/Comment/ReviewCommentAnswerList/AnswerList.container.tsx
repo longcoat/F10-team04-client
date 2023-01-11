@@ -1,12 +1,16 @@
 import { useQuery } from "@apollo/client";
+import { IQuery, IQueryFetchReviewNestedCommentsArgs } from "../../../../commons/types/generated/types";
 import AnswerListUI from "./AnswerList.presenter";
-import { FETCH_NESTED_COMMENTS } from "./AnswerList.query";
+import { FETCH_REVIEW_NESTED_COMMENTS } from "./AnswerList.query";
 
 export default function AnswerList(props) {
 
 
-    const { data, fetchMore } = useQuery(FETCH_NESTED_COMMENTS, {
-    variables: { commentId: String(props.el.id) },
+    const { data, fetchMore } = useQuery<
+    Pick<IQuery, "fetchReviewNestedComments">,
+    IQueryFetchReviewNestedCommentsArgs
+  >(FETCH_REVIEW_NESTED_COMMENTS, {
+    variables: { reviewCommentId: String(props.el.id) },
   });
 
   console.log(data)
@@ -16,19 +20,19 @@ export default function AnswerList(props) {
 
     void fetchMore({
       variables: {
-        page: Math.ceil(data?.fetchNestedComments.length / 9) + 1,
+        page: Math.ceil(data?.fetchReviewNestedComments.length / 9) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult?.fetchNestedComments)
+        if (!fetchMoreResult?.fetchReviewNestedComments)
           return {
-            fetchNestedComments: [
-              ...prev.fetchNestedComments,
+            fetchReviewNestedComments: [
+              ...prev.fetchReviewNestedComments,
             ],
           };
         return {
-            fetchNestedComments: [
-            ...prev.fetchNestedComments,
-            ...fetchMoreResult.fetchNestedComments,
+            fetchReviewNestedComments: [
+            ...prev.fetchReviewNestedComments,
+            ...fetchMoreResult.fetchReviewNestedComments,
           ],
         };
       },

@@ -1,16 +1,16 @@
 import { gql } from "@apollo/client";
 
-export const CREATE_NESTED_COMMENT = gql`
-  mutation createNestedComment(
-    $nestedComment: String!
-    $commentId: String!
+export const CREATE_REVIEW_NESTED_COMMENT = gql`
+  mutation createReviewNestedComment(
+    $reviewNestedComment: String!
+    $reviewCommentId: String!
   ) {
-    createNestedComment(
-        nestedComment: $nestedComment
-      commentId: $commentId
+    createReviewNestedComment(
+        reviewNestedComment: $reviewNestedComment
+        reviewCommentId: $reviewCommentId
     ) {
         id
-        nestedComment
+        reviewNestedComment
     }
   }
 `;

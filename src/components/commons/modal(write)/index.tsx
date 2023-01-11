@@ -7,7 +7,6 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import KakaoMapUI from "../map/mapsearch";
 import { useState } from "react";
 import {
-  boardImageState,
   mapCenterState,
   mapPathState,
   modalWriteState,
@@ -17,9 +16,10 @@ import { CREATE_BOARD } from "../../units/CommunityPage/write/CommunityWrite.que
 import { useMutation } from "@apollo/client";
 import Uploads01 from "../uploads/01/Uploads01.container";
 import dynamic from "next/dynamic";
-
 import { FETCH_ALL_BOARDS } from "../../units/CommunityPage/list/CommunityList.queries";
 import { useRouter } from "next/router";
+import KaKaoMapPage from "../map/mapsearch";
+import { IMutation, IMutationCreateBoardArgs } from "../../../commons/types/generated/types";
 
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
@@ -137,7 +137,10 @@ export default function InModalWrite(props) {
   const [recruitPeople, setRecruitPeople] = useState(0);
   const [image, setImage] = useState("");
 
-  const [createBoard] = useMutation(CREATE_BOARD);
+  const [createBoard] = useMutation<
+    Pick<IMutation, "createBoard">,
+    IMutationCreateBoardArgs
+  >(CREATE_BOARD);
 
   const onClickSubmit = async () => {
     try {
@@ -157,8 +160,8 @@ export default function InModalWrite(props) {
               center,
             },
           },
-          refetchQueries: [{ query: FETCH_ALL_BOARDS }],
-        },
+         
+        }, refetchQueries: [{ query: FETCH_ALL_BOARDS }],
       });
       Modal.success({ content: "게시물 작성 완료!" });
       setModalOpen(false);
@@ -285,7 +288,7 @@ export default function InModalWrite(props) {
           // value={props.getValues("contents") || ""}
         />
       </S.InputWrapper1>
-      <KakaoMapUI />
+      <KaKaoMapPage />
       <S.ButtonWrap>
         <S.Button1 type="button" onClick={() => setModalOpen(false)}>
           취소하기
