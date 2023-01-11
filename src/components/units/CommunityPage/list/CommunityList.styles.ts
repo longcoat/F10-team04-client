@@ -94,24 +94,32 @@ export const Item = styled(OneEllipsis)`
   background: #ffffff;
   box-shadow: 0px 0px 9px rgba(153, 153, 151, 0.25);
   border-radius: 12px;
-  &:nth-of-type(4) {
+  &:nth-of-type(4n) {
     margin-right: 0;
   }
 
   ${M.mediaL} {
     width: 32%;
     margin-right: 2%;
-    &:nth-of-type(3) {
+    &:nth-of-type(3n) {
       margin-right: 0;
+    }
+    &:nth-of-type(4n) {
+      margin-right: 1.3%;
     }
   }
 
   ${M.mediaM} {
     width: 48%;
     margin-right: 4%;
-
-    &:nth-of-type(2) {
-      margin-right: 0;
+    &:nth-of-type(4n) {
+      margin-right: 4%;
+    }
+    &:nth-of-type(3n) {
+      margin-right: 4%;
+    }
+    &:nth-of-type(2n) {
+      margin-right: 0%;
     }
   }
   /* &:nth-of-type(4n) {
@@ -338,7 +346,7 @@ export const ResultWrap = styled.div`
   flex-direction: column;
 `;
 export const ResultTitle = styled.div`
-  padding: 0 3%;
+  /* padding: 0 3%; */
   font-size: 44px;
   width: 100%;
   font-weight: 600;
@@ -362,7 +370,7 @@ export const Items = styled.div`
   }
 `;
 export const TabMenu = styled.div`
-  padding-left: 33px;
+  /* padding-left: 33px; */
   display: flex;
   width: 100%;
   justify-content: space-between;

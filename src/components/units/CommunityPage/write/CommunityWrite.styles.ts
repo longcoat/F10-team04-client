@@ -77,7 +77,7 @@ export const InputBox = styled.input`
   background-color: rgba(25, 29, 35, 0.05);
   height: 36px;
   border-radius: 10px;
-  padding: 0 0 4px 13px;
+  padding: 0 0 2px 13px;
 `;
 export const selectBox = styled.select`
   border: 1px solid #8b8b8b;

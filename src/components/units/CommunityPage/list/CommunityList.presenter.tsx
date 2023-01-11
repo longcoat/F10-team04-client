@@ -163,7 +163,6 @@ export default function CommunityListUi(props: any) {
               <S.Items>
                 {props.result2.map((el) => (
                   <S.Item key={el.id}>
-
                     <S.Img
                       style={{
                         backgroundImage:
@@ -182,9 +181,7 @@ export default function CommunityListUi(props: any) {
                       <S.SpoDate>
                         <S.Sports>{el.recruitSports}</S.Sports>
                         <S.Date>
-
                           {el.attendCount}/{el.recruitPeople}
-
                         </S.Date>
                       </S.SpoDate>
                       <S.Footer>
