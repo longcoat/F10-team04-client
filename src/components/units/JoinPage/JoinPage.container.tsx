@@ -10,6 +10,7 @@ import {
 } from "./joinPage.query";
 import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
+import { IMutation, IMutationCheckNickNameArgs, IMutationCheckTokenEmailArgs, IMutationCreateUserArgs, IMutationSendTokenToEmailArgs } from "../../../commons/types/generated/types";
 
 export default function JoinPageA() {
   const router = useRouter();
@@ -45,10 +46,25 @@ export default function JoinPageA() {
   const [image, setImage] = useState("");
   const [token, setToken] = useState("");
 
-  const [createUser] = useMutation(CREATE_USER);
-  const [sendTokenToEmail] = useMutation(SEND_TOKEN_TO_EMAIL);
-  const [checkTokenEmail] = useMutation(CHECK_TOKEN_EMAIL);
-  const [checkNickName] = useMutation(CHECK_NICK_NAME);
+  const [createUser] = useMutation<
+  Pick<IMutation, "createUser">,
+  IMutationCreateUserArgs
+>(CREATE_USER);
+
+  const [sendTokenToEmail] = useMutation<
+  Pick<IMutation, "sendTokenToEmail">,
+  IMutationSendTokenToEmailArgs
+>(SEND_TOKEN_TO_EMAIL);
+
+  const [checkTokenEmail] = useMutation<
+  Pick<IMutation, "checkTokenEmail">,
+  IMutationCheckTokenEmailArgs
+>(CHECK_TOKEN_EMAIL);
+
+  const [checkNickName] = useMutation<
+  Pick<IMutation, "checkNickName">,
+  IMutationCheckNickNameArgs
+>(CHECK_NICK_NAME);
 
   const onChangeEmailToken = (e) => {
     setToken(e.target.value);
@@ -254,7 +270,7 @@ export default function JoinPageA() {
             prefer,
             age,
             gender,
-            image,
+            image
           },
         },
       });

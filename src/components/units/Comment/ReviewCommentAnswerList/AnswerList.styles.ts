@@ -2,13 +2,15 @@ import styled from "@emotion/styled";
 
 export const Wrap =styled.div`
 display: flex;
-width: 100%;
-margin-top: 30px;
+align-items: center;
+padding-left: 50px;
+margin-top: 10px;
 `
 export const IconWrap = styled.div`
-background-color: gray;
+background-color: aqua;
 border-radius: 50px;
-width: 15%;
+width: 30px;
+height: 30px;
 `
 export const ContentWrap =styled.div`
 display: flex;
@@ -17,7 +19,7 @@ padding-left: 15px;
 `
 export const SecondLine = styled.div`
 display: flex;
-font-size: 12px;
+font-size: 10px;
 align-items: center;
 `
 export const Date = styled.div``

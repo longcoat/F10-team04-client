@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
+import { Button, DatePicker, Modal } from "antd";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
@@ -7,6 +7,66 @@ import styled from "@emotion/styled";
 import InModalWrite from "../../../commons/modal(write)";
 import { modalWriteState } from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
+import * as S from "./CommunityWrite.styles"
+import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
+import KaKaoMapPage from "../../../commons/map/mapsearch";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+
+const AreaOption = [
+  { value: "서울특별시", label: "서울특별시" },
+  { value: "인천광역시", label: "인천광역시" },
+  { value: "세종특별자치시", label: "세종특별자치시" },
+  { value: "대전광역시", label: "대전광역시" },
+  { value: "부산광역시", label: "부산광역시" },
+  { value: "대구광역시", label: "대구광역시" },
+  { value: "광주광역시", label: "광주광역시" },
+  { value: "울산광역시", label: "울산광역시" },
+  { value: "제주특별자치도", label: "제주특별자치도" },
+];
+const exOption = [
+  { value: "Beginner", label: "Beginner" },
+  { value: "Amateur", label: "Amateur" },
+  { value: "Pro", label: "Pro" },
+];
+dayjs.extend(customParseFormat);
+
+const { RangePicker } = DatePicker;
+
+const range = (start: number, end: number) => {
+  const result = [];
+  for (let i = start; i < end; i++) {
+    result.push(i);
+  }
+  return result;
+};
+
+// eslint-disable-next-line arrow-body-style
+const disabledDate: RangePickerProps["disabledDate"] = (current) => {
+  // Can not select days before today and today
+  return current && current < dayjs().endOf("day");
+};
+
+const disabledDateTime = () => ({
+  disabledHours: () => range(0, 24).splice(4, 20),
+  disabledMinutes: () => range(30, 60),
+  disabledSeconds: () => [55, 56],
+});
+
+const disabledRangeTime: RangePickerProps["disabledTime"] = (_, type) => {
+  if (type === "start") {
+    return {
+      disabledHours: () => range(0, 60).splice(4, 20),
+      disabledMinutes: () => range(30, 60),
+      disabledSeconds: () => [55, 56],
+    };
+  }
+  return {
+    disabledHours: () => range(0, 60).splice(20, 4),
+    disabledMinutes: () => range(0, 31),
+    disabledSeconds: () => [55, 56],
+  };
+};
 
 const ModalCustom = styled(Modal)`
   padding-top: 60px;
@@ -122,6 +182,7 @@ export default function CommunityWriteUI(props: any) {
       >
         작성하기
       </Button>
+
    {   ModalOpen &&
       <ModalCustom
         title="게시물 작성"
@@ -133,6 +194,8 @@ export default function CommunityWriteUI(props: any) {
       >
         <InModalWrite />
       </ModalCustom>}
+   
+
     </>
   );
 }

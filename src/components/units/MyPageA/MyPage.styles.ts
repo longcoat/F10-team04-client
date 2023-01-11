@@ -33,7 +33,7 @@ export const ProfileBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  padding-left: 200px;
+  padding-left: 80px;
 
   ${M.mediaL} {
     padding: 0 80px;
@@ -194,7 +194,7 @@ export const BoardBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  padding-left: 200px;
+  padding-left: 80px;
   ${M.mediaL} {
     padding-left: 80px;
   }
@@ -334,6 +334,7 @@ export const RightIconDownBox = styled.div`
 
 export const BoardListWrapper = styled.div`
   padding: 0 200px 0 200px;
+  background-color: red;
   ${M.mediaL} {
     padding: 0 80px 0 80px;
   }
@@ -545,7 +546,7 @@ export const FriendListText = styled.div`
   letter-spacing: -0.002em;
   color: #0b0b0b;
   padding: 0 16px 10px 16px;
-
+  cursor: pointer;
   border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
   color: ${(props) => (props.isActive ? "#C71515" : "none")};
   /* identical to box height */
@@ -560,7 +561,7 @@ export const PickListText = styled.div`
   text-align: center;
   letter-spacing: -0.002em;
   padding: 0 16px 10px 16px;
-
+  cursor: pointer;
   color: #0b0b0b;
 
   border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
@@ -576,7 +577,7 @@ export const ChatListText = styled.div`
   text-align: center;
   letter-spacing: -0.002em;
   padding: 0 16px 10px 16px;
-
+cursor: pointer;
   color: #0b0b0b;
 
   border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
@@ -593,7 +594,7 @@ export const JoinCrewText = styled.div`
   letter-spacing: -0.002em;
   padding: 0 16px 10px 16px;
   color: #0b0b0b;
-
+cursor: pointer;
   border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
   color: ${(props) => (props.isActive ? "#C71515" : "none")};
 `;

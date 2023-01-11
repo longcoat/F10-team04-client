@@ -14,6 +14,7 @@ import { modalEditState } from "../../../commons/stores";
 import styled from "@emotion/styled";
 import UserEdit from "../../commons/user(Edit)/userEdit.container";
 import { Modal } from "antd";
+import { IQuery } from "../../../commons/types/generated/types";
 
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
@@ -26,6 +27,9 @@ const FETCH_USER_LOGGED_IN = gql`
       gender
       prefer
       region
+      image{
+        imgUrl
+      }
     }
   }
 `;
@@ -45,14 +49,16 @@ const FETCH_MY_FOLLOW_COUNT = gql`
 export default function MyPageA(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
-  const { data } = useQuery(FETCH_USER_LOGGED_IN);
-  console.log(data);
-  const { data: fetchMyFollowCount } = useQuery(FETCH_MY_FOLLOW_COUNT);
-  console.log(fetchMyFollowCount);
   const [color1, setColor1] = useState(true);
   const [color2, setColor2] = useState(false);
   const [color3, setColor3] = useState(false);
   const [color4, setColor4] = useState(false);
+
+  const { data } = useQuery(FETCH_USER_LOGGED_IN);
+console.log(data)
+  const { data: fetchMyFollowCount } = useQuery(FETCH_MY_FOLLOW_COUNT);
+
+
 
   const onClickEdit = () => {
     setModalOpen((prev) => !prev);
@@ -129,7 +135,7 @@ export default function MyPageA(props) {
   return (
     <S.Containerbox>
       {ModalOpen && (
-        <ModalCustom title="회원정보 수정" centered open={true} width={1100}>
+        <ModalCustom title="회원정보 수정" centered open={true} width={1000}>
           <UserEdit data={data} />
         </ModalCustom>
       )}

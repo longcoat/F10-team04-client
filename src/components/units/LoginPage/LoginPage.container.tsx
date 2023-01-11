@@ -9,6 +9,7 @@ import { Modal } from "antd";
 import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../../commons/stores";
 import { useRouter } from "next/router";
+import { IMutation, IMutationLoginArgs } from "../../../commons/types/generated/types";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -22,7 +23,12 @@ export default function LoginPage() {
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
   });
-  const [loginUser] = useMutation(LOGIN);
+
+  const [loginUser] = useMutation<
+  Pick<IMutation, "login">,
+  IMutationLoginArgs
+>(LOGIN);
+
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const onClickSubmit = async (data: any) => {
     try {

@@ -1,5 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { IQuery, IQueryFetchMyAllBoardsArgs } from "../../../commons/types/generated/types";
 
 export const FETCH_MY_All_BOARDS = gql`
   query fetchMyAllBoards($page: Int) {
@@ -20,8 +21,11 @@ export const FETCH_MY_All_BOARDS = gql`
 `;
 
 export default function AttendPeople() {
-  const { data } = useQuery(FETCH_MY_All_BOARDS);
-  console.log(data);
+  const { data } = useQuery<
+  Pick<IQuery, "fetchMyAllBoards">,
+  IQueryFetchMyAllBoardsArgs
+>(FETCH_MY_All_BOARDS);
+
   return (
     <>
       {data?.fetchMyAllBoards?.map((el: any, index) => (

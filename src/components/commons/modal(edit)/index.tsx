@@ -4,22 +4,31 @@ import { DatePicker, Modal } from "antd";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { useEffect, useState } from 'react';
-import { EditBoardId, mapCenterState, mapEditCenterState, mapEditPathState, mapPathState, modalEditState} from '../../../commons/stores';
-import { useRecoilState } from 'recoil';
-import { UPDATE_BOARD } from '../../units/CommunityPage/write/CommunityWrite.queries';
-import { useMutation } from '@apollo/client';
-import Uploads01 from '../uploads/01/Uploads01.container';
-import dynamic from 'next/dynamic';
+import { useEffect, useState } from "react";
+import {
+  EditBoardId,
+  mapCenterState,
+  mapEditCenterState,
+  mapEditPathState,
+  mapPathState,
+  modalEditState,
+} from "../../../commons/stores";
+import { useRecoilState } from "recoil";
+import { UPDATE_BOARD } from "../../units/CommunityPage/write/CommunityWrite.queries";
+import { useMutation } from "@apollo/client";
+import Uploads01 from "../uploads/01/Uploads01.container";
+import dynamic from "next/dynamic";
 import { FETCH_ALL_BOARDS } from "../../units/CommunityPage/list/CommunityList.queries";
 import { useRouter } from "next/router";
 import { IUpdateUseditemInput } from "../../units/CommunityPage/write/Community.type";
 import KaKaoMapEdit from "../map/mapsearch(edit)";
 
-const ReactQuill = dynamic( async() => await import('react-quill'), {
-    ssr : false
-})
+import { IMutation, IMutationUpdateBoardArgs } from "../../../commons/types/generated/types";
+import { IUpdateBoardInput } from "../../units/CommunityPage/write/CommunityWrite.types";
 
+const ReactQuill = dynamic(async () => await import("react-quill"), {
+  ssr: false,
+});
 
 const AreaOption = [
   { value: "서울특별시", label: "서울특별시" },
@@ -120,7 +129,7 @@ const disabledRangeTime: RangePickerProps["disabledTime"] = (_, type) => {
 };
 
 export default function InModalEdit(props) {
-  const router = useRouter()
+  const router = useRouter();
   const [center, setCenter] = useRecoilState(mapEditCenterState);
   const [path, setPath] = useRecoilState(mapEditPathState);
   const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
@@ -131,14 +140,13 @@ export default function InModalEdit(props) {
   const [content, setContent] = useState("");
   const [appointment, setAppointment] = useState("");
   const [recruitSports, setRecruitSports] = useState("");
-  const [recruitPeople, setRecruitPeople] = useState(0)
-  const [image, setImage] = useState("")
+  const [recruitPeople, setRecruitPeople] = useState(0);
+  const [image, setImage] = useState("");
+
 
 useEffect(() => {
   if(props.data){
       setImage(props.data.fetchBoard.image?.imgUrl)
-      setCenter(props.data.fetchBoard.location?.center)
-      setPath(props.data.fetchBoard.location?.path)
       setTitle(props.data.fetchBoard.title)
       setContent(props.data.fetchBoard.content)
       setAppointment(props.data.fetchBoard.appointment)
@@ -146,12 +154,22 @@ useEffect(() => {
       setRecruitPeople(props.data.fetchBoard.recruitPeople)
       setRecruitGrade(props.data.fetchBoard.recruitGrade)
       setRecruitRegion(props.data.fetchBoard.recruitRegion)
+      if(props.data.fetchBoard.location?.center !==center ||
+         props.data.fetchBoard.location?.path !== path ) {
+          return
+        }else{
+          setCenter(props.data.fetchBoard.location?.center)
+          setPath(props.data.fetchBoard.location?.path)
+        }
     }
-},[props.data])
-  const [updateBoard] = useMutation(UPDATE_BOARD);
+},[props.data, path, center])
+const [updateBoard] = useMutation<
+Pick<IMutation, "updateBoard">,
+IMutationUpdateBoardArgs
+>(UPDATE_BOARD);
   console.log(props.data?.fetchBoard.image?.id)
   const onClickUpdate = async () => {
-    const updateBoardInput: IUpdateUseditemInput= {};
+    const updateBoardInput: IUpdateBoardInput= {};
     if (props.data?.fetchBoard.title) updateBoardInput.title = props.data.fetchBoard.title;
     if (props.data?.fetchBoard.content) updateBoardInput.content = props.data.fetchBoard.content;
     if (props.data?.fetchBoard.recruitSports) updateBoardInput.recruitSports = props.data.fetchBoard.recruitSports;
@@ -163,23 +181,24 @@ useEffect(() => {
       const result = await updateBoard({
         variables: {
           boardId: String(editBoardId),
-          updateBoardInput :{
+          updateBoardInput: {
             title: title,
             content: content,
             recruitSports: recruitSports,
             recruitGrade: recruitGrade,
             recruitRegion: recruitRegion,
             recruitPeople: Number(recruitPeople),
-            image : image,
+            image: image,
             location: {
-              path : path,
-              center: center
-            }
-          }
-        },refetchQueries: [{ query: FETCH_ALL_BOARDS }],
+              path: path,
+              center: center,
+            },
+          },
+        },
+        refetchQueries: [{ query: FETCH_ALL_BOARDS }],
       });
       setModalOpen(false);
-     router.push(`/community/`)
+      router.push(`/community/`);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
     }
@@ -190,8 +209,8 @@ useEffect(() => {
   };
 
   const onChangePeople = (e) => {
-    setRecruitPeople(e.target.value)
-  }
+    setRecruitPeople(e.target.value);
+  };
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -202,7 +221,7 @@ useEffect(() => {
     setAppointment(e?._d);
   };
   const onChangeContent = (value) => {
-    setContent(value === "<p><br></p>" ? "" : value); 
+    setContent(value === "<p><br></p>" ? "" : value);
   };
   const onChangeLo = (e) => {
     setRecruitRegion(e);
@@ -218,7 +237,11 @@ useEffect(() => {
   return (
     <S.Wrapper>
       <S.Header>
-        <Uploads01 image={image} onChangeImage={onChangeImage} data={props.data}/>
+        <Uploads01
+          image={image}
+          onChangeImage={onChangeImage}
+          data={props.data}
+        />
         <S.InputWrap1>
           <S.InputWrap2>
             <S.InputWrapper>
@@ -239,9 +262,11 @@ useEffect(() => {
             </S.InputWrapper>
             <S.InputWrapper>
               <S.Ctg_title>모집인원</S.Ctg_title>
-              <S.InputBox onChange={onChangePeople} 
-              defaultValue={props.data?.fetchBoard.recruitPeople}
-              type="text" />
+              <S.InputBox
+                onChange={onChangePeople}
+                defaultValue={props.data?.fetchBoard.recruitPeople}
+                type="text"
+              />
             </S.InputWrapper>
           </S.InputWrap2>
           <S.InputWrap3>
@@ -251,7 +276,11 @@ useEffect(() => {
                 <S.SelectArea
                   defaultValue={props.data?.fetchBoard.recruitRegion}
                   onChange={onChangeLo}
-                  style={{ width: "100%", borderRadius: "10px" }}
+                  style={{
+                    width: "100%",
+                    borderRadius: "10px",
+                    color: "black",
+                  }}
                   options={AreaOption}
                 />
               </S.Selectbar>
@@ -262,9 +291,10 @@ useEffect(() => {
                 onChange={onChangeDate}
                 style={{
                   border: "none",
-                  borderRadius: "16px",
+                  borderRadius: "12px",
                   width: "100%",
-                  height: "32px",
+                  color: "black",
+                  height: "36px",
                   padding: "4px 11px 4px",
                   backgroundColor: "rgba(25, 29, 35, 0.05)",
                 }}
@@ -280,7 +310,11 @@ useEffect(() => {
                 <S.SelectArea
                   defaultValue={props.data?.fetchBoard.recruitGrade}
                   onChange={onChangeGrade}
-                  style={{ width: "100%", borderRadius: "10px" }}
+                  style={{
+                    width: "100%",
+                    borderRadius: "10px",
+                    color: "black",
+                  }}
                   options={exOption}
                 />
               </S.Selectbar>
@@ -291,12 +325,13 @@ useEffect(() => {
       <S.InputWrapper1>
         <S.Ctg_title2>내용</S.Ctg_title2>
         <ReactQuill
-        defaultValue={props.data?.fetchBoard.content}
+          defaultValue={props.data?.fetchBoard.content}
           onChange={onChangeContent}
           style={{
             width: "100%",
             height: "200px",
             marginBottom: "40px",
+            color: "black",
           }}
           // value={props.getValues("contents") || ""}
         />

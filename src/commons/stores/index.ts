@@ -26,10 +26,10 @@ export const modalDetailState = atom({
   key: "modalDetailState",
   default: false,
 });
-export const boardImageState = atom({
-  key: "boardImageState",
-  default: "",
-});
+// export const boardImageState = atom({
+//   key: "boardImageState",
+//   default: "",
+// });
 export const ReviewImagesState = atom({
   key: "ReviewImagesState",
   default: [],
@@ -70,3 +70,8 @@ export const mapCenterViewState = atom({
   key: "mapCenterState",
   default: [],
 });
+export const ReviewCommentMore = atom({
+  key: "ReviewCommentMore",
+  default: false,
+});
+

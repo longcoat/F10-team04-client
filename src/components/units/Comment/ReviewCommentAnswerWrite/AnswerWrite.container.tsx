@@ -1,13 +1,18 @@
 import { useMutation } from "@apollo/client";
 import { ChangeEvent, useState } from "react";
+import { IMutation, IMutationCreateReviewNestedCommentArgs } from "../../../../commons/types/generated/types";
+import { FETCH_REVIEW_NESTED_COMMENTS } from "../ReviewCommentAnswerList/AnswerList.query";
 import AnswerWriteUI from "./AnswerWrite.presenter";
-import { CREATE_NESTED_COMMENT } from "./AnswerWrite.query";
+import { CREATE_REVIEW_NESTED_COMMENT } from "./AnswerWrite.query";
 
 export default function CommentAnswerWriter(props){
     const [isActive, setIsActive] = useState(true);
     const [contents, setContents] = useState("");
 
-    const [createNestedComment] = useMutation(CREATE_NESTED_COMMENT);
+    const [createReviewNestedComment] = useMutation<
+Pick<IMutation, "updateBoard">,
+IMutationCreateReviewNestedCommentArgs
+>(CREATE_REVIEW_NESTED_COMMENT);
 
     const onChangeAnswer = (event: ChangeEvent<HTMLInputElement>) => {
         setContents(event.target.value);
@@ -15,17 +20,17 @@ export default function CommentAnswerWriter(props){
 
     const onClickWrite = async () => {
         if (contents) {
-          const result = await createNestedComment({
+          const result = await createReviewNestedComment({
             variables: {
-                commentId: String(props.el.id),
-                nestedComment: String(contents)
+                reviewCommentId: String(props.el.id),
+                reviewNestedComment: String(contents)
             },
-            // refetchQueries: [
-            //   {
-            //     query: FETCH_USED_ITEM_QUESTION_ANSWERS,
-            //     variables: { commentId: String(props.el.id) },
-            //   },
-            // ],
+            refetchQueries: [
+              {
+                query: FETCH_REVIEW_NESTED_COMMENTS,
+                variables: { reviewCommentId: String(props.el.id) },
+              },
+            ],
           });
           console.log(result)
           setContents("");

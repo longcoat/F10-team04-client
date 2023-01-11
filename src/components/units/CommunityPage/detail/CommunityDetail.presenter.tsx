@@ -51,7 +51,6 @@ export default function CommunityDetailUIPage(props: any) {
 
     script.onload = () => {
       window.kakao.maps.load(function () {
-
         let mapContainer = document.getElementById("map"), // 지도를 표시할 div
           mapOptions = {
             center: new window.kakao.maps.LatLng(center[0], center[1]), // 지도의 중심좌표
@@ -59,9 +58,7 @@ export default function CommunityDetailUIPage(props: any) {
           };
         var map = new window.kakao.maps.Map(mapContainer, mapOptions);
 
-
         var imageSrc = "";
-
 
         let distanceOverlay;
         let dots = {};
@@ -96,12 +93,10 @@ export default function CommunityDetailUIPage(props: any) {
             StrokeColor: "#1b22ae",
             strokeOpacity: 1,
             strokeStyle: "dashed",
-
           });
           distance = Math.round(lineLine.getLength());
           displayCircleDot(positions[i].latlng, distance);
         }
-
 
         function displayCircleDot(position, distance) {
           if (distance > 0) {
@@ -192,9 +187,8 @@ export default function CommunityDetailUIPage(props: any) {
   }, [path, center]);
   return (
     <>
-
       {props.EditModalOpen && (
-        <ModalCustom title="게시물 수정" centered open={true} width={1100}>
+        <ModalCustom title="게시물 수정" centered open={true} width={1000}>
           <InModalEdit data={props.data} />
         </ModalCustom>
       )}
@@ -281,7 +275,7 @@ export default function CommunityDetailUIPage(props: any) {
                 props.data?.fetchBoard.recruitPeople ===
                 props.data?.fetchBoard.attendCount
                   ? props.onClickNoAtt
-                  : props.onClickAttend
+                  : props.onClickAttend(props.data?.fetchBoard.id)
               }
             >
               {!props.attend ? "참여하기" : "참가취소"}
@@ -293,14 +287,28 @@ export default function CommunityDetailUIPage(props: any) {
   );
 }
 const ModalCustom = styled(Modal)`
+  padding-top: 60px;
+
+  .ant-select-selection-item {
+    color: black;
+  }
+  .ant-modal-title {
+    font-size: 20px;
+  }
+
+  .ant-modal-content {
+    width: 1000px;
+    border-radius: 20px;
+  }
+
   .ant-modal-header {
     padding: 16px 24px;
-    padding-top: 30px;
+    padding-top: 28px;
     background-color: black;
     color: #fff;
     text-align: center;
     border-bottom: 1px solid #f0f0f0;
-    border-radius: 2px 2px 0 0;
+    border-radius: 20px 20px 0 0;
     height: 80px;
   }
   .ant-modal-title {
@@ -331,5 +339,28 @@ const ModalCustom = styled(Modal)`
   }
   .ant-btn {
     visibility: hidden;
+  }
+
+  .css-12sbnz6 {
+    border-radius: 12px;
+    font-size: 15px;
+    background-color: #0b0b0b;
+    color: white;
+    width: 150px;
+    height: 50px;
+    border: none;
+  }
+
+  .css-3tc048 {
+    border-radius: 12px;
+    font-size: 18px;
+    color: #fff;
+    cursor: pointer;
+  }
+  .css-1a8xmf3 {
+    border-radius: 12px;
+    font-size: 18px;
+    color: #000;
+    cursor: pointer;
   }
 `;

@@ -98,6 +98,9 @@ word-wrap: break-word;
 background-color: white;
 opacity: 0.2;
 }
+.ant-modal-close-x {
+    display: none;
+  }
 `
 export const imagesBox = styled.div`
 width: 10%;
@@ -110,4 +113,17 @@ export const Img = styled.div`
 border: 1px solid #D3D3D3;
 margin: 5px 0px;
 width: 50%;
+`
+export const ButtonWrap =styled.div`
+width: 50%;
+margin: 0px auto;
+display: flex;
+justify-content: space-between;
+`
+export const Button = styled.button`
+background-color: #151515;
+color: white;
+width: 40%;
+border-radius: 8px;
+cursor: pointer;
 `
