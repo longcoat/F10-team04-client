@@ -23,16 +23,13 @@ const GLOBAL_STATE = new InMemoryCache();
 
 export default function ApolloSetting(props: IApolloSettingProps) {
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
-  // const aaa = useRecoilValueLoadable(restoreAccessTokenLoadable);
 
   useEffect(() => {
-    // void aaa.toPromise().then((newAccessToken) => {
-    //   setAccessToken(newAccessToken);
-    // });
-    void getAccessToken().then((newAccessToken) => {
+    getAccessToken().then((newAccessToken) => {
       setAccessToken(newAccessToken);
     });
   }, []);
+
   const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     if (typeof graphQLErrors !== "undefined") {
       for (const err of graphQLErrors) {
@@ -55,7 +52,7 @@ export default function ApolloSetting(props: IApolloSettingProps) {
   });
 
   const uploadLink = createUploadLink({
-    uri: "https://meonjifather.shop/graphql",
+    uri: "https://backsol2.shop/graphql",
     headers: { Authorization: `Bearer ${accessToken}` },
     credentials: "include",
   });

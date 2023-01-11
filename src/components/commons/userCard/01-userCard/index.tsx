@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 import { FETCH_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail.queries";
 import { Modal } from "antd";
 
+import ChattingBtn from "../../chattingBtn/indx";
+
 export const FOLLOW_USER = gql`
   mutation followUser($userId: String!) {
     followUser(userId: $userId)
@@ -41,6 +43,12 @@ export default function UserCard(props) {
     setAddActive((prev) => !prev);
     await followUser({
       variables: { userId: userId },
+      refetchQueries: [
+        {
+          query: FETCH_FOLLOW_COUNT,
+          variables: { userId: userId },
+        },
+      ],
     });
     if (addActive === false) {
       Modal.success({ content: "팔로우 완료!" });
@@ -87,7 +95,7 @@ export default function UserCard(props) {
             }}
           />
         )}
-        <Button>메시지</Button>
+        <ChattingBtn />
       </ButtonWrap>
     </Wrapper>
   );

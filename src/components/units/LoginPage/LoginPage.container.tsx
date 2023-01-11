@@ -42,7 +42,7 @@ export default function LoginPage() {
       router.push("/");
     } catch (error) {
       if (error instanceof Error)
-        Modal.error({ content: "이메일을 확인해주세요." });
+        Modal.error({ content: error.message });
     }
   };
 

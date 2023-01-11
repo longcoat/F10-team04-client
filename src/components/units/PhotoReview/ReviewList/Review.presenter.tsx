@@ -1,63 +1,15 @@
 import { HeartOutlined, HomeFilled } from "@ant-design/icons";
-import { ScrollMenu } from "react-horizontal-scrolling-menu";
-import usePreventBodyScroll from "../../../commons/mouseScroll/mouseScroll";
-import PhotoReviewCard from "../../../commons/photoReviewCard";
 import * as S from "./Review.styles";
 import styled from "@emotion/styled";
-import ReviewWrite from "../ReviewDetail/ReviewDetail.container";
 import { Modal } from "antd";
-
-let a = [
-  {
-    h: "축구",
-    a: "10대",
-    l: "서울",
-    n: "가",
-  },
-  {
-    h: "야구",
-    a: "20대",
-    l: "대구",
-    n: "라",
-  },
-  {
-    h: "농구",
-    a: "30대",
-    l: "부산",
-    n: "다",
-  },
-  {
-    h: "축구",
-    a: "20대",
-    l: "대전",
-    n: "라",
-  },
-  {
-    h: "축구",
-    a: "30대",
-    l: "포항",
-    n: "차",
-  },
-  {
-    h: "축구",
-    a: "10대",
-    l: "대전",
-    n: "아",
-  },
-  {
-    h: "축구",
-    a: "20대",
-    l: "울산",
-    n: "자",
-  },
-];
+import ReviewDetail from "../ReviewDetail/ReviewDetail.container";
 
 export default function ReviewUI(props) {
 
   return (
     <>
      {props.isModalOpen && <CusModal  width="1100px" open={true} onOk={props.handleOk} onCancel={props.handleCancel}>
-            <ReviewWrite/>
+            <ReviewDetail reviewId={props.reviewId}/>
       </CusModal>}
       <S.Wrapper>
         <S.SideBar>
@@ -77,13 +29,12 @@ export default function ReviewUI(props) {
             </S.ItemWrap>
           </S.DDD>
         </S.SideBar>
-
         <S.Contents >
-            {a.map((el) => (
-              <S.ImgBox onClick={props.onClickMore} key={el.n}
+            {props.data?.fetchAllReviewBoards.map((el) => (
+              <S.ImgBox onClick={props.onClickMore(el.id)} key={el.n}
               style={{backgroundColor:"gray"}}
                 >
-                
+                  {el.content}
               </S.ImgBox>
             ))}
         </S.Contents>

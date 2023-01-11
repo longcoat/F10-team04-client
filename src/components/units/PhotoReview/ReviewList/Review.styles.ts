@@ -17,8 +17,8 @@ flex-wrap: wrap;
 `
 export const ImgBox =styled.div`
 border: 1px solid red;
-width: 285px;
-height: 285px;
+width: 280px;
+height: 280px;
 `
 export const SideBar = styled.div`
 margin-top: 20px;

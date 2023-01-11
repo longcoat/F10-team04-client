@@ -7,7 +7,7 @@ export const FETCH_ALL_BOARDS = gql`
       title
       content
       createdAt
-      image{
+      image {
         id
         imgUrl
       }
@@ -28,7 +28,7 @@ export const FETCH_ALL_BOARDS_WITH_PICK_BOARD = gql`
       title
       content
       createdAt
-      image{
+      image {
         id
         imgUrl
       }
