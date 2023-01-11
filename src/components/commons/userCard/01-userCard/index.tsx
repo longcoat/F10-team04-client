@@ -51,6 +51,12 @@ export default function UserCard(props) {
     setAddActive((prev) => !prev);
     await followUser({
       variables: { userId: userId },
+      refetchQueries: [
+        {
+          query: FETCH_FOLLOW_COUNT,
+          variables: { userId: userId },
+        },
+      ],
     });
     if (addActive === false) {
       Modal.success({ content: "팔로우 완료!" });
