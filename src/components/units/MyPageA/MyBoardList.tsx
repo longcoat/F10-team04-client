@@ -4,11 +4,14 @@ import { Modal } from "antd";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { appointment } from "../../../commons/library/appointment";
-import { modalDetailState } from "../../../commons/stores";
+import { attendListIdState, modalDetailState, reviewWriteModalState } from "../../../commons/stores";
 import { OneEllipsis } from "../../../commons/styles/commonStyles";
+import { IQuery, IQueryFetchMyAllBoardsArgs } from "../../../commons/types/generated/types";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 import { FETCH_BOARD } from "../CommunityPage/detail/CommunityDetail.queries";
 import * as M from "../../../commons/styles/mediaQueries";
+import { CusModal } from "../PhotoReview/ReviewWrite/ReviewWrite.styles";
+import ReviewWrite from "../PhotoReview/ReviewWrite/ReviewWrite.container";
 
 export const FETCH_MY_All_BOARDS = gql`
   query fetchMyAllBoards($page: Int) {
@@ -23,13 +26,23 @@ export const FETCH_MY_All_BOARDS = gql`
       recruitGrade
       createdAt
       recruitPeople
+      image{
+        imgUrl
+      }
     }
   }
 `;
 
 export default function MyBoardList() {
-  const { data } = useQuery(FETCH_MY_All_BOARDS);
-  console.log(data);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(reviewWriteModalState);
+  const [attendListId, setAttendListId] = useRecoilState(attendListIdState);
+
+  const { data } = useQuery<
+  Pick<IQuery, "fetchMyAllBoards">,
+  IQueryFetchMyAllBoardsArgs
+>(FETCH_MY_All_BOARDS);
+console.log(data)
+
   // 리스트 클릭시 디테일 로 넘어가게
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [boardId, setBoardId] = useState("");
@@ -37,9 +50,26 @@ export default function MyBoardList() {
     setModalOpen((prev) => !prev);
     setBoardId(boardId);
   };
+
   const sanitizeHtml = require("sanitize-html");
+
+
+  const onClickWriteReview = (attendListId) => async (e) => {
+    e.stopPropagation();
+    setAttendListId(attendListId)
+    setIsModalOpen(true);
+  };
+
   return (
     <>
+       {isModalOpen && (
+        <CusModal
+          width="1100px"
+          open={true}
+        >
+          <ReviewWrite />
+        </CusModal>
+      )}
       <ModalCustom centered open={ModalOpen} width={1000}>
         <CommunityDetailPage boardId={boardId} />
       </ModalCustom>
@@ -75,10 +105,15 @@ export default function MyBoardList() {
                 <Date>
                   {el.attendCount}/{el.recruitPeople}
                 </Date>
+                <ReviewBtn onClick={onClickWriteReview(el.id)}>
+                  리뷰쓰기
+                </ReviewBtn>
               </Content>
             </InfoTextWrapper>
             <ThumbnailBox>
-              <ThumbnailImage src="/thumbnailsample.png" />
+              <ThumbnailImage 
+              style={{backgroundImage: el.image?.imgUrl ? `url(${el.image.imgUrl})` : `url(/images/basic.png)`}}
+              ></ThumbnailImage>
             </ThumbnailBox>
           </BoardList>
         </BoardListWrapper>
@@ -158,7 +193,6 @@ export const Content = styled(OneEllipsis)`
   font-size: 18px;
   line-height: 24px;
   /* identical to box height */
-
   display: flex;
   /* justify-content: space-between; */
   flex-direction: row;
@@ -192,13 +226,19 @@ export const ThumbnailBox = styled.div`
   padding-top: 20px;
   border-radius: 12px;
 `;
-export const ThumbnailImage = styled.img`
+export const ThumbnailImage = styled.div`
   border-radius: 12px;
+  height: 90px;
+  background-size: cover;
+  background-position: center;
 `;
 export const Date = styled.div`
+
   padding: 0px 20px 17px 20px;
   width: 50px;
   text-align: center;
+
+
 `;
 export const ModalCustom = styled(Modal)`
   .ant-modal-header {

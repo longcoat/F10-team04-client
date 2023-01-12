@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { modalEditState } from "../../../commons/stores";
+import { IMutation, IMutationCheckNickNameArgs, IMutationUpdateUserArgs } from "../../../commons/types/generated/types";
 import UserEditUI from "./userEdit.presenter";
 import { CHECK_NICK_NAME, UPDATE_USER } from "./userEdit.query";
 
@@ -27,9 +28,19 @@ export default function UserEdit(props) {
   const [age, setAge] = useState("10대");
   const [region, setRegion] = useState("서울특별시");
   const [prefer, setPrefer] = useState("런닝");
+  const [image, setImage] = useState("")
 
-  const [checkNickName] = useMutation(CHECK_NICK_NAME);
-  const [updateUser] = useMutation(UPDATE_USER);
+  
+  const [checkNickName] = useMutation<
+  Pick<IMutation, "checkNickName">,
+  IMutationCheckNickNameArgs
+>(CHECK_NICK_NAME);
+ 
+  const [updateUser] = useMutation<
+  Pick<IMutation, "updateUser">,
+  IMutationUpdateUserArgs
+>(UPDATE_USER);
+  
 
   const onChangeNickName = (e) => {
     setNickname(e.target.value);
@@ -152,18 +163,23 @@ export default function UserEdit(props) {
             prefer,
             age,
             gender,
+            image
           },
         },
       });
-      setModalOpen((prev) => !prev);
       router.push(`/mypage`);
       console.log(result);
+      setModalOpen(false);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
     }
   };
   const onClickClose = () => {
     setModalOpen((prev) => !prev);
+  };
+  const onChangeImage = (fileUrl) => {
+    const newFile = fileUrl;
+    setImage(newFile);
   };
 
   return (
@@ -178,6 +194,8 @@ export default function UserEdit(props) {
       level2={level2}
       level3={level3}
       nickNameCheck={nickNameCheck}
+      image={image}
+      onChangeImage={onChangeImage}
       onClickCheckNickname={onClickCheckNickname}
       onChangeAge={onChangeAge}
       onChangeLo={onChangeLo}

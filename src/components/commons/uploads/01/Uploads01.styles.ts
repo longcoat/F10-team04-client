@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
 export const UploadImage = styled.img`
+  margin-top: 20px;
   width: 200px;
   height: 200px;
   margin-right: 24px;

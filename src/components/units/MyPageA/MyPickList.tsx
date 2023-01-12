@@ -6,9 +6,10 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { appointment } from "../../../commons/library/appointment";
 import { modalDetailState } from "../../../commons/stores";
+import { IMutation, IMutationPickBoardArgs } from "../../../commons/types/generated/types";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 
-const FETCH_MY_PICK_BOARDS = gql`
+export const FETCH_MY_PICK_BOARDS = gql`
   query fetchMyPickBoards($page: Int) {
     fetchMyPickBoards(page: $page) {
       id
@@ -37,12 +38,21 @@ export default function MyPickList() {
   // 리스트 클릭시 디테일 로 넘어가게
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [boardId, setBoardId] = useState("");
+  const [pick, setPick] = useState(true);
+
+
+  const [pickBoard] = useMutation<
+  Pick<IMutation, "pickBoard">,
+  IMutationPickBoardArgs
+>(PICK_BOARD);
+
   const onClickDetail = (boardId) => () => {
     setModalOpen((prev) => !prev);
     setBoardId(boardId);
   };
-  const [pickBoard] = useMutation(PICK_BOARD);
-  const [pick, setPick] = useState(true);
+
+
+ 
   const onClickPick = (boardId) => async (e) => {
     e.stopPropagation();
     console.log(boardId);
@@ -52,12 +62,12 @@ export default function MyPickList() {
         variables: {
           boardId: String(boardId),
         },
-        // refetchQueries: [
-        //   {
-        //     query: FETCH_BOARD,
-        //     variables: { boardId: String(props.boardId) },
-        //   },
-        // ],
+        refetchQueries: [
+          {
+            query: FETCH_MY_PICK_BOARDS,
+           
+          },
+        ],
       });
 
       if (pick === false) {
@@ -110,7 +120,9 @@ export default function MyPickList() {
               </Content>
             </InfoTextWrapper>
             <ThumbnailBox>
-              <ThumbnailImage src="/thumbnailsample.png" />
+            <ThumbnailImage 
+              style={{backgroundImage: el.image?.imgUrl ? `url(${el.image.imgUrl})` : `url(/images/basic.png)`}}
+              ></ThumbnailImage>
             </ThumbnailBox>
           </BoardList>
         </BoardListWrapper>
@@ -222,8 +234,11 @@ export const ThumbnailBox = styled.div`
   padding-top: 20px;
   border-radius: 12px;
 `;
-export const ThumbnailImage = styled.img`
+export const ThumbnailImage = styled.div`
   border-radius: 12px;
+  height: 90px;
+  background-size: cover;
+  background-position: center;
 `;
 export const ModalCustom = styled(Modal)`
   .ant-modal-header {

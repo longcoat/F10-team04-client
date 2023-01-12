@@ -1,14 +1,12 @@
 import { useMutation } from "@apollo/client";
-import { ChangeEvent, useEffect, useRef } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { checkValidationImage } from "./Uploads01.validation";
 import Uploads01UI from "./Uploads01.presenter";
 import { UPLOAD_FILE } from "./Uploads01.queries";
 import { Modal } from "antd";
-import { useRecoilState } from "recoil";
-import { boardImageState} from "../../../../commons/stores";
 
 export default function Uploads01(props) {
-  const [image, setImage] = useRecoilState(boardImageState);
+  const [image, setImage] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploadFile] = useMutation(UPLOAD_FILE);
 
@@ -39,7 +37,7 @@ console.log(image)
   return (
     <Uploads01UI
       fileRef={fileRef}
-      fileUrl={image}
+      fileUrl={props.image}
       defaultFileUrl={props.defaultFileUrl}
       onClickUpload={onClickUpload}
       onChangeFile={onChangeFile}

@@ -3,10 +3,11 @@ import  Slider from "react-slick";
 
 
 export const Wrapper = styled.div`
-width: 90%;
+width: 100%;
 margin: 0px auto;
 height: 100%;
 display: flex;
+border: 1px dashed #D3D3D3;
 `
 export const LeftSide = styled.div`
 width: 60%;
@@ -20,19 +21,29 @@ flex-direction: column;
 justify-content: space-between;
 padding-bottom: 0px;
 `
-export const DDD = styled.div`
+export const RightInnerWrap = styled.div`
 padding-left: 10px;
 display: flex;
 flex-direction: column;
 height: 80%;
 
 `
+export const Edit_Del = styled.div`
+padding-right: 5px;
+display: flex;
+justify-content: flex-end;
+`
 export const UserWrap = styled.div`
 display:flex;
+justify-content: space-between;
 align-items: center;
 height: 5%;
 border-bottom: 1px solid #D3D3D3;
 padding-bottom: 10px;
+`
+export const User = styled.div`
+display: flex;
+align-items: center;
 `
 export const Name = styled.div`
 `
@@ -50,9 +61,7 @@ padding-bottom: 20px;
 border-bottom: 1px solid #D3D3D3;
 `
 export const IconWrap =styled.div`
-padding-top: 5px;
 padding-left: 10px;
-height: 10%;
 
 `
 export const HeartLine =styled.div`
@@ -88,12 +97,20 @@ height: 100%;
 }
 `
 export const Img = styled.img`
-
+width: 100%;
+height: 100%;
 `
 export const Div = styled.div`
+width: 100%;
+height: 500px;
 padding: 0px 10px;
-margin-top: 50px;
 overflow: hidden;
 display: flex;
 margin-top: auto 0px;
+margin-top: 50px;
+`
+export const Comment = styled.div`
+width: 100%;
+height: 500px;
+overflow: auto;
 `

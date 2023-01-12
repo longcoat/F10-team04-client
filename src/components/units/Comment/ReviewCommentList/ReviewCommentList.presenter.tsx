@@ -10,7 +10,7 @@ export default function ReviewCommentListUI(props){
           <ReviewCommentListItem
             key={el.id}
             el={el}
-            // onClickDelete={props.onClickDelete}
+            onClickDelete={props.onClickDelete}
           />
         ))}
       </InfiniteScroll>

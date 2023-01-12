@@ -2,18 +2,24 @@ import styled from "@emotion/styled";
 
 export const Wrap =styled.div`
 display: flex;
+align-items: center;
 width: 100%;
 margin-top: 30px;
 `
 export const IconWrap = styled.div`
 background-color: gray;
 border-radius: 50px;
-width: 15%;
+width: 40px;
+height: 40px;
 `
 export const ContentWrap =styled.div`
+width: 100%;
 display: flex;
 flex-direction: column;
 padding-left: 15px;
+`
+export const MainWrap = styled.div`
+display: flex;
 `
 export const SecondLine = styled.div`
 display: flex;
@@ -37,4 +43,7 @@ color:rgb(38,38,38);
 export const firstLine = styled.div`
 display:flex;
 padding-bottom: 5px;
+align-items: center;
+width: 100%;
+justify-content: space-between;
 `
