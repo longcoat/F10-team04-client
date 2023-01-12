@@ -4,7 +4,11 @@ import { Modal } from "antd";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { appointment } from "../../../commons/library/appointment";
-import { attendListIdState, modalDetailState, reviewWriteModalState } from "../../../commons/stores";
+import {
+  attendListIdState,
+  modalDetailState,
+  reviewWriteModalState,
+} from "../../../commons/stores";
 import { OneEllipsis } from "../../../commons/styles/commonStyles";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 import { FETCH_BOARD } from "../CommunityPage/detail/CommunityDetail.queries";
@@ -41,6 +45,7 @@ export const ATTEND_LIST = gql`
 
 export default function AttendList() {
   const { data } = useQuery(FETCH_ATTEND_LIST);
+  console.log(data);
   // 리스트 클릭시 디테일 로 넘어가게
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [attendListId, setAttendListId] = useRecoilState(attendListIdState);
@@ -56,17 +61,14 @@ export default function AttendList() {
 
   const onClickWriteReview = (attendListId) => async (e) => {
     e.stopPropagation();
-    setAttendListId(attendListId)
+    setAttendListId(attendListId);
     setIsModalOpen(true);
   };
 
   return (
     <>
       {isModalOpen && (
-        <CusModal
-          width="1100px"
-          open={true}
-        >
+        <CusModal width="1100px" open={true}>
           <ReviewWrite />
         </CusModal>
       )}
@@ -94,9 +96,11 @@ export default function AttendList() {
                     }}
                   />
                 </ContentText>
-                <ReviewBtn onClick={onClickWriteReview(el.id)}>
-                  리뷰쓰기
-                </ReviewBtn>
+                <BtnBox>
+                  <ReviewBtn onClick={onClickWriteReview(el.id)}>
+                    리뷰쓰기
+                  </ReviewBtn>
+                </BtnBox>
               </Content>
             </InfoTextWrapper>
             <ThumbnailBox>
@@ -110,7 +114,7 @@ export default function AttendList() {
 }
 
 export const BoardListWrapper = styled.div`
-  padding: 0 200px 0 200px;
+  padding: 0 80px 0 80px;
 `;
 
 export const BoardList = styled.div`
@@ -131,7 +135,7 @@ export const InfoTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 25px 0 25px 0;
+  padding: 25px 0 15px 0;
 `;
 
 export const InfoTextBox = styled.div`
@@ -146,6 +150,7 @@ export const Title = styled(OneEllipsis)`
   font-weight: 800;
   font-size: 18px;
   line-height: 30px;
+  width: calc(100% - 190px);
   /* identical to box height, or 167% */
 
   letter-spacing: -0.002em;
@@ -153,8 +158,10 @@ export const Title = styled(OneEllipsis)`
   color: #0b0b0b;
 `;
 export const MeetTime = styled(OneEllipsis)`
-  width: 21%;
-  padding-right: 20px;
+  width: 170px;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 27px;
   font-family: "AppleSDGothicNeoM00";
   font-style: normal;
   font-weight: 800;
@@ -166,8 +173,8 @@ export const MeetTime = styled(OneEllipsis)`
 
   color: #0b0b0b;
 `;
-export const Content = styled.div`
-  width: 100%;
+export const Content = styled(OneEllipsis)`
+  width: calc(100% - 6px);
   font-family: "AppleSDGothicNeoM00";
   font-style: normal;
   font-weight: 400;
@@ -188,12 +195,21 @@ export const Content = styled.div`
 export const ContentText = styled.div`
   padding-right: 20px;
 `;
+
+export const BtnBox = styled.div`
+  padding-left: 20px;
+`;
+
 export const ReviewBtn = styled.button`
   background: black;
   border-radius: 8px;
   color: white;
   font-size: 14px;
+  border: none;
+  width: 100px;
+  padding: 4px 0px;
 `;
+
 export const ThumbnailBox = styled.div`
   width: 120px;
   height: 90px;

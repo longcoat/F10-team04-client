@@ -64,7 +64,14 @@ export const InfoBox = styled.div`
 export const NickInfoBox = styled.div`
   display: flex;
   flex-direction: row;
+
   margin-bottom: 10px;
+  padding-right: 80px;
+
+  ${M.mediaM} {
+    justify-content: space-between;
+    padding-right: 0;
+  }
 `;
 
 export const FriendHeartBox = styled.div`
@@ -72,19 +79,33 @@ export const FriendHeartBox = styled.div`
   flex-direction: row;
 `;
 
-export const Nickname = styled.div`
+export const NickNameWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  ${M.mediaM} {
+    /* height: calc(100% - 280px); */
+  }
+`;
+
+export const Nickname = styled(OneEllipsis)`
   font-family: "Code Next-Trial";
   font-style: normal;
-  font-weight: 400;
-  font-size: 44px;
+  font-weight: 600;
+  font-size: 32px;
   line-height: 62px;
   /* identical to box height, or 141% */
 
   text-align: center;
   letter-spacing: -0.002em;
-  padding-top: 20px;
+  padding-top: 23px;
 
   color: #0b0b0b;
+
+  ${M.mediaM} {
+    font-size: 24px;
+    padding-top: 26px;
+  }
 `;
 
 export const Modify = styled.div`
@@ -93,17 +114,19 @@ export const Modify = styled.div`
   font-weight: 400;
   font-size: 18px;
   line-height: 30px;
+  width: 280px;
   /* identical to box height, or 167% */
 
   letter-spacing: -0.002em;
 
   color: #8b8b8b;
-  padding: 45px 0 0 37px;
+  padding: 45px 0 0 54px;
   ${M.mediaL} {
     padding: 45px 0 0 40px;
   }
   ${M.mediaM} {
-    padding: 45px 0 0 137px;
+    padding: 45px 0 0 0;
+    width: 30%;
   }
   cursor: pointer;
 `;

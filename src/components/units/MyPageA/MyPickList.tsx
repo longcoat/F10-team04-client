@@ -120,7 +120,7 @@ export default function MyPickList() {
 }
 
 export const BoardListWrapper = styled.div`
-  padding: 0 200px 0 200px;
+  padding: 0 80px 0 80px;
 `;
 
 export const BoardList = styled.div`
@@ -141,7 +141,7 @@ export const InfoTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 25px 0 25px 0;
+  padding: 25px 0 15px 0;
 `;
 
 export const InfoTextBox = styled.div`
@@ -156,6 +156,7 @@ export const Title = styled.div`
   font-weight: 800;
   font-size: 18px;
   line-height: 30px;
+  width: calc(100% - 190px);
   /* identical to box height, or 167% */
 
   letter-spacing: -0.002em;
@@ -163,8 +164,12 @@ export const Title = styled.div`
   color: #0b0b0b;
 `;
 export const MeetTime = styled.div`
-  width: 21%;
-  padding-right: 20px;
+  width: 170px;
+  /* text-align: center; */
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 27px;
+
   font-family: "AppleSDGothicNeoM00";
   font-style: normal;
   font-weight: 800;
@@ -206,6 +211,7 @@ export const ReviewBtn = styled.button`
   justify-content: center;
   background: none;
   border-radius: 8px;
+  padding-bottom: 22px;
   color: white;
   font-size: 14px;
   border: none;
