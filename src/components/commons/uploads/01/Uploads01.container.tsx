@@ -4,8 +4,6 @@ import { checkValidationImage } from "./Uploads01.validation";
 import Uploads01UI from "./Uploads01.presenter";
 import { UPLOAD_FILE } from "./Uploads01.queries";
 import { Modal } from "antd";
-import { useRecoilState } from "recoil";
-import { boardImageState} from "../../../../commons/stores";
 
 export default function Uploads01(props) {
   const [image, setImage] = useState("");

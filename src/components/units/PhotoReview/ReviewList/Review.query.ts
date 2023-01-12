@@ -18,6 +18,7 @@ export const FETCH_ALL_REVIEW_BOARDS = gql`
       id
       title
       content
+      thumbnail
     }
   }
 `;
@@ -29,6 +30,42 @@ export const FETCH_ALL_REVIEW_BOARD_IMAGES = gql`
       imgUrl
       reviewBoard{
         id
+      }
+    }
+  }
+`;
+export const FETCH_FOLLOWING = gql`
+  query fetchFollowing($userId: String!){
+    fetchFollowing(userId:$userId) {
+      id
+      user2{
+        id
+        nickname
+        age
+        region
+        prefer
+        grade
+        image{
+          imgUrl
+        }
+      }
+    }
+  }
+`;
+export const FETCH_FOLLOWER = gql`
+  query fetchFollower($userId: String!){
+    fetchFollower(userId:$userId) {
+      id
+      user2{
+        id
+        nickname
+        age
+        region
+        prefer
+        grade
+        image{
+          imgUrl
+        }
       }
     }
   }

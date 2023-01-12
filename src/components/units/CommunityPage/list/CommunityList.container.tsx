@@ -62,7 +62,7 @@ export default function CommunityList() {
 
     pickFetchMore({
       variables: {
-        page: Math.ceil(Pick?.fetchAllBoardsWithPickCount.length / 9) + 1,
+        page: Math.ceil(Pick?.fetchAllBoardsWithPickCount.length / 8) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (fetchMoreResult.fetchAllBoardsWithPickCount == undefined) {

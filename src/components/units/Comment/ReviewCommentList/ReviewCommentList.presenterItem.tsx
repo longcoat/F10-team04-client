@@ -1,3 +1,4 @@
+import { DeleteOutlined } from '@ant-design/icons';
 import { toFormData } from 'axios'
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
@@ -25,8 +26,14 @@ export default function ReviewCommentListItem(props){
                 </S.IconWrap>
                 <S.ContentWrap>
                     <S.firstLine>
+                        <S.MainWrap>
                         <S.user>{props.el.user.nickname}</S.user>
                         <S.content>{props.el.reviewComment}</S.content>
+                        </S.MainWrap>
+                        <DeleteOutlined
+              onClick={props.onClickDelete(props.el.id)}
+              style={{ cursor: "pointer" }}
+            />
                     </S.firstLine>
                     <S.SecondLine>
                         <S.Date>{timeForToday(props.el.createdAt)}</S.Date>
@@ -35,7 +42,7 @@ export default function ReviewCommentListItem(props){
                     </S.SecondLine>
                 </S.ContentWrap>          
             </S.Wrap>
-            {isActive && <CommentAnswerWriter el={props.el} />}
+            {isActive && <CommentAnswerWriter el={props.el} setMore={setMore}/>}
             {more && <AnswerList el={props.el}/>} 
         </div>
     )
