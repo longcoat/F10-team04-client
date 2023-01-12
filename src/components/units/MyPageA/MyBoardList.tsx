@@ -51,6 +51,9 @@ console.log(data)
     setBoardId(boardId);
   };
 
+  const sanitizeHtml = require("sanitize-html");
+
+
   const onClickWriteReview = (attendListId) => async (e) => {
     e.stopPropagation();
     setAttendListId(attendListId)
@@ -70,7 +73,7 @@ console.log(data)
       <ModalCustom centered open={ModalOpen} width={1000}>
         <CommunityDetailPage boardId={boardId} />
       </ModalCustom>
-      {data?.fetchMyAllBoards?.map((el: any, index) => (
+      {data?.fetchMyAllBoards?.map((el: any) => (
         <BoardListWrapper key={el.id}>
           <BoardList onClick={onClickDetail(el.id)}>
             <ImageListProfileBox>
@@ -82,13 +85,23 @@ console.log(data)
                 <MeetTime>{appointment(el.appointment)}</MeetTime>
               </InfoTextBox>
               <Content>
-                <ContentText>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: String(el.content),
-                    }}
-                  />
-                </ContentText>
+                {/* <ContentText> */}
+                <ContentText
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeHtml(
+                      el.content.replace(/(?:\r\n|\r|\n|)/g, ""),
+                      {
+                        allowedTags: ["n"],
+                      }
+                    ),
+                  }}
+                  // /(?:\r\n|\r|\n|\<p|)/g
+
+                  // dangerouslySetInnerHTML={{
+                  //   __html: String(el.content),
+                  // }}
+                />
+                {/* </ContentText> */}
                 <Date>
                   {el.attendCount}/{el.recruitPeople}
                 </Date>
@@ -131,7 +144,7 @@ export const InfoTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 25px 0 25px 0;
+  padding: 25px 0 0 0;
 `;
 
 export const InfoTextBox = styled.div`
@@ -145,8 +158,9 @@ export const Title = styled(OneEllipsis)`
   font-style: normal;
   font-weight: 800;
   font-size: 18px;
-  width: 70%;
+  width: calc(100% - 190px);
   line-height: 30px;
+  padding-bottom: 10px;
   /* identical to box height, or 167% */
 
   letter-spacing: -0.002em;
@@ -154,8 +168,9 @@ export const Title = styled(OneEllipsis)`
   color: #0b0b0b;
 `;
 export const MeetTime = styled.div`
-  width: 15%;
-  padding-right: 20px;
+  width: 170px;
+  text-align: center;
+  padding: 0 20px;
   font-family: "AppleSDGothicNeoM00";
   font-style: normal;
   font-weight: 800;
@@ -168,7 +183,6 @@ export const MeetTime = styled.div`
   color: #0b0b0b;
 
   ${M.mediaL} {
-    width: 25%;
   }
 `;
 export const Content = styled(OneEllipsis)`
@@ -186,17 +200,14 @@ export const Content = styled(OneEllipsis)`
   align-items: center;
   letter-spacing: -0.0024em;
 
-  padding-top: 15px;
-  padding-right: 20px;
+  padding: 0px 20px 20px 0;
 
   color: #0b0b0b;
 `;
 export const ContentText = styled(OneEllipsis)`
   padding-right: 20px;
-  width: 86.7%;
+  width: calc(100% - 10px) ${M.mediaL} {
 
-  ${M.mediaL} {
-    width: 90.7%;
   }
 `;
 
@@ -222,6 +233,12 @@ export const ThumbnailImage = styled.div`
   background-position: center;
 `;
 export const Date = styled.div`
+
+  padding: 0px 20px 17px 20px;
+  width: 50px;
+  text-align: center;
+
+
 `;
 export const ModalCustom = styled(Modal)`
   .ant-modal-header {

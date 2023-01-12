@@ -53,7 +53,7 @@ export default function AttendPeople() {
 }
 
 export const BoardListWrapper = styled.div`
-  padding: 0 200px 0 200px;
+  padding: 0 80px 0 80px;
 `;
 export const BoardList = styled.div`
   display: flex;
