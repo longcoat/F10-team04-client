@@ -1,4 +1,4 @@
-import { HeartOutlined, SmileOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined, HeartOutlined, SmileOutlined } from '@ant-design/icons'
 import { timeForToday } from '../../../../commons/library/utils2'
 import { getDate } from '../../../../commons/library/utils'
 import ReviewCommentWrite from '../../Comment/ReviewComment/reviewComment.container'
@@ -20,8 +20,6 @@ export default function ReviewWriteUI(props) {
                     <S.Img
                 
                       src={`${el}`}
-                      width="100%"
-                      height="100%"
                     />
                     </S.Div>
                     // <div key={el}
@@ -31,10 +29,22 @@ export default function ReviewWriteUI(props) {
                 </S.CusSlider>
             </S.LeftSide>
             <S.RightSide>
-                <S.DDD>
+                <S.RightInnerWrap>
                 <S.UserWrap>
+                    <S.User>
                 <SmileOutlined style={{paddingRight:"10px"}}/>
                 <S.Name>{props.data?.fetchReviewBoard.user.nickname}</S.Name>
+                </S.User>
+                <S.Edit_Del>
+            <EditOutlined
+              onClick={props.onClickEdit}
+              style={{ marginRight: "20px", cursor: "pointer" }}
+            />
+            <DeleteOutlined
+              onClick={props.onClickDelete(props.data?.fetchReviewBoard.id)}
+              style={{ cursor: "pointer" }}
+            />
+          </S.Edit_Del>
                 </S.UserWrap>
                 <S.Contents>
                     <S.Content>{props.data?.fetchReviewBoard.content}</S.Content>
@@ -43,7 +53,7 @@ export default function ReviewWriteUI(props) {
                 <S.Comment>
                 <ReviewCommentList id={props.data?.fetchReviewBoard.id}/>
                 </S.Comment>
-                </S.DDD>
+                </S.RightInnerWrap>
                 <S.IconWrap>
                     <S.HeartLine>
                     <HeartOutlined onClick={props.onClickHeart}/>

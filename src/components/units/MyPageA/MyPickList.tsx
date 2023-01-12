@@ -120,7 +120,9 @@ export default function MyPickList() {
               </Content>
             </InfoTextWrapper>
             <ThumbnailBox>
-              <ThumbnailImage src="/thumbnailsample.png" />
+            <ThumbnailImage 
+              style={{backgroundImage: el.image?.imgUrl ? `url(${el.image.imgUrl})` : `url(/images/basic.png)`}}
+              ></ThumbnailImage>
             </ThumbnailBox>
           </BoardList>
         </BoardListWrapper>
@@ -226,8 +228,11 @@ export const ThumbnailBox = styled.div`
   padding-top: 20px;
   border-radius: 12px;
 `;
-export const ThumbnailImage = styled.img`
+export const ThumbnailImage = styled.div`
   border-radius: 12px;
+  height: 90px;
+  background-size: cover;
+  background-position: center;
 `;
 export const ModalCustom = styled(Modal)`
   .ant-modal-header {

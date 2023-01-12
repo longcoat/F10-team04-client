@@ -72,7 +72,7 @@ console.log(PickList?.fetchMyPickBoards, data)
         setAttend(false)
       }
     })
-  },[[pick]])
+  },[[data]])
 console.log(pick)
   const onClickAttend = (boardId) => async () => {
     try {
