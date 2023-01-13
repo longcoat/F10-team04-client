@@ -197,6 +197,7 @@ export const Button1 = styled.button`
   cursor: pointer;
 `;
 export const Button2 = styled.button`
+
   width: 161px;
   height: 63px;
   background-color: #000;

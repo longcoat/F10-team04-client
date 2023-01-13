@@ -16,3 +16,11 @@ export const FETCH_REVIEW_NESTED_COMMENTS = gql`
     }
   }
 `;
+
+export const DELETE_REVIEW_NESTED_COMMENT = gql`
+  mutation deleteReviewNestedComment($reviewNestedComment: String!) {
+    deleteReviewNestedComment(
+      reviewNestedComment: $reviewNestedComment
+    )
+  }
+`;

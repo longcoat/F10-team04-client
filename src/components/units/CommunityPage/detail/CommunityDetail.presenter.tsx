@@ -8,22 +8,45 @@ import {
 } from "@ant-design/icons";
 import * as S from "./CommunityDetail.styles";
 import { timeForToday } from "../../../../commons/library/utils2";
-import { modalEditState } from "../../../../commons/stores";
+import { LoggedInUserId, modalEditState } from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
-import InModalEdit from "../../../commons/modal(edit)";
+import InModalEdit from "../../../commons/Modal/modal(edit)";
 import { Modal } from "antd";
 import styled from "@emotion/styled";
+
+import ConfirmModal, { ConfirmCus } from "../../../commons/Modal/confirmModal(community)";
+
+import Livechat from "../../../commons/livechat/LivechatContainer";
+
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
 
 export default function CommunityDetailUIPage(props: any) {
+  const [id, setId] = useRecoilState(LoggedInUserId);
   const [path, setPath] = useState([]);
   const [center, setCenter] = useState([]);
 
   const [isOpen, setIsOpen] = useState(false);
   const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
+
+
+  const handleCancel = () => {
+    setModalOpen(false);
+  };
+
+  const [whois, setWhois] = useState(1);
+  console.log(props.data);
+
+  useEffect(() => {
+    if (props.data?.fetchBoard?.user?.id !== props.userData?.fetchLoginUser?.id)
+      setWhois(1);
+    if (props.data?.fetchBoard?.user?.id === props.userData?.fetchLoginUser?.id)
+      setWhois(2);
+    if (props.userData?.fetchLoginUser?.id) setWhois(3);
+  }, [props.data, props.userData]);
+
 
   useEffect(() => {
     if (props.data) {
@@ -188,9 +211,15 @@ export default function CommunityDetailUIPage(props: any) {
   return (
     <>
       {props.EditModalOpen && (
-        <ModalCustom title="게시물 수정" centered open={true} width={1000}>
+        <ModalCustom title="게시물 수정" centered open={true} width={1000} onCancel={handleCancel}>
           <InModalEdit data={props.data} />
         </ModalCustom>
+      )}
+      
+      {props.confirmDel && (
+        <ConfirmCus centered open={true} width={500} onCancel={handleCancel}>
+          <ConfirmModal data={props.data}/>
+        </ConfirmCus>
       )}
 
       <S.Wrapper>
@@ -236,7 +265,7 @@ export default function CommunityDetailUIPage(props: any) {
         </S.Head>
         <S.Line />
         <S.Main>
-          <S.IconWarp>
+       {props.data?.fetchBoard.user.id === id ?  <S.IconWarp>
             <EditOutlined
               onClick={props.onClickEdit(props.data?.fetchBoard.id)}
               style={{ marginRight: "20px", cursor: "pointer" }}
@@ -246,6 +275,7 @@ export default function CommunityDetailUIPage(props: any) {
               style={{ cursor: "pointer" }}
             />
           </S.IconWarp>
+
           <S.TitleDetail>
             <S.Title2>{props.data?.fetchBoard.title}</S.Title2>
             <S.Detail>
@@ -256,6 +286,9 @@ export default function CommunityDetailUIPage(props: any) {
               </S.Create>
             </S.Detail>
           </S.TitleDetail>
+
+          : ""}
+          
 
           <S.Contents>
             <div
@@ -281,6 +314,7 @@ export default function CommunityDetailUIPage(props: any) {
             >
               {!props.attend ? "참여하기" : "참가취소"}
             </S.Button3>
+            <Livechat userData={props.userData} data={props.data} />
           </S.BtnWrap>
         </S.Main>
       </S.Wrapper>

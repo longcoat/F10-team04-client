@@ -54,7 +54,7 @@ export default function UserEditUI(props) {
           <S.Title>RunGether</S.Title>
         </S.TitleBox>
         <S.ImgBox>
-          <Uploads00 image={props.image} onChangeImage={props.onChangeImage} />
+          <Uploads00 image={props.image} onChangeImage={props.onChangeImage} data={props.data}/>
         </S.ImgBox>
         <S.ProfileTextBox>
           <S.ProfileText>프로필 사진 등록</S.ProfileText>
@@ -129,7 +129,7 @@ export default function UserEditUI(props) {
         <S.Selectbar>
           <S.SelectArea
             onChange={props.onChangeFav}
-            defaultValue={FavOption[0]}
+            defaultValue={props.data?.fetchUserLoggedIn.prefer}
             style={{ width: "100%", borderRadius: "10px" }}
             options={FavOption}
           />

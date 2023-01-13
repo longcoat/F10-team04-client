@@ -4,6 +4,7 @@ import React, { useRef, useEffect } from "react";
 import styled from "@emotion/styled";
 import * as M from "../../../../commons/styles/mediaQueries";
 import { gql, useMutation, useQuery } from "@apollo/client";
+import { Modal } from "antd";
 
 const SideBarWrap = styled.div`
   display: none;

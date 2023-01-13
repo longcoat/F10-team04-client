@@ -1,12 +1,14 @@
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { ReviewDetailState } from "../../../../commons/stores";
 import { IQuery, IQueryFetchFollowerArgs, IQueryFetchFollowingArgs } from "../../../../commons/types/generated/types";
 import { FETCH_USER_LOGGED_IN } from "../../../commons/layout/header/header";
 import ReviewUI from "./Review.presenter";
 import { FETCH_ALL_REVIEW_BOARDS, FETCH_FOLLOWER, FETCH_FOLLOWING} from "./Review.query";
 
 export default function Review() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useRecoilState(ReviewDetailState);
     const [reviewId, setReviewId] = useState("")
     const [reviewList, setReviewList] = useState(true)
     const [following, setFollowing] = useState(false)
@@ -31,12 +33,9 @@ export default function Review() {
     console.log(fetchUser)
 
     const onClickMore = (reviewBoardId) => () =>{
-      setReviewId(reviewBoardId)
+        setReviewId(reviewBoardId)
         setIsModalOpen(true);
     }
-    const handleOk = () => {
-        setIsModalOpen(false);
-      };
     
       const handleCancel = () => {
         setIsModalOpen(false);
@@ -47,7 +46,7 @@ export default function Review() {
     
         fetchMore({
           variables: {
-            page: Math.ceil(data?.fetchAllReviewBoards.length / 9) + 1,
+            page: Math.ceil(data?.fetchAllReviewBoards.length / 12) + 1,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
             if (fetchMoreResult.fetchAllReviewBoards == undefined) {
@@ -84,7 +83,6 @@ export default function Review() {
         <ReviewUI
         onClickHome={onClickHome}
         onLoadMore={onLoadMore}
-        setIsModalOpen={setIsModalOpen}
         onClickFollower={onClickFollower}
         onClickFollowing={onClickFollowing}
         reviewList={reviewList}
@@ -96,7 +94,6 @@ export default function Review() {
         reviewId={reviewId}
         isModalOpen={isModalOpen}
         onClickMore={onClickMore}
-        handleOk={handleOk}
         handleCancel={handleCancel}
         />
     )

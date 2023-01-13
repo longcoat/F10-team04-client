@@ -14,7 +14,7 @@ export default function Uploads03(props) {
   const onClickUpload = () => {
     fileRef.current?.click();
   };
-
+  
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = checkValidationImage(event.target.files?.[0]);
     if (!file) return;
@@ -22,7 +22,7 @@ export default function Uploads03(props) {
       try {
         const result = await uploadFile({ variables: { file } });
         props.onChangeFileUrls(result.data.uploadFile, props.index);
-        console.log(props.files)
+
       } catch (error) {
         if (error instanceof Error) Modal.error({ content: error.message });
       }

@@ -57,17 +57,16 @@ export default function CommunityListUi(props: any) {
       }
     }
   };
-  console.log(props.data);
+  const handleCancel = () => {
+    setModalOpen(false);
+  };
+
+
   return (
     <>
-      <S.ModalCustom
-        centered
-        open={ModalOpen}
-        width={1000}
-        onCancel={() => {
-          setModalEsc(false);
-        }}
-      >
+
+      <S.ModalCustom centered open={ModalOpen} width={900} onCancel={handleCancel}>
+
         <CommunityDetailPage boardId={props.boardId} />
       </S.ModalCustom>
       <S.Wrapper>

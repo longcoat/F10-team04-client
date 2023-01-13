@@ -10,6 +10,7 @@ import FollowerList from "../../../commons/userCard/03-userCard(follower)";
 export default function ReviewUI(props) {
   return (
     <>
+
       {props.isModalOpen && (
         <CusModal
           width="1000px"
@@ -23,6 +24,7 @@ export default function ReviewUI(props) {
           />
         </CusModal>
       )}
+
       <S.Wrapper>
         <S.SideBar>
           <S.Logo>Rungether</S.Logo>

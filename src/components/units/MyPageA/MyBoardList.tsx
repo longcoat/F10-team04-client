@@ -65,15 +65,21 @@ export default function MyBoardList() {
     setAttendListId(attendListId);
     setIsModalOpen(true);
   };
+  const onCancel = () => {
+    setIsModalOpen(false)
+    setModalOpen(false)
+  }
 
   return (
     <>
+
       {isModalOpen && (
         <CusModal width="1000px" open={true}>
+
           <ReviewWrite />
         </CusModal>
       )}
-      <ModalCustom centered open={ModalOpen} width={1000}>
+      <ModalCustom centered open={ModalOpen} width={1000} onCancel={onCancel}>
         <CommunityDetailPage boardId={boardId} />
       </ModalCustom>
       {data?.fetchMyAllBoards?.map((el: any) => (
