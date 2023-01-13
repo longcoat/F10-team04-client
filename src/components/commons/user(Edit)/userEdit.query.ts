@@ -11,6 +11,9 @@ export const UPDATE_USER = gql`
     updateUser(updateUserInput: $updateUserInput) {
       id
       email
+      image{
+        imgUrl
+      }
     }
   }
 `;

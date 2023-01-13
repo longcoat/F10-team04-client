@@ -16,6 +16,10 @@ export const ContentWrap =styled.div`
 display: flex;
 flex-direction: column;
 padding-left: 15px;
+width: 100%;
+`
+export const MainWrap = styled.div`
+display: flex;
 `
 export const SecondLine = styled.div`
 display: flex;
@@ -38,5 +42,8 @@ color:rgb(38,38,38);
 `
 export const firstLine = styled.div`
 display:flex;
+width: 100%;
 padding-bottom: 5px;
+align-items: center;
+justify-content: space-between;
 `

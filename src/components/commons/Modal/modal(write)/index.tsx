@@ -1,30 +1,25 @@
 import { RangePickerProps } from "antd/lib/date-picker";
-import * as S from "../../units/CommunityPage/write/CommunityWrite.styles";
+import * as S from "../../../units/CommunityPage/write/CommunityWrite.styles";
 import { DatePicker, Modal } from "antd";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { useEffect, useState } from "react";
+import KakaoMapUI from "../../map/mapsearch";
+import { useState } from "react";
 import {
-  EditBoardId,
   mapCenterState,
-  mapEditCenterState,
-  mapEditPathState,
   mapPathState,
-  modalEditState,
-} from "../../../commons/stores";
+  modalWriteState,
+} from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
-import { UPDATE_BOARD } from "../../units/CommunityPage/write/CommunityWrite.queries";
+import { CREATE_BOARD } from "../../../units/CommunityPage/write/CommunityWrite.queries";
 import { useMutation } from "@apollo/client";
-import Uploads01 from "../uploads/01/Uploads01.container";
+import Uploads01 from "../../uploads/01/Uploads01.container";
 import dynamic from "next/dynamic";
-import { FETCH_ALL_BOARDS } from "../../units/CommunityPage/list/CommunityList.queries";
+import { FETCH_ALL_BOARDS } from "../../../units/CommunityPage/list/CommunityList.queries";
 import { useRouter } from "next/router";
-import { IUpdateUseditemInput } from "../../units/CommunityPage/write/Community.type";
-import KaKaoMapEdit from "../map/mapsearch(edit)";
-
-import { IMutation, IMutationUpdateBoardArgs } from "../../../commons/types/generated/types";
-import { IUpdateBoardInput } from "../../units/CommunityPage/write/CommunityWrite.types";
+import KaKaoMapPage from "../../map/mapsearch";
+import { IMutation, IMutationCreateBoardArgs } from "../../../../commons/types/generated/types";
 
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
@@ -128,12 +123,11 @@ const disabledRangeTime: RangePickerProps["disabledTime"] = (_, type) => {
   };
 };
 
-export default function InModalEdit(props) {
+export default function InModalWrite(props) {
   const router = useRouter();
-  const [center, setCenter] = useRecoilState(mapEditCenterState);
-  const [path, setPath] = useRecoilState(mapEditPathState);
-  const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
-  const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
+  const [center, setCenter] = useRecoilState(mapCenterState);
+  const [path, setPath] = useRecoilState(mapPathState);
+  const [ModalOpen, setModalOpen] = useRecoilState(modalWriteState);
   const [recruitRegion, setRecruitRegion] = useState("서울특별시");
   const [recruitGrade, setRecruitGrade] = useState("Beginner");
   const [title, setTitle] = useState("");
@@ -143,71 +137,39 @@ export default function InModalEdit(props) {
   const [recruitPeople, setRecruitPeople] = useState(0);
   const [image, setImage] = useState("");
 
+  const [createBoard] = useMutation<
+    Pick<IMutation, "createBoard">,
+    IMutationCreateBoardArgs
+  >(CREATE_BOARD);
 
-useEffect(() => {
-  if(props.data){
-      setImage(props.data.fetchBoard.image?.imgUrl)
-      setTitle(props.data.fetchBoard.title)
-      setContent(props.data.fetchBoard.content)
-      setAppointment(props.data.fetchBoard.appointment)
-      setRecruitSports(props.data.fetchBoard.recruitSports)
-      setRecruitPeople(props.data.fetchBoard.recruitPeople)
-      setRecruitGrade(props.data.fetchBoard.recruitGrade)
-      setRecruitRegion(props.data.fetchBoard.recruitRegion)
-      if(props.data.fetchBoard.location?.center !==center ||
-         props.data.fetchBoard.location?.path !== path ) {
-          return
-        }else{
-          setCenter(props.data.fetchBoard.location?.center)
-          setPath(props.data.fetchBoard.location?.path)
-        }
-    }
-},[props.data, path, center])
-const [updateBoard] = useMutation<
-Pick<IMutation, "updateBoard">,
-IMutationUpdateBoardArgs
->(UPDATE_BOARD);
-  console.log(props.data?.fetchBoard.image?.id)
-  const onClickUpdate = async () => {
-    const updateBoardInput: IUpdateBoardInput= {};
-    if (props.data?.fetchBoard.title) updateBoardInput.title = props.data.fetchBoard.title;
-    if (props.data?.fetchBoard.content) updateBoardInput.content = props.data.fetchBoard.content;
-    if (props.data?.fetchBoard.recruitSports) updateBoardInput.recruitSports = props.data.fetchBoard.recruitSports;
-    if (props.data?.fetchBoard.recruitGrade) updateBoardInput.recruitGrade = props.data.fetchBoard.recruitGrade;
-    if (props.data?.fetchBoard.recruitRegion) updateBoardInput.recruitRegion = props.data.fetchBoard.recruitRegion;
-    if (props.data?.fetchBoard.recruitPeople) updateBoardInput.recruitPeople = props.data.fetchBoard.recruitPeople;
-    
+  const onClickSubmit = async () => {
     try {
-      const result = await updateBoard({
+      const result = await createBoard({
         variables: {
-          boardId: String(editBoardId),
-          updateBoardInput: {
-            title: title,
-            content: content,
-            recruitSports: recruitSports,
-            recruitGrade: recruitGrade,
-            recruitRegion: recruitRegion,
+          createBoardInput: {
+            title,
+            content,
+            appointment,
+            recruitSports,
+            recruitGrade,
+            recruitRegion,
+            image,
             recruitPeople: Number(recruitPeople),
-            image: image,
             location: {
-              path: path,
-              center: center,
+              path,
+              center,
             },
           },
-        },
-        refetchQueries: [{ query: FETCH_ALL_BOARDS }],
+         
+        }, refetchQueries: [{ query: FETCH_ALL_BOARDS }],
       });
+      Modal.success({ content: "게시물 작성 완료!" });
       setModalOpen(false);
       router.push(`/community/`);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
     }
   };
-
-  const onToggleModal = () => {
-    setModalOpen((prev) => !prev);
-  };
-
   const onChangePeople = (e) => {
     setRecruitPeople(e.target.value);
   };
@@ -221,7 +183,8 @@ IMutationUpdateBoardArgs
     setAppointment(e?._d);
   };
   const onChangeContent = (value) => {
-    setContent(value === "<p><br></p>" ? "" : value);
+    // event가 들어오는 것이 아니다. html의 속성이 아닌 ReactQuill의 속성이기 때문이다. value가 바로 들어온다.
+    setContent(value === "<p><br></p>" ? "" : value); // setValue를 사용하면 register로 등록하지 않고 강제로 값을 넣어줄 수 있다.
   };
   const onChangeLo = (e) => {
     setRecruitRegion(e);
@@ -233,21 +196,21 @@ IMutationUpdateBoardArgs
     const newFile = fileUrl;
     setImage(newFile);
   };
+  console.log(path, center);
 
   return (
     <S.Wrapper>
       <S.Header>
-        <Uploads01
-          image={image}
-          onChangeImage={onChangeImage}
-          data={props.data}
-        />
+        <S.ImgBox>
+          {/* {" "} */}
+          <Uploads01 image={image} onChangeImage={onChangeImage} />
+        </S.ImgBox>
         <S.InputWrap1>
           <S.InputWrap2>
             <S.InputWrapper>
               <S.Ctg_title>제목</S.Ctg_title>
               <S.InputBox
-                defaultValue={props.data?.fetchBoard.title}
+                placeholder="한강 러닝🏃🏻 하실분 ~~!!"
                 type="text"
                 onChange={onChangeTitle}
               />
@@ -255,7 +218,7 @@ IMutationUpdateBoardArgs
             <S.InputWrapper>
               <S.Ctg_title>모집운동</S.Ctg_title>
               <S.InputBox
-                defaultValue={props.data?.fetchBoard.recruitSports}
+                placeholder="풋살"
                 type="text"
                 onChange={onChangeSports}
               />
@@ -264,7 +227,7 @@ IMutationUpdateBoardArgs
               <S.Ctg_title>모집인원</S.Ctg_title>
               <S.InputBox
                 onChange={onChangePeople}
-                defaultValue={props.data?.fetchBoard.recruitPeople}
+                placeholder="ex) 7"
                 type="text"
               />
             </S.InputWrapper>
@@ -274,13 +237,9 @@ IMutationUpdateBoardArgs
               <S.Ctg_title>지역</S.Ctg_title>
               <S.Selectbar>
                 <S.SelectArea
-                  defaultValue={props.data?.fetchBoard.recruitRegion}
                   onChange={onChangeLo}
-                  style={{
-                    width: "100%",
-                    borderRadius: "10px",
-                    color: "black",
-                  }}
+                  defaultValue={AreaOption[0]}
+                  style={{ width: "100%", borderRadius: "10px" }}
                   options={AreaOption}
                 />
               </S.Selectbar>
@@ -291,11 +250,10 @@ IMutationUpdateBoardArgs
                 onChange={onChangeDate}
                 style={{
                   border: "none",
-                  borderRadius: "12px",
+                  borderRadius: "10px",
                   width: "100%",
-                  color: "black",
                   height: "36px",
-                  padding: "4px 11px 4px",
+                  padding: "4px 11px ",
                   backgroundColor: "rgba(25, 29, 35, 0.05)",
                 }}
                 format="YYYY-MM-DD HH:mm:ss"
@@ -305,16 +263,12 @@ IMutationUpdateBoardArgs
               />
             </S.InputWrapper>
             <S.Category>
-              <S.Ctg_title>운동 레벨</S.Ctg_title>
+              <S.Ctg_title>운동레벨</S.Ctg_title>
               <S.Selectbar>
                 <S.SelectArea
-                  defaultValue={props.data?.fetchBoard.recruitGrade}
                   onChange={onChangeGrade}
-                  style={{
-                    width: "100%",
-                    borderRadius: "10px",
-                    color: "black",
-                  }}
+                  defaultValue={exOption[0]}
+                  style={{ width: "100%", borderRadius: "10px" }}
                   options={exOption}
                 />
               </S.Selectbar>
@@ -325,23 +279,21 @@ IMutationUpdateBoardArgs
       <S.InputWrapper1>
         <S.Ctg_title2>내용</S.Ctg_title2>
         <ReactQuill
-          defaultValue={props.data?.fetchBoard.content}
           onChange={onChangeContent}
           style={{
             width: "100%",
             height: "200px",
             marginBottom: "40px",
-            color: "black",
           }}
           // value={props.getValues("contents") || ""}
         />
       </S.InputWrapper1>
-      <KaKaoMapEdit />
+      <KaKaoMapPage />
       <S.ButtonWrap>
-        <S.Button1 type="button" onClick={onToggleModal}>
+        <S.Button1 type="button" onClick={() => setModalOpen(false)}>
           취소하기
         </S.Button1>
-        <S.Button2 onClick={onClickUpdate}>수정하기</S.Button2>
+        <S.Button2 onClick={onClickSubmit}>작성하기</S.Button2>
       </S.ButtonWrap>
     </S.Wrapper>
   );

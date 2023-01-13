@@ -22,6 +22,8 @@ export default function Members() {
     IQueryFetchUserArgs
   >(FETCH_USERS);
 
+  console.log(data)
+
   const onChangeLevel = (e) => {
     setLevel(e)
   }
@@ -63,10 +65,6 @@ export default function Members() {
       }
   },[result])
  
-  console.log(isNo)
-
-
- console.log(result)
   return <MembersUi 
   isNo={isNo} 
   data={data}

@@ -1,37 +1,53 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
-import { Router, useRouter } from "next/router";
+import { forIn } from "lodash";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { attendListIdState, reviewWriteModalState } from "../../../../commons/stores";
-import { IMutation, IMutationCreateReviewBoardArgs } from "../../../../commons/types/generated/types";
-import { FETCH_ALL_REVIEW_BOARDS } from "../ReviewList/Review.query";
-import ReviewWriteUI from "./ReviewWrite.presenter";
-import { CREATE_REVIEW_BOARD } from "./ReviewWrite.qurey";
+import { ReviewDetailState, reviewWriteModalState } from "../../../../commons/stores";
+import { IMutation,IMutationUpdateReviewBoardArgs, IQuery, IQueryFetchReviewBoardImageArgs } from "../../../../commons/types/generated/types";
+import { FETCH_ALL_REVIEW_BOARDS, FETCH_ALL_REVIEW_BOARD_IMAGE } from "../ReviewList/Review.query";
+import ReviewWriteUI from "./ReviewEdit.presenter";
+import { UPDATE_REVIEW_BOARD } from "./ReviewEdit.qurey";
 
 
-export default function ReviewWrite() {
+export default function ReviewEdit(props) {
     const router = useRouter()
     const [reviewImage, setReviewImage] = useState(["","","","",""]);
     const [sideImg, setSideImg] = useState([])
     const [imageStr, setImageStr] = useState([])
     const [content, setContent] = useState("")
     const [title, setTitle] = useState("")
-    const [attendListId, setAttendListId] = useRecoilState(attendListIdState);
+    const [isDetailModalOpen, setIsDetailModalOpen] = useRecoilState(ReviewDetailState);
     const [isModalOpen, setIsModalOpen] = useRecoilState(reviewWriteModalState);
+    const image = []
 
-    const [createReviewBoard] = useMutation<
-    Pick<IMutation, "createReviewBoard">,
-    IMutationCreateReviewBoardArgs
-    >(CREATE_REVIEW_BOARD);
- 
+    const [updateReviewBoard] = useMutation<
+    Pick<IMutation, "updateReviewBoard">,
+    IMutationUpdateReviewBoardArgs
+    >(UPDATE_REVIEW_BOARD);
+
+    useEffect(() => {
+       if(props.image){ 
+        for(let i = 0 ;i < 5 - props.image.length;i++) {
+            props.image.push("")
+        }
+    }
+    if(props.data) {
+        setContent(props.data?.fetchReviewBoard.content)
+    }
+    setReviewImage(props.image)
+       
+    },[props.image])
 
     const onChangeFileUrls = (fileUrl: string, index: number) => {
         const newFileUrls = [...reviewImage];
         newFileUrls[index] = fileUrl;
         setReviewImage(newFileUrls);
+        console.log(reviewImage)
     }
-    const onClickSubmit = async () => {
+ 
+    const onClickUpdate = async () => {
        if(!content) {
         alert("내용을 입력해주세요.")
        }
@@ -39,11 +55,10 @@ export default function ReviewWrite() {
         alert("사진은 필수 입력 값입니다,")
        }
             try {
-      const result = await createReviewBoard({ 
+      const result = await updateReviewBoard({ 
         variables: {
-            attendListId: String(attendListId),
-            createReviewBoardInput:{
-                title,
+            reviewBoardId: String(props.data.fetchReviewBoard.id),
+            updateReviewBoardInput:{
                 content,
                 reviewImage
             }
@@ -51,8 +66,8 @@ export default function ReviewWrite() {
      });
         console.log(result)
         setIsModalOpen(false)
-        alert("리뷰등록이 완료되었습니다.")
-        router.push(`/photoReview`)
+        setIsDetailModalOpen(false)
+        alert("리뷰수정이 완료되었습니다.")
     } catch (error) {
         if (error instanceof Error) Modal.error({ content: error.message });
         setIsModalOpen(false)
@@ -68,11 +83,12 @@ export default function ReviewWrite() {
     }
     return(
         <ReviewWriteUI 
+        data={props.data}
         sideImg={sideImg}
         files={reviewImage}
         imageStr={imageStr}
         onChangeContent={onChangeContent}
-        onClickSubmit={onClickSubmit}
+        onClickUpdate={onClickUpdate}
         onChangeFileUrls={onChangeFileUrls}
         onClickCs={onClickCs}
         />

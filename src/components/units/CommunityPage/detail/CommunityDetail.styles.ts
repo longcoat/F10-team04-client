@@ -191,7 +191,8 @@ export const Button2 = styled.button`
     background-color: #000;
     color: #fff;
     border: none;
-    cursor: pointer;`
+    cursor: pointer;
+    `
 export const Button3 = styled.button`
     width: 161px;
     height: 63px;
@@ -199,3 +200,5 @@ export const Button3 = styled.button`
     color: #fff;
     border: none;
     cursor: pointer;`
+
+    

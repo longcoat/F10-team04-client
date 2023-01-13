@@ -18,7 +18,6 @@ export default function KaKaoMapEdit() {
   const [address, setAddress] = useState("제주특별자치도 제주시 첨단로 242");
   const [center1, setCenter1] = useRecoilState(mapEditCenterState);
   const [path1, setPath1] = useRecoilState(mapEditPathState);
-  // let geocoder:any
 
   const onToggleModal = () => {
     setIsOpen((prev) => !prev);
@@ -356,7 +355,8 @@ export default function KaKaoMapEdit() {
         }
       });
     };
-  }, [geo,address]);
+  }, [address]);
+
   useEffect(() =>{
     setPath1(JSON.stringify(path))
     setCenter1(JSON.stringify(center))

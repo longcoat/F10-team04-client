@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { modalEditState } from "../../../commons/stores";
 import { IMutation, IMutationCheckNickNameArgs, IMutationUpdateUserArgs } from "../../../commons/types/generated/types";
@@ -12,7 +12,6 @@ export default function UserEdit(props) {
   console.log(props.data);
   const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
   const router = useRouter();
-  const [nickname, setNickname] = useState("");
   const [NicknameAct, setNickNameAct] = useState(false);
   const [gender, setGender] = useState("");
   const [genderAct, setGenderAct] = useState(false);
@@ -24,12 +23,35 @@ export default function UserEdit(props) {
   const [levelAct, setLevelAct] = useState(false);
   const [nickNameCheck, setNickNameCheck] = useState(false);
 
+  const [nickname, setNickname] = useState("");
   const [grade, setGrade] = useState("");
-  const [age, setAge] = useState("10대");
-  const [region, setRegion] = useState("서울특별시");
-  const [prefer, setPrefer] = useState("런닝");
-  const [image, setImage] = useState("")
-
+  const [age, setAge] = useState("");
+  const [region, setRegion] = useState("");
+  const [prefer, setPrefer] = useState("");
+  const [image, setImage] = useState("/profile.png")
+  useEffect(() => {
+    if(props.data?.fetchUserLoggedIn.gender === "남성") {
+      setClickLeft(true)
+    }else{
+      setClickRight(true)
+    }
+    if(props.data?.fetchUserLoggedIn.grade === "Beginner") {
+      setLevel1(true)
+    }else if(props.data?.fetchUserLoggedIn.grade === "Amateur") {
+      setLevel2(true)
+    }else {
+      setLevel3(true)
+    }
+    if(props.data) {
+      setGrade(props.data?.fetchUserLoggedIn.grade)
+      setNickname(props.data?.fetchUserLoggedIn.nickname)
+      setPrefer(props.data?.fetchUserLoggedIn.prefer)
+      setRegion(props.data?.fetchUserLoggedIn.region)
+      setGender(props.data?.fetchUserLoggedIn.gender)
+      setAge(props.data?.fetchUserLoggedIn.age)
+    }
+  },[props.data])
+console.log(props.data)
   
   const [checkNickName] = useMutation<
   Pick<IMutation, "checkNickName">,
@@ -152,10 +174,13 @@ export default function UserEdit(props) {
       alert("사용 가능한 닉네임입니다.");
     }
   };
+  
   const onClickSubmit = async () => {
+
     try {
       const result = await updateUser({
         variables: {
+          id: String(props.data?.fetchUserLoggedIn.id),
           updateUserInput: {
             nickname,
             grade,
@@ -167,7 +192,6 @@ export default function UserEdit(props) {
           },
         },
       });
-      router.push(`/mypage`);
       console.log(result);
       setModalOpen(false);
     } catch (error) {

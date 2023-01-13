@@ -8,9 +8,9 @@ margin-top: 30px;
 `
 export const IconWrap = styled.div`
 background-color: gray;
-border-radius: 50px;
-width: 40px;
-height: 40px;
+border-radius: 100%;
+width: 35px;
+height: 35px;
 `
 export const ContentWrap =styled.div`
 width: 100%;
