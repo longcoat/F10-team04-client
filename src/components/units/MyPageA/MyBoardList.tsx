@@ -4,12 +4,14 @@ import { Modal } from "antd";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { appointment } from "../../../commons/library/appointment";
-import { modalDetailState } from "../../../commons/stores";
+import { attendListIdState, modalDetailState, reviewWriteModalState } from "../../../commons/stores";
 import { OneEllipsis } from "../../../commons/styles/commonStyles";
 import { IQuery, IQueryFetchMyAllBoardsArgs } from "../../../commons/types/generated/types";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 import { FETCH_BOARD } from "../CommunityPage/detail/CommunityDetail.queries";
 import * as M from "../../../commons/styles/mediaQueries";
+import { CusModal } from "../PhotoReview/ReviewWrite/ReviewWrite.styles";
+import ReviewWrite from "../PhotoReview/ReviewWrite/ReviewWrite.container";
 
 export const FETCH_MY_All_BOARDS = gql`
   query fetchMyAllBoards($page: Int) {
@@ -24,15 +26,22 @@ export const FETCH_MY_All_BOARDS = gql`
       recruitGrade
       createdAt
       recruitPeople
+      image{
+        imgUrl
+      }
     }
   }
 `;
 
 export default function MyBoardList() {
+  const [isModalOpen, setIsModalOpen] = useRecoilState(reviewWriteModalState);
+  const [attendListId, setAttendListId] = useRecoilState(attendListIdState);
+
   const { data } = useQuery<
   Pick<IQuery, "fetchMyAllBoards">,
   IQueryFetchMyAllBoardsArgs
 >(FETCH_MY_All_BOARDS);
+console.log(data)
 
   // 리스트 클릭시 디테일 로 넘어가게
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
@@ -42,12 +51,29 @@ export default function MyBoardList() {
     setBoardId(boardId);
   };
 
+  const sanitizeHtml = require("sanitize-html");
+
+
+  const onClickWriteReview = (attendListId) => async (e) => {
+    e.stopPropagation();
+    setAttendListId(attendListId)
+    setIsModalOpen(true);
+  };
+
   return (
     <>
+       {isModalOpen && (
+        <CusModal
+          width="1100px"
+          open={true}
+        >
+          <ReviewWrite />
+        </CusModal>
+      )}
       <ModalCustom centered open={ModalOpen} width={1000}>
         <CommunityDetailPage boardId={boardId} />
       </ModalCustom>
-      {data?.fetchMyAllBoards?.map((el: any, index) => (
+      {data?.fetchMyAllBoards?.map((el: any) => (
         <BoardListWrapper key={el.id}>
           <BoardList onClick={onClickDetail(el.id)}>
             <ImageListProfileBox>
@@ -59,20 +85,35 @@ export default function MyBoardList() {
                 <MeetTime>{appointment(el.appointment)}</MeetTime>
               </InfoTextBox>
               <Content>
-                <ContentText>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: String(el.content),
-                    }}
-                  />
-                </ContentText>
+                {/* <ContentText> */}
+                <ContentText
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeHtml(
+                      el.content.replace(/(?:\r\n|\r|\n|)/g, ""),
+                      {
+                        allowedTags: ["n"],
+                      }
+                    ),
+                  }}
+                  // /(?:\r\n|\r|\n|\<p|)/g
+
+                  // dangerouslySetInnerHTML={{
+                  //   __html: String(el.content),
+                  // }}
+                />
+                {/* </ContentText> */}
                 <Date>
                   {el.attendCount}/{el.recruitPeople}
                 </Date>
+                <ReviewBtn onClick={onClickWriteReview(el.id)}>
+                  리뷰쓰기
+                </ReviewBtn>
               </Content>
             </InfoTextWrapper>
             <ThumbnailBox>
-              <ThumbnailImage src="/thumbnailsample.png" />
+              <ThumbnailImage 
+              style={{backgroundImage: el.image?.imgUrl ? `url(${el.image.imgUrl})` : `url(/images/basic.png)`}}
+              ></ThumbnailImage>
             </ThumbnailBox>
           </BoardList>
         </BoardListWrapper>
@@ -103,7 +144,7 @@ export const InfoTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  padding: 25px 0 25px 0;
+  padding: 25px 0 0 0;
 `;
 
 export const InfoTextBox = styled.div`
@@ -117,8 +158,9 @@ export const Title = styled(OneEllipsis)`
   font-style: normal;
   font-weight: 800;
   font-size: 18px;
-  width: 70%;
+  width: calc(100% - 190px);
   line-height: 30px;
+  padding-bottom: 10px;
   /* identical to box height, or 167% */
 
   letter-spacing: -0.002em;
@@ -126,8 +168,9 @@ export const Title = styled(OneEllipsis)`
   color: #0b0b0b;
 `;
 export const MeetTime = styled.div`
-  width: 15%;
-  padding-right: 20px;
+  width: 170px;
+  text-align: center;
+  padding: 0 20px;
   font-family: "AppleSDGothicNeoM00";
   font-style: normal;
   font-weight: 800;
@@ -140,7 +183,6 @@ export const MeetTime = styled.div`
   color: #0b0b0b;
 
   ${M.mediaL} {
-    width: 25%;
   }
 `;
 export const Content = styled(OneEllipsis)`
@@ -151,7 +193,6 @@ export const Content = styled(OneEllipsis)`
   font-size: 18px;
   line-height: 24px;
   /* identical to box height */
-
   display: flex;
   /* justify-content: space-between; */
   flex-direction: row;
@@ -159,17 +200,14 @@ export const Content = styled(OneEllipsis)`
   align-items: center;
   letter-spacing: -0.0024em;
 
-  padding-top: 15px;
-  padding-right: 20px;
+  padding: 0px 20px 20px 0;
 
   color: #0b0b0b;
 `;
 export const ContentText = styled(OneEllipsis)`
   padding-right: 20px;
-  width: 86.7%;
+  width: calc(100% - 10px) ${M.mediaL} {
 
-  ${M.mediaL} {
-    width: 90.7%;
   }
 `;
 
@@ -188,11 +226,19 @@ export const ThumbnailBox = styled.div`
   padding-top: 20px;
   border-radius: 12px;
 `;
-export const ThumbnailImage = styled.img`
+export const ThumbnailImage = styled.div`
   border-radius: 12px;
+  height: 90px;
+  background-size: cover;
+  background-position: center;
 `;
 export const Date = styled.div`
-  padding-bottom: 17px;
+
+  padding: 0px 20px 17px 20px;
+  width: 50px;
+  text-align: center;
+
+
 `;
 export const ModalCustom = styled(Modal)`
   .ant-modal-header {

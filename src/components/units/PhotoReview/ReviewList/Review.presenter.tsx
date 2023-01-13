@@ -3,13 +3,16 @@ import * as S from "./Review.styles";
 import styled from "@emotion/styled";
 import { Modal } from "antd";
 import ReviewDetail from "../ReviewDetail/ReviewDetail.container";
+import InfiniteScroll from "react-infinite-scroller";
+import FollowingList from "../../../commons/userCard/02-userCard(following)";
+import FollowerList from "../../../commons/userCard/03-userCard(follower)";
 
 export default function ReviewUI(props) {
 
   return (
     <>
      {props.isModalOpen && <CusModal  width="1100px" open={true} onOk={props.handleOk} onCancel={props.handleCancel}>
-            <ReviewDetail reviewId={props.reviewId}/>
+            <ReviewDetail reviewId={props.reviewId} setIsModalOpen={props.setIsModalOpen}/>
       </CusModal>}
       <S.Wrapper>
         <S.SideBar>
@@ -17,31 +20,56 @@ export default function ReviewUI(props) {
           <S.DDD>
             <S.ItemWrap>
               <HomeFilled style={{ fontSize: "20px" }} />
-              <S.Item>HOME</S.Item>
+              <S.Item onClick={props.onClickHome}>HOME</S.Item>
             </S.ItemWrap>
             <S.ItemWrap>
               <HomeFilled style={{ fontSize: "20px" }} />
-              <S.Item>팔로잉</S.Item>
+              <S.Item onClick={props.onClickFollowing}>팔로잉</S.Item>
             </S.ItemWrap>
             <S.ItemWrap>
               <HomeFilled style={{ fontSize: "20px" }} />
-              <S.Item>팔로워</S.Item>
+              <S.Item onClick={props.onClickFollower}>팔로워</S.Item>
             </S.ItemWrap>
           </S.DDD>
         </S.SideBar>
+        <InfiniteScroll
+              pageStart={0}
+              loadMore={props.onLoadMore}
+              hasMore={true}
+            >
+      { props.reviewList ?
         <S.Contents >
             {props.data?.fetchAllReviewBoards.map((el) => (
               <S.ImgBox onClick={props.onClickMore(el.id)} key={el.n}
-              style={{backgroundColor:"gray"}}
                 >
-                  {el.content}
+                  <S.Img style={{backgroundImage: el.thumbnail ? `url(${el.thumbnail})` : `url(/images/basic.png)`}}></S.Img>
               </S.ImgBox>
             ))}
         </S.Contents>
+        : ""
+      }
+      { props.following ?
+        <S.Contents >
+            {props.followingList?.fetchFollowing.map((el) => (
+              <FollowingList key={el.id} el={el.user2}/>
+            ))}
+        </S.Contents>
+        : ""
+      }
+      { props.follower ?
+        <S.Contents >
+            {props.followerList?.fetchFollower.map((el) => (
+              <FollowerList key={el.id} el={el.user2}/>
+            ))}
+        </S.Contents>
+        : ""
+      }
+        </InfiniteScroll>
       </S.Wrapper>
     </>
   );
 }
+
 const Contents = styled.div`
 height: 90%;
 display: column;

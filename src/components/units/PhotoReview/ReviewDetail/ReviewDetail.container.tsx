@@ -1,11 +1,18 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
-import { IMutation, IMutationLikeReviewBoardArgs, IQuery, IQueryFetchAllReviewBoardsArgs, IQueryFetchReviewBoardArgs, IQueryFetchReviewBoardImageArgs } from "../../../../commons/types/generated/types";
+import { IMutation, IMutationDeleteReviewBoardArgs, IMutationLikeReviewBoardArgs, IQuery, IQueryFetchAllReviewBoardsArgs, IQueryFetchReviewBoardArgs, IQueryFetchReviewBoardImageArgs } from "../../../../commons/types/generated/types";
+import { FETCH_ALL_REVIEW_BOARDS } from "../ReviewList/Review.query";
 import ReviewWriteUI from "./ReviewDetail.presenter";
-import { FETCH_ALL_REVIEW_BOARD_IMAGE, FETCH_REVIEW_BOARD, LiKE_REVIEW_BOARD } from "./ReviewDetail.query";
+import { DELETE_REVIEW_BOARD, FETCH_ALL_REVIEW_BOARD_IMAGE, FETCH_REVIEW_BOARD, LiKE_REVIEW_BOARD } from "./ReviewDetail.query";
 
 export default function ReviewDetail(props) {
     const image = []
+
+    const [deleteReviewBoard] = useMutation<
+    Pick<IMutation, "deleteReviewBoard">,
+    IMutationDeleteReviewBoardArgs
+  >(DELETE_REVIEW_BOARD);
+
     const { data } = useQuery<
     Pick<IQuery, "fetchReviewBoard">,
     IQueryFetchReviewBoardArgs
@@ -56,6 +63,21 @@ export default function ReviewDetail(props) {
         }
       }
 
+      const onClickDelete = (reviewBoardId) => () => {
+        try {
+          void deleteReviewBoard({
+            variables: {
+              reviewBoardId: String(reviewBoardId),
+            },
+            refetchQueries: [{ query: FETCH_ALL_REVIEW_BOARDS }],
+          });
+          props.setIsModalOpen((prev) => !prev);
+        } catch (error) {
+          if (error instanceof Error) alert(error.message);
+        }
+    
+      }
+
       const settings = {
         dots: true,
         infinite: true,
@@ -66,6 +88,7 @@ export default function ReviewDetail(props) {
 
     return(
         <ReviewWriteUI
+        onClickDelete={onClickDelete}
         onClickHeart={onClickHeart}
         settings={settings}
         image={image}

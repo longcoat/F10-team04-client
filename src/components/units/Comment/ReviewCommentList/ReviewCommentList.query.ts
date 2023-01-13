@@ -13,3 +13,9 @@ export const FETCH_REVIEW_COMMENTS = gql`
     }
   }
 `;
+
+export const DELETE_REVIEW_COMMENT = gql`
+  mutation deleteReviewComment($reviewCommentId: String!) {
+    deleteReviewComment(reviewCommentId: $reviewCommentId)
+  }
+`;
