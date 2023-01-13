@@ -3,12 +3,13 @@ import { toFormData } from 'axios'
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { timeForToday } from '../../../../commons/library/utils2'
-import { ReviewCommentMore } from '../../../../commons/stores';
+import { LoggedInUserId, ReviewCommentMore } from '../../../../commons/stores';
 import AnswerList from '../ReviewCommentAnswerList/AnswerList.container';
 import CommentAnswerWriter from '../ReviewCommentAnswerWrite/AnswerWrite.container';
 import * as S from './ReviewCommentList.styles'
 
 export default function ReviewCommentListItem(props){
+    const [id, setId] = useRecoilState(LoggedInUserId);
     const [isActive, setIsActive] = useState(false);
     const [more, setMore] = useState(false)
 
@@ -30,10 +31,10 @@ export default function ReviewCommentListItem(props){
                         <S.user>{props.el.user.nickname}</S.user>
                         <S.content>{props.el.reviewComment}</S.content>
                         </S.MainWrap>
-                        <DeleteOutlined
+                       {props.el.user.id === id ?  <DeleteOutlined
               onClick={props.onClickDelete(props.el.id)}
               style={{ cursor: "pointer" }}
-            />
+            /> : ""}
                     </S.firstLine>
                     <S.SecondLine>
                         <S.Date>{timeForToday(props.el.createdAt)}</S.Date>

@@ -1,7 +1,7 @@
-import { useQuery } from "@apollo/client";
-import { IQuery, IQueryFetchReviewNestedCommentsArgs } from "../../../../commons/types/generated/types";
+import { useMutation, useQuery } from "@apollo/client";
+import { IMutation, IMutationDeleteReviewNestedCommentArgs, IQuery, IQueryFetchReviewNestedCommentsArgs } from "../../../../commons/types/generated/types";
 import AnswerListUI from "./AnswerList.presenter";
-import { FETCH_REVIEW_NESTED_COMMENTS } from "./AnswerList.query";
+import { DELETE_REVIEW_NESTED_COMMENT, FETCH_REVIEW_NESTED_COMMENTS } from "./AnswerList.query";
 
 export default function AnswerList(props) {
 
@@ -12,6 +12,11 @@ export default function AnswerList(props) {
   >(FETCH_REVIEW_NESTED_COMMENTS, {
     variables: { reviewCommentId: String(props.el.id) },
   });
+
+  const [deleteReviewNestedComment] = useMutation<
+  Pick<IMutation, "deleteReviewNestedComment">,
+  IMutationDeleteReviewNestedCommentArgs
+>(DELETE_REVIEW_NESTED_COMMENT);
 
   console.log(data)
 
@@ -38,8 +43,26 @@ export default function AnswerList(props) {
       },
     });
   };
+  const onClickDelete = (reviewNestedCommentId) => async (event) => {
+    try {
+      await deleteReviewNestedComment({
+        variables: {
+          reviewNestedComment: reviewNestedCommentId,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_REVIEW_NESTED_COMMENTS,
+            variables: { reviewCommentId: String(props.el.id) },
+          },
+        ],
+      });
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
     return(
         <AnswerListUI
+        onClickDelete={onClickDelete}
         data={data}
         onLoadMore={onLoadMore}
         />

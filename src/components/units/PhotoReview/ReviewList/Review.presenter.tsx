@@ -12,7 +12,7 @@ export default function ReviewUI(props) {
   return (
     <>
      {props.isModalOpen && <CusModal  width="1100px" open={true} onOk={props.handleOk} onCancel={props.handleCancel}>
-            <ReviewDetail reviewId={props.reviewId} setIsModalOpen={props.setIsModalOpen}/>
+            <ReviewDetail reviewId={props.reviewId} />
       </CusModal>}
       <S.Wrapper>
         <S.SideBar>

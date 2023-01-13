@@ -6,6 +6,7 @@ export const FETCH_REVIEW_BOARD = gql`
       id
         content
         like
+        thumbnail
       user {
         id
         email

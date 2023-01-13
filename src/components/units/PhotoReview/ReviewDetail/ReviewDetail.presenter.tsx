@@ -6,9 +6,27 @@ import * as S from './ReviewDetail.styles'
 import ReviewCommentList from '../../Comment/ReviewCommentList/ReviewCommentList.container'
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import { useRecoilState } from 'recoil'
+import { reviewWriteModalState } from '../../../../commons/stores'
+import { CusEditModal, CusModal } from '../ReviewEdit/ReviewEdit.styles'
+import ReviewEdit from '../ReviewEdit/ReviewEdit.container'
 
 export default function ReviewWriteUI(props) {
+
+
+
+
     return(
+      <>
+            {props.editModal && (
+          <CusEditModal
+            width="1100px"
+            open={true}
+            onCancel={props.onCancel}
+          >
+            <ReviewEdit data={props.data} image={props.image}/>
+          </CusEditModal>
+        )}
         <S.Wrapper>
             <S.LeftSide
             // style={{backgroundImage: `url(${props.image[0]})`}}
@@ -36,6 +54,8 @@ export default function ReviewWriteUI(props) {
                 <S.Name>{props.data?.fetchReviewBoard.user.nickname}</S.Name>
                 </S.User>
                 <S.Edit_Del>
+      {props.data?.fetchReviewBoard.user.id === props.id ? 
+            <div>
             <EditOutlined
               onClick={props.onClickEdit}
               style={{ marginRight: "20px", cursor: "pointer" }}
@@ -44,6 +64,8 @@ export default function ReviewWriteUI(props) {
               onClick={props.onClickDelete(props.data?.fetchReviewBoard.id)}
               style={{ cursor: "pointer" }}
             />
+            </div>
+        : ""}
           </S.Edit_Del>
                 </S.UserWrap>
                 <S.Contents>
@@ -63,5 +85,8 @@ export default function ReviewWriteUI(props) {
                 <ReviewCommentWrite id={props.data?.fetchReviewBoard.id}/>
             </S.RightSide>
         </S.Wrapper>
+  
+        </>
+        
     )
 }

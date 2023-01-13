@@ -2,23 +2,12 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { id } from "react-horizontal-scrolling-menu/dist/types/constants";
 import { useRecoilState } from "recoil";
 
-import {
-  EditBoardId,
-  modalDetailState,
-  modalEditState,
-} from "../../../../commons/stores";
-import {
-  IMutation,
-  IMutationAttendListArgs,
-  IMutationDeleteBoardArgs,
-  IQuery,
-  IQueryFetchBoardArgs,
-  IQueryFetchMyPickBoardsArgs,
-} from "../../../../commons/types/generated/types";
-import { FETCH_USER_LOGGED_IN } from "../detail/CommunityDetail.queries";
+
+
+import { confirmModalState, EditBoardId, modalDetailState, modalEditState} from "../../../../commons/stores";
+import { IMutation, IMutationAttendListArgs, IMutationDeleteBoardArgs, IQuery, IQueryFetchBoardArgs, IQueryFetchMyPickBoardsArgs } from "../../../../commons/types/generated/types";
 
 import { FETCH_ATTEND_LIST } from "../../MyPageA/AttendList";
 import { FETCH_MY_PICK_BOARDS } from "../../MyPageA/MyPickList";
@@ -28,7 +17,6 @@ import { FETCH_ALL_BOARDS } from "../list/CommunityList.queries";
 import CommunityDetailUIPage from "./CommunityDetail.presenter";
 import {
   ATTEND_LIST,
-  DELETE_BOARD,
   FETCH_BOARD,
   PICK_BOARD,
 } from "./CommunityDetail.queries";
@@ -38,33 +26,35 @@ export default function CommunityDetailPage(props) {
   const [EditModalOpen, setEditModalOpen] = useRecoilState(modalEditState);
   const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
 
-  const [pick, setPick] = useState(false);
+  const [confirmModal, setConfirmModal] = useRecoilState(confirmModalState)
+  const [pick, setPick] = useState(false)
+
   const [attend, setAttend] = useState(false);
   const router = useRouter();
 
   const [attendBoard] = useMutation(ATTEND_LIST);
 
-  const [deleteBoard] = useMutation<
-    Pick<IMutation, "deleteBoard">,
-    IMutationDeleteBoardArgs
-  >(DELETE_BOARD);
 
-  const { data: PickList } = useQuery<
-    Pick<IQuery, "fetchMyPickBoards">,
-    IQueryFetchMyPickBoardsArgs
-  >(FETCH_MY_PICK_BOARDS);
 
-  const { data: userData } =
+  
+  const { data:PickList } = useQuery<
+  Pick<IQuery, "fetchMyPickBoards">,
+  IQueryFetchMyPickBoardsArgs
+>(FETCH_MY_PICK_BOARDS);
+
+const [pickBoard] = useMutation(PICK_BOARD);
+  
+const { data } = useQuery<
+  Pick<IQuery, "fetchBoard">,
+  IQueryFetchBoardArgs
+>(FETCH_BOARD, {
+    variables: {
+      boardId: String(props.boardId),
+    },
+  });
+   const { data: userData } =
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
-  const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
-    FETCH_BOARD,
-    {
-      variables: {
-        boardId: String(props.boardId),
-      },
-    }
-  );
   const { data: AttendList } = useQuery(FETCH_ATTEND_LIST);
 
   console.log(PickList?.fetchMyPickBoards, data);
@@ -85,9 +75,10 @@ export default function CommunityDetailPage(props) {
       } else {
         setAttend(false);
       }
-    });
-  }, [[pick]]);
-  console.log(pick);
+
+    })
+  },[[data]])
+
 
   const onClickAttend = (boardId) => async () => {
     try {
@@ -111,25 +102,13 @@ export default function CommunityDetailPage(props) {
   const onClickNoAtt = () => {
     alert("참가 인원이 가득 찼습니다.");
   };
-  const [pickBoard] = useMutation(PICK_BOARD);
+ 
 
   const onClickClose = () => {
     setModalOpen((prev) => !prev);
   };
   const onClickDelete = () => {
-    try {
-      void deleteBoard({
-        variables: {
-          boardId: String(data?.fetchBoard.id),
-        },
-        refetchQueries: [{ query: FETCH_ALL_BOARDS }],
-      });
-      setModalOpen((prev) => !prev);
-    } catch (error) {
-      if (error instanceof Error) alert(error.message);
-    }
-
-    router.push("/community/");
+    setConfirmModal(true)
   };
   const onClickPick = async () => {
     try {
@@ -163,6 +142,7 @@ export default function CommunityDetailPage(props) {
       userData={userData}
       data={data}
       pick={pick}
+      confirmDel={confirmModal}
       EditModalOpen={EditModalOpen}
       onClickEdit={onClickEdit}
       onClickDelete={onClickDelete}

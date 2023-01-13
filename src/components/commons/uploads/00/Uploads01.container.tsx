@@ -5,8 +5,7 @@ import Uploads01UI from "./Uploads01.presenter";
 import { UPLOAD_FILE } from "./Uploads01.queries";
 import { Modal } from "antd";
 import { useRecoilState } from "recoil";
-import { boardImageState} from "../../../../commons/stores";
-import { FETCH_USER_LOGGED_IN } from "../../layout/nav/nav.queries";
+import { FETCH_USER_LOGGED_IN } from "../../layout/header/header";
 
 export default function Uploads00(props) {
   const [image, setImage] = useState("");

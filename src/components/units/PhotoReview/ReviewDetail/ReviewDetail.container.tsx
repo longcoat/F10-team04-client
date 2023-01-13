@@ -1,11 +1,16 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
+import { useRecoilState } from "recoil";
+import { LoggedInUserId, reviewWriteModalState, ReviewDetailState } from "../../../../commons/stores";
 import { IMutation, IMutationDeleteReviewBoardArgs, IMutationLikeReviewBoardArgs, IQuery, IQueryFetchAllReviewBoardsArgs, IQueryFetchReviewBoardArgs, IQueryFetchReviewBoardImageArgs } from "../../../../commons/types/generated/types";
 import { FETCH_ALL_REVIEW_BOARDS } from "../ReviewList/Review.query";
 import ReviewWriteUI from "./ReviewDetail.presenter";
 import { DELETE_REVIEW_BOARD, FETCH_ALL_REVIEW_BOARD_IMAGE, FETCH_REVIEW_BOARD, LiKE_REVIEW_BOARD } from "./ReviewDetail.query";
 
 export default function ReviewDetail(props) {
+  const [isModalOpen, setIsModalOpen] = useRecoilState(ReviewDetailState);
+  const [editModal, setEditModal] = useRecoilState(reviewWriteModalState);
+  const [id, setId] = useRecoilState(LoggedInUserId);
     const image = []
 
     const [deleteReviewBoard] = useMutation<
@@ -77,6 +82,13 @@ export default function ReviewDetail(props) {
         }
     
       }
+      const onClickEdit= () => {
+        // setIsModalOpen(false)
+        setEditModal(true)
+      }
+      const onCancel = () => {
+        setEditModal(false)
+      }
 
       const settings = {
         dots: true,
@@ -88,6 +100,10 @@ export default function ReviewDetail(props) {
 
     return(
         <ReviewWriteUI
+        id={id}
+        onClickEdit={onClickEdit}
+        onCancel={onCancel}
+        editModal={editModal}
         onClickDelete={onClickDelete}
         onClickHeart={onClickHeart}
         settings={settings}

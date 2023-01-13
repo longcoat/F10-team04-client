@@ -59,6 +59,10 @@ console.log(data)
     setAttendListId(attendListId)
     setIsModalOpen(true);
   };
+  const onCancel = () => {
+    setIsModalOpen(false)
+    setModalOpen(false)
+  }
 
   return (
     <>
@@ -66,11 +70,12 @@ console.log(data)
         <CusModal
           width="1100px"
           open={true}
+          onCancel={onCancel}
         >
           <ReviewWrite />
         </CusModal>
       )}
-      <ModalCustom centered open={ModalOpen} width={1000}>
+      <ModalCustom centered open={ModalOpen} width={1000} onCancel={onCancel}>
         <CommunityDetailPage boardId={boardId} />
       </ModalCustom>
       {data?.fetchMyAllBoards?.map((el: any) => (

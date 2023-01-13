@@ -74,4 +74,15 @@ export const ReviewCommentMore = atom({
   key: "ReviewCommentMore",
   default: false,
 });
-
+export const LoggedInUserId = atom({
+  key: "LoggedInUserId",
+  default: "",
+});
+export const ReviewDetailState = atom({
+  key: "ReviewDetailState",
+  default: false,
+});
+export const confirmModalState = atom({
+  key: "confirmModalState",
+  default: false,
+});

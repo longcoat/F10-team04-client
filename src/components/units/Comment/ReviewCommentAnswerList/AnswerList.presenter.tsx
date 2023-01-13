@@ -6,7 +6,7 @@ export default function AnswerListUI(props) {
         <>
         <InfiniteScroll pageStart={0} loadMore={props.onLoadMore} hasMore={true}>
         {props.data?.fetchReviewNestedComments.map((el) => (
-          <AnswerListItem key={el._id} el={el} />
+          <AnswerListItem key={el._id} el={el} onClickDelete={props.onClickDelete}/>
         ))}
       </InfiniteScroll>
       </>

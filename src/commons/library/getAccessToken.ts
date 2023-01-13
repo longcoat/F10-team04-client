@@ -1,10 +1,11 @@
 import { gql, GraphQLClient } from "graphql-request";
 
-const RESTORE_ACCESS_TOKEN = gql`
+const RESTORE_ACCESS_TOKEN =gql`
   mutation {
     restoreAccessToken
   }
-`;
+`
+;
 
 export async function getAccessToken() {
   try {

@@ -35,8 +35,8 @@ export const FETCH_ALL_REVIEW_BOARD_IMAGES = gql`
   }
 `;
 export const FETCH_FOLLOWING = gql`
-  query fetchFollowing($userId: String!){
-    fetchFollowing(userId:$userId) {
+  query fetchFollowing($userId: String!,$page: Int){
+    fetchFollowing(userId:$userId,page:$page) {
       id
       user2{
         id
@@ -53,8 +53,8 @@ export const FETCH_FOLLOWING = gql`
   }
 `;
 export const FETCH_FOLLOWER = gql`
-  query fetchFollower($userId: String!){
-    fetchFollower(userId:$userId) {
+  query fetchFollower($userId: String!,$page: Int){
+    fetchFollower(userId:$userId,page:$page) {
       id
       user2{
         id

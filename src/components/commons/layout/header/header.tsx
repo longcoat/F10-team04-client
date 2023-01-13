@@ -2,7 +2,9 @@ import { MenuOutlined } from "@ant-design/icons";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { LoggedInUserId } from "../../../../commons/stores";
 import * as S from "./header.style";
 import Sidebar from "./sidebar";
 
@@ -12,7 +14,13 @@ export const FETCH_USER_LOGGED_IN = gql`
       id
       email
       nickname
+      age
+      gender
+      region
+      prefer
+      grade
       image{
+        id
         imgUrl
       }
     }
@@ -24,6 +32,7 @@ export const LOGOUT_USER = gql`
   }
 `;
 export default function LayoutHeader() {
+  const [id, setId] = useRecoilState(LoggedInUserId);
   const router = useRouter();
   // 햄버거 메뉴
   const [isOpen, setIsOpen] = useState(false);
@@ -32,6 +41,10 @@ export default function LayoutHeader() {
   };
   // 로그인시
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
+
+  useEffect(() => {
+    setId(data?.fetchUserLoggedIn.id)
+  },[data])
 
   const onClickMoveToLogin = () => {
     if (!data) {

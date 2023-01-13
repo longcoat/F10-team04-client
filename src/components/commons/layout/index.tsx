@@ -2,12 +2,11 @@ import { useRouter } from "next/router";
 import LayoutBanner from "./banner/01";
 import LayoutBanner2 from "./banner/02";
 import LayoutHeader from "./header/header";
-import LayoutNav from "./nav/nav.container";
 import styled from "@emotion/styled";
 
 import LayoutFooter from "./footer/footer";
 
-import { FETCH_USER_LOGGED_IN } from "./nav/nav.queries";
+import { FETCH_USER_LOGGED_IN } from "./header/header";
 import { useToasts } from "react-toast-notifications";
 import { Socket, io } from "socket.io-client";
 import { useEffect, useState } from "react";

@@ -89,7 +89,6 @@ height: 100%;
 .slick-track{
     width: 100%;
     height: 100%;
-
 }
 .slick-list{
     height: 100%;
@@ -97,17 +96,18 @@ height: 100%;
 }
 `
 export const Img = styled.img`
-width: 100%;
-height: 100%;
+display: flex;
+max-width: 100%;
+height: auto;
+margin: auto;
 `
 export const Div = styled.div`
 width: 100%;
-height: 500px;
+height: 633px;
 padding: 0px 10px;
 overflow: hidden;
 display: flex;
-margin-top: auto 0px;
-margin-top: 50px;
+justify-content: center;
 `
 export const Comment = styled.div`
 width: 100%;

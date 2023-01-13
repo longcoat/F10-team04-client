@@ -16,18 +16,19 @@ import UserEdit from "../../commons/user(Edit)/userEdit.container";
 import { Modal } from "antd";
 import { IQuery } from "../../../commons/types/generated/types";
 
-const FETCH_USER_LOGGED_IN = gql`
+export const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
     fetchUserLoggedIn {
       id
       email
       nickname
       age
-      grade
       gender
-      prefer
       region
+      prefer
+      grade
       image{
+        id
         imgUrl
       }
     }
