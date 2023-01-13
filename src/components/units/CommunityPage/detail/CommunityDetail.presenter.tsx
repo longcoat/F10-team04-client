@@ -13,7 +13,11 @@ import { useRecoilState } from "recoil";
 import InModalEdit from "../../../commons/Modal/modal(edit)";
 import { Modal } from "antd";
 import styled from "@emotion/styled";
+
 import ConfirmModal, { ConfirmCus } from "../../../commons/Modal/confirmModal(community)";
+
+import Livechat from "../../../commons/livechat/LivechatContainer";
+
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -27,9 +31,22 @@ export default function CommunityDetailUIPage(props: any) {
   const [isOpen, setIsOpen] = useState(false);
   const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
 
+
   const handleCancel = () => {
     setModalOpen(false);
   };
+
+  const [whois, setWhois] = useState(1);
+  console.log(props.data);
+
+  useEffect(() => {
+    if (props.data?.fetchBoard?.user?.id !== props.userData?.fetchLoginUser?.id)
+      setWhois(1);
+    if (props.data?.fetchBoard?.user?.id === props.userData?.fetchLoginUser?.id)
+      setWhois(2);
+    if (props.userData?.fetchLoginUser?.id) setWhois(3);
+  }, [props.data, props.userData]);
+
 
   useEffect(() => {
     if (props.data) {
@@ -293,6 +310,7 @@ export default function CommunityDetailUIPage(props: any) {
             >
               {!props.attend ? "참여하기" : "참가취소"}
             </S.Button3>
+            <Livechat userData={props.userData} data={props.data} />
           </S.BtnWrap>
         </S.Main>
       </S.Wrapper>

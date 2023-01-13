@@ -7,8 +7,9 @@ import {
 import { IQuery } from "../../../commons/types/generated/types";
 
 export interface IPropsLiveChat {
-  userData?: Pick<IQuery, "fetchLoginUser">;
+  userData?: Pick<IQuery, "fetchUserLoggedIn">;
   boardId?: string;
+  data?: any;
 }
 
 export interface IFormValueChat {
@@ -20,7 +21,7 @@ export interface IPropsLiveChatUI {
   userId?: string;
   register: UseFormRegister<{ contents: string }>;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
-  data?: Pick<IQuery, "fetchChatHistory">;
+  data?: any;
   onClickSubmit: (data: IFormValueChat) => void;
   onKeyDown?: any;
   accessToken?: string;

@@ -6,12 +6,12 @@ import { useForm } from "react-hook-form";
 import { useQuery } from "@apollo/client";
 import { accessTokenState } from "../../../commons/stores";
 import { useRecoilState } from "recoil";
-import { IFormValueChat, IPropsLiveChat } from "./LivechatTypes";
-// import { FETCH_CHAT_HISTORY } from "./LivechatQueries";
-// import { IQuery } from '../../../commons/types/generated/types';
 // import { IFormValueChat, IPropsLiveChat } from "./LivechatTypes";
+import { FETCH_CHAT_HISTORY } from "./LivechatQueries";
+import { IQuery } from "../../../commons/types/generated/types";
+import { IFormValueChat, IPropsLiveChat } from "./LivechatTypes";
 
-const url = "https://backsol2.shop:5000/chat";
+const url = "https://backsol2.shop/chat";
 
 export default function Livechat(props: IPropsLiveChat) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -21,10 +21,9 @@ export default function Livechat(props: IPropsLiveChat) {
   const [room, setRoom] = useState<string>("");
   const [userId, setUserId] = useState<string | undefined>("");
   const [resultMsg, setResultMsg] = useState<string[]>([]);
-  //   const { data } = useQuery<Pick<IQuery,"fetchChatHistory">>(FETCH_CHAT_HISTORY, {
-  //     variables: { boardId: String(router.query.boardId) },
-  //   });
-
+  const { data } = useQuery(FETCH_CHAT_HISTORY, {
+    variables: { boardId: String(props.data?.fetchBoard?.id) },
+  });
   const socket: Socket = io(url, { transports: ["websocket"] });
 
   const delay = (ms: number) => {
@@ -37,6 +36,8 @@ export default function Livechat(props: IPropsLiveChat) {
       contents: "",
     },
   });
+  console.log(props.data);
+  console.log(props.userData);
 
   useEffect(() => {
     socket.on(room, (data) => {
@@ -45,15 +46,15 @@ export default function Livechat(props: IPropsLiveChat) {
   }, [room]);
 
   useEffect(() => {
-    console.log(props.userData?.fetchLoginUser.id);
-    setUserId(props.userData?.fetchLoginUser.id);
-    setRoom(String(props.boardId));
-    setNickName(props.userData?.fetchLoginUser.nickname);
+    console.log(props.userData);
+    setUserId(props.userData?.fetchUserLoggedIn.id);
+    setRoom(String(props.data?.fetchBoard?.id));
+    setNickName(props.userData?.fetchUserLoggedIn.nickname);
   }, [props.userData]);
 
   const onClickSubmit = async (data: IFormValueChat) => {
     const message = await data.contents;
-    socket.emit("send", room, nickname, message, userId);
+    socket.emit("send", room, nickname, userId, message);
     resetField("contents");
     await delay(100);
     return messagesEndRef?.current?.scrollIntoView({
@@ -76,7 +77,7 @@ export default function Livechat(props: IPropsLiveChat) {
       handleSubmit={handleSubmit}
       onClickSubmit={onClickSubmit}
       onKeyDown={onKeyDown}
-      // data={data}
+      data={data}
       accessToken={accessToken}
       messagesEndRef={messagesEndRef}
     />

@@ -45,3 +45,18 @@ export const DELETE_BOARD = gql`
     deleteBoard(boardId: $boardId)
   }
 `;
+
+export const FETCH_USER_LOGGED_IN = gql`
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
+      id
+      email
+      nickname
+      age
+      grade
+      gender
+      prefer
+      region
+    }
+  }
+`;

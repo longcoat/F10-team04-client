@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 
 
+
 import { confirmModalState, EditBoardId, modalDetailState, modalEditState} from "../../../../commons/stores";
 import { IMutation, IMutationAttendListArgs, IMutationDeleteBoardArgs, IQuery, IQueryFetchBoardArgs, IQueryFetchMyPickBoardsArgs } from "../../../../commons/types/generated/types";
+
 import { FETCH_ATTEND_LIST } from "../../MyPageA/AttendList";
 import { FETCH_MY_PICK_BOARDS } from "../../MyPageA/MyPickList";
 
@@ -23,13 +25,15 @@ export default function CommunityDetailPage(props) {
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [EditModalOpen, setEditModalOpen] = useRecoilState(modalEditState);
   const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
+
   const [confirmModal, setConfirmModal] = useRecoilState(confirmModalState)
   const [pick, setPick] = useState(false)
-  const [attend, setAttend] = useState(false);
-  const router = useRouter()
 
+  const [attend, setAttend] = useState(false);
+  const router = useRouter();
 
   const [attendBoard] = useMutation(ATTEND_LIST);
+
 
 
   
@@ -48,37 +52,40 @@ const { data } = useQuery<
       boardId: String(props.boardId),
     },
   });
+   const { data: userData } =
+    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
+
   const { data: AttendList } = useQuery(FETCH_ATTEND_LIST);
 
-console.log(PickList?.fetchMyPickBoards, data)
+  console.log(PickList?.fetchMyPickBoards, data);
 
   useEffect(() => {
-    PickList?.fetchMyPickBoards.forEach((el) =>{
-      if(el.board.id === data?.fetchBoard.id) {
-        setPick(true)
-        return
-      }else{
-        setPick(false)
+    PickList?.fetchMyPickBoards.forEach((el) => {
+      if (el.board.id === data?.fetchBoard.id) {
+        setPick(true);
+        return;
+      } else {
+        setPick(false);
       }
-    })
-    AttendList?.fetchAttendList.forEach((el) =>{
-      if(el.board.id === data?.fetchBoard.id) {
-        setAttend(true)
-        return
-      }else{
-        setAttend(false)
+    });
+    AttendList?.fetchAttendList.forEach((el) => {
+      if (el.board.id === data?.fetchBoard.id) {
+        setAttend(true);
+        return;
+      } else {
+        setAttend(false);
       }
+
     })
   },[[data]])
+
 
   const onClickAttend = (boardId) => async () => {
     try {
       const result = await attendBoard({
         variables: {
-
           boardId: String(props.boardId),
         },
-
       });
       setAttend((prev) => !prev);
       if (attend === false) {
@@ -113,7 +120,8 @@ console.log(PickList?.fetchMyPickBoards, data)
           {
             query: FETCH_BOARD,
             variables: { boardId: String(props.boardId) },
-          },{ query: FETCH_MY_PICK_BOARDS }
+          },
+          { query: FETCH_MY_PICK_BOARDS },
         ],
       });
       setPick(true);
@@ -131,6 +139,7 @@ console.log(PickList?.fetchMyPickBoards, data)
 
   return (
     <CommunityDetailUIPage
+      userData={userData}
       data={data}
       pick={pick}
       confirmDel={confirmModal}
