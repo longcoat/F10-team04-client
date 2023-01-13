@@ -14,7 +14,7 @@ export default function KaKaoMapPage() {
   const [path, setPath] = useState([]);
   const [center, setCenter] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState("제주특별자치도 제주시 첨단로 242");
   const [center1, setCenter1] = useRecoilState(mapCenterState);
   const [path1, setPath1] = useRecoilState(mapPathState);
   // let geocoder:any
@@ -43,19 +43,19 @@ export default function KaKaoMapPage() {
             center: new window.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
             level: 4, // 지도의 확대 레벨
           };
-        var map = new window.kakao.maps.Map(mapContainer, mapOptions);
+          let map = new window.kakao.maps.Map(mapContainer, mapOptions);
 
-        var drawingFlag = false; // 선이 그려지고 있는 상태를 가지고 있을 변수입니다
-        var moveLine; // 선이 그려지고 있을때 마우스 움직임에 따라 그려질 선 객체 입니다
-        var clickLine; // 마우스로 클릭한 좌표로 그려질 선 객체입니다
-        var distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
-        var dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
+          let drawingFlag = false; // 선이 그려지고 있는 상태를 가지고 있을 변수입니다
+          let moveLine; // 선이 그려지고 있을때 마우스 움직임에 따라 그려질 선 객체 입니다
+          let clickLine; // 마우스로 클릭한 좌표로 그려질 선 객체입니다
+          let distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
+        let dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
 
         let geocoder = new window.kakao.maps.services.Geocoder();
 
         // 주소로 좌표를 검색합니다
         geocoder.addressSearch(
-          address ? address : "제주특별자치도 제주시 첨단로 242",
+          address,
           function (result, status) {
             // 정상적으로 검색이 완료됐으면
             if (status === window.kakao.maps.services.Status.OK) {
@@ -82,7 +82,7 @@ export default function KaKaoMapPage() {
           "click",
           function (mouseEvent) {
             // 마우스로 클릭한 위치입니다
-            var clickPosition = mouseEvent.latLng;
+            let clickPosition = mouseEvent.latLng;
 
             // 지도 클릭이벤트가 발생했는데 선을 그리고있는 상태가 아니면
             if (!drawingFlag) {
@@ -122,7 +122,7 @@ export default function KaKaoMapPage() {
               // 선이 그려지고 있는 상태이면
 
               // 그려지고 있는 선의 좌표 배열을 얻어옵니다
-              var path = clickLine.getPath();
+              let path = clickLine.getPath();
               setPath(path);
               // 좌표 배열에 클릭한 위치를 추가합니다
               path.push(clickPosition);
@@ -130,7 +130,7 @@ export default function KaKaoMapPage() {
               // 다시 선에 좌표 배열을 설정하여 클릭 위치까지 선을 그리도록 설정합니다
               clickLine.setPath(path);
 
-              var distance = Math.round(clickLine.getLength());
+              let distance = Math.round(clickLine.getLength());
               displayCircleDot(clickPosition, distance);
             }
           }
@@ -145,17 +145,17 @@ export default function KaKaoMapPage() {
             // 지도 마우스무브 이벤트가 발생했는데 선을 그리고있는 상태이면
             if (drawingFlag) {
               // 마우스 커서의 현재 위치를 얻어옵니다
-              var mousePosition = mouseEvent.latLng;
+              let mousePosition = mouseEvent.latLng;
 
               // 마우스 클릭으로 그려진 선의 좌표 배열을 얻어옵니다
-              var path = clickLine.getPath();
+              let path = clickLine.getPath();
 
               // 마우스 클릭으로 그려진 마지막 좌표와 마우스 커서 위치의 좌표로 선을 표시합니다
-              var movepath = [path[path.length - 1], mousePosition];
+              let movepath = [path[path.length - 1], mousePosition];
               moveLine.setPath(movepath);
               moveLine.setMap(map);
 
-              var distance = Math.round(
+              let distance = Math.round(
                   clickLine.getLength() + moveLine.getLength()
                 ), // 선의 총 거리를 계산합니다
                 content =
@@ -182,7 +182,7 @@ export default function KaKaoMapPage() {
               moveLine = null;
 
               // 마우스 클릭으로 그린 선의 좌표 배열을 얻어옵니다
-              var path = clickLine.getPath();
+              let path = clickLine.getPath();
 
               // 선을 구성하는 좌표의 개수가 2개 이상이면
               if (path.length > 1) {
@@ -192,7 +192,7 @@ export default function KaKaoMapPage() {
                   dots[dots.length - 1].distance = null;
                 }
 
-                var distance = Math.round(clickLine.getLength()), // 선의 총 거리를 계산합니다
+                let distance = Math.round(clickLine.getLength()), // 선의 총 거리를 계산합니다
                   content = getTimeHTML(distance); // 커스텀오버레이에 추가될 내용입니다
 
                 // 그려진 선의 거리정보를 지도에 표시합니다
@@ -258,7 +258,7 @@ export default function KaKaoMapPage() {
         // 클릭 지점에 대한 정보 (동그라미와 클릭 지점까지의 총거리)를 표출하는 함수입니다
         function displayCircleDot(position, distance) {
           // 클릭 지점을 표시할 빨간 동그라미 커스텀오버레이를 생성합니다
-          var circleOverlay = new window.kakao.maps.CustomOverlay({
+          let circleOverlay = new window.kakao.maps.CustomOverlay({
             content: '<span class="dot"></span>',
             position: position,
             zIndex: 1,
@@ -269,7 +269,7 @@ export default function KaKaoMapPage() {
 
           if (distance > 0) {
             // 클릭한 지점까지의 그려진 선의 총 거리를 표시할 커스텀 오버레이를 생성합니다
-            var distanceOverlay = new window.kakao.maps.CustomOverlay({
+            let distanceOverlay = new window.kakao.maps.CustomOverlay({
               position: position,
               yAnchor: 1,
               zIndex: 2,
@@ -285,7 +285,7 @@ export default function KaKaoMapPage() {
 
         // 클릭 지점에 대한 정보 (동그라미와 클릭 지점까지의 총거리)를 지도에서 모두 제거하는 함수입니다
         function deleteCircleDot() {
-          var i;
+          let i;
 
           for (i = 0; i < dots.length; i++) {
             if (dots[i].circle) {
@@ -305,8 +305,8 @@ export default function KaKaoMapPage() {
         // HTML Content를 만들어 리턴하는 함수입니다
         function getTimeHTML(distance) {
           // 도보의 시속은 평균 4km/h 이고 도보의 분속은 67m/min입니다
-          var walkkTime = (distance / 67) | 0;
-          var walkHour = "",
+          let walkkTime = (distance / 67) | 0;
+          let walkHour = "",
             walkMin = "";
 
           // 계산한 도보 시간이 60분 보다 크면 시간으로 표시합니다
@@ -319,8 +319,8 @@ export default function KaKaoMapPage() {
           walkMin = '<span class="number">' + (walkkTime % 60) + "</span>분";
 
           // 자전거의 평균 시속은 16km/h 이고 이것을 기준으로 자전거의 분속은 267m/min입니다
-          var bycicleTime = (distance / 227) | 0;
-          var bycicleHour = "",
+          let bycicleTime = (distance / 227) | 0;
+          let bycicleHour = "",
             bycicleMin = "";
 
           // 계산한 자전거 시간이 60분 보다 크면 시간으로 표출합니다
@@ -334,7 +334,7 @@ export default function KaKaoMapPage() {
             '<span class="number">' + (bycicleTime % 60) + "</span>분";
 
           // 거리와 도보 시간, 자전거 시간을 가지고 HTML Content를 만들어 리턴합니다
-          var content = '<ul class="dotOverlay distanceInfo">';
+          let content = '<ul class="dotOverlay distanceInfo">';
           content += "    <li>";
           content +=
             '        <span class="label">총거리</span><span class="number">' +

@@ -147,9 +147,11 @@ console.log(data)
             </S.ProfileImageAvatarBox>
             <S.InfoBox>
               <S.NickInfoBox>
-                <S.Nickname>{data?.fetchUserLoggedIn?.nickname}</S.Nickname>
-                <S.Nim>님</S.Nim>
-                <S.Modify onClick={onClickEdit}>회원정보 수정</S.Modify>
+                <S.NickNameWrapper>
+                  <S.Nickname>{data?.fetchUserLoggedIn?.nickname}</S.Nickname>
+                  <S.Nim>님</S.Nim>
+                </S.NickNameWrapper>
+                <S.Modify onClick={onClickEdit}>회원정보수정</S.Modify>
               </S.NickInfoBox>
               <S.InformationBox>
                 <S.FriendHeartBox>

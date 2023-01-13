@@ -34,6 +34,7 @@ IMutationCreateReviewNestedCommentArgs
           });
           console.log(result)
           setContents("");
+          props.setMore(true)
           setIsActive((prev) => !prev);
         } else if (!contents) {
           alert("내용을 입력해주세요.");

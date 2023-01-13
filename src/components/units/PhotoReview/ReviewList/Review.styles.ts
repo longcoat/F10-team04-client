@@ -6,19 +6,37 @@ margin: 0px auto;
 margin-top: 60px;
 display: flex;
 padding-bottom: 50px;
-border:1px solid red;
 `
 export const Contents = styled.div`
-border: 1px solid blue;
 width: 100%;
 margin-left: 40px;
 display: flex;
 flex-wrap: wrap;
 `
 export const ImgBox =styled.div`
-border: 1px solid red;
 width: 280px;
 height: 280px;
+cursor: pointer;
+overflow: hidden;
+border: 0.5px solid #151515;
+
+`
+export const Img = styled.div`
+width: 100%;
+height: 100%;
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+    -webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .4s ease-in-out;
+	transition: .4s ease-in-out;
+
+    :hover{
+        filter: brightness(70%); 
+	-webkit-transform: scale(1.3);
+	transform: scale(1.3);
+}
 `
 export const SideBar = styled.div`
 margin-top: 20px;

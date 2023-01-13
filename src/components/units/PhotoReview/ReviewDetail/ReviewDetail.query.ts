@@ -39,3 +39,8 @@ export const LiKE_REVIEW_BOARD = gql`
     likeReviewBoard(reviewBoardId: $reviewBoardId)
   }
 `;
+export const DELETE_REVIEW_BOARD = gql`
+  mutation deleteReviewBoard($reviewBoardId: String!) {
+    deleteReviewBoard(reviewBoardId: $reviewBoardId)
+  }
+`;

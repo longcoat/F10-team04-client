@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { attendListIdState, reviewWriteModalState } from "../../../../commons/stores";
 import { IMutation, IMutationCreateReviewBoardArgs } from "../../../../commons/types/generated/types";
+import { FETCH_ALL_REVIEW_BOARDS } from "../ReviewList/Review.query";
 import ReviewWriteUI from "./ReviewWrite.presenter";
 import { CREATE_REVIEW_BOARD } from "./ReviewWrite.qurey";
 
@@ -46,7 +47,7 @@ export default function ReviewWrite() {
                 content,
                 reviewImage
             }
-        }
+        },refetchQueries: [{ query: FETCH_ALL_REVIEW_BOARDS }]
      });
         console.log(result)
         setIsModalOpen(false)
