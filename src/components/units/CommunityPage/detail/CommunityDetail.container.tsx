@@ -85,10 +85,9 @@ export default function CommunityDetailPage(props) {
       } else {
         setAttend(false);
       }
-
-    })
-  },[[data]])
-console.log(pick)
+    });
+  }, [[pick]]);
+  console.log(pick);
 
   const onClickAttend = (boardId) => async () => {
     try {
