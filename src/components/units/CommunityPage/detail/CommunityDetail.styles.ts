@@ -13,11 +13,11 @@ export const Img = styled.img`
   height: 300px;
 `;
 export const IconWarp = styled.div`
-width: 100%;
-display: flex;
-justify-content: flex-end;
-font-size: 20px;
-`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 20px;
+`;
 export const Head = styled.div`
   padding-top: 30px;
   display: flex;
@@ -25,16 +25,15 @@ export const Head = styled.div`
 `;
 export const AvatarWrap = styled.div`
   width: 110px;
-  height: 100px;
-  border: 1px solid red;
+  height: 110px;
 `;
 
 export const Avatar = styled.img`
-width: 100%;
+  width: 100%;
 `;
 
 export const UerInfo = styled.div`
-  width: 100%;
+  width: calc(100% - 110px);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -45,8 +44,8 @@ export const Left = styled.div``;
 export const UserName = styled.div`
   font-family: "AppleSDGothicNeoB00";
   font-style: normal;
-  font-weight: 400;
-  font-size: 30px;
+  font-weight: 600;
+  font-size: 24px;
   line-height: 62px;
   /* identical to box height, or 141% */
   letter-spacing: -0.002em;
@@ -59,7 +58,7 @@ export const MapWrap = styled.div`
 export const MapIcon = styled.img`
   width: 25px;
   height: 25px;
-  margin-right: 10px;
+  margin: 2px 0px 0 0;
 `;
 export const MapText = styled.div`
   font-style: normal;
@@ -76,8 +75,9 @@ export const Right = styled.div`
   display: flex;
   flex-direction: column;
   font-weight: 400;
-  font-size:25px;
+  font-size: 25px;
   line-height: 30px;
+  margin-top: -28px;
   /* identical to box height, or 167% */
 
   letter-spacing: -0.002em;
@@ -94,21 +94,27 @@ export const Main = styled.div`
   padding-top: 16px;
   display: flex;
   flex-direction: column;
-  padding-left: 20px;
 `;
 export const Title = styled.div`
   margin: 0px auto;
   font-style: normal;
   font-weight: 400;
-  font-size: 28px;
+  font-size: 20px;
   /* identical to box height */
   letter-spacing: -0.0024em;
   text-transform: uppercase;
   color: #0b0b0b;
 `;
+
+export const TitleDetail = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
 export const Title2 = styled.div`
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 28px;
   /* identical to box height */
   letter-spacing: -0.0024em;
@@ -173,32 +179,41 @@ export const Contents = styled.div`
 //   margin-top: 200px;
 // `;
 export const BtnWrap = styled.div`
-display: flex;
-justify-content: space-between;
-padding-top: 20px;
-font-size: 16px;
-`
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+  font-size: 16px;
+`;
 export const Button1 = styled.button`
-   width: 161px;
-    height: 63px;
-    background-color: #f6f6f6;
-    color: #8b8b8b;
-    border: none;
-    cursor: pointer;`
-export const Button2 = styled.button`
-    width: 161px;
-    height: 63px;
-    background-color: #000;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    `
-export const Button3 = styled.button`
-    width: 161px;
-    height: 63px;
-    background-color: #000;
-    color: #fff;
-    border: none;
-    cursor: pointer;`
+  width: 161px;
+  height: 63px;
+  background-color: #f6f6f6;
+  color: #8b8b8b;
+  border: none;
 
-    
+  border-radius: 12px;
+  font-size: 18px;
+  color: #000;
+  cursor: pointer;
+`;
+export const Button2 = styled.button`
+
+  width: 161px;
+  height: 63px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+`;
+export const Button3 = styled.button`
+  width: 161px;
+  height: 63px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+
+  border-radius: 12px;
+  font-size: 18px;
+  color: #fff;
+  cursor: pointer;
+`;

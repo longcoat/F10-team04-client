@@ -35,6 +35,7 @@ export default function CommunityListUi(props: any) {
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [first, setFirst] = useState(true);
   const [second, setSecond] = useState(false);
+  const [ModalEsc, setModalEsc] = useState(true);
 
   const onClickfirst = (e) => {
     if (!first) {
@@ -63,7 +64,9 @@ export default function CommunityListUi(props: any) {
 
   return (
     <>
+
       <S.ModalCustom centered open={ModalOpen} width={900} onCancel={handleCancel}>
+
         <CommunityDetailPage boardId={props.boardId} />
       </S.ModalCustom>
       <S.Wrapper>
