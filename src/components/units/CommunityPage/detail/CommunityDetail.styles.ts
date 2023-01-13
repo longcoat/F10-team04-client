@@ -185,6 +185,7 @@ export const BtnWrap = styled.div`
   font-size: 16px;
 `;
 export const Button1 = styled.button`
+
   width: 161px;
   height: 63px;
   background-color: #f6f6f6;
@@ -196,6 +197,7 @@ export const Button1 = styled.button`
   color: #000;
   cursor: pointer;
 `;
+
 export const Button2 = styled.button`
 
   width: 161px;
@@ -206,6 +208,7 @@ export const Button2 = styled.button`
   cursor: pointer;
 `;
 export const Button3 = styled.button`
+
   width: 161px;
   height: 63px;
   background-color: #000;
@@ -217,3 +220,4 @@ export const Button3 = styled.button`
   color: #fff;
   cursor: pointer;
 `;
+

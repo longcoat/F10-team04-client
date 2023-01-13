@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import { Modal, Tooltip } from "antd";
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import DaumPostcodeEmbed from "react-daum-postcode";
@@ -28,12 +28,12 @@ export default function KaKaoMapPage() {
     setAddress(data.address);
   };
 
+
   
 
   useEffect(() => {
     const script = document.createElement("script"); // <script></script> 랑 동일
-    script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=f0c68224b90fedf4d41381f7107ec170&libraries=services,drawing";
+    script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=f0c68224b90fedf4d41381f7107ec170&libraries=services,drawing&autoload=false"
     document.head.appendChild(script);
 
     script.onload = () => {
@@ -49,9 +49,9 @@ export default function KaKaoMapPage() {
           let moveLine; // 선이 그려지고 있을때 마우스 움직임에 따라 그려질 선 객체 입니다
           let clickLine; // 마우스로 클릭한 좌표로 그려질 선 객체입니다
           let distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
-        let dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
+          let dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
 
-        let geocoder = new window.kakao.maps.services.Geocoder();
+          let geocoder = new window.kakao.maps.services.Geocoder();
 
         // 주소로 좌표를 검색합니다
         geocoder.addressSearch(
@@ -362,13 +362,20 @@ export default function KaKaoMapPage() {
     setPath1(JSON.stringify(path))
     setCenter1(JSON.stringify(center))
   },[path, center])
+
   return (
     <>
     <ButtonWrap>
      <Button type="button" onClick={onToggleModal}>
         모임 지역 검색하기
       </Button>
-      <QuestionCircleOutlined style={{ fontSize:"20px"}}/>
+      
+      <Tooltip
+                      placement="topRight"
+                      title="좌클릭으로 포인트를 정하고 우클릭으로 마지막에 우클릭 해주세요."
+                    >
+                      <QuestionCircleOutlined style={{ fontSize:"40px"}}/>
+                    </Tooltip>
       </ButtonWrap>
       <div id="SearchMap" style={{ width: '100%', height: 400 }}></div>
       {isOpen && (

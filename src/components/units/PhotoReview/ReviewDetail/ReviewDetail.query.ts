@@ -5,7 +5,7 @@ export const FETCH_REVIEW_BOARD = gql`
     fetchReviewBoard(reviewBoardId: $reviewBoardId) {
       id
         content
-        like
+        likeCount
         thumbnail
       user {
         id

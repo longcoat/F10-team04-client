@@ -99,7 +99,7 @@ export default function CommunityListUi(props: any) {
               <S.Selectbar>
                 <S.Input
                   type="text"
-                  onChange={props.onChangeSearch}
+                  onChange={props.onChangeWord}
                   placeholder="제목을 입력해주세요."
                 />
               </S.Selectbar>
