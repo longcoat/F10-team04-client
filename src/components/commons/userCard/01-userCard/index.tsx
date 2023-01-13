@@ -9,7 +9,12 @@ import { FETCH_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail
 import { Modal } from "antd";
 
 import ChattingBtn from "../../chattingBtn/indx";
-import { IMutation, IMutationFollowUserArgs, IQuery, IQueryFetchFollowCountArgs } from "../../../../commons/types/generated/types";
+import {
+  IMutation,
+  IMutationFollowUserArgs,
+  IQuery,
+  IQueryFetchFollowCountArgs,
+} from "../../../../commons/types/generated/types";
 
 export const FOLLOW_USER = gql`
   mutation followUser($userId: String!) {
@@ -47,9 +52,9 @@ export default function UserCard(props) {
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);
   const { data } = useQuery<
-  Pick<IQuery, "fetchFollowCount">,
-  IQueryFetchFollowCountArgs
->(FETCH_FOLLOW_COUNT, {
+    Pick<IQuery, "fetchFollowCount">,
+    IQueryFetchFollowCountArgs
+  >(FETCH_FOLLOW_COUNT, {
     variables: { userId: props.el.id },
   });
 
