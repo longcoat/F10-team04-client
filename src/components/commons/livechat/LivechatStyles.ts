@@ -11,7 +11,7 @@ export const TalkWrapper = styled.form`
 export const TalkHeader = styled.div`
   width: 100%;
   height: 50px;
-  background-image: url("../../../../images/boardDetail/chatheader.png");
+  background-image: url("./images/chatheader.png");
   background-size: 100%;
   background-repeat: no-repeat;
 `;
@@ -54,8 +54,8 @@ export const TalkWrite = styled.input`
   height: 50px;
   font-size: 13px;
   border-radius: 0px 0px 20px 20px;
-  border: 2.2px solid #0085cb;
-  border-top: 2.2px solid #0085cb;
+  border: 2.2px solid #0e0e0e;
+  border-top: 2.2px solid #0e0e0e;
   padding: 10px;
   ::placeholder {
     font-size: 11px;

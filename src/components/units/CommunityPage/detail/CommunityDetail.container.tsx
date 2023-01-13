@@ -5,9 +5,21 @@ import { useEffect, useState } from "react";
 import { id } from "react-horizontal-scrolling-menu/dist/types/constants";
 import { useRecoilState } from "recoil";
 
+import {
+  EditBoardId,
+  modalDetailState,
+  modalEditState,
+} from "../../../../commons/stores";
+import {
+  IMutation,
+  IMutationAttendListArgs,
+  IMutationDeleteBoardArgs,
+  IQuery,
+  IQueryFetchBoardArgs,
+  IQueryFetchMyPickBoardsArgs,
+} from "../../../../commons/types/generated/types";
+import { FETCH_USER_LOGGED_IN } from "../detail/CommunityDetail.queries";
 
-import { EditBoardId, modalDetailState, modalEditState} from "../../../../commons/stores";
-import { IMutation, IMutationAttendListArgs, IMutationDeleteBoardArgs, IQuery, IQueryFetchBoardArgs, IQueryFetchMyPickBoardsArgs } from "../../../../commons/types/generated/types";
 import { FETCH_ATTEND_LIST } from "../../MyPageA/AttendList";
 import { FETCH_MY_PICK_BOARDS } from "../../MyPageA/MyPickList";
 
@@ -26,62 +38,64 @@ export default function CommunityDetailPage(props) {
   const [EditModalOpen, setEditModalOpen] = useRecoilState(modalEditState);
   const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
 
-  const [pick, setPick] = useState(false)
+  const [pick, setPick] = useState(false);
   const [attend, setAttend] = useState(false);
-  const router = useRouter()
-
+  const router = useRouter();
 
   const [attendBoard] = useMutation(ATTEND_LIST);
 
   const [deleteBoard] = useMutation<
-  Pick<IMutation, "deleteBoard">,
-  IMutationDeleteBoardArgs
->(DELETE_BOARD);
-  
-  const { data:PickList } = useQuery<
-  Pick<IQuery, "fetchMyPickBoards">,
-  IQueryFetchMyPickBoardsArgs
->(FETCH_MY_PICK_BOARDS);
-  
-const { data } = useQuery<
-  Pick<IQuery, "fetchBoard">,
-  IQueryFetchBoardArgs
->(FETCH_BOARD, {
-    variables: {
-      boardId: String(props.boardId),
-    },
-  });
+    Pick<IMutation, "deleteBoard">,
+    IMutationDeleteBoardArgs
+  >(DELETE_BOARD);
+
+  const { data: PickList } = useQuery<
+    Pick<IQuery, "fetchMyPickBoards">,
+    IQueryFetchMyPickBoardsArgs
+  >(FETCH_MY_PICK_BOARDS);
+
+  const { data: userData } =
+    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
+
+  const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
+    FETCH_BOARD,
+    {
+      variables: {
+        boardId: String(props.boardId),
+      },
+    }
+  );
   const { data: AttendList } = useQuery(FETCH_ATTEND_LIST);
 
-console.log(PickList?.fetchMyPickBoards, data)
+  console.log(PickList?.fetchMyPickBoards, data);
 
   useEffect(() => {
-    PickList?.fetchMyPickBoards.forEach((el) =>{
-      if(el.board.id === data?.fetchBoard.id) {
-        setPick(true)
-        return
-      }else{
-        setPick(false)
+    PickList?.fetchMyPickBoards.forEach((el) => {
+      if (el.board.id === data?.fetchBoard.id) {
+        setPick(true);
+        return;
+      } else {
+        setPick(false);
       }
-    })
-    AttendList?.fetchAttendList.forEach((el) =>{
-      if(el.board.id === data?.fetchBoard.id) {
-        setAttend(true)
-        return
-      }else{
-        setAttend(false)
+    });
+    AttendList?.fetchAttendList.forEach((el) => {
+      if (el.board.id === data?.fetchBoard.id) {
+        setAttend(true);
+        return;
+      } else {
+        setAttend(false);
       }
+
     })
   },[[data]])
 console.log(pick)
+
   const onClickAttend = (boardId) => async () => {
     try {
       const result = await attendBoard({
         variables: {
-
           boardId: String(props.boardId),
         },
-
       });
       setAttend((prev) => !prev);
       if (attend === false) {
@@ -128,7 +142,8 @@ console.log(pick)
           {
             query: FETCH_BOARD,
             variables: { boardId: String(props.boardId) },
-          },{ query: FETCH_MY_PICK_BOARDS }
+          },
+          { query: FETCH_MY_PICK_BOARDS },
         ],
       });
       setPick(true);
@@ -146,6 +161,7 @@ console.log(pick)
 
   return (
     <CommunityDetailUIPage
+      userData={userData}
       data={data}
       pick={pick}
       EditModalOpen={EditModalOpen}
