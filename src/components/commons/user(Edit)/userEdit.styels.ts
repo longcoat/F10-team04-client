@@ -213,6 +213,7 @@ export const ProfileText = styled.div`
   font-weight: 400;
   font-size: 20px;
   line-height: 34px;
+  text-align: center;
   /* identical to box height, or 170% */
 
   text-align: center;

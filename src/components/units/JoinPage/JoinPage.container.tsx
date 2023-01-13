@@ -11,6 +11,7 @@ import {
 import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
 import { IMutation, IMutationCheckNickNameArgs, IMutationCheckTokenEmailArgs, IMutationCreateUserArgs, IMutationSendTokenToEmailArgs } from "../../../commons/types/generated/types";
+import Image from "next/image";
 
 export default function JoinPageA() {
   const router = useRouter();
@@ -217,6 +218,11 @@ export default function JoinPageA() {
     setPrefer(e);
   };
 
+  const onChangeImage = (fileUrl) => {
+    const newFile = fileUrl;
+    setImage(newFile);
+  };
+
   const onClickSendEmail = async () => {
     try {
       const result = await sendTokenToEmail({
@@ -255,8 +261,8 @@ export default function JoinPageA() {
       alert("사용 가능한 닉네임입니다.");
     }
   };
-
   const onClickSubmit = async () => {
+    console.log(typeof(image))
     try {
       const result = await createUser({
         variables: {
@@ -306,6 +312,7 @@ export default function JoinPageA() {
       nickname={nickname}
       token={token}
       nickNameCheck={nickNameCheck}
+      onChangeImage={onChangeImage}
       onClickCheckNickname={onClickCheckNickname}
       onClickCheckEmail={onClickCheckEmail}
       onChangeEmailToken={onChangeEmailToken}

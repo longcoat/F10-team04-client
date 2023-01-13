@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { modalDetailState } from "../../../../commons/stores";
 import { FETCH_BOARD } from "../detail/CommunityDetail.queries";
@@ -9,9 +9,10 @@ import CommunityListUi from "./CommunityList.presenter";
 import {
   FETCH_ALL_BOARDS,
   FETCH_ALL_BOARDS_WITH_PICK_BOARD,
+  SEARCH_BOARDS,
 } from "./CommunityList.queries";
 import _ from "lodash";
-import { IQuery, IQueryFetchAllBoardsArgs, IQueryFetchAllBoardsWithPickCountArgs } from "../../../../commons/types/generated/types";
+import { IQuery, IQueryFetchAllBoardsArgs, IQueryFetchAllBoardsWithPickCountArgs, IQuerySerchBoardsArgs } from "../../../../commons/types/generated/types";
 
 export default function CommunityList() {
   const [keyword, setKeyword] = useState("");
@@ -19,6 +20,8 @@ export default function CommunityList() {
   const [boardId, setBoardId] = useState("");
   const [level, setLevel] = useState("");
   const [Lo, setLo] = useState("");
+  const [word, setWord] = useState("")
+  const [isSearch, setIsSearch] = useState(false)
   const result = [];
   const result2 = [];
 
@@ -32,6 +35,26 @@ export default function CommunityList() {
     refetch: pickRefetch,
     fetchMore: pickFetchMore,
   } = useQuery(FETCH_ALL_BOARDS_WITH_PICK_BOARD);
+  const { data: search } = useQuery<
+  Pick<IQuery, "serchBoards">,
+  IQuerySerchBoardsArgs
+>(SEARCH_BOARDS, {
+    variables: {
+      word
+    },
+  });
+  
+  useEffect(() => {
+    if(search) {
+      setIsSearch(true)
+    }
+  },[word])
+
+
+const onClickBtn = () => {
+
+}
+  // console.log(search)
 
 
   const onLoadMore = () => {
@@ -89,6 +112,9 @@ export default function CommunityList() {
   const onChangeLo = (e) => {
     setLo(e);
   };
+  const onChangeWord = (e) => {
+    setWord(e.target.value)
+  }
   data?.fetchAllBoards.forEach((el) => {
     if (
       el.recruitRegion?.includes(Lo) === true &&
@@ -121,6 +147,8 @@ export default function CommunityList() {
       boardId={boardId}
       Pick={Pick}
       data={data}
+      isSearch={isSearch}
+      onChangeWord={onChangeWord}
       onLoadMore2={onLoadMore2}
       onChangeLevel={onChangeLevel}
       onChangeLo={onChangeLo}

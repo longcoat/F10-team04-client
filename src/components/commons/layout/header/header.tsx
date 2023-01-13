@@ -46,6 +46,8 @@ export default function LayoutHeader() {
     setId(data?.fetchUserLoggedIn.id)
   },[data])
 
+  console.log(data)
+  
   const onClickMoveToLogin = () => {
     if (!data) {
       router.push("/login");

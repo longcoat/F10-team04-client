@@ -196,7 +196,7 @@ export default function InModalWrite(props) {
     const newFile = fileUrl;
     setImage(newFile);
   };
-  console.log(path, center);
+
 
   return (
     <S.Wrapper>

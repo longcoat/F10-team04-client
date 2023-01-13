@@ -180,7 +180,6 @@ console.log(props.data)
     try {
       const result = await updateUser({
         variables: {
-          id: String(props.data?.fetchUserLoggedIn.id),
           updateUserInput: {
             nickname,
             grade,

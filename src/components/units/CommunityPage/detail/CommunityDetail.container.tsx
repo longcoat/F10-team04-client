@@ -18,6 +18,7 @@ import CommunityDetailUIPage from "./CommunityDetail.presenter";
 import {
   ATTEND_LIST,
   FETCH_BOARD,
+  FETCH_USER_LOGGED_IN,
   PICK_BOARD,
 } from "./CommunityDetail.queries";
 
@@ -53,29 +54,27 @@ const { data } = useQuery<
     },
   });
    const { data: userData } =
-    useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
+    useQuery(FETCH_USER_LOGGED_IN);
 
   const { data: AttendList } = useQuery(FETCH_ATTEND_LIST);
 
   console.log(PickList?.fetchMyPickBoards, data);
 
   useEffect(() => {
-    PickList?.fetchMyPickBoards.forEach((el) => {
-      if (el.board.id === data?.fetchBoard.id) {
-        setPick(true);
-        return;
-      } else {
-        setPick(false);
-      }
-    });
+    // PickList?.fetchMyPickBoards.forEach((el) => {
+    //   if (el.board.id === data?.fetchBoard.id) {
+    //     setPick(true);
+    //     return;
+    //   } else {
+    //     setPick(false);
+    //   }
+    // });
     AttendList?.fetchAttendList.forEach((el) => {
       if (el.board.id === data?.fetchBoard.id) {
+        console.log(el.board.id === data?.fetchBoard.id)
         setAttend(true);
-        return;
-      } else {
-        setAttend(false);
       }
-
+console.log(attend)
     })
   },[[data]])
 
@@ -86,6 +85,12 @@ const { data } = useQuery<
         variables: {
           boardId: String(props.boardId),
         },
+        refetchQueries: [
+          {
+            query: FETCH_ATTEND_LIST,
+          },
+          { query: FETCH_ALL_BOARDS },
+        ],
       });
       setAttend((prev) => !prev);
       if (attend === false) {

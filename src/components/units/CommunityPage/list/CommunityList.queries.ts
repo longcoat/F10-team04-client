@@ -41,3 +41,23 @@ export const FETCH_ALL_BOARDS_WITH_PICK_BOARD = gql`
     }
   }
 `;
+
+export const SEARCH_BOARDS = gql`
+  query serchBoards($word: String!) {
+    serchBoards(word: $word) {
+      id
+      title
+      content
+      image {
+        id
+        imgUrl
+      }
+      recruitRegion
+      appointment
+      recruitGrade
+      recruitSports
+      attendCount
+      recruitPeople
+    }
+  }
+`;

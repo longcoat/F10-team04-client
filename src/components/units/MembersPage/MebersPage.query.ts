@@ -11,6 +11,9 @@ export const FETCH_USERS = gql`
       gender
       age
       grade
+      image{
+        imgUrl
+      }
     }
   }
 `;

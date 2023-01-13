@@ -67,16 +67,22 @@ display: flex;
 justify-content: space-between;
 `
 const Button = styled.button`
-background-color: white;
-border: 1px solid #151515;
+background-color: #D3D3D3;
+border: none;
 width: 120px;
 height: 40px;
+border-radius: 12px;
+color: white;
+cursor: pointer;
 `
 const ButtonDel = styled.button`
 background-color: #151515;
+border: none;
 color: white;
 width: 120px;
 height: 40px;
+border-radius: 12px;
+cursor: pointer;
 `
 
 export const ConfirmCus = styled(Modal)`
@@ -134,6 +140,8 @@ export const ConfirmCus = styled(Modal)`
   .ant-btn {
     visibility: hidden;
   }
-
+  .ant-modal-close-x{
+    display: none;
+  }
  
 `;

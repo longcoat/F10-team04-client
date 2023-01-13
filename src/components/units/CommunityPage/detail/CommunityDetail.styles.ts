@@ -181,6 +181,7 @@ font-size: 16px;
 export const Button1 = styled.button`
    width: 161px;
     height: 63px;
+    border-radius: 12px;
     background-color: #f6f6f6;
     color: #8b8b8b;
     border: none;
@@ -196,6 +197,7 @@ export const Button2 = styled.button`
 export const Button3 = styled.button`
     width: 161px;
     height: 63px;
+    border-radius: 12px;
     background-color: #000;
     color: #fff;
     border: none;
