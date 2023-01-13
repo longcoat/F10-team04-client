@@ -246,15 +246,16 @@ export default function CommunityDetailUIPage(props: any) {
               style={{ cursor: "pointer" }}
             />
           </S.IconWarp>
-          <S.Title2>{props.data?.fetchBoard.title}</S.Title2>
-
-          <S.Detail>
-            <S.Sports>{props.data?.fetchBoard.recruitSports}</S.Sports>
-            <S.Com>・</S.Com>
-            <S.Create>
-              {timeForToday(props.data?.fetchBoard.createdAt)}
-            </S.Create>
-          </S.Detail>
+          <S.TitleDetail>
+            <S.Title2>{props.data?.fetchBoard.title}</S.Title2>
+            <S.Detail>
+              <S.Sports>{props.data?.fetchBoard.recruitSports}</S.Sports>
+              <S.Com>・</S.Com>
+              <S.Create>
+                {timeForToday(props.data?.fetchBoard.createdAt)}
+              </S.Create>
+            </S.Detail>
+          </S.TitleDetail>
 
           <S.Contents>
             <div

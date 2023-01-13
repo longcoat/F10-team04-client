@@ -6,7 +6,11 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { appointment } from "../../../commons/library/appointment";
 import { modalDetailState } from "../../../commons/stores";
-import { IMutation, IMutationPickBoardArgs } from "../../../commons/types/generated/types";
+import { OneEllipsis } from "../../../commons/styles/commonStyles";
+import {
+  IMutation,
+  IMutationPickBoardArgs,
+} from "../../../commons/types/generated/types";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 
 export const FETCH_MY_PICK_BOARDS = gql`
@@ -40,19 +44,16 @@ export default function MyPickList() {
   const [boardId, setBoardId] = useState("");
   const [pick, setPick] = useState(true);
 
-
   const [pickBoard] = useMutation<
-  Pick<IMutation, "pickBoard">,
-  IMutationPickBoardArgs
->(PICK_BOARD);
+    Pick<IMutation, "pickBoard">,
+    IMutationPickBoardArgs
+  >(PICK_BOARD);
 
   const onClickDetail = (boardId) => () => {
     setModalOpen((prev) => !prev);
     setBoardId(boardId);
   };
 
-
- 
   const onClickPick = (boardId) => async (e) => {
     e.stopPropagation();
     console.log(boardId);
@@ -65,7 +66,6 @@ export default function MyPickList() {
         refetchQueries: [
           {
             query: FETCH_MY_PICK_BOARDS,
-           
           },
         ],
       });
@@ -81,12 +81,15 @@ export default function MyPickList() {
   };
   const { data } = useQuery(FETCH_MY_PICK_BOARDS);
   console.log(data);
+
+  const sanitizeHtml = require("sanitize-html");
+
   return (
     <>
       <ModalCustom centered open={ModalOpen} width={900}>
         <CommunityDetailPage boardId={boardId} />
       </ModalCustom>
-      {data?.fetchMyPickBoards?.map((el: any, index) => (
+      {data?.fetchMyPickBoards?.map((el: any) => (
         <BoardListWrapper key={el.id} onClick={onClickDetail(el.board.id)}>
           <BoardList>
             <ImageListProfileBox>
@@ -98,13 +101,16 @@ export default function MyPickList() {
                 <MeetTime>{appointment(el.board.appointment)}</MeetTime>
               </InfoTextBox>
               <Content>
-                <ContentText>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: String(el.board.content),
-                    }}
-                  />
-                </ContentText>
+                <ContentText
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeHtml(
+                      el.board.content.replace(/(?:\r\n|\r|\n|)/g, ""),
+                      {
+                        allowedTags: ["n"],
+                      }
+                    ),
+                  }}
+                />
                 <ReviewBtn onClick={onClickPick(el.board.id)}>
                   {!pick ? (
                     <HeartOutlined onClick={onClickPick(el.board.id)} />
@@ -120,8 +126,12 @@ export default function MyPickList() {
               </Content>
             </InfoTextWrapper>
             <ThumbnailBox>
-            <ThumbnailImage 
-              style={{backgroundImage: el.image?.imgUrl ? `url(${el.image.imgUrl})` : `url(/images/basic.png)`}}
+              <ThumbnailImage
+                style={{
+                  backgroundImage: el.image?.imgUrl
+                    ? `url(${el.image.imgUrl})`
+                    : `url(/images/basic.png)`,
+                }}
               ></ThumbnailImage>
             </ThumbnailBox>
           </BoardList>
@@ -212,8 +222,9 @@ export const Content = styled.div`
 
   color: #0b0b0b;
 `;
-export const ContentText = styled.div`
+export const ContentText = styled(OneEllipsis)`
   padding-right: 20px;
+  width: calc(100% - 10px);
 `;
 export const ReviewBtn = styled.button`
   display: flex;
@@ -231,12 +242,14 @@ export const ReviewBtn = styled.button`
 export const ThumbnailBox = styled.div`
   width: 120px;
   height: 90px;
+  width: 118px;
   padding-top: 20px;
   border-radius: 12px;
 `;
 export const ThumbnailImage = styled.div`
   border-radius: 12px;
   height: 90px;
+  width: 118px;
   background-size: cover;
   background-position: center;
 `;

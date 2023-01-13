@@ -9,7 +9,10 @@ import {
   modalDetailState,
   reviewWriteModalState,
 } from "../../../commons/stores";
-import { OneEllipsis } from "../../../commons/styles/commonStyles";
+import {
+  globalContainer,
+  OneEllipsis,
+} from "../../../commons/styles/commonStyles";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 import { FETCH_BOARD } from "../CommunityPage/detail/CommunityDetail.queries";
 import ReviewWrite from "../PhotoReview/ReviewWrite/ReviewWrite.container";
@@ -64,11 +67,11 @@ export default function AttendList() {
     setAttendListId(attendListId);
     setIsModalOpen(true);
   };
-
+  const sanitizeHtml = require("sanitize-html");
   return (
     <>
       {isModalOpen && (
-        <CusModal width="1100px" open={true}>
+        <CusModal width="1000px" open={true}>
           <ReviewWrite />
         </CusModal>
       )}
@@ -77,7 +80,7 @@ export default function AttendList() {
           <CommunityDetailPage boardId={boardId} />
         </ModalCustom>
       )}
-      {data?.fetchAttendList?.map((el: any, index) => (
+      {data?.fetchAttendList?.map((el: any) => (
         <BoardListWrapper key={el.id}>
           <BoardList key={el.id} onClick={onClickDetail(el.board.id)}>
             <ImageListProfileBox>
@@ -89,13 +92,16 @@ export default function AttendList() {
                 <MeetTime>{appointment(el.board.appointment)}</MeetTime>
               </InfoTextBox>
               <Content>
-                <ContentText>
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: String(el.board.content),
-                    }}
-                  />
-                </ContentText>
+                <ContentText
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeHtml(
+                      el.board.content.replace(/(?:\r\n|\r|\n|)/g, ""),
+                      {
+                        allowedTags: ["n"],
+                      }
+                    ),
+                  }}
+                />
                 <BtnBox>
                   <ReviewBtn onClick={onClickWriteReview(el.id)}>
                     리뷰쓰기
@@ -104,8 +110,12 @@ export default function AttendList() {
               </Content>
             </InfoTextWrapper>
             <ThumbnailBox>
-            <ThumbnailImage 
-              style={{backgroundImage: el.image?.imgUrl ? `url(${el.image.imgUrl})` : `url(/images/basic.png)`}}
+              <ThumbnailImage
+                style={{
+                  backgroundImage: el.image?.imgUrl
+                    ? `url(${el.image.imgUrl})`
+                    : `url(/images/basic.png)`,
+                }}
               ></ThumbnailImage>
             </ThumbnailBox>
           </BoardList>
@@ -182,7 +192,6 @@ export const Content = styled(OneEllipsis)`
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
-  /* identical to box height */
 
   display: flex;
   justify-content: space-between;
@@ -194,8 +203,9 @@ export const Content = styled(OneEllipsis)`
 
   color: #0b0b0b;
 `;
-export const ContentText = styled.div`
+export const ContentText = styled(OneEllipsis)`
   padding-right: 20px;
+  width: calc(100% - 10px);
 `;
 
 export const BtnBox = styled.div`
@@ -213,7 +223,7 @@ export const ReviewBtn = styled.button`
 `;
 
 export const ThumbnailBox = styled.div`
-  width: 120px;
+  width: 118px;
   height: 90px;
   padding-top: 20px;
   border-radius: 12px;
@@ -221,6 +231,7 @@ export const ThumbnailBox = styled.div`
 export const ThumbnailImage = styled.div`
   border-radius: 12px;
   height: 90px;
+  width: 118px;
   background-size: cover;
   background-position: center;
 `;
