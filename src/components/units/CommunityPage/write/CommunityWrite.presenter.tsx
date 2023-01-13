@@ -7,7 +7,7 @@ import styled from "@emotion/styled";
 import InModalWrite from "../../../commons/Modal/modal(write)";
 import { modalWriteState } from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
-import * as S from "./CommunityWrite.styles"
+import * as S from "./CommunityWrite.styles";
 import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
 import KaKaoMapPage from "../../../commons/map/mapsearch";
 import dayjs from "dayjs";
@@ -161,9 +161,11 @@ const ModalCustom = styled(Modal)`
 export default function CommunityWriteUI(props: any) {
   const [ModalOpen, setModalOpen] = useRecoilState(modalWriteState);
 
+
   const handleCancel = () => {
     setModalOpen(false);
   };
+
 
   return (
     <>
@@ -188,17 +190,20 @@ export default function CommunityWriteUI(props: any) {
         작성하기
       </Button>
 
-   {   ModalOpen &&
-      <ModalCustom
-        title="게시물 작성"
-        centered
-        open={true}
-        width={1100}
-        onCancel={handleCancel}
-      >
-        <InModalWrite />
-      </ModalCustom>}
-   
+
+      {ModalOpen && (
+        <ModalCustom
+          title="게시물 작성"
+          centered
+          open={true}
+          width={1000}
+          onCancel={() => {
+            setModalOpen(false);
+          }}
+        >
+          <InModalWrite />
+        </ModalCustom>
+      )}
 
     </>
   );

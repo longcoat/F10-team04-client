@@ -114,6 +114,7 @@ function Sidebar({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any }) {
     >
       <CloseOutlined alt="close" onClick={toggleSide} onKeyDown={toggleSide} />
 
+      <Menu onClick={() => router.push("/photoReview")}>PhotoReview</Menu>
       <Menu onClick={() => router.push("/members")}>Members</Menu>
       <Menu onClick={() => router.push("/community")}>Community</Menu>
       <Menu onClick={onClcikMoveToUser} className="menu">

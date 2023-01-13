@@ -192,9 +192,27 @@ export const LocaionText = styled.div`
   color: #8b8b8b;
 `;
 export const ModalCustom = styled(Modal)`
+  .ant-modal-content {
+    margin: 60px 0;
+    padding-top: 20px;
+    border-radius: 20px;
+  }
+  .ant-modal-wrap {
+  }
+
+  .ant-modal-body {
+    padding: 30px;
+  }
+
+  .ant-modal-centered .ant-modal {
+    padding-top: 200px;
+  }
+
+  .ant-modal-centered {
+  }
   .ant-modal-header {
     padding: 0px 24px 16px 24px;
-    background-color: black;
+    background-color: white;
     color: white;
     text-align: center;
     border-radius: 2px 2px 0 0;

@@ -125,7 +125,7 @@ export const Modify = styled.div`
     padding: 45px 0 0 40px;
   }
   ${M.mediaM} {
-    padding: 45px 0 0 0;
+    padding: 45px 0 0 26px;
     width: 30%;
   }
   cursor: pointer;
@@ -600,7 +600,7 @@ export const ChatListText = styled.div`
   text-align: center;
   letter-spacing: -0.002em;
   padding: 0 16px 10px 16px;
-cursor: pointer;
+  cursor: pointer;
   color: #0b0b0b;
 
   border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
@@ -617,7 +617,7 @@ export const JoinCrewText = styled.div`
   letter-spacing: -0.002em;
   padding: 0 16px 10px 16px;
   color: #0b0b0b;
-cursor: pointer;
+  cursor: pointer;
   border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
   color: ${(props) => (props.isActive ? "#C71515" : "none")};
 `;

@@ -4,9 +4,16 @@ import { Modal } from "antd";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { appointment } from "../../../commons/library/appointment";
-import { attendListIdState, modalDetailState, reviewWriteModalState } from "../../../commons/stores";
+import {
+  attendListIdState,
+  modalDetailState,
+  reviewWriteModalState,
+} from "../../../commons/stores";
 import { OneEllipsis } from "../../../commons/styles/commonStyles";
-import { IQuery, IQueryFetchMyAllBoardsArgs } from "../../../commons/types/generated/types";
+import {
+  IQuery,
+  IQueryFetchMyAllBoardsArgs,
+} from "../../../commons/types/generated/types";
 import CommunityDetailPage from "../CommunityPage/detail/CommunityDetail.container";
 import { FETCH_BOARD } from "../CommunityPage/detail/CommunityDetail.queries";
 import * as M from "../../../commons/styles/mediaQueries";
@@ -26,7 +33,7 @@ export const FETCH_MY_All_BOARDS = gql`
       recruitGrade
       createdAt
       recruitPeople
-      image{
+      image {
         imgUrl
       }
     }
@@ -38,10 +45,10 @@ export default function MyBoardList() {
   const [attendListId, setAttendListId] = useRecoilState(attendListIdState);
 
   const { data } = useQuery<
-  Pick<IQuery, "fetchMyAllBoards">,
-  IQueryFetchMyAllBoardsArgs
->(FETCH_MY_All_BOARDS);
-console.log(data)
+    Pick<IQuery, "fetchMyAllBoards">,
+    IQueryFetchMyAllBoardsArgs
+  >(FETCH_MY_All_BOARDS);
+  console.log(data);
 
   // 리스트 클릭시 디테일 로 넘어가게
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
@@ -53,10 +60,9 @@ console.log(data)
 
   const sanitizeHtml = require("sanitize-html");
 
-
   const onClickWriteReview = (attendListId) => async (e) => {
     e.stopPropagation();
-    setAttendListId(attendListId)
+    setAttendListId(attendListId);
     setIsModalOpen(true);
   };
   const onCancel = () => {
@@ -66,12 +72,10 @@ console.log(data)
 
   return (
     <>
-       {isModalOpen && (
-        <CusModal
-          width="1100px"
-          open={true}
-          onCancel={onCancel}
-        >
+
+      {isModalOpen && (
+        <CusModal width="1000px" open={true}>
+
           <ReviewWrite />
         </CusModal>
       )}
@@ -107,17 +111,23 @@ console.log(data)
                   // }}
                 />
                 {/* </ContentText> */}
-                <Date>
-                  {el.attendCount}/{el.recruitPeople}
-                </Date>
-                <ReviewBtn onClick={onClickWriteReview(el.id)}>
-                  리뷰쓰기
-                </ReviewBtn>
+                <DateNReviewBtn>
+                  <Date>
+                    {el.attendCount}/{el.recruitPeople}
+                  </Date>
+                  <ReviewBtn onClick={onClickWriteReview(el.id)}>
+                    리뷰쓰기
+                  </ReviewBtn>
+                </DateNReviewBtn>
               </Content>
             </InfoTextWrapper>
             <ThumbnailBox>
-              <ThumbnailImage 
-              style={{backgroundImage: el.image?.imgUrl ? `url(${el.image.imgUrl})` : `url(/images/basic.png)`}}
+              <ThumbnailImage
+                style={{
+                  backgroundImage: el.image?.imgUrl
+                    ? `url(${el.image.imgUrl})`
+                    : `url(/images/basic.png)`,
+                }}
               ></ThumbnailImage>
             </ThumbnailBox>
           </BoardList>
@@ -135,6 +145,10 @@ export const BoardList = styled.div`
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid #8b8b8b;
+
+  ${M.mediaM} {
+    /* padding-right: 80px; */
+  }
 `;
 export const ImageListProfileBox = styled.div`
   padding: 25px 35px 25px 0;
@@ -150,6 +164,14 @@ export const InfoTextWrapper = styled.div`
   flex-direction: column;
 
   padding: 25px 0 0 0;
+
+  ${M.mediaL} {
+    width: 75%;
+  }
+
+  ${M.mediaM} {
+    width: 64%;
+  }
 `;
 
 export const InfoTextBox = styled.div`
@@ -190,6 +212,12 @@ export const MeetTime = styled.div`
   ${M.mediaL} {
   }
 `;
+
+export const DateNReviewBtn = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 export const Content = styled(OneEllipsis)`
   width: 100%;
   font-family: "AppleSDGothicNeoM00";
@@ -206,14 +234,13 @@ export const Content = styled(OneEllipsis)`
   letter-spacing: -0.0024em;
 
   padding: 0px 20px 20px 0;
+  margin-top: 13px;
 
   color: #0b0b0b;
 `;
 export const ContentText = styled(OneEllipsis)`
   padding-right: 20px;
-  width: calc(100% - 10px) ${M.mediaL} {
-
-  }
+  width: calc(100% - 10px);
 `;
 
 export const ContentTextText = styled.div`
@@ -224,6 +251,9 @@ export const ReviewBtn = styled.button`
   border-radius: 8px;
   color: white;
   font-size: 14px;
+  border: none;
+  width: 100px;
+  padding: 4px 0px;
 `;
 export const ThumbnailBox = styled.div`
   width: 120px;
@@ -234,16 +264,15 @@ export const ThumbnailBox = styled.div`
 export const ThumbnailImage = styled.div`
   border-radius: 12px;
   height: 90px;
+  width: 118px;
   background-size: cover;
   background-position: center;
 `;
 export const Date = styled.div`
-
-  padding: 0px 20px 17px 20px;
+  /* padding: 0px 20px 17px 20px;
   width: 50px;
-  text-align: center;
-
-
+  text-align: center; */
+  padding: 5px 20px 0 0;
 `;
 export const ModalCustom = styled(Modal)`
   .ant-modal-header {
