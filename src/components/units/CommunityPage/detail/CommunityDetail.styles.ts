@@ -12,6 +12,16 @@ export const Img = styled.img`
   width: 100%;
   height: 300px;
 `;
+export const UserWrap = styled.div`
+display: flex;
+`
+export const AttendListBtn = styled.button`
+background-color: white;
+margin-left: 10px;
+border: none;
+cursor: pointer;
+text-decoration: underline;
+`
 export const IconWarp = styled.div`
   width: 100%;
   display: flex;
@@ -180,7 +190,13 @@ export const Contents = styled.div`
 // `;
 export const BtnWrap = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content:  space-between;
+  padding-top: 20px;
+  font-size: 16px;
+`;
+export const BtnWrap1 = styled.div`
+  display: flex;
+  justify-content:  flex-end;
   padding-top: 20px;
   font-size: 16px;
 `;
@@ -199,7 +215,6 @@ export const Button1 = styled.button`
 `;
 
 export const Button2 = styled.button`
-
   width: 161px;
   height: 63px;
   background-color: #000;
@@ -208,16 +223,13 @@ export const Button2 = styled.button`
   cursor: pointer;
 `;
 export const Button3 = styled.button`
-
   width: 161px;
   height: 63px;
-  background-color: #000;
-  color: #fff;
+  background-color:  ${(props) => (props.isActive ? "black" : "#f6f6f6")};
+  color: ${(props) => (props.isActive ? "#fff" : "black")};
   border: none;
-
   border-radius: 12px;
   font-size: 18px;
-  color: #fff;
   cursor: pointer;
 `;
 

@@ -16,15 +16,25 @@ export const FETCH_MY_All_BOARDS = gql`
         grade
         prefer
       }
+      attendList{
+        id
+        user{
+          id
+          nickname
+          region
+          prefer
+        }
+      }
     }
   }
 `;
 
 export default function AttendPeople() {
-  const { data } = useQuery<
-  Pick<IQuery, "fetchMyAllBoards">,
-  IQueryFetchMyAllBoardsArgs
->(FETCH_MY_All_BOARDS);
+  const { data } = useQuery(FETCH_MY_All_BOARDS);
+
+console.log("=============")
+console.log(data?.fetchMyAllBoards)
+console.log("=============")
 
   return (
     <>

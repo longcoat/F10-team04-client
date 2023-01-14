@@ -13,12 +13,11 @@ import { useRecoilState } from "recoil";
 import InModalEdit from "../../../commons/Modal/modal(edit)";
 import { Modal } from "antd";
 import styled from "@emotion/styled";
-
 import ConfirmModal, {
   ConfirmCus,
 } from "../../../commons/Modal/confirmModal(community)";
-
 import Livechat from "../../../commons/livechat/LivechatContainer";
+import AttendList from "../../../commons/Modal/confirmModal(attendList)";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -226,7 +225,11 @@ export default function CommunityDetailUIPage(props: any) {
           <ConfirmModal data={props.data} />
         </ConfirmCus>
       )}
-
+      {props.attendList && (
+        <ConfirmCus centered open={true} width={500} onCancel={handleCancel}>
+          <AttendList data={props.data} />
+        </ConfirmCus>
+      )}
       <S.Wrapper>
         <S.Header>
           <S.Img src="./images/example.png"></S.Img>
@@ -237,7 +240,10 @@ export default function CommunityDetailUIPage(props: any) {
           </S.AvatarWrap>
           <S.UerInfo>
             <S.Left>
+              <S.UserWrap>
               <S.UserName>{props.data?.fetchBoard.user.nickname}</S.UserName>
+              <S.AttendListBtn onClick={props.onClickAttendList}>현재 참가 인원</S.AttendListBtn>
+              </S.UserWrap>
               <S.MapWrap>
                 <S.MapIcon src="./images/list/map.png"></S.MapIcon>
                 <S.MapText>{props.data?.fetchBoard.recruitRegion}</S.MapText>
@@ -307,10 +313,10 @@ export default function CommunityDetailUIPage(props: any) {
             id="map"
             style={{ width: "100%", height: 400, marginTop: "20px" }}
           ></div>
-
+      {props.data?.fetchBoard.user.id !== id ? 
           <S.BtnWrap>
-            <S.Button1 onClick={props.onClickClose}>닫기</S.Button1>
-            <S.Button3
+                <S.Button3
+                isActive={props.attend}
               onClick={
                 props.data?.fetchBoard.recruitPeople ===
                 props.data?.fetchBoard.attendCount
@@ -318,10 +324,20 @@ export default function CommunityDetailUIPage(props: any) {
                   : props.onClickAttend(props.data?.fetchBoard.id)
               }
             >
-              {!props.attend ? "참여하기" : "참가취소"}
+              {props.attend ? "참가취소" : "참여하기"}
             </S.Button3>
-            <Livechat userData={props.userData} data={props.data} />
+             <S.Button1 onClick={props.onClickClose}>닫기</S.Button1>
           </S.BtnWrap>
+             :
+             <S.BtnWrap1>
+            <S.Button1
+              onClick={props.onClickClose}
+            >
+              닫기
+            </S.Button1>
+          </S.BtnWrap1>
+            }
+          {/* <Livechat userData={props.userData} data={props.data} /> */}
         </S.Main>
       </S.Wrapper>
     </>

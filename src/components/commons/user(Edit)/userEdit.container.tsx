@@ -8,7 +8,7 @@ import { IMutation, IMutationCheckNickNameArgs, IMutationUpdateUserArgs } from "
 import UserEditUI from "./userEdit.presenter";
 import { CHECK_NICK_NAME, UPDATE_USER } from "./userEdit.query";
 
-export default function UserEdit(props) {
+export default function UserEdit(props: any) {
   console.log(props.data);
   const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
   const router = useRouter();
