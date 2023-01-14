@@ -27,6 +27,15 @@ export const FETCH_BOARD = gql`
         center
         path
       }
+      attendList{
+        user{
+          id
+          nickname
+          prefer
+          region
+          gender
+        }
+      }
     }
   }
 `;

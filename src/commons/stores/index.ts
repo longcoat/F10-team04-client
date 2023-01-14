@@ -87,4 +87,8 @@ export const confirmModalState = atom({
   key: "confirmModalState",
   default: false,
 });
+export const attendListModalState = atom({
+  key: "attendListModalState",
+  default: false,
+});
 
