@@ -53,30 +53,34 @@ const { data } = useQuery<
    const { data: userData } =
     useQuery(FETCH_USER_LOGGED_IN);
 
-
   const { data: AttendList } = useQuery(FETCH_ATTEND_LIST);
 
   useEffect(() => {
-    PickList?.fetchMyPickBoards.some((el) => {
-      if (el.board.id === data?.fetchBoard.id) {
-        setPick(true);
-        return true
-      } else {
-        setPick(false);
-        return false
-      }
-    });
     AttendList?.fetchAttendList.some((el) => {
       if (el.board.id === data?.fetchBoard.id) {
         console.log(el.board.id )
         setAttend(true);
         return true
       }else{
-        console.log(111)
         setAttend(false)
         return false
       }
     })
+  },[data])
+  useEffect(() => {
+    PickList?.fetchMyPickBoards.some((el) => {
+      if (el.board.id === data?.fetchBoard.id) {
+        setPick(true);
+        console.log(PickList)
+        console.log(pick)
+        return true
+      } else {
+        setPick(false);
+        console.log(PickList)
+        console.log(pick)
+        return false
+      }
+    });
   },[data])
 
   const onClickAttend = (boardId) => async () => {
@@ -119,18 +123,18 @@ const { data } = useQuery<
   const onClickDelete = () => {
     setConfirmModal(true)
   };
-  const onClickPick = async () => {
+  const onClickPick = (boardId) => async () => {
     try {
       const result = await pickBoard({
         variables: {
-          boardId: String(props.boardId),
+          boardId: String(boardId),
         },
         refetchQueries: [
+          { query: FETCH_MY_PICK_BOARDS },
           {
             query: FETCH_BOARD,
-            variables: { boardId: String(props.boardId) },
+            variables: { boardId: String(boardId) },
           },
-          { query: FETCH_MY_PICK_BOARDS },
         ],
       });
       setPick(true);

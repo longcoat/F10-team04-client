@@ -43,8 +43,8 @@ export const FETCH_ALL_BOARDS_WITH_PICK_BOARD = gql`
 `;
 
 export const SEARCH_BOARDS = gql`
-  query serchBoards($word: String!) {
-    serchBoards(word: $word) {
+  query searchBoards($word: String!) {
+    searchBoards(word: $word) {
       id
       title
       content

@@ -47,22 +47,20 @@ export default function ReviewDetail(props) {
           image.push(el.imgUrl)
         }
       })
-      console.log(image)
 
       const onClickHeart = async () => {
         try {
           const result = await likeReviewBoard({ 
             variables: {
-              reviewBoardId : String(data.fetchReviewBoard.id)
+              reviewBoardId : props.reviewId
             },refetchQueries: [
               {
                 query: FETCH_REVIEW_BOARD,
-                variables: { reviewBoardId: String(props.reviewId) },
+                variables: { reviewBoardId: props.reviewId },
               },
             ],
          });
          console.log(result)
-            alert("리뷰등록이 완료되었습니다.")
         } catch (error) {
             if (error instanceof Error) Modal.error({ content: error.message });
         }

@@ -1,3 +1,4 @@
+import { HeartFilled } from "@ant-design/icons";
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
@@ -28,6 +29,11 @@ export const IconWarp = styled.div`
   justify-content: flex-end;
   font-size: 20px;
 `;
+export const Map_Chat=styled.div`
+display: flex;
+justify-content: space-between;
+align-items: center;
+`
 export const Head = styled.div`
   padding-top: 30px;
   display: flex;
