@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 import { globalContainer } from "../../../commons/styles/commonStyles";
 import * as M from "../../../commons/styles/mediaQueries";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(globalContainer)`
+  max-width: 100%;
   width: 100%;
   height: 100vh;
   display: flex;

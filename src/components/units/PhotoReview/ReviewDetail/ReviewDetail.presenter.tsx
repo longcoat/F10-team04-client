@@ -1,57 +1,51 @@
-import { DeleteOutlined, EditOutlined, HeartOutlined, SmileOutlined } from '@ant-design/icons'
-import { timeForToday } from '../../../../commons/library/utils2'
-import { getDate } from '../../../../commons/library/utils'
-import ReviewCommentWrite from '../../Comment/ReviewComment/reviewComment.container'
-import * as S from './ReviewDetail.styles'
-import ReviewCommentList from '../../Comment/ReviewCommentList/ReviewCommentList.container'
-import "slick-carousel/slick/slick.css"; 
+import {
+  DeleteOutlined,
+  EditOutlined,
+  HeartOutlined,
+  SmileOutlined,
+} from "@ant-design/icons";
+import { timeForToday } from "../../../../commons/library/utils2";
+import { getDate } from "../../../../commons/library/utils";
+import ReviewCommentWrite from "../../Comment/ReviewComment/reviewComment.container";
+import * as S from "./ReviewDetail.styles";
+import ReviewCommentList from "../../Comment/ReviewCommentList/ReviewCommentList.container";
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useRecoilState } from 'recoil'
-import { reviewWriteModalState } from '../../../../commons/stores'
-import { CusEditModal, CusModal } from '../ReviewEdit/ReviewEdit.styles'
-import ReviewEdit from '../ReviewEdit/ReviewEdit.container'
+import { useRecoilState } from "recoil";
+import { reviewWriteModalState } from "../../../../commons/stores";
+import { CusEditModal, CusModal } from "../ReviewEdit/ReviewEdit.styles";
+import ReviewEdit from "../ReviewEdit/ReviewEdit.container";
 
 export default function ReviewWriteUI(props) {
-
-
-
-
-    return(
-      <>
-            {props.editModal && (
-          <CusEditModal
-            width="1100px"
-            open={true}
-            onCancel={props.onCancel}
-          >
-            <ReviewEdit data={props.data} image={props.image}/>
-          </CusEditModal>
-        )}
-        <S.Wrapper>
-            <S.LeftSide
-            // style={{backgroundImage: `url(${props.image[0]})`}}
-            >
-                <S.CusSlider {...props.settings}>
-                {props.image
-                  .map((el: string) => (
-                    <S.Div     key={el}>
-                    <S.Img
-                
-                      src={`${el}`}
-                    />
-                    </S.Div>
-                    // <div key={el}
-                    // style={{backgroundImage:`url('${el}')`, backgroundColor:"#ffffff"}}
-                    // >{el}</div>
-                  ))}
-                </S.CusSlider>
-            </S.LeftSide>
-            <S.RightSide>
-                <S.RightInnerWrap>
-                <S.UserWrap>
-                    <S.User>
-                <SmileOutlined style={{paddingRight:"10px"}}/>
+  return (
+    <>
+      {props.editModal && (
+        <CusEditModal width="1000px" open={true} onCancel={props.onCancel}>
+          <ReviewEdit data={props.data} image={props.image} />
+        </CusEditModal>
+      )}
+      <S.Wrapper>
+        <S.LeftSide
+        // style={{backgroundImage: `url(${props.image[0]})`}}
+        >
+          <S.CusSlider {...props.settings}>
+            {props.image.map((el: string) => (
+              <S.Div key={el}>
+                <S.Img src={`${el}`} />
+              </S.Div>
+              // <div key={el}
+              // style={{backgroundImage:`url('${el}')`, backgroundColor:"#ffffff"}}
+              // >{el}</div>
+            ))}
+          </S.CusSlider>
+        </S.LeftSide>
+        <S.RightSide>
+          <S.RightInnerWrap>
+            <S.UserWrap>
+              <S.User>
+                <SmileOutlined style={{ paddingRight: "10px" }} />
                 <S.Name>{props.data?.fetchReviewBoard.user.nickname}</S.Name>
+
                 </S.User>
                 <S.Edit_Del>
       {props.data?.fetchReviewBoard.user.id === props.id ? 
@@ -90,3 +84,4 @@ export default function ReviewWriteUI(props) {
         
     )
 }
+

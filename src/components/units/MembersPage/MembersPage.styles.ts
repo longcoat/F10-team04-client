@@ -92,6 +92,7 @@ export const Ctg_title1 = styled.div`
 export const Selectbar = styled.div`
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     /* width: 40px; */
+    border-radius: 10px;
   }
 
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
@@ -115,7 +116,6 @@ export const Selectbar = styled.div`
 `;
 export const SelectArea = styled(Select)`
   width: 100%;
-  border: 2px solid #d9d9d9;
   color: #8b8b8b;
 `;
 // export const ButtonSide = styled.div`

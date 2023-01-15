@@ -1,17 +1,18 @@
 import { gql, GraphQLClient } from "graphql-request";
 
-const RESTORE_ACCESS_TOKEN =gql`
+const RESTORE_ACCESS_TOKEN = gql`
   mutation {
     restoreAccessToken
   }
-`
-;
-
+`;
 export async function getAccessToken() {
   try {
-    const graphQLClient = new GraphQLClient("https://backsol2.shop/graphql", {
-      credentials: "include",
-    });
+    const graphQLClient = new GraphQLClient(
+      "https://meonjifather.shop/graphql",
+      {
+        credentials: "include",
+      }
+    );
 
     const result = await graphQLClient.request(RESTORE_ACCESS_TOKEN);
     console.log("11111111111111111111111111");
