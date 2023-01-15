@@ -6,7 +6,7 @@ import { useRecoilState } from "recoil";
 
 
 
-import { confirmModalState, EditBoardId, modalDetailState, modalEditState} from "../../../../commons/stores";
+import { attendListModalState, confirmModalState, EditBoardId, modalDetailState, modalEditState} from "../../../../commons/stores";
 import { IMutation, IMutationAttendListArgs, IMutationDeleteBoardArgs, IQuery, IQueryFetchBoardArgs, IQueryFetchMyPickBoardsArgs } from "../../../../commons/types/generated/types";
 
 import { FETCH_ATTEND_LIST } from "../../MyPageA/AttendList";
@@ -26,18 +26,15 @@ export default function CommunityDetailPage(props) {
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [EditModalOpen, setEditModalOpen] = useRecoilState(modalEditState);
   const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
-
+  const [attendList, setAttendList] = useRecoilState(attendListModalState)
   const [confirmModal, setConfirmModal] = useRecoilState(confirmModalState)
   const [pick, setPick] = useState(false)
-
   const [attend, setAttend] = useState(false);
   const router = useRouter();
 
+
   const [attendBoard] = useMutation(ATTEND_LIST);
 
-
-
-  
   const { data:PickList } = useQuery<
   Pick<IQuery, "fetchMyPickBoards">,
   IQueryFetchMyPickBoardsArgs
@@ -58,26 +55,33 @@ const { data } = useQuery<
 
   const { data: AttendList } = useQuery(FETCH_ATTEND_LIST);
 
-  console.log(PickList?.fetchMyPickBoards, data);
-
   useEffect(() => {
-    // PickList?.fetchMyPickBoards.forEach((el) => {
-    //   if (el.board.id === data?.fetchBoard.id) {
-    //     setPick(true);
-    //     return;
-    //   } else {
-    //     setPick(false);
-    //   }
-    // });
-    AttendList?.fetchAttendList.forEach((el) => {
+    AttendList?.fetchAttendList.some((el) => {
       if (el.board.id === data?.fetchBoard.id) {
-        console.log(el.board.id === data?.fetchBoard.id)
+        console.log(el.board.id )
         setAttend(true);
+        return true
+      }else{
+        setAttend(false)
+        return false
       }
-console.log(attend)
     })
-  },[[data]])
-
+  },[data])
+  useEffect(() => {
+    PickList?.fetchMyPickBoards.some((el) => {
+      if (el.board.id === data?.fetchBoard.id) {
+        setPick(true);
+        console.log(PickList)
+        console.log(pick)
+        return true
+      } else {
+        setPick(false);
+        console.log(PickList)
+        console.log(pick)
+        return false
+      }
+    });
+  },[data])
 
   const onClickAttend = (boardId) => async () => {
     try {
@@ -90,6 +94,10 @@ console.log(attend)
             query: FETCH_ATTEND_LIST,
           },
           { query: FETCH_ALL_BOARDS },
+          {
+            query: FETCH_BOARD,
+            variables: { boardId: String(props.boardId) },
+          },
         ],
       });
       setAttend((prev) => !prev);
@@ -115,22 +123,21 @@ console.log(attend)
   const onClickDelete = () => {
     setConfirmModal(true)
   };
-  const onClickPick = async () => {
+  const onClickPick = (boardId) => async () => {
     try {
       const result = await pickBoard({
         variables: {
-          boardId: String(props.boardId),
+          boardId: String(boardId),
         },
         refetchQueries: [
+          { query: FETCH_MY_PICK_BOARDS },
           {
             query: FETCH_BOARD,
-            variables: { boardId: String(props.boardId) },
+            variables: { boardId: String(boardId) },
           },
-          { query: FETCH_MY_PICK_BOARDS },
         ],
       });
       setPick(true);
-      console.log(result);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
     }
@@ -141,14 +148,18 @@ console.log(attend)
     setModalOpen((prev) => !prev);
     setEditBoardId(boardId);
   };
-
+  const onClickAttendList = () => {
+    setAttendList(true)
+  }
   return (
     <CommunityDetailUIPage
+      attendList={attendList}
       userData={userData}
       data={data}
       pick={pick}
       confirmDel={confirmModal}
       EditModalOpen={EditModalOpen}
+      onClickAttendList={onClickAttendList}
       onClickEdit={onClickEdit}
       onClickDelete={onClickDelete}
       onClickNoAtt={onClickNoAtt}

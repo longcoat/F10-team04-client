@@ -33,30 +33,62 @@ const levelOption = [
 
 export default function CommunityListUi(props: any) {
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
-  const [first, setFirst] = useState(true);
-  const [second, setSecond] = useState(false);
+  const [newest, setNewest] = useState(true);
+  const [orderPick, setOrderPick] = useState(false);
   const [ModalEsc, setModalEsc] = useState(true);
+  const [isSearch, setIsSearch] = useState(false)
 
-  const onClickfirst = (e) => {
-    if (!first) {
-      if (second) {
-        setFirst((prev) => !prev);
-        setSecond((prev) => !prev);
-      } else {
-        setFirst((prev) => !prev);
+  const onClickNew = (e) => {
+    if (!newest) {
+      if (orderPick) {
+        setNewest(true);
+        setOrderPick(false);
+        setIsSearch(false)
+      } else if(isSearch){
+        setNewest(true);
+        setOrderPick(false);
+        setIsSearch(false)
+      }else{
+        setNewest(true);
       }
     }
   };
-  const onClicksecond = (e) => {
-    if (!second) {
-      if (first) {
-        setFirst((prev) => !prev);
-        setSecond((prev) => !prev);
-      } else {
-        setSecond((prev) => !prev);
+  const onClickPick = (e) => {
+    if (!orderPick) {
+      if (newest) {
+        setNewest(false);
+        setOrderPick(true);
+        setIsSearch(false)
+      } else if(isSearch){
+        setNewest(false);
+        setOrderPick(true);
+        setIsSearch(false)
+      }else{
+        setOrderPick(true);
       }
     }
   };
+
+  const onClickSearch = () => {
+    if (!isSearch) {
+      if (newest) {
+        setNewest(false);
+        setOrderPick(false);
+        setIsSearch(true)
+      } else if(orderPick){
+        setNewest(false);
+        setOrderPick(false);
+        setIsSearch(true)
+      }else{
+        setIsSearch(true);
+      }
+    }
+}
+const onChangeWord = (e) => {
+  setIsSearch(false)
+  setNewest(true);
+  props.setWord(e.target.value)
+}
   const handleCancel = () => {
     setModalOpen(false);
   };
@@ -99,14 +131,14 @@ export default function CommunityListUi(props: any) {
               <S.Selectbar>
                 <S.Input
                   type="text"
-                  onChange={props.onChangeWord}
+                  onChange={onChangeWord}
                   placeholder="제목을 입력해주세요."
                 />
               </S.Selectbar>
             </S.InputWrap>
           </S.SelectSide>
           <S.ButtonSide>
-            <S.SearchButton>검색하기</S.SearchButton>
+            <S.SearchButton onClick={onClickSearch}>검색하기</S.SearchButton>
           </S.ButtonSide>
         </S.SearchWrap>
         <S.ResultWrap>
@@ -115,17 +147,17 @@ export default function CommunityListUi(props: any) {
           </S.ResultWrite>
           <S.TabMenu>
             <S.Menu1>
-              <S.Item1 isActive={first} onClick={onClickfirst}>
+              <S.Item1 isActive={newest} onClick={onClickNew}>
                 최신순
               </S.Item1>
-              <S.Item1 isActive={second} onClick={onClicksecond}>
+              <S.Item1 isActive={orderPick} onClick={onClickPick}>
                 인기순
               </S.Item1>
             </S.Menu1>
             <CommunityWrite />
           </S.TabMenu>
 
-          {first ? (
+          {newest ? (
             <InfiniteScroll
               pageStart={0}
               loadMore={props.onLoadMore}
@@ -181,7 +213,8 @@ export default function CommunityListUi(props: any) {
                 ))}
               </S.Items>
             </InfiniteScroll>
-          ) : (
+          ) : ""}
+          {orderPick ? ( 
             <InfiniteScroll
               pageStart={0}
               loadMore={props.onLoadMore}
@@ -237,7 +270,64 @@ export default function CommunityListUi(props: any) {
                 ))}
               </S.Items>
             </InfiniteScroll>
-          )}
+           ) : ""}
+             {isSearch ? ( 
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={props.onLoadMore}
+              hasMore={true}
+            >
+              <S.Items>
+                {props.search?.searchBoards.map((el) => (
+                  <S.Item key={el.id}>
+                    <S.Img
+                      style={{
+                        backgroundImage:
+                          el.image?.imgUrl === undefined ||
+                          el.image?.imgUrl === ""
+                            ? "url(./images/basic.png)"
+                            : `url(${el.image?.imgUrl})`,
+                        backgroundPosition: "center",
+                      }}
+                    ></S.Img>
+                    <S.Main>
+                      <S.Title2>
+                        {el.title
+                          .replaceAll(props.keyword, `%^&${props.keyword}%^&`)
+                          .split("%^&")
+                          .map((el) => (
+                            <span
+                              key={uuidv4()}
+                              style={{
+                                color: el === props.keyword ? "red" : "black",
+                              }}
+                            >
+                              {el}
+                            </span>
+                          ))}
+                      </S.Title2>
+                      <S.Tag>
+                        <S.Level>#{el.recruitGrade}</S.Level>
+                      </S.Tag>
+                      <S.SpoDate>
+                        <S.Sports>{el.recruitSports}</S.Sports>
+                        <S.Date>
+                          {el.attendCount}/{el.recruitPeople}
+                        </S.Date>
+                      </S.SpoDate>
+                      <S.Footer>
+                        <S.Location>
+                          <S.Icon src="./images/list/map.png"></S.Icon>
+                          <S.LocaionText>{el.recruitRegion}</S.LocaionText>
+                        </S.Location>
+                        <RightOutlined onClick={props.onClickDetail(el.id)} />
+                      </S.Footer>
+                    </S.Main>
+                  </S.Item>
+                ))}
+              </S.Items>
+            </InfiniteScroll>
+           ) : ""}
         </S.ResultWrap>
       </S.Wrapper>
     </>

@@ -50,6 +50,15 @@ const FETCH_USER_LOGGED_IN = gql`
       id
       email
       nickname
+      age
+      gender
+      region
+      prefer
+      grade
+      image{
+        id
+        imgUrl
+      }
     }
   }
 `;

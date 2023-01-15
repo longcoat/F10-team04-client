@@ -3,7 +3,7 @@ import { toFormData } from 'axios'
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { timeForToday } from '../../../../commons/library/utils2'
-import { LoggedInUserId, ReviewCommentMore } from '../../../../commons/stores';
+import { LoggedInUserId } from '../../../../commons/stores';
 import AnswerList from '../ReviewCommentAnswerList/AnswerList.container';
 import CommentAnswerWriter from '../ReviewCommentAnswerWrite/AnswerWrite.container';
 import * as S from './ReviewCommentList.styles'

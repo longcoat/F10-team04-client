@@ -144,7 +144,7 @@ console.log(data)
         <S.Wrapper>
           <S.ProfileBox>
             <S.ProfileImageAvatarBox>
-              <S.ImageAvatar src="/profile.png" />
+              <S.ImageAvatar src={data?.fetchUserLoggedIn?.image?.imgUrl || "/profile.png"} />
             </S.ProfileImageAvatarBox>
             <S.InfoBox>
               <S.NickInfoBox>

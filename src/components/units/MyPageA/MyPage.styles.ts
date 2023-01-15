@@ -43,9 +43,16 @@ export const ProfileBox = styled.div`
   }
 `;
 
-export const ProfileImageAvatarBox = styled.div``;
+export const ProfileImageAvatarBox = styled.div`
+width:150px;
+height: 150px;
+`;
 
-export const ImageAvatar = styled.img``;
+export const ImageAvatar = styled.img`
+width:150px;
+height: 150px;
+border-radius: 100px;
+`;
 
 export const ImageProfile = styled.img``;
 

@@ -12,6 +12,7 @@ export const UPDATE_USER = gql`
       id
       email
       image{
+        id
         imgUrl
       }
     }
