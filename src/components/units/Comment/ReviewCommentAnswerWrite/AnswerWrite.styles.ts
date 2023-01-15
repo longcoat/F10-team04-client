@@ -1,8 +1,12 @@
 import styled from "@emotion/styled";
+import * as M from "../../../../commons/styles/mediaQueries";
 
 export const Back = styled.div`
-    padding-left: 10%;
+  padding-left: 10%;
   width: 100%;
+  ${M.mediaM} {
+    padding-left: 0;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -19,7 +23,7 @@ export const contentsWrap = styled.div`
 `;
 export const Contents = styled.input`
   padding-left: 20px;
-    font-size: 12px;
+  font-size: 12px;
   border: none;
   :focus {
     outline: none;
@@ -34,7 +38,7 @@ export const Count_Btn = styled.div`
 export const Count = styled.div``;
 
 export const Submit = styled.button`
-background-color: white;
-font-size: 12px;
-border: none;
+  background-color: white;
+  font-size: 12px;
+  border: none;
 `;

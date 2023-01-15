@@ -10,23 +10,24 @@ export default function ChattingBtn(props) {
   };
   return (
     <>
-      <Button onClick={onClickOpenChat}>메시지</Button>
+      {/* <Button onClick={onClickOpenChat}>메시지</Button>
       {openChat ? (
         <>
           <Livechat userData={props.userData} />
         </>
       ) : (
         ""
-      )}
+      )} */}
     </>
   );
 }
 
-const Button = styled.button`
-  width: 75%;
-  height: 35px;
-  color: #fafafa;
-  background-color: #0b0b0b;
-  border-radius: 16px;
-  cursor: pointer;
-`;
+// const Button = styled.button`
+//   width: 75%;
+//   height: 35px;
+//   color: #fafafa;
+//   background-color: #0b0b0b;
+//   border-radius: 16px;
+//   cursor: pointer;
+//   display: none;
+// `;

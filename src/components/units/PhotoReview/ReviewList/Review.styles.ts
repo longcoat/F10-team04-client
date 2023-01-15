@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { OneEllipsis } from "../../../../commons/styles/commonStyles";
 import * as M from "../../../../commons/styles/mediaQueries";
 
 export const Wrapper = styled.div`
@@ -10,7 +11,7 @@ export const Wrapper = styled.div`
   display: flex;
   padding: 0 80px 60px 80px;
 `;
-export const Contents = styled.div`
+export const Contents = styled(OneEllipsis)`
   width: 100%;
   margin-left: 45px;
   display: flex;

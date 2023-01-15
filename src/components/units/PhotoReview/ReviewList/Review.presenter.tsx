@@ -6,11 +6,11 @@ import ReviewDetail from "../ReviewDetail/ReviewDetail.container";
 import InfiniteScroll from "react-infinite-scroller";
 import FollowingList from "../../../commons/userCard/02-userCard(following)";
 import FollowerList from "../../../commons/userCard/03-userCard(follower)";
+import * as M from "../../../../commons/styles/mediaQueries";
 
 export default function ReviewUI(props) {
   return (
     <>
-
       {props.isModalOpen && (
         <CusModal
           width="1000px"
@@ -168,6 +168,7 @@ const CusModal = styled(Modal)`
     line-height: 1.5715;
     word-wrap: break-word;
   }
+
   .ant-modal-footer {
     height: 0px;
     border: none;
@@ -179,7 +180,7 @@ const CusModal = styled(Modal)`
     position: relative;
     background-clip: padding-box;
     border: 0;
-    border-radius: 2px;
+    border-radius: 12px;
     box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%),
       0 9px 28px 8px rgb(0 0 0 / 5%);
     pointer-events: auto;
@@ -192,5 +193,54 @@ const CusModal = styled(Modal)`
     word-wrap: break-word;
     background-color: white;
     opacity: 0.2;
+  }
+
+  .ant-modal-close-x {
+    display: block;
+    width: 54px;
+    height: 54px;
+    font-size: 16px;
+    font-style: normal;
+    margin-top: -12px;
+    margin-right: -12px;
+    line-height: 54px;
+    text-align: center;
+    color: black;
+    text-transform: none;
+    text-rendering: auto;
+    display: none;
+  }
+
+  .ant-modal-footer {
+    padding: 0;
+  }
+
+  .slick-dots {
+    position: absolute;
+    bottom: -24px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+  }
+
+  .css-1mes9sh {
+    padding: 24px;
+  }
+
+  .css-1wg7eal {
+    width: 100%;
+    margin: 0px auto;
+    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    /* border: 1px dashed #d3d3d3; */
+    border: 0;
+    box-shadow: 4px 4px 10px 2px #00000021;
+    border-radius: 10px;
   }
 `;
