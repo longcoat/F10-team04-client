@@ -17,7 +17,7 @@ import ConfirmModal, {
   ConfirmCus,
 } from "../../../commons/Modal/confirmModal(community)";
 import Livechat from "../../../commons/livechat/LivechatContainer";
-import AttendList from "../../../commons/Modal/confirmModal(attendList)";
+import AttendList from "../../../commons/Modal/Modal(attendList)";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -232,11 +232,11 @@ export default function CommunityDetailUIPage(props: any) {
       )}
       <S.Wrapper>
         <S.Header>
-          <S.Img src="./images/example.png"></S.Img>
+          <S.Img src={"./images/example.png"}></S.Img>
         </S.Header>
         <S.Head>
           <S.AvatarWrap>
-            <S.Avatar src="./images/avatar.png" />
+            <S.Avatar src={props.data?.fetchBoard.user.image?.imgUrl ||"./images/avatar.png"} />
           </S.AvatarWrap>
           <S.UerInfo>
             <S.Left>
@@ -253,7 +253,7 @@ export default function CommunityDetailUIPage(props: any) {
               {props.pick ? (
                 <div>
                   <HeartFilled
-                    onClick={props.onClickPick}
+                    onClick={props.onClickPick(props.data?.fetchBoard.id)}
                     style={{
                       marginRight: "10px",
                       lineHeight: "35px",
@@ -265,7 +265,7 @@ export default function CommunityDetailUIPage(props: any) {
               ) : (
                 <div>
                   <HeartOutlined
-                    onClick={props.onClickPick}
+                    onClick={props.onClickPick(props.data?.fetchBoard.id)}
                     style={{ marginRight: "10px", lineHeight: "35px" }}
                   />
                   {props.data?.fetchBoard.pickCount}
@@ -309,10 +309,14 @@ export default function CommunityDetailUIPage(props: any) {
               }}
             />
           </S.Contents>
+          <S.Map_Chat>
           <div
             id="map"
-            style={{ width: "100%", height: 400, marginTop: "20px" }}
+            style={{ width: "68%", height: 400, marginTop: "20px" }}
           ></div>
+     <Livechat 
+     userData={props.userData} data={props.data} />
+          </S.Map_Chat>
       {props.data?.fetchBoard.user.id !== id ? 
           <S.BtnWrap>
                 <S.Button3
@@ -337,7 +341,6 @@ export default function CommunityDetailUIPage(props: any) {
             </S.Button1>
           </S.BtnWrap1>
             }
-          {/* <Livechat userData={props.userData} data={props.data} /> */}
         </S.Main>
       </S.Wrapper>
     </>

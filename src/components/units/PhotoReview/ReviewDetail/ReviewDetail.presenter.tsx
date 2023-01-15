@@ -79,7 +79,7 @@ export default function ReviewWriteUI(props) {
                 <S.IconWrap>
                     <S.HeartLine>
                     <HeartOutlined onClick={props.onClickHeart}/>
-                    <S.CountLine>{props.data?.fetchReviewBoard.like}</S.CountLine>
+                    <S.CountLine>{props.data?.fetchReviewBoard.likeCount}</S.CountLine>
                     </S.HeartLine>
                 </S.IconWrap>
                 <ReviewCommentWrite id={props.data?.fetchReviewBoard.id}/>

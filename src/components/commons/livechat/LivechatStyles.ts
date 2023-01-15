@@ -1,16 +1,16 @@
 import styled from "@emotion/styled";
 
 export const TalkWrapper = styled.form`
-  margin-top: 100px;
-  width: 320px;
-  height: 580px;
+  margin-top: 20px;
+  width: 30%;
+  height: 400px;
   display: flex;
   flex-direction: column;
 `;
 
 export const TalkHeader = styled.div`
   width: 100%;
-  height: 50px;
+  height: 70px;
   background-image: url("./images/chatheader.png");
   background-size: 100%;
   background-repeat: no-repeat;
@@ -54,12 +54,15 @@ export const TalkWrite = styled.input`
   height: 50px;
   font-size: 13px;
   border-radius: 0px 0px 20px 20px;
-  border: 2.2px solid #0e0e0e;
-  border-top: 2.2px solid #0e0e0e;
+  border: 2.2px solid #ededed;
+  border-top: none;
   padding: 10px;
   ::placeholder {
     font-size: 11px;
     display: flex;
     justify-content: center;
+  }
+  :focus{
+    outline: none;
   }
 `;

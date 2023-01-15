@@ -21,7 +21,6 @@ export default function CommunityList() {
   const [level, setLevel] = useState("");
   const [Lo, setLo] = useState("");
   const [word, setWord] = useState("")
-  const [isSearch, setIsSearch] = useState(false)
   const result = [];
   const result2 = [];
 
@@ -43,18 +42,10 @@ export default function CommunityList() {
       word
     },
   });
-  
-  useEffect(() => {
-    if(search) {
-      setIsSearch(true)
-    }
-  },[word])
 
 
-const onClickBtn = () => {
+  console.log(search)
 
-}
-  // console.log(search)
 
 
   const onLoadMore = () => {
@@ -112,9 +103,7 @@ const onClickBtn = () => {
   const onChangeLo = (e) => {
     setLo(e);
   };
-  const onChangeWord = (e) => {
-    setWord(e.target.value)
-  }
+ 
   data?.fetchAllBoards.forEach((el) => {
     if (
       el.recruitRegion?.includes(Lo) === true &&
@@ -132,14 +121,6 @@ const onClickBtn = () => {
     }
   });
 
-  const getDebounce = _.debounce((value) => {
-    void refetch({ search: value, page: 1 });
-    setKeyword(value);
-  }, 500);
-
-  const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    getDebounce(event.currentTarget.value);
-  };
   return (
     <CommunityListUi
       result={result}
@@ -147,15 +128,15 @@ const onClickBtn = () => {
       boardId={boardId}
       Pick={Pick}
       data={data}
-      isSearch={isSearch}
-      onChangeWord={onChangeWord}
+      word={word}
+      search={search}
+      setWord={setWord}
       onLoadMore2={onLoadMore2}
       onChangeLevel={onChangeLevel}
       onChangeLo={onChangeLo}
       onLoadMore={onLoadMore}
       onClickDetail={onClickDetail}
       keyword={keyword}
-      onChangeSearch={onChangeSearch}
     />
   );
 }
