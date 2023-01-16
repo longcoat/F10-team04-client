@@ -8,7 +8,7 @@ const RESTORE_ACCESS_TOKEN = gql`
 export async function getAccessToken() {
   try {
     const graphQLClient = new GraphQLClient(
-      "https://meonjifather.shop/graphql",
+      "https://backsol2.shop/graphql",
       {
         credentials: "include",
       }

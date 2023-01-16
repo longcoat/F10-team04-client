@@ -13,7 +13,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useRecoilState } from "recoil";
 import { reviewWriteModalState } from "../../../../commons/stores";
-import { CusEditModal, CusModal } from "../ReviewEdit/ReviewEdit.styles";
+import { CusEditModal } from "../ReviewEdit/ReviewEdit.styles";
 import ReviewEdit from "../ReviewEdit/ReviewEdit.container";
 
 export default function ReviewWriteUI(props) {

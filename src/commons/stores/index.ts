@@ -91,4 +91,16 @@ export const attendListModalState = atom({
   key: "attendListModalState",
   default: false,
 });
+export const ToggleState = atom({
+  key: "ToggleState",
+  default: false,
+});
+export const PickState = atom({
+  key: "PickState",
+  default: false,
+});
+export const AttendState = atom({
+  key: "AttendState",
+  default: false,
+});
 
