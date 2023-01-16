@@ -1,6 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { IQuery, IQueryFetchUserArgs } from "../../../commons/types/generated/types";
+import { IQuery, IQueryFetchFollowingArgs, IQueryFetchUserArgs } from "../../../commons/types/generated/types";
+import { FETCH_USER_LOGGED_IN } from "../MyPageA/MyPageA";
+import { FETCH_FOLLOWING } from "../PhotoReview/ReviewList/Review.query";
 import { FETCH_USERS } from "./MebersPage.query";
 import MembersUi from "./MembersPage.presenter";
 
@@ -15,6 +17,7 @@ export default function Members() {
   const [level_R, setLevel_R] = useState("")
   const [fav_R, setFav_R] = useState("")
   const result = []
+  const following =[]
 
 
   const { data } = useQuery<
@@ -22,7 +25,16 @@ export default function Members() {
     IQueryFetchUserArgs
   >(FETCH_USERS);
 
-  console.log(data)
+  const { data: LoggedIn} =
+  useQuery(FETCH_USER_LOGGED_IN);
+
+  const { data:followingList ,fetchMore: followingMore } = useQuery<
+  Pick<IQuery, "fetchFollowing">,
+  IQueryFetchFollowingArgs
+>(FETCH_FOLLOWING, {
+    variables: { userId: String(LoggedIn?.fetchUserLoggedIn.id) },
+  });
+
 
   const onChangeLevel = (e) => {
     setLevel(e)
@@ -64,8 +76,20 @@ export default function Members() {
         setIsNo(false)
       }
   },[result])
+  useEffect(() =>{
+    result.forEach((el) =>{
+      followingList?.fetchFollowing.forEach((el_F) =>{
+        if(el.id === el_F.user2.id){
+          following.push(el.id)
+        }
+      })
+    })
+  },[result])
+
+  
  
   return <MembersUi 
+  following={following}
   isNo={isNo} 
   data={data}
   result={result}

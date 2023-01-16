@@ -21,6 +21,7 @@ export default function LivechatUI(props: IPropsLiveChatUI) {
               </S.Left>
             )}
           </div>
+     
         ))}
         {props.resultMsg.map((el) => (
           <div key={uuidv4()}>

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 import { HeartFilled, HeartOutlined, UserAddOutlined } from "@ant-design/icons";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { FETCH_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail.queries";
@@ -14,7 +14,12 @@ import {
   IMutationFollowUserArgs,
   IQuery,
   IQueryFetchFollowCountArgs,
+  IQueryFetchFollowingArgs,
 } from "../../../../commons/types/generated/types";
+import { useRecoilState } from "recoil";
+import { LoggedInUserId } from "../../../../commons/stores";
+import { FETCH_FOLLOWING } from "../../../units/PhotoReview/ReviewList/Review.query";
+import { FETCH_USER_LOGGED_IN } from "../../layout/header/header";
 
 export const FOLLOW_USER = gql`
   mutation followUser($userId: String!) {
@@ -51,6 +56,7 @@ export default function UserCard(props) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);
+  const [loggedInId, setLoggedInId] = useRecoilState(LoggedInUserId)
   const { data } = useQuery<
     Pick<IQuery, "fetchFollowCount">,
     IQueryFetchFollowCountArgs
@@ -58,17 +64,38 @@ export default function UserCard(props) {
     variables: { userId: props.el.id },
   });
 
-  console.log(data);
+
+//   const { data: LoggedIn} =
+//   useQuery(FETCH_USER_LOGGED_IN);
+
+//   const { data:followingList ,fetchMore: followingMore } = useQuery<
+//   Pick<IQuery, "fetchFollowing">,
+//   IQueryFetchFollowingArgs
+// >(FETCH_FOLLOWING, {
+//     variables: { userId: String(LoggedIn?.fetchUserLoggedIn.id) },
+//   });
+
+  // useEffect(() =>{
+  //   props.result.forEach((el, index) =>{
+  //     followingList?.fetchFollowing.forEach((el_F) =>{
+  //       if(el.id === el_F.user2.id){
+  //         setIsActive(true)
+  //       }
+  //     })
+  //   })
+ 
+  // },[props.result])
+  
   const { data: userData } = useQuery(FETCH_USER, {
     variables: { userId: props.el.id },
   });
-  console.log(userData);
   const [followUser] = useMutation(FOLLOW_USER);
 
-  const onClickHeart = () => {
-    setIsActive((prev) => !prev);
-  };
   const onClickAdd = (userId) => async () => {
+    if(loggedInId === userId) {
+     alert("자기 자신은 팔로우 할 수 없습니다 !") 
+     return
+    }
     setAddActive((prev) => !prev);
     await followUser({
       variables: { userId: userId },
@@ -108,6 +135,8 @@ export default function UserCard(props) {
               fontSize: "16px",
               height: "35px",
               borderRadius: "16px",
+              border:"2px solid black",
+              backgroundColor:"black",
               color: "White",
             }}
           >
@@ -120,8 +149,11 @@ export default function UserCard(props) {
               width: "160px",
               fontSize: "16px",
               height: "35px",
+              border:"2px solid black",
+              boxShadow: "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
               borderRadius: "16px",
-              color: "White",
+              backgroundColor:"#f6f6f6",
+              color: "black",
             }}
           >
             팔로우 취소
@@ -205,8 +237,6 @@ const ButtonWrap = styled.div`
 `;
 
 const FollowButton = styled.button`
-  background-color: black;
-
   display: flex;
   justify-content: center;
   align-items: center;

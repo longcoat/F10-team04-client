@@ -95,29 +95,37 @@ export default function FollowerList(props) {
         <Level>{data?.fetchFollowCount?.followCount}팔로잉</Level>
       </HeartWrap>
       <ButtonWrap>
-        {!addActive ? (
-          <UserAddOutlined
+      {!addActive ? (
+          <FollowButton
             onClick={onClickAdd(props.el.id)}
             style={{
-              width: "20%",
-              fontSize: "22px",
-              paddingTop: "6px",
+              width: "160px",
+              fontSize: "16px",
               height: "35px",
               borderRadius: "16px",
+              border:"2px solid black",
+              backgroundColor:"black",
+              color: "White",
             }}
-          />
+          >
+            팔로우
+          </FollowButton>
         ) : (
-          <UserAddOutlined
+          <FollowButton
             onClick={onClickAdd(props.el.id)}
             style={{
-              width: "20%",
-              fontSize: "22px",
-              paddingTop: "6px",
+              width: "160px",
+              fontSize: "16px",
               height: "35px",
+              border:"2px solid black",
+              boxShadow: "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
               borderRadius: "16px",
-              color: "#3C59A6",
+              backgroundColor:"#f6f6f6",
+              color: "black",
             }}
-          />
+          >
+            팔로우 취소
+          </FollowButton>
         )}
         <ChattingBtn userData={userData} />
       </ButtonWrap>
@@ -181,17 +189,14 @@ const Level = styled.div`
   letter-spacing: -0.47999998927116394px;
   text-align: left;
 `;
-const Button = styled.button`
-  width: 75%;
-  height: 35px;
-  color: #fafafa;
-  background-color: #0b0b0b;
-  border-radius: 16px;
-  cursor: pointer;
+const FollowButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const ButtonWrap = styled.div`
   width: 75%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 `;
