@@ -23,7 +23,7 @@ declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function CommunityDetailUIPage(props: any) {
+export default function CommunityDetailUIPage(props) {
   const [id, setId] = useRecoilState(LoggedInUserId);
   const [path, setPath] = useState([]);
   const [center, setCenter] = useState([]);
@@ -236,7 +236,7 @@ export default function CommunityDetailUIPage(props: any) {
         </S.Header>
         <S.Head>
           <S.AvatarWrap>
-            <S.Avatar src={props.data?.fetchBoard.user.image?.imgUrl ||"./images/avatar.png"} />
+            <S.Avatar src={props.data?.fetchBoard.user.image?.imgUrl || "./images/avatar.png"} />
           </S.AvatarWrap>
           <S.UerInfo>
             <S.Left>

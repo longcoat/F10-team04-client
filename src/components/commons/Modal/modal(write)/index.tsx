@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import KakaoMapUI from "../../map/mapsearch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   mapCenterState,
   mapPathState,
@@ -13,13 +13,15 @@ import {
 } from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
 import { CREATE_BOARD } from "../../../units/CommunityPage/write/CommunityWrite.queries";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import Uploads01 from "../../uploads/01/Uploads01.container";
 import dynamic from "next/dynamic";
 import { FETCH_ALL_BOARDS } from "../../../units/CommunityPage/list/CommunityList.queries";
 import { useRouter } from "next/router";
 import KaKaoMapPage from "../../map/mapsearch";
 import { IMutation, IMutationCreateBoardArgs } from "../../../../commons/types/generated/types";
+import { withAuth } from "../../hocs/withAuth";
+import { FETCH_USER_LOGGED_IN } from "../../layout/header/header";
 
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
@@ -122,7 +124,6 @@ const disabledRangeTime: RangePickerProps["disabledTime"] = (_, type) => {
     disabledSeconds: () => [55, 56],
   };
 };
-
 export default function InModalWrite(props) {
   const router = useRouter();
   const [center, setCenter] = useRecoilState(mapCenterState);
@@ -141,6 +142,17 @@ export default function InModalWrite(props) {
     Pick<IMutation, "createBoard">,
     IMutationCreateBoardArgs
   >(CREATE_BOARD);
+
+  // 로그인 체크
+
+  useEffect(() => {
+    
+    if (localStorage.getItem("accessToken") === null) {
+      alert("로그인 후 이용 가능합니다!!!");
+      void router.push("/login");
+      setModalOpen(false)
+    }else return
+  });
 
   const onClickSubmit = async () => {
     try {
@@ -298,3 +310,5 @@ export default function InModalWrite(props) {
     </S.Wrapper>
   );
 }
+
+// export default withAuth(InModalWrite);

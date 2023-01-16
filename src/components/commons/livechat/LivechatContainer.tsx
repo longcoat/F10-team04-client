@@ -52,9 +52,7 @@ export default function Livechat(props: IPropsLiveChat) {
   }, [props.userData]);
 
   useEffect(() => {
-
     setRoom(String(props.data?.fetchBoard?.id));
-
   }, [props.data]);
 
   const onClickSubmit = async (data: IFormValueChat) => {
