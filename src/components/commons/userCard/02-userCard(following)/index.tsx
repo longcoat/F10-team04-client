@@ -7,8 +7,12 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { Modal } from "antd";
 
-import ChattingBtn from "../../chattingBtn/indx";
-import { IMutation, IMutationFollowUserArgs, IQuery, IQueryFetchFollowCountArgs } from "../../../../commons/types/generated/types";
+import {
+  IMutation,
+  IMutationFollowUserArgs,
+  IQuery,
+  IQueryFetchFollowCountArgs,
+} from "../../../../commons/types/generated/types";
 import { FETCH_FOLLOWING } from "../../../units/PhotoReview/ReviewList/Review.query";
 import { FETCH_USER_LOGGED_IN } from "../../layout/header/header";
 
@@ -35,11 +39,11 @@ export default function FollowingList(props) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);
-  const { data: fetchUser} = useQuery(FETCH_USER_LOGGED_IN);
+  const { data: fetchUser } = useQuery(FETCH_USER_LOGGED_IN);
   const { data } = useQuery<
-  Pick<IQuery, "fetchFollowCount">,
-  IQueryFetchFollowCountArgs
->(FETCH_FOLLOW_COUNT, {
+    Pick<IQuery, "fetchFollowCount">,
+    IQueryFetchFollowCountArgs
+  >(FETCH_FOLLOW_COUNT, {
     variables: { userId: props.el.id },
   });
 
@@ -49,14 +53,14 @@ export default function FollowingList(props) {
     setAddActive((prev) => !prev);
     const result = await followUser({
       variables: { userId: userId },
-        refetchQueries: [
-          {
-            query: FETCH_FOLLOWING,
-            variables: { userId: String(fetchUser.fetchUserLoggedIn.id) },
-          },
-        ],
+      refetchQueries: [
+        {
+          query: FETCH_FOLLOWING,
+          variables: { userId: String(fetchUser.fetchUserLoggedIn.id) },
+        },
+      ],
     });
-    console.log(result)
+    console.log(result);
     if (addActive === false) {
       Modal.success({ content: "팔로우 완료!" });
     } else if (addActive === true) {
@@ -65,8 +69,8 @@ export default function FollowingList(props) {
   };
   return (
     <Wrapper>
-        <ImgBox>
-      <Img src={props.el.image?.imgUrl || "/profile.png"} />
+      <ImgBox>
+        <Img src={props.el.image?.imgUrl || "/profile.png"} />
       </ImgBox>
       <Name>{props.el.nickname}</Name>
       <UserInfo>
@@ -80,20 +84,20 @@ export default function FollowingList(props) {
         <Level>{data?.fetchFollowCount?.followCount}팔로잉</Level>
       </HeartWrap>
       <ButtonWrap>
-          <FollowButton
-            onClick={onClickAdd(props.el.id)}
-            style={{
-              width: "160px",
-              fontSize: "16px",
-              height: "35px",
-              borderRadius: "16px",
-              border:"2px solid black",
-              backgroundColor:"black",
-              color: "White",
-            }}
-          >
-            팔로우 취소
-          </FollowButton>
+        <FollowButton
+          onClick={onClickAdd(props.el.id)}
+          style={{
+            width: "160px",
+            fontSize: "16px",
+            height: "35px",
+            borderRadius: "16px",
+            border: "2px solid black",
+            backgroundColor: "black",
+            color: "White",
+          }}
+        >
+          팔로우 취소
+        </FollowButton>
       </ButtonWrap>
     </Wrapper>
   );

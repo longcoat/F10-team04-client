@@ -74,39 +74,41 @@ export default function LayoutHeader() {
   };
 
   return (
-    <S.Wrapper>
-      <S.LeftSide>
-        <S.Logo onClick={() => router.push("/")} className="logo">
-          Rungether
-        </S.Logo>
-      </S.LeftSide>
-      <S.RightSide>
-        <S.Menu onClick={() => router.push("/photoReview")} className="menu">
-          PhotoReview
-        </S.Menu>
-        <S.Menu onClick={() => router.push("/members")} className="menu">
-          Members
-        </S.Menu>
-        <S.Menu onClick={() => router.push("/community")} className="menu">
-          Community
-        </S.Menu>
-        <S.Menu onClick={onClcikMoveToUser} className="menu">
-          {data ? "Mypage" : "Sign up"}
-        </S.Menu>
-        <S.Menu
-          onClick={data ? onClickLogOut : onClickMoveToLogin}
-          className="menu"
-        >
-          {data ? "Logout" : "Login"}
-        </S.Menu>
+    <>
+      <S.Wrapper>
+        <S.LeftSide>
+          <S.Logo onClick={() => router.push("/")} className="logo">
+            Rungether
+          </S.Logo>
+        </S.LeftSide>
+        <S.RightSide>
+          <S.Menu onClick={() => router.push("/photoReview")} className="menu">
+            PhotoReview
+          </S.Menu>
+          <S.Menu onClick={() => router.push("/members")} className="menu">
+            Members
+          </S.Menu>
+          <S.Menu onClick={() => router.push("/community")} className="menu">
+            Community
+          </S.Menu>
+          <S.Menu onClick={onClcikMoveToUser} className="menu">
+            {data ? "Mypage" : "Sign up"}
+          </S.Menu>
+          <S.Menu
+            onClick={data ? onClickLogOut : onClickMoveToLogin}
+            className="menu"
+          >
+            {data ? "Logout" : "Login"}
+          </S.Menu>
 
-        <S.Menu2>
-          <MenuOutlined className="sidemenu" onClick={toggleSide} />
-        </S.Menu2>
-        <S.SidebarWrap>
-          <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
-        </S.SidebarWrap>
-      </S.RightSide>
-    </S.Wrapper>
+          <S.Menu2>
+            <MenuOutlined className="sidemenu" onClick={toggleSide} />
+          </S.Menu2>
+        </S.RightSide>
+      </S.Wrapper>
+      <S.SidebarWrap>
+        <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+      </S.SidebarWrap>
+    </>
   );
 }

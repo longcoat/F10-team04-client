@@ -248,7 +248,8 @@ export const TabMenu = styled.div`
   }
 `;
 export const Item = styled.div`
-  border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
+  border-bottom: ${(props: { isActive: boolean }) =>
+    props.isActive ? "2px solid #C71515" : "none"};
   padding: 0px 15px 10px 15px;
   font-size: 20px;
   font-weight: 400;

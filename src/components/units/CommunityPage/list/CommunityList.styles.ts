@@ -44,7 +44,8 @@ export const Menu = styled.div`
   color: #0b0b0b;
   padding: 0 16px 10px 16px;
   cursor: pointer;
-  border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
+  border-bottom: ${(props: { isActive: boolean }) =>
+    props.isActive ? "2px solid #C71515" : "none"};
   color: ${(props) => (props.isActive ? "#C71515" : "none")};
 `;
 export const Menu2 = styled.div`
@@ -59,7 +60,8 @@ export const Menu2 = styled.div`
   cursor: pointer;
   color: #0b0b0b;
 
-  border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
+  border-bottom: ${(props: { isActive: boolean }) =>
+    props.isActive ? "2px solid #C71515" : "none"};
   color: ${(props) => (props.isActive ? "#C71515" : "none")};
 `;
 export const Button = styled.button`
@@ -406,7 +408,8 @@ export const Menu1 = styled.div`
   }
 `;
 export const Item1 = styled.div`
-  border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
+  border-bottom: ${(props: { isActive: boolean }) =>
+    props.isActive ? "2px solid #C71515" : "none"};
   /* padding: 0px 15px 10px 15px; */
   font-size: 17px;
   font-weight: 400;

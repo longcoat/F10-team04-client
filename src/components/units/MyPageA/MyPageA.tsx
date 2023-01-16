@@ -25,7 +25,7 @@ export const FETCH_USER_LOGGED_IN = gql`
       region
       prefer
       grade
-      image{
+      image {
         id
         imgUrl
       }
@@ -44,7 +44,7 @@ const FETCH_MY_FOLLOW_COUNT = gql`
     }
   }
 `;
- function MyPageA(props) {
+function MyPageA(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
   const [color1, setColor1] = useState(true);
@@ -56,10 +56,9 @@ const FETCH_MY_FOLLOW_COUNT = gql`
 
   const { data: fetchMyFollowCount } = useQuery(FETCH_MY_FOLLOW_COUNT);
 
-  useEffect(() =>{
-    console.log(data)
-  },[data])
-
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   const onClickEdit = () => {
     setModalOpen((prev) => !prev);
@@ -116,7 +115,6 @@ const FETCH_MY_FOLLOW_COUNT = gql`
     }
   };
 
-
   return (
     <S.Containerbox>
       {ModalOpen && (
@@ -128,7 +126,9 @@ const FETCH_MY_FOLLOW_COUNT = gql`
         <S.Wrapper>
           <S.ProfileBox>
             <S.ProfileImageAvatarBox>
-              <S.ImageAvatar src={data?.fetchUserLoggedIn?.image?.imgUrl || "/profile.png"} />
+              <S.ImageAvatar
+                src={data?.fetchUserLoggedIn?.image?.imgUrl || "/profile.png"}
+              />
             </S.ProfileImageAvatarBox>
             <S.InfoBox>
               <S.NickInfoBox>

@@ -8,7 +8,6 @@ import { useRouter } from "next/router";
 import { FETCH_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail.queries";
 import { Modal } from "antd";
 
-import ChattingBtn from "../../chattingBtn/indx";
 import {
   IMutation,
   IMutationFollowUserArgs,
@@ -56,7 +55,7 @@ export default function UserCard(props) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);
-  const [loggedInId, setLoggedInId] = useRecoilState(LoggedInUserId)
+  const [loggedInId, setLoggedInId] = useRecoilState(LoggedInUserId);
   const { data } = useQuery<
     Pick<IQuery, "fetchFollowCount">,
     IQueryFetchFollowCountArgs
@@ -64,16 +63,15 @@ export default function UserCard(props) {
     variables: { userId: props.el.id },
   });
 
+  //   const { data: LoggedIn} =
+  //   useQuery(FETCH_USER_LOGGED_IN);
 
-//   const { data: LoggedIn} =
-//   useQuery(FETCH_USER_LOGGED_IN);
-
-//   const { data:followingList ,fetchMore: followingMore } = useQuery<
-//   Pick<IQuery, "fetchFollowing">,
-//   IQueryFetchFollowingArgs
-// >(FETCH_FOLLOWING, {
-//     variables: { userId: String(LoggedIn?.fetchUserLoggedIn.id) },
-//   });
+  //   const { data:followingList ,fetchMore: followingMore } = useQuery<
+  //   Pick<IQuery, "fetchFollowing">,
+  //   IQueryFetchFollowingArgs
+  // >(FETCH_FOLLOWING, {
+  //     variables: { userId: String(LoggedIn?.fetchUserLoggedIn.id) },
+  //   });
 
   // useEffect(() =>{
   //   props.result.forEach((el, index) =>{
@@ -83,18 +81,18 @@ export default function UserCard(props) {
   //       }
   //     })
   //   })
- 
+
   // },[props.result])
-  
+
   const { data: userData } = useQuery(FETCH_USER, {
     variables: { userId: props.el.id },
   });
   const [followUser] = useMutation(FOLLOW_USER);
 
   const onClickAdd = (userId) => async () => {
-    if(loggedInId === userId) {
-     alert("자기 자신은 팔로우 할 수 없습니다 !") 
-     return
+    if (loggedInId === userId) {
+      alert("자기 자신은 팔로우 할 수 없습니다 !");
+      return;
     }
     setAddActive((prev) => !prev);
     const result = await followUser({
@@ -110,7 +108,7 @@ export default function UserCard(props) {
         },
       ],
     });
-    console.log(result)
+    console.log(result);
     if (addActive === false) {
       Modal.success({ content: "팔로우 완료!" });
     } else if (addActive === true) {
@@ -121,7 +119,7 @@ export default function UserCard(props) {
   return (
     <Wrapper>
       <ImgBox>
-      <Img src={props.el.image?.imgUrl || "/profile.png"} />
+        <Img src={props.el.image?.imgUrl || "/profile.png"} />
       </ImgBox>
       <Name>{props.el.nickname}</Name>
       <UserInfo>
@@ -143,8 +141,8 @@ export default function UserCard(props) {
               fontSize: "16px",
               height: "35px",
               borderRadius: "16px",
-              border:"2px solid black",
-              backgroundColor:"black",
+              border: "2px solid black",
+              backgroundColor: "black",
               color: "White",
             }}
           >
@@ -157,17 +155,17 @@ export default function UserCard(props) {
               width: "160px",
               fontSize: "16px",
               height: "35px",
-              border:"2px solid black",
-              boxShadow: "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+              border: "2px solid black",
+              boxShadow:
+                "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
               borderRadius: "16px",
-              backgroundColor:"#f6f6f6",
+              backgroundColor: "#f6f6f6",
               color: "black",
             }}
           >
             팔로우 취소
           </FollowButton>
         )}
-        <ChattingBtn userData={userData} />
       </ButtonWrap>
     </Wrapper>
   );

@@ -16,7 +16,7 @@ import { reviewWriteModalState } from "../../../../commons/stores";
 import { CusEditModal } from "../ReviewEdit/ReviewEdit.styles";
 import ReviewEdit from "../ReviewEdit/ReviewEdit.container";
 
-export default function ReviewWriteUI(props) {
+export default function ReviewWriteUI(props: any) {
   return (
     <>
       {props.editModal && (
@@ -45,43 +45,47 @@ export default function ReviewWriteUI(props) {
               <S.User>
                 <SmileOutlined style={{ paddingRight: "10px" }} />
                 <S.Name>{props.data?.fetchReviewBoard.user.nickname}</S.Name>
-
-                </S.User>
-                <S.Edit_Del>
-      {props.data?.fetchReviewBoard.user.id === props.id ? 
-            <div>
-            <EditOutlined
-              onClick={props.onClickEdit}
-              style={{ marginRight: "20px", cursor: "pointer" }}
-            />
-            <DeleteOutlined
-              onClick={props.onClickDelete(props.data?.fetchReviewBoard.id)}
-              style={{ cursor: "pointer" }}
-            />
-            </div>
-        : ""}
-          </S.Edit_Del>
-                </S.UserWrap>
-                <S.Contents>
-                    <S.Content>{props.data?.fetchReviewBoard.content}</S.Content>
-                    <S.CreatedAt>{getDate(props.data?.fetchReviewBoard.createdAt)}</S.CreatedAt>
-                </S.Contents>
-                <S.Comment>
-                <ReviewCommentList id={props.data?.fetchReviewBoard.id}/>
-                </S.Comment>
-                </S.RightInnerWrap>
-                <S.IconWrap>
-                    <S.HeartLine>
-                    <HeartOutlined onClick={props.onClickHeart}/>
-                    <S.CountLine>{props.data?.fetchReviewBoard.likeCount}</S.CountLine>
-                    </S.HeartLine>
-                </S.IconWrap>
-                <ReviewCommentWrite id={props.data?.fetchReviewBoard.id}/>
-            </S.RightSide>
-        </S.Wrapper>
-  
-        </>
-        
-    )
+              </S.User>
+              <S.Edit_Del>
+                {props.data?.fetchReviewBoard.user.id === props.id ? (
+                  <div>
+                    <EditOutlined
+                      onClick={props.onClickEdit}
+                      style={{ marginRight: "20px", cursor: "pointer" }}
+                    />
+                    <DeleteOutlined
+                      onClick={props.onClickDelete(
+                        props.data?.fetchReviewBoard.id
+                      )}
+                      style={{ cursor: "pointer" }}
+                    />
+                  </div>
+                ) : (
+                  ""
+                )}
+              </S.Edit_Del>
+            </S.UserWrap>
+            <S.Contents>
+              <S.Content>{props.data?.fetchReviewBoard.content}</S.Content>
+              <S.CreatedAt>
+                {getDate(props.data?.fetchReviewBoard.createdAt)}
+              </S.CreatedAt>
+            </S.Contents>
+            <S.Comment>
+              <ReviewCommentList id={props.data?.fetchReviewBoard.id} />
+            </S.Comment>
+          </S.RightInnerWrap>
+          <S.IconWrap>
+            <S.HeartLine>
+              <HeartOutlined onClick={props.onClickHeart} />
+              <S.CountLine>
+                {props.data?.fetchReviewBoard.likeCount}
+              </S.CountLine>
+            </S.HeartLine>
+          </S.IconWrap>
+          <ReviewCommentWrite id={props.data?.fetchReviewBoard.id} />
+        </S.RightSide>
+      </S.Wrapper>
+    </>
+  );
 }
-
