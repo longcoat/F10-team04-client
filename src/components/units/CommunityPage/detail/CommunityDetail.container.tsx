@@ -39,6 +39,7 @@ import {
 export default function CommunityDetailPage(props: any) {
   const [pickBoard] = useMutation(PICK_BOARD);
 
+
   const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
     FETCH_BOARD,
     {
@@ -79,8 +80,6 @@ export default function CommunityDetailPage(props: any) {
         setPick(false);
       }
     }
-  }, [data]);
-  useEffect(() => {
     for (let i = 0; i < AttendList?.fetchAttendList.length; i++) {
       if (AttendList.fetchAttendList[i].board.id === props.boardId) {
         setAttend(true);
@@ -90,6 +89,7 @@ export default function CommunityDetailPage(props: any) {
       }
     }
   }, [data]);
+
 
   const onClickAttend = (boardId) => async () => {
     try {

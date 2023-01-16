@@ -23,11 +23,23 @@ export const FETCH_MY_PICK_BOARDS = gql`
         content
         attendCount
         appointment
+        user{
+          id
+          nickname
+          image{
+            id
+            imgUrl
+          }
+        }
       }
       user {
         id
         email
         nickname
+        image{
+          id
+          imgUrl
+        }
       }
     }
   }
@@ -93,7 +105,7 @@ export default function MyPickList() {
         <BoardListWrapper key={el.id} onClick={onClickDetail(el.board.id)}>
           <BoardList>
             <ImageListProfileBox>
-              <ImageListProfile src="/profile.png" />
+              <ImageListProfile src={el.board.user?.image?.imgUrl || "/profile.png"} />
             </ImageListProfileBox>
             <InfoTextWrapper>
               <InfoTextBox>
@@ -156,6 +168,8 @@ export const ImageListProfileBox = styled.div`
 
 export const ImageListProfile = styled.img`
   width: 64px;
+  height: 64px;
+  border-radius: 100px;
 `;
 
 export const InfoTextWrapper = styled.div`

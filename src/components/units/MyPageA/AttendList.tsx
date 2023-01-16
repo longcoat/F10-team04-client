@@ -28,6 +28,10 @@ export const FETCH_ATTEND_LIST = gql`
         nickname
         age
         gender
+        image{
+          id
+          imgUrl
+        }
       }
       board {
         id

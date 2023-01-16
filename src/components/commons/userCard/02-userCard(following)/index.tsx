@@ -7,12 +7,8 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { Modal } from "antd";
 
-import {
-  IMutation,
-  IMutationFollowUserArgs,
-  IQuery,
-  IQueryFetchFollowCountArgs,
-} from "../../../../commons/types/generated/types";
+import { IMutation, IMutationFollowUserArgs, IQuery, IQueryFetchFollowCountArgs } from "../../../../commons/types/generated/types";
+
 import { FETCH_FOLLOWING } from "../../../units/PhotoReview/ReviewList/Review.query";
 import { FETCH_USER_LOGGED_IN } from "../../layout/header/header";
 

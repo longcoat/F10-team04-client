@@ -7,12 +7,9 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { FETCH_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail.queries";
 import { Modal } from "antd";
-import {
-  IMutation,
-  IMutationFollowUserArgs,
-  IQuery,
-  IQueryFetchFollowCountArgs,
-} from "../../../../commons/types/generated/types";
+
+import { IMutation, IMutationFollowUserArgs, IQuery, IQueryFetchFollowCountArgs } from "../../../../commons/types/generated/types";
+
 import { LoggedInUserId } from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
 
