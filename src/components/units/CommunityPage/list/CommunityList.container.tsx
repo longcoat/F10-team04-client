@@ -1,22 +1,23 @@
 import { useQuery } from "@apollo/client";
-import { useRouter } from "next/router";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { modalDetailState } from "../../../../commons/stores";
-import { FETCH_BOARD } from "../detail/CommunityDetail.queries";
+import { AttendState, modalDetailState, PickState, ToggleState } from "../../../../commons/stores";
 import CommunityListUi from "./CommunityList.presenter";
-
 import {
   FETCH_ALL_BOARDS,
   FETCH_ALL_BOARDS_WITH_PICK_BOARD,
   SEARCH_BOARDS,
 } from "./CommunityList.queries";
 import _ from "lodash";
-import { IQuery, IQueryFetchAllBoardsArgs, IQueryFetchAllBoardsWithPickCountArgs, IQuerySerchBoardsArgs } from "../../../../commons/types/generated/types";
+import { IQuery, IQueryFetchAllBoardsArgs } from "../../../../commons/types/generated/types";
+
 
 export default function CommunityList() {
   const [keyword, setKeyword] = useState("");
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
+  const [pick, setPick] = useRecoilState(PickState)
+  const [attend, setAttend] = useRecoilState(AttendState);
+  const [Toggle, setToggle] = useRecoilState(ToggleState);
   const [boardId, setBoardId] = useState("");
   const [level, setLevel] = useState("");
   const [Lo, setLo] = useState("");
@@ -42,9 +43,6 @@ export default function CommunityList() {
       word
     },
   });
-
-
-  console.log(search)
 
 
 

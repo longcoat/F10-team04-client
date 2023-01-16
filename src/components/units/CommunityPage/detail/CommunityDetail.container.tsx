@@ -6,7 +6,7 @@ import { useRecoilState } from "recoil";
 
 
 
-import { attendListModalState, confirmModalState, EditBoardId, modalDetailState, modalEditState} from "../../../../commons/stores";
+import { attendListModalState, AttendState, confirmModalState, EditBoardId, modalDetailState, modalEditState, PickState, ToggleState} from "../../../../commons/stores";
 import { IMutation, IMutationAttendListArgs, IMutationDeleteBoardArgs, IQuery, IQueryFetchBoardArgs, IQueryFetchMyPickBoardsArgs } from "../../../../commons/types/generated/types";
 
 import { FETCH_ATTEND_LIST } from "../../MyPageA/AttendList";
@@ -23,22 +23,7 @@ import {
 } from "./CommunityDetail.queries";
 
 export default function CommunityDetailPage(props) {
-  const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
-  const [EditModalOpen, setEditModalOpen] = useRecoilState(modalEditState);
-  const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
-  const [attendList, setAttendList] = useRecoilState(attendListModalState)
-  const [confirmModal, setConfirmModal] = useRecoilState(confirmModalState)
-  const [pick, setPick] = useState(false)
-  const [attend, setAttend] = useState(false);
-  const router = useRouter();
 
-
-  const [attendBoard] = useMutation(ATTEND_LIST);
-
-  const { data:PickList } = useQuery<
-  Pick<IQuery, "fetchMyPickBoards">,
-  IQueryFetchMyPickBoardsArgs
->(FETCH_MY_PICK_BOARDS);
 
 const [pickBoard] = useMutation(PICK_BOARD);
   
@@ -50,38 +35,55 @@ const { data } = useQuery<
       boardId: String(props.boardId),
     },
   });
+
+
+  const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
+  const [EditModalOpen, setEditModalOpen] = useRecoilState(modalEditState);
+  const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
+  const [attendList, setAttendList] = useRecoilState(attendListModalState)
+  const [confirmModal, setConfirmModal] = useRecoilState(confirmModalState)
+  const [Toggle, setToggle] = useRecoilState(ToggleState);
+  const [pick, setPick] = useRecoilState(PickState)
+  const [attend, setAttend] = useRecoilState(AttendState);
+  const router = useRouter();
+
+  const { data: AttendList } = useQuery(FETCH_ATTEND_LIST);
+  const { data:PickList } = useQuery<
+  Pick<IQuery, "fetchMyPickBoards">,
+  IQueryFetchMyPickBoardsArgs
+>(FETCH_MY_PICK_BOARDS);
+
+
+console.log(AttendList)
+
+  const [attendBoard] = useMutation(ATTEND_LIST);
+
+
    const { data: userData } =
     useQuery(FETCH_USER_LOGGED_IN);
 
-  const { data: AttendList } = useQuery(FETCH_ATTEND_LIST);
-
   useEffect(() => {
-    AttendList?.fetchAttendList.some((el) => {
-      if (el.board.id === data?.fetchBoard.id) {
-        console.log(el.board.id )
-        setAttend(true);
-        return true
+    for(let i = 0; i < PickList?.fetchMyPickBoards.length;i++) {
+      if(PickList.fetchMyPickBoards[i].board.id === props.boardId) {
+        setPick(true)
+        return
+      }else{
+        setPick(false)
+      }
+     }
+   
+  },[data])
+  useEffect(() => {
+    for(let i = 0; i < AttendList?.fetchAttendList.length;i++) {
+      if(AttendList.fetchAttendList[i].board.id === props.boardId) {
+        setAttend(true)
+        return
       }else{
         setAttend(false)
-        return false
       }
-    })
+     }
   },[data])
-  useEffect(() => {
-    PickList?.fetchMyPickBoards.some((el) => {
-      if (el.board.id === data?.fetchBoard.id) {
-        setPick(true);
-        console.log(PickList)
-        console.log(pick)
-        return true
-      } else {
-        setPick(false);
-        console.log(PickList)
-        console.log(pick)
-        return false
-      }
-    });
-  },[data])
+  
 
   const onClickAttend = (boardId) => async () => {
     try {
@@ -137,7 +139,7 @@ const { data } = useQuery<
           },
         ],
       });
-      setPick(true);
+      setPick(prev => !prev);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
     }

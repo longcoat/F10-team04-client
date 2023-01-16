@@ -98,9 +98,9 @@ const onChangeWord = (e) => {
     <>
 
       <S.ModalCustom centered open={ModalOpen} width={900} onCancel={handleCancel}>
-
         <CommunityDetailPage boardId={props.boardId} />
       </S.ModalCustom>
+
       <S.Wrapper>
         <S.SearchWrap>
           <S.SelectSide>

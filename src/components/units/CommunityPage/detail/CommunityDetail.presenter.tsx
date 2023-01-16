@@ -323,7 +323,7 @@ export default function CommunityDetailUIPage(props: any) {
                 isActive={props.attend}
               onClick={
                 props.data?.fetchBoard.recruitPeople ===
-                props.data?.fetchBoard.attendCount
+                props.data?.fetchBoard.attendCount 
                   ? props.onClickNoAtt
                   : props.onClickAttend(props.data?.fetchBoard.id)
               }
