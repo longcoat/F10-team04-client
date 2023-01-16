@@ -78,18 +78,18 @@ export const Title_2 = styled.h1`
   line-height: 91px;
   letter-spacing: -0.011em;
   text-align: left;
-  padding-top: 86px;
+  padding-top: 92px;
   padding-left: 76px;
   padding-bottom: 0px;
 
   ${M.mediaL} {
     font-size: 80px;
-    padding-top: 61px;
+    padding-top: 66px;
     padding-bottom: 0px;
   }
   ${M.mediaM} {
     font-size: 60px;
-    padding-top: 54px;
+    padding-top: 59px;
     padding-left: 78px;
   }
 `;
@@ -160,11 +160,12 @@ export const ImgBox = styled.div`
   }
 `;
 
-export const ImgBox1 = styled.div`
+export const ImgBox1 = styled.img`
   width: 55%;
   height: 500px;
   background-position: center;
   background-size: cover;
+  object-fit: cover;
 
   ${M.mediaL} {
     /* width: 100%;
@@ -238,12 +239,12 @@ export const Contents_title = styled.h1`
     flex-direction: row; */
     line-height: 50px;
     font-size: 36px;
-    padding-left: 80px;
+    padding-left: 78px;
   }
   ${M.mediaM} {
     line-height: 40px;
     font-size: 30px;
-    padding-left: 30px;
+    padding-left: 20px;
   }
 `;
 
@@ -265,7 +266,7 @@ export const Contents_title1 = styled.h1`
   ${M.mediaM} {
     line-height: 40px;
     font-size: 30px;
-    padding-left: 30px;
+    padding-left: 20px;
     padding-top: 10px;
   }
 `;
@@ -292,12 +293,12 @@ export const Contents_2 = styled.p`
   text-align: left;
   margin-bottom: 50px;
   ${M.mediaL} {
-    padding-left: 80px;
+    padding-left: 78px;
     font-size: 14px;
     line-height: 30px;
   }
   ${M.mediaM} {
-    padding-left: 30px;
+    padding-left: 20px;
   }
 `;
 
@@ -313,7 +314,7 @@ export const Contents_3 = styled.p`
     line-height: 26px;
   }
   ${M.mediaM} {
-    padding-left: 30px;
+    padding-left: 20px;
     line-height: 30px;
   }
 `;
@@ -383,7 +384,8 @@ export const TitleBox2 = styled.div`
   justify-content: flex-end;
 
   ${M.mediaL} {
-    /* padding-left: 70px; */
+    display: flex;
+    justify-content: flex-start;
   }
 
   ${M.mediaM} {
@@ -398,17 +400,17 @@ export const Title_3 = styled.h1`
   letter-spacing: -0.011em;
   text-align: left;
   padding-right: 80px;
-  padding-top: 86px;
+  padding-top: 91px;
   padding-bottom: 70px;
 
   ${M.mediaL} {
     font-size: 80px;
-    padding: 61px 820px 0 0;
+    padding: 66px 820px 0 80px;
   }
   ${M.mediaM} {
     font-size: 60px;
     padding-left: 78px;
-    padding-top: 55px;
+    padding-top: 59px;
   }
 `;
 export const MainContents2 = styled.div`
@@ -440,6 +442,7 @@ export const ContentsBox2 = styled.div`
     flex-direction: column
     padding-left: 130px;
   }
+
   ${M.mediaM} {
     font-size: 60px;
     display: flex;
@@ -461,6 +464,7 @@ export const COMMUNITY = styled.div`
   -webkit-text-stroke-color: #d3d3d3;
   position: relative;
   right: 110px;
+
   top: 30px;
   z-index: -1;
 

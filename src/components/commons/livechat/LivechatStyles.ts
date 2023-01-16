@@ -10,7 +10,7 @@ export const TalkWrapper = styled.form`
 
 export const TalkHeader = styled.div`
   width: 100%;
-  height: 70px;
+  height: 59px;
   background-image: url("./images/chatheader.png");
   background-size: 100%;
   background-repeat: no-repeat;
@@ -54,7 +54,7 @@ export const TalkWrite = styled.input`
   height: 50px;
   font-size: 13px;
   border-radius: 0px 0px 20px 20px;
-  border: 2.2px solid #ededed;
+  border: 2px solid #ededed;
   border-top: none;
   padding: 10px;
   ::placeholder {
@@ -62,7 +62,7 @@ export const TalkWrite = styled.input`
     display: flex;
     justify-content: center;
   }
-  :focus{
+  :focus {
     outline: none;
   }
 `;

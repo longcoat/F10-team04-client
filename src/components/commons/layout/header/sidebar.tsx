@@ -9,11 +9,12 @@ import { Modal } from "antd";
 const SideBarWrap = styled.div`
   display: none;
   z-index: 5;
-  padding: 12px;
-  border-radius: 15px 0 0 15px;
-  background-color: rgba(254, 254, 254, 0.5);
+  padding: 12px 30px 12px 12px;
+  /* border-radius: 15px 0 0 15px; */
+  /* background-color: rgba(254, 254, 254, 0.5); */
+  background-color: #ffffff;
   height: 100%;
-  width: 30%;
+  width: 19%;
   right: -55%;
   top: 0;
   position: fixed;
@@ -31,10 +32,10 @@ const SideBarWrap = styled.div`
 const Menu = styled.div`
   margin: 30px 8px;
   font-family: "Code Next-Trial";
-  font-size: 32px;
+  font-size: 22px;
   font-weight: 400;
   letter-spacing: -0.011em;
-  text-align: center;
+  text-align: end;
   color: #151515;
 `;
 
@@ -55,7 +56,7 @@ const FETCH_USER_LOGGED_IN = gql`
       region
       prefer
       grade
-      image{
+      image {
         id
         imgUrl
       }
