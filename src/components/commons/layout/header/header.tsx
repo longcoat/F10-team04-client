@@ -19,7 +19,7 @@ export const FETCH_USER_LOGGED_IN = gql`
       region
       prefer
       grade
-      image{
+      image {
         id
         imgUrl
       }
@@ -43,11 +43,11 @@ export default function LayoutHeader() {
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
 
   useEffect(() => {
-    setId(data?.fetchUserLoggedIn.id)
-  },[data])
+    setId(data?.fetchUserLoggedIn.id);
+  }, [data]);
 
-  console.log(data)
-  
+  console.log(data);
+
   const onClickMoveToLogin = () => {
     if (!data) {
       router.push("/login");
@@ -81,7 +81,7 @@ export default function LayoutHeader() {
         </S.Logo>
       </S.LeftSide>
       <S.RightSide>
-      <S.Menu onClick={() => router.push("/photoReview")} className="menu">
+        <S.Menu onClick={() => router.push("/photoReview")} className="menu">
           PhotoReview
         </S.Menu>
         <S.Menu onClick={() => router.push("/members")} className="menu">

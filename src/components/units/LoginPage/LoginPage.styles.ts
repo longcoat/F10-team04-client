@@ -4,7 +4,7 @@ import { Select } from "antd";
 export const Wrapper = styled.div`
   display: flex;
   width: 100%;
-  height: 1500px;
+  height: 100%;
   justify-content: center;
   align-items: center;
   background: #f5f5f5;
@@ -17,11 +17,10 @@ export const Container = styled.div`
 `;
 export const LoginWrapper = styled.form`
   width: 754px;
-  height: 1100px;
   background-color: #fff;
 `;
 export const Title = styled.div`
-  padding-top: 55px;
+  padding-top: 135px;
   font-weight: 800;
   font-size: 54px;
   line-height: 55px;
@@ -33,15 +32,15 @@ export const Title = styled.div`
   color: #0b0b0b;
 `;
 export const Main = styled.div`
-  padding-top: 200px;
+  padding-top: 50px;
   display: flex;
-  padding-left: 93px;
+  padding: 0 120px;
   flex-direction: column;
   justify-content: flex-start;
 `;
 export const LoginText = styled.div`
   font-style: normal;
-  font-weight: 400;
+  font-weight: 800;
   font-size: 32px;
   line-height: 34px;
   /* identical to box height, or 106% */
@@ -49,13 +48,14 @@ export const LoginText = styled.div`
   letter-spacing: -0.48px;
 
   color: #000000;
-  padding-bottom: 37px;
+  padding: 50px 0 37px 0;
   ::after {
   }
 `;
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   padding-bottom: 26px;
 `;
 export const HeadWrapper = styled.div`
@@ -64,7 +64,7 @@ export const HeadWrapper = styled.div`
 `;
 export const HeadTitle = styled.div`
   font-style: normal;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 24px;
   line-height: 34px;
   /* identical to box height, or 142% */
@@ -79,7 +79,7 @@ export const Dot = styled.div`
 `;
 export const Middle = styled.div``;
 export const MiddleInput = styled.input`
-  width: 534px;
+  width: 100%;
   height: 62px;
   border: 2px solid #d9d9d9;
   border-radius: 16px;
@@ -119,12 +119,14 @@ export const Footer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 50px;
+  padding: 50px 120px 50px 120px;
 `;
 export const LoginButton = styled.button`
   color: #fff;
-  width: 448px;
+  width: 100%;
   height: 62px;
+  font-weight: 400;
+  font-size: 17px;
   background: #0b0b0b;
   border-radius: 16px;
   cursor: pointer;

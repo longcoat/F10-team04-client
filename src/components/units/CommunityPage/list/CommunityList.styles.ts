@@ -105,7 +105,7 @@ export const Item = styled(OneEllipsis)`
       margin-right: 0;
     }
     &:nth-of-type(4n) {
-      margin-right: 1.3%;
+      margin-right: 2%;
     }
   }
 

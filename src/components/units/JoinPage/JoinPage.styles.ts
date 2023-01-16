@@ -4,6 +4,7 @@ import { Select } from "antd";
 export const Container = styled.div`
   background: #f5f5f5;
   width: 100%;
+  height: 100%;
 `;
 
 export const JoinWrapper = styled.div`
@@ -23,13 +24,13 @@ export const TitleBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding-top: 175px;
+  padding-top: 89px;
   /* align-items: center; */
   /* padding-top: 175px; */
 `;
 
 export const JoinTitleBox = styled.div`
-  padding-top: 234px;
+  padding-top: 50px;
 `;
 
 export const Title = styled.div`
@@ -179,7 +180,7 @@ export const Footer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  padding-top: 260px;
+  padding-top: 50px;
 `;
 export const NextButton = styled.button`
   width: 100%;
@@ -209,7 +210,7 @@ export const ImgBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 178px;
+  padding-top: 50px;
 `;
 
 export const ProfileImg = styled.img``;
@@ -370,7 +371,7 @@ export const CompleteButton = styled.button`
 `;
 
 export const CompleteButtonBox = styled.div`
-  padding-top: 160px;
+  padding-top: 50px;
 `;
 
 export const SelectArea = styled(Select)`
