@@ -10,6 +10,8 @@ import { Modal } from "antd";
 
 import ChattingBtn from "../../chattingBtn/indx";
 import { IMutation, IMutationFollowUserArgs, IQuery, IQueryFetchFollowCountArgs } from "../../../../commons/types/generated/types";
+import { LoggedInUserId } from "../../../../commons/stores";
+import { useRecoilState } from "recoil";
 
 export const FOLLOW_USER = gql`
   mutation followUser($userId: String!) {
@@ -46,6 +48,8 @@ export default function FollowerList(props) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);
+  const [loggedInId, setLoggedInId] = useRecoilState(LoggedInUserId)
+
   const { data } = useQuery<
   Pick<IQuery, "fetchFollowCount">,
   IQueryFetchFollowCountArgs
@@ -64,6 +68,10 @@ export default function FollowerList(props) {
     setIsActive((prev) => !prev);
   };
   const onClickAdd = (userId) => async () => {
+    if(loggedInId === userId) {
+      alert("자기 자신은 팔로우 할 수 없습니다 !") 
+      return
+     }
     setAddActive((prev) => !prev);
     await followUser({
       variables: { userId: userId },
@@ -82,7 +90,9 @@ export default function FollowerList(props) {
   };
   return (
     <Wrapper>
-      <Img></Img>
+        <ImgBox>
+      <Img src={props.el.image?.imgUrl || "/profile.png"} />
+      </ImgBox>
       <Name>{props.el.nickname}</Name>
       <UserInfo>
         <Item>#{props.el.prefer}</Item>
@@ -147,11 +157,15 @@ const Wrapper = styled.div`
   margin: 23px;
   cursor: pointer;
 `;
-const Img = styled.div`
+const ImgBox = styled.div`
   width: 103px;
   height: 103px;
   border-radius: 100%;
-  border: 1px solid black;
+`;
+const Img = styled.img`
+  width: 103px;
+  height: 103px;
+  border-radius: 100%;
 `;
 const Name = styled.div`
   font-size: 24px;

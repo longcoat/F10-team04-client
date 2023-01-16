@@ -97,24 +97,32 @@ export default function UserCard(props) {
      return
     }
     setAddActive((prev) => !prev);
-    await followUser({
+    const result = await followUser({
       variables: { userId: userId },
       refetchQueries: [
+        {
+          query: FETCH_FOLLOWING,
+          variables: { userId: String(loggedInId) },
+        },
         {
           query: FETCH_FOLLOW_COUNT,
           variables: { userId: userId },
         },
       ],
     });
+    console.log(result)
     if (addActive === false) {
       Modal.success({ content: "팔로우 완료!" });
     } else if (addActive === true) {
       Modal.error({ content: "팔로우 취소!" });
     }
   };
+
   return (
     <Wrapper>
-      <Img></Img>
+      <ImgBox>
+      <Img src={props.el.image?.imgUrl || "/profile.png"} />
+      </ImgBox>
       <Name>{props.el.nickname}</Name>
       <UserInfo>
         <Item>#{props.el.prefer}</Item>
@@ -179,11 +187,15 @@ const Wrapper = styled.div`
   margin: 23px;
   cursor: pointer;
 `;
-const Img = styled.div`
+const ImgBox = styled.div`
   width: 103px;
   height: 103px;
   border-radius: 100%;
-  border: 1px solid black;
+`;
+const Img = styled.img`
+  width: 103px;
+  height: 103px;
+  border-radius: 100%;
 `;
 const Name = styled.div`
   font-size: 24px;

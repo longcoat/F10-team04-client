@@ -24,6 +24,7 @@ export default function Members() {
     Pick<IQuery, "fetchUsers">,
     IQueryFetchUserArgs
   >(FETCH_USERS);
+  console.log(data)
 
   const { data: LoggedIn} =
   useQuery(FETCH_USER_LOGGED_IN);
@@ -34,6 +35,7 @@ export default function Members() {
 >(FETCH_FOLLOWING, {
     variables: { userId: String(LoggedIn?.fetchUserLoggedIn.id) },
   });
+
 
 
   const onChangeLevel = (e) => {

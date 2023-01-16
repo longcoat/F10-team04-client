@@ -12,6 +12,7 @@ export const FETCH_USERS = gql`
       age
       grade
       image{
+        id
         imgUrl
       }
     }

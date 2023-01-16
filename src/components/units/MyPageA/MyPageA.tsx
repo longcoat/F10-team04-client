@@ -1,9 +1,6 @@
-import UserCard from "../../commons/userCard/01-userCard";
 import * as S from "./MyPage.styles";
 import { BiUserPlus } from "react-icons/bi";
-import { FaRegHeart } from "react-icons/bi";
-import { useState } from "react";
-import { RightOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import AttendList from "./AttendList";
 import MyPickList from "./MyPickList";
@@ -15,6 +12,7 @@ import styled from "@emotion/styled";
 import UserEdit from "../../commons/user(Edit)/userEdit.container";
 import { Modal } from "antd";
 import { IQuery } from "../../../commons/types/generated/types";
+import { withAuth } from "../../commons/hocs/withAuth";
 
 export const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
@@ -46,8 +44,7 @@ const FETCH_MY_FOLLOW_COUNT = gql`
     }
   }
 `;
-
-export default function MyPageA(props) {
+ function MyPageA(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
   const [color1, setColor1] = useState(true);
@@ -56,9 +53,12 @@ export default function MyPageA(props) {
   const [color4, setColor4] = useState(false);
 
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
-console.log(data)
+
   const { data: fetchMyFollowCount } = useQuery(FETCH_MY_FOLLOW_COUNT);
 
+  useEffect(() =>{
+    console.log(data)
+  },[data])
 
 
   const onClickEdit = () => {
@@ -116,22 +116,6 @@ console.log(data)
     }
   };
 
-  const onClickColorFourth = (e) => {
-    if (!color4) {
-      if (color1) {
-        setColor1((prev) => !prev);
-        setColor4((prev) => !prev);
-      } else if (color2) {
-        setColor2((prev) => !prev);
-        setColor4((prev) => !prev);
-      } else if (color3) {
-        setColor3((prev) => !prev);
-        setColor4((prev) => !prev);
-      } else {
-        setColor4((prev) => !prev);
-      }
-    }
-  };
 
   return (
     <S.Containerbox>
@@ -206,20 +190,12 @@ console.log(data)
                 </S.PickListText>
               </S.PickList>
             </S.PickListBox>
-            <S.PickListBox>
-              <S.PickList>
-                <S.JoinCrewText onClick={onClickColorFourth} isActive={color4}>
-                  참가인원
-                </S.JoinCrewText>
-              </S.PickList>
-            </S.PickListBox>
           </S.BoardBox>
         </S.BoardCategoryWrapper>
         <S.ListContainer>
           {color1 ? <MyBoardList /> : ""}
           {color2 ? <AttendList /> : ""}
           {color3 ? <MyPickList /> : ""}
-          {color4 ? <AttendPeople /> : ""}
         </S.ListContainer>
         {/* 보드리스트 게시글목록 할 때 부분 */}
       </S.Container>
@@ -268,3 +244,5 @@ const ModalCustom = styled(Modal)`
     visibility: hidden;
   }
 `;
+
+export default withAuth(MyPageA);
