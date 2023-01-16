@@ -46,6 +46,8 @@ export const AvatarWrap = styled.div`
 
 export const Avatar = styled.img`
   width: 100%;
+  height: 110px;
+  border-radius: 100px;
 `;
 
 export const UerInfo = styled.div`

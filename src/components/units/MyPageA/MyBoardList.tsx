@@ -36,6 +36,13 @@ export const FETCH_MY_All_BOARDS = gql`
       image {
         imgUrl
       }
+      user{
+        id
+        image{
+          id
+          imgUrl
+        }
+      }
     }
   }
 `;

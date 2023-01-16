@@ -9,6 +9,10 @@ export const FETCH_REVIEW_COMMENTS = gql`
       user {
         id
         nickname
+        image{
+          id
+          imgUrl
+        }
       }
     }
   }

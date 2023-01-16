@@ -7,8 +7,6 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { FETCH_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail.queries";
 import { Modal } from "antd";
-
-import ChattingBtn from "../../chattingBtn/indx";
 import {
   IMutation,
   IMutationFollowUserArgs,
@@ -167,7 +165,6 @@ export default function UserCard(props) {
             팔로우 취소
           </FollowButton>
         )}
-        <ChattingBtn userData={userData} />
       </ButtonWrap>
     </Wrapper>
   );
