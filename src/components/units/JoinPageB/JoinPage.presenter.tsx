@@ -93,9 +93,7 @@ export default function JoinPageUi(props) {
                 {!props.emailAct && <S.RedDot>*</S.RedDot>}
               </S.InfoBox>
               <S.DuplicationBox>
-                <S.DupInput
-                type="text" {...props.register("email")} 
-                />
+                <S.DupInput type="text" {...props.register("email")} />
                 <S.DupButton onClick={props.onClickSendEmail} type="button">
                   인증하기
                 </S.DupButton>
@@ -147,8 +145,8 @@ export default function JoinPageUi(props) {
               </S.InfoBox1>
               <S.PassInputBox>
                 <S.PassInput
-                  type={isHidden ? "text" : "password"} {...props.register("password")} 
-  
+                  type={isHidden ? "text" : "password"}
+                  {...props.register("password")}
                 />
               </S.PassInputBox>
               <S.Error>
@@ -220,7 +218,9 @@ export default function JoinPageUi(props) {
                 RunGether에서 사용할 닉네임을 입력해주세요.
               </S.InfoSubtitle>
               <S.Footer>
-                <S.NextButton type="button" onClick={onClickNext}>다음</S.NextButton>
+                <S.NextButton type="button" onClick={onClickNext}>
+                  다음
+                </S.NextButton>
               </S.Footer>
             </S.JoinContainer>
           </S.JoinWrapper>

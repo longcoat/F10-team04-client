@@ -236,7 +236,12 @@ export default function MembersUi(props) {
           </S.TabMenu>
           <S.Items>
             {props.result?.map((el, index) => (
-              <UserCard key={index} el={el} result={props.result} following={props.following}/>
+              <UserCard
+                key={index}
+                el={el}
+                result={props.result}
+                following={props.following}
+              />
             ))}
           </S.Items>
         </S.ResultWrap>

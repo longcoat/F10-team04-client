@@ -439,7 +439,7 @@ export const ContentsBox2 = styled.div`
   ${M.mediaL} {
     width: 48%;
     display: flex;
-    flex-direction: column
+    flex-direction: column;
     padding-left: 130px;
   }
 
