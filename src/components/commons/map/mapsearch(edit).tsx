@@ -1,10 +1,10 @@
 import { Modal } from "antd";
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
-import DaumPostcodeEmbed from "react-daum-postcode";
+import DaumPostcodeEmbed, { Address } from "react-daum-postcode";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { useRecoilState } from "recoil";
-import { mapEditCenterState, mapEditPathState} from "../../../commons/stores";
+import { mapEditCenterState, mapEditPathState } from "../../../commons/stores";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -13,7 +13,7 @@ declare const window: typeof globalThis & {
 export default function KaKaoMapEdit() {
   const [path, setPath] = useState([]);
   const [center, setCenter] = useState([]);
-  const [geo, setGeo] = useState(false)
+  const [geo, setGeo] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [address, setAddress] = useState("제주특별자치도 제주시 첨단로 242");
   const [center1, setCenter1] = useRecoilState(mapEditCenterState);
@@ -49,30 +49,27 @@ export default function KaKaoMapEdit() {
         let distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
         let dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
 
-           let geocoder = new window.kakao.maps.services.Geocoder();
+        let geocoder = new window.kakao.maps.services.Geocoder();
 
-             // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(
-          address,
-          function (result, status) {
-            // 정상적으로 검색이 완료됐으면
-            if (status === window.kakao.maps.services.Status.OK) {
-              // setValue("lat", Number(result[0].y));
-              // void trigger("lat");
-              // setValue("lng", Number(result[0].x));
-              // void trigger("lng");
+        // 주소로 좌표를 검색합니다
+        geocoder.addressSearch(address, function (result, status) {
+          // 정상적으로 검색이 완료됐으면
+          if (status === window.kakao.maps.services.Status.OK) {
+            // setValue("lat", Number(result[0].y));
+            // void trigger("lat");
+            // setValue("lng", Number(result[0].x));
+            // void trigger("lng");
 
-              const coords = new window.kakao.maps.LatLng(
-                result[0].y,
-                result[0].x
-              );
+            const coords = new window.kakao.maps.LatLng(
+              result[0].y,
+              result[0].x
+            );
 
-              // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-              map.setCenter(coords);
-            }
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(coords);
           }
-        );
-        
+        });
+
         // 지도에 클릭 이벤트를 등록합니다
         // 지도를 클릭하면 선 그리기가 시작됩니다 그려진 선이 있으면 지우고 다시 그립니다
         window.kakao.maps.event.addListener(
@@ -357,19 +354,19 @@ export default function KaKaoMapEdit() {
     };
   }, [address]);
 
-  useEffect(() =>{
-    setPath1(JSON.stringify(path))
-    setCenter1(JSON.stringify(center))
-  },[path, center])
+  useEffect(() => {
+    setPath1(JSON.stringify(path));
+    setCenter1(JSON.stringify(center));
+  }, [path, center]);
   return (
     <>
-    <ButtonWrap>
-     <Button type="button" onClick={onToggleModal}>
-        모임 지역 검색하기
-      </Button>
-      <QuestionCircleOutlined style={{ fontSize:"20px"}}/>
+      <ButtonWrap>
+        <Button type="button" onClick={onToggleModal}>
+          모임 지역 검색하기
+        </Button>
+        <QuestionCircleOutlined style={{ fontSize: "20px" }} />
       </ButtonWrap>
-      <div id="SearchMap" style={{ width: '100%', height: 400 }}></div>
+      <div id="SearchMap" style={{ width: "100%", height: 400 }}></div>
       {isOpen && (
         <Modal open={true} onOk={onToggleModal} onCancel={onToggleModal}>
           <DaumPostcodeEmbed onComplete={handleComplete} />
@@ -380,15 +377,15 @@ export default function KaKaoMapEdit() {
 }
 
 const Button = styled.button`
-  background-color: #0B0B0B;
+  background-color: #0b0b0b;
   color: white;
   width: 150px;
   height: 50px;
   border: none;
-`
+`;
 const ButtonWrap = styled.div`
   padding: 20px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;

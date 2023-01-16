@@ -7,9 +7,12 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { FETCH_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail.queries";
 import { Modal } from "antd";
-
-import ChattingBtn from "../../chattingBtn/indx";
-import { IMutation, IMutationFollowUserArgs, IQuery, IQueryFetchFollowCountArgs } from "../../../../commons/types/generated/types";
+import {
+  IMutation,
+  IMutationFollowUserArgs,
+  IQuery,
+  IQueryFetchFollowCountArgs,
+} from "../../../../commons/types/generated/types";
 import { LoggedInUserId } from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
 
@@ -48,12 +51,12 @@ export default function FollowerList(props) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);
-  const [loggedInId, setLoggedInId] = useRecoilState(LoggedInUserId)
+  const [loggedInId, setLoggedInId] = useRecoilState(LoggedInUserId);
 
   const { data } = useQuery<
-  Pick<IQuery, "fetchFollowCount">,
-  IQueryFetchFollowCountArgs
->(FETCH_FOLLOW_COUNT, {
+    Pick<IQuery, "fetchFollowCount">,
+    IQueryFetchFollowCountArgs
+  >(FETCH_FOLLOW_COUNT, {
     variables: { userId: props.el.id },
   });
 
@@ -68,10 +71,10 @@ export default function FollowerList(props) {
     setIsActive((prev) => !prev);
   };
   const onClickAdd = (userId) => async () => {
-    if(loggedInId === userId) {
-      alert("자기 자신은 팔로우 할 수 없습니다 !") 
-      return
-     }
+    if (loggedInId === userId) {
+      alert("자기 자신은 팔로우 할 수 없습니다 !");
+      return;
+    }
     setAddActive((prev) => !prev);
     await followUser({
       variables: { userId: userId },
@@ -90,8 +93,8 @@ export default function FollowerList(props) {
   };
   return (
     <Wrapper>
-        <ImgBox>
-      <Img src={props.el.image?.imgUrl || "/profile.png"} />
+      <ImgBox>
+        <Img src={props.el.image?.imgUrl || "/profile.png"} />
       </ImgBox>
       <Name>{props.el.nickname}</Name>
       <UserInfo>
@@ -105,7 +108,7 @@ export default function FollowerList(props) {
         <Level>{data?.fetchFollowCount?.followCount}팔로잉</Level>
       </HeartWrap>
       <ButtonWrap>
-      {!addActive ? (
+        {!addActive ? (
           <FollowButton
             onClick={onClickAdd(props.el.id)}
             style={{
@@ -113,8 +116,8 @@ export default function FollowerList(props) {
               fontSize: "16px",
               height: "35px",
               borderRadius: "16px",
-              border:"2px solid black",
-              backgroundColor:"black",
+              border: "2px solid black",
+              backgroundColor: "black",
               color: "White",
             }}
           >
@@ -127,17 +130,17 @@ export default function FollowerList(props) {
               width: "160px",
               fontSize: "16px",
               height: "35px",
-              border:"2px solid black",
-              boxShadow: "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
+              border: "2px solid black",
+              boxShadow:
+                "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
               borderRadius: "16px",
-              backgroundColor:"#f6f6f6",
+              backgroundColor: "#f6f6f6",
               color: "black",
             }}
           >
             팔로우 취소
           </FollowButton>
         )}
-        <ChattingBtn userData={userData} />
       </ButtonWrap>
     </Wrapper>
   );

@@ -4,19 +4,20 @@ import { Select } from "antd";
 export const Wrapper = styled.div`
   display: flex;
   width: 100%;
-  height: 100%;
   justify-content: center;
   align-items: center;
   background: #f5f5f5;
 `;
 export const Container = styled.div`
   margin: 0 auto;
+  /* width: 754px; */
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 120px;
 `;
 export const LoginWrapper = styled.form`
-  width: 754px;
+  /* width: 754px; */
   background-color: #fff;
 `;
 export const Title = styled.div`

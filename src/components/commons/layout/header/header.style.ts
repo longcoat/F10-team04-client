@@ -24,6 +24,7 @@ export const Wrapper = styled.div`
     }
   }
 `;
+
 export const LeftSide = styled.div``;
 
 export const Logo = styled.div`
