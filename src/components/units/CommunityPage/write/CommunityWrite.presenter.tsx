@@ -13,6 +13,8 @@ import KaKaoMapPage from "../../../commons/map/mapsearch";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { RangePickerProps } from "antd/lib/date-picker";
+import { FETCH_USER_LOGGED_IN } from "../detail/CommunityDetail.queries";
+import { useQuery } from "@apollo/client";
 
 const AreaOption = [
   { value: "서울특별시", label: "서울특별시" },
@@ -160,18 +162,22 @@ const ModalCustom = styled(Modal)`
 
 export default function CommunityWriteUI(props: any) {
   const [ModalOpen, setModalOpen] = useRecoilState(modalWriteState);
+  const { data } = useQuery(FETCH_USER_LOGGED_IN);
 
 
   const handleCancel = () => {
     setModalOpen(false);
   };
 
+  const onClickWrite= () => {
+      setModalOpen(true)
+  }
 
   return (
     <>
       <Button
         type="primary"
-        onClick={() => setModalOpen(true)}
+        onClick={onClickWrite}
         style={{
           padding: "0px 15px 10px 15px",
           fontSize: "14px",

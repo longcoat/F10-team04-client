@@ -5,17 +5,19 @@ import { HeartFilled, HeartOutlined, UserAddOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { FETCH_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail.queries";
 import { Modal } from "antd";
 
 import ChattingBtn from "../../chattingBtn/indx";
 import { IMutation, IMutationFollowUserArgs, IQuery, IQueryFetchFollowCountArgs } from "../../../../commons/types/generated/types";
+import { FETCH_FOLLOWING } from "../../../units/PhotoReview/ReviewList/Review.query";
+import { FETCH_USER_LOGGED_IN } from "../../layout/header/header";
 
 export const FOLLOW_USER = gql`
   mutation followUser($userId: String!) {
     followUser(userId: $userId)
   }
 `;
+
 export const FETCH_FOLLOW_COUNT = gql`
   query fetchFollowCount($userId: String!) {
     fetchFollowCount(userId: $userId) {
@@ -28,24 +30,12 @@ export const FETCH_FOLLOW_COUNT = gql`
     }
   }
 `;
-export const FETCH_USER = gql`
-  query fetchUser($userId: String!) {
-    fetchUser(userId: $userId) {
-      id
-      email
-      nickname
-      age
-      gender
-      region
-      prefer
-      grade
-    }
-  }
-`;
+
 export default function FollowingList(props) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);
+  const { data: fetchUser} = useQuery(FETCH_USER_LOGGED_IN);
   const { data } = useQuery<
   Pick<IQuery, "fetchFollowCount">,
   IQueryFetchFollowCountArgs
@@ -53,27 +43,20 @@ export default function FollowingList(props) {
     variables: { userId: props.el.id },
   });
 
-  console.log(data);
-  const { data: userData } = useQuery(FETCH_USER, {
-    variables: { userId: props.el.id },
-  });
-  console.log(userData);
   const [followUser] = useMutation(FOLLOW_USER);
 
-  const onClickHeart = () => {
-    setIsActive((prev) => !prev);
-  };
   const onClickAdd = (userId) => async () => {
     setAddActive((prev) => !prev);
-    await followUser({
+    const result = await followUser({
       variables: { userId: userId },
-      refetchQueries: [
-        {
-          query: FETCH_FOLLOW_COUNT,
-          variables: { userId: userId },
-        },
-      ],
+        refetchQueries: [
+          {
+            query: FETCH_FOLLOWING,
+            variables: { userId: String(fetchUser.fetchUserLoggedIn.id) },
+          },
+        ],
     });
+    console.log(result)
     if (addActive === false) {
       Modal.success({ content: "팔로우 완료!" });
     } else if (addActive === true) {
@@ -82,7 +65,9 @@ export default function FollowingList(props) {
   };
   return (
     <Wrapper>
-      <Img></Img>
+        <ImgBox>
+      <Img src={props.el.image?.imgUrl || "/profile.png"} />
+      </ImgBox>
       <Name>{props.el.nickname}</Name>
       <UserInfo>
         <Item>#{props.el.prefer}</Item>
@@ -95,7 +80,6 @@ export default function FollowingList(props) {
         <Level>{data?.fetchFollowCount?.followCount}팔로잉</Level>
       </HeartWrap>
       <ButtonWrap>
-      {!addActive ? (
           <FollowButton
             onClick={onClickAdd(props.el.id)}
             style={{
@@ -108,26 +92,8 @@ export default function FollowingList(props) {
               color: "White",
             }}
           >
-            팔로우
-          </FollowButton>
-        ) : (
-          <FollowButton
-            onClick={onClickAdd(props.el.id)}
-            style={{
-              width: "160px",
-              fontSize: "16px",
-              height: "35px",
-              border:"2px solid black",
-              boxShadow: "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
-              borderRadius: "16px",
-              backgroundColor:"#f6f6f6",
-              color: "black",
-            }}
-          >
             팔로우 취소
           </FollowButton>
-        )}
-        <ChattingBtn userData={userData} />
       </ButtonWrap>
     </Wrapper>
   );
@@ -147,11 +113,15 @@ const Wrapper = styled.div`
   margin: 23px;
   cursor: pointer;
 `;
-const Img = styled.div`
+const ImgBox = styled.div`
   width: 103px;
   height: 103px;
   border-radius: 100%;
-  border: 1px solid black;
+`;
+const Img = styled.img`
+  width: 103px;
+  height: 103px;
+  border-radius: 100%;
 `;
 const Name = styled.div`
   font-size: 24px;

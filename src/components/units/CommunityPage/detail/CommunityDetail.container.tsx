@@ -35,6 +35,7 @@ const { data } = useQuery<
       boardId: String(props.boardId),
     },
   });
+  console.log(data?.fetchBoard.user)
 
 
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
