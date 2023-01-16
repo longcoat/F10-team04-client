@@ -37,6 +37,17 @@ const Menu = styled.div`
   letter-spacing: -0.011em;
   text-align: end;
   color: #151515;
+  &::after {
+    transform: scale(0, 1);
+    transform-origin: 0% 100%;
+    transition: transform 0.3 ease;
+    background: black;
+    bottom: 0;
+  }
+
+  &:hover::after {
+    transform: scale(1, 1);
+  }
 `;
 
 const ExitMenu = styled.span`

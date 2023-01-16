@@ -1,12 +1,16 @@
 import InfiniteScroll from "react-infinite-scroller";
 import ReviewCommentListItem from "./ReviewCommentList.presenterItem";
 
-export default function ReviewCommentListUI(props){
-
-    return(
-        <>
-         <InfiniteScroll pageStart={0} loadMore={props.onLoadMore} hasMore={true} useWindow={true}>
-        {props.data?.fetchReviewComments.map((el) => (
+export default function ReviewCommentListUI(props: any) {
+  return (
+    <>
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={props.onLoadMore}
+        hasMore={true}
+        useWindow={true}
+      >
+        {props.data?.fetchReviewComments.map((el: any) => (
           <ReviewCommentListItem
             key={el.id}
             el={el}
@@ -14,6 +18,6 @@ export default function ReviewCommentListUI(props){
           />
         ))}
       </InfiniteScroll>
-        </>
-    )
+    </>
+  );
 }

@@ -4,7 +4,7 @@ import { timeForToday } from "../../../../commons/library/utils2";
 import { LoggedInUserId, ReviewCommentMore } from "../../../../commons/stores";
 import * as S from "./AnswerList.styles";
 
-export default function AnswerListItem(props) {
+export default function AnswerListItem(props: any) {
   const [id, setId] = useRecoilState(LoggedInUserId);
   console.log(props.el.user, id);
   return (

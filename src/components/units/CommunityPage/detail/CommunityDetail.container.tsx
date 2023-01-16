@@ -4,10 +4,24 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 
-
-
-import { attendListModalState, AttendState, confirmModalState, EditBoardId, modalDetailState, modalEditState, PickState, ToggleState} from "../../../../commons/stores";
-import { IMutation, IMutationAttendListArgs, IMutationDeleteBoardArgs, IQuery, IQueryFetchBoardArgs, IQueryFetchMyPickBoardsArgs } from "../../../../commons/types/generated/types";
+import {
+  attendListModalState,
+  AttendState,
+  confirmModalState,
+  EditBoardId,
+  modalDetailState,
+  modalEditState,
+  PickState,
+  ToggleState,
+} from "../../../../commons/stores";
+import {
+  IMutation,
+  IMutationAttendListArgs,
+  IMutationDeleteBoardArgs,
+  IQuery,
+  IQueryFetchBoardArgs,
+  IQueryFetchMyPickBoardsArgs,
+} from "../../../../commons/types/generated/types";
 
 import { FETCH_ATTEND_LIST } from "../../MyPageA/AttendList";
 import { FETCH_MY_PICK_BOARDS } from "../../MyPageA/MyPickList";
@@ -22,69 +36,62 @@ import {
   PICK_BOARD,
 } from "./CommunityDetail.queries";
 
-export default function CommunityDetailPage(props) {
+
+export default function CommunityDetailPage(props: any) {
+  const [pickBoard] = useMutation(PICK_BOARD);
 
 
-const [pickBoard] = useMutation(PICK_BOARD);
-  
-const { data } = useQuery<
-  Pick<IQuery, "fetchBoard">,
-  IQueryFetchBoardArgs
->(FETCH_BOARD, {
-    variables: {
-      boardId: String(props.boardId),
-    },
-  });
-  console.log(data?.fetchBoard.user)
-
+  const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
+    FETCH_BOARD,
+    {
+      variables: {
+        boardId: String(props.boardId),
+      },
+    }
+  );
 
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
   const [EditModalOpen, setEditModalOpen] = useRecoilState(modalEditState);
   const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
-  const [attendList, setAttendList] = useRecoilState(attendListModalState)
-  const [confirmModal, setConfirmModal] = useRecoilState(confirmModalState)
+  const [attendList, setAttendList] = useRecoilState(attendListModalState);
+  const [confirmModal, setConfirmModal] = useRecoilState(confirmModalState);
   const [Toggle, setToggle] = useRecoilState(ToggleState);
-  const [pick, setPick] = useRecoilState(PickState)
+  const [pick, setPick] = useRecoilState(PickState);
   const [attend, setAttend] = useRecoilState(AttendState);
   const router = useRouter();
 
   const { data: AttendList } = useQuery(FETCH_ATTEND_LIST);
-  const { data:PickList } = useQuery<
-  Pick<IQuery, "fetchMyPickBoards">,
-  IQueryFetchMyPickBoardsArgs
->(FETCH_MY_PICK_BOARDS);
+  const { data: PickList } = useQuery<
+    Pick<IQuery, "fetchMyPickBoards">,
+    IQueryFetchMyPickBoardsArgs
+  >(FETCH_MY_PICK_BOARDS);
 
-
-console.log(AttendList)
+  console.log(AttendList);
 
   const [attendBoard] = useMutation(ATTEND_LIST);
 
-
-   const { data: userData } =
-    useQuery(FETCH_USER_LOGGED_IN);
+  const { data: userData } = useQuery(FETCH_USER_LOGGED_IN);
 
   useEffect(() => {
-    for(let i = 0; i < PickList?.fetchMyPickBoards.length;i++) {
-      if(PickList.fetchMyPickBoards[i].board.id === props.boardId) {
-        setPick(true)
-        return
-      }else{
-        setPick(false)
+    for (let i = 0; i < PickList?.fetchMyPickBoards.length; i++) {
+      if (PickList.fetchMyPickBoards[i].board.id === props.boardId) {
+        setPick(true);
+        return;
+      } else {
+        setPick(false);
       }
-     }
-   
-  },[data])
+    }
+  }, [data]);
   useEffect(() => {
-    for(let i = 0; i < AttendList?.fetchAttendList.length;i++) {
-      if(AttendList.fetchAttendList[i].board.id === props.boardId) {
-        setAttend(true)
-        return
-      }else{
-        setAttend(false)
+    for (let i = 0; i < AttendList?.fetchAttendList.length; i++) {
+      if (AttendList.fetchAttendList[i].board.id === props.boardId) {
+        setAttend(true);
+        return;
+      } else {
+        setAttend(false);
       }
-     }
-  },[data])
-  
+    }
+  }, [data]);
 
   const onClickAttend = (boardId) => async () => {
     try {
@@ -118,13 +125,12 @@ console.log(AttendList)
   const onClickNoAtt = () => {
     alert("참가 인원이 가득 찼습니다.");
   };
- 
 
   const onClickClose = () => {
     setModalOpen((prev) => !prev);
   };
   const onClickDelete = () => {
-    setConfirmModal(true)
+    setConfirmModal(true);
   };
   const onClickPick = (boardId) => async () => {
     try {
@@ -140,7 +146,7 @@ console.log(AttendList)
           },
         ],
       });
-      setPick(prev => !prev);
+      setPick((prev) => !prev);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
     }
@@ -152,8 +158,8 @@ console.log(AttendList)
     setEditBoardId(boardId);
   };
   const onClickAttendList = () => {
-    setAttendList(true)
-  }
+    setAttendList(true);
+  };
   return (
     <CommunityDetailUIPage
       attendList={attendList}

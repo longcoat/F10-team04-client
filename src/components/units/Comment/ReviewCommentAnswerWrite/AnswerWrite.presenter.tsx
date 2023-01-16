@@ -1,6 +1,6 @@
 import * as S from "./AnswerWrite.styles";
 
-export default function AnswerWriteUI(props) {
+export default function AnswerWriteUI(props: any) {
   return (
     <>
       {props.isActive ? (
