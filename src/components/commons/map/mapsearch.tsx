@@ -10,6 +10,11 @@ declare const window: typeof globalThis & {
   kakao: any;
 };
 
+export interface IAddress {
+  data: string;
+  address: string;
+}
+
 export default function KaKaoMapPage() {
   const [path, setPath] = useState([]);
   const [center, setCenter] = useState([]);
@@ -23,17 +28,15 @@ export default function KaKaoMapPage() {
     setIsOpen((prev) => !prev);
   };
 
-  const handleComplete = (data: Address) => {
+  const handleComplete = (data: string) => {
     onToggleModal();
     setAddress(data.address);
   };
 
-
-  
-
   useEffect(() => {
     const script = document.createElement("script"); // <script></script> 랑 동일
-    script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=f0c68224b90fedf4d41381f7107ec170&libraries=services,drawing&autoload=false"
+    script.src =
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=f0c68224b90fedf4d41381f7107ec170&libraries=services,drawing&autoload=false";
     document.head.appendChild(script);
 
     script.onload = () => {
@@ -43,37 +46,34 @@ export default function KaKaoMapPage() {
             center: new window.kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
             level: 4, // 지도의 확대 레벨
           };
-          let map = new window.kakao.maps.Map(mapContainer, mapOptions);
+        let map = new window.kakao.maps.Map(mapContainer, mapOptions);
 
-          let drawingFlag = false; // 선이 그려지고 있는 상태를 가지고 있을 변수입니다
-          let moveLine; // 선이 그려지고 있을때 마우스 움직임에 따라 그려질 선 객체 입니다
-          let clickLine; // 마우스로 클릭한 좌표로 그려질 선 객체입니다
-          let distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
-          let dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
+        let drawingFlag = false; // 선이 그려지고 있는 상태를 가지고 있을 변수입니다
+        let moveLine; // 선이 그려지고 있을때 마우스 움직임에 따라 그려질 선 객체 입니다
+        let clickLine; // 마우스로 클릭한 좌표로 그려질 선 객체입니다
+        let distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
+        let dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
 
-          let geocoder = new window.kakao.maps.services.Geocoder();
+        let geocoder = new window.kakao.maps.services.Geocoder();
 
         // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(
-          address,
-          function (result, status) {
-            // 정상적으로 검색이 완료됐으면
-            if (status === window.kakao.maps.services.Status.OK) {
-              // setValue("lat", Number(result[0].y));
-              // void trigger("lat");
-              // setValue("lng", Number(result[0].x));
-              // void trigger("lng");
+        geocoder.addressSearch(address, function (result, status) {
+          // 정상적으로 검색이 완료됐으면
+          if (status === window.kakao.maps.services.Status.OK) {
+            // setValue("lat", Number(result[0].y));
+            // void trigger("lat");
+            // setValue("lng", Number(result[0].x));
+            // void trigger("lng");
 
-              const coords = new window.kakao.maps.LatLng(
-                result[0].y,
-                result[0].x
-              );
+            const coords = new window.kakao.maps.LatLng(
+              result[0].y,
+              result[0].x
+            );
 
-              // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-              map.setCenter(coords);
-            }
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(coords);
           }
-        );
+        });
 
         // 지도에 클릭 이벤트를 등록합니다
         // 지도를 클릭하면 선 그리기가 시작됩니다 그려진 선이 있으면 지우고 다시 그립니다
@@ -174,7 +174,7 @@ export default function KaKaoMapPage() {
         window.kakao.maps.event.addListener(
           map,
           "rightclick",
-          function (mouseEvent) {
+          function (mouseEvent: any) {
             // 지도 오른쪽 클릭 이벤트가 발생했는데 선을 그리고있는 상태이면
             if (drawingFlag) {
               // 마우스무브로 그려진 선은 지도에서 제거합니다
@@ -358,26 +358,26 @@ export default function KaKaoMapPage() {
       });
     };
   }, [address]);
-  useEffect(() =>{
-    setPath1(JSON.stringify(path))
-    setCenter1(JSON.stringify(center))
-  },[path, center])
+  useEffect(() => {
+    setPath1(JSON.stringify(path));
+    setCenter1(JSON.stringify(center));
+  }, [path, center]);
 
   return (
     <>
-    <ButtonWrap>
-     <Button type="button" onClick={onToggleModal}>
-        모임 지역 검색하기
-      </Button>
-      
-      <Tooltip
-                      placement="topRight"
-                      title="좌클릭으로 포인트를 정하고 우클릭으로 마지막에 우클릭 해주세요."
-                    >
-                      <QuestionCircleOutlined style={{ fontSize:"40px"}}/>
-                    </Tooltip>
+      <ButtonWrap>
+        <Button type="button" onClick={onToggleModal}>
+          모임 지역 검색하기
+        </Button>
+
+        <Tooltip
+          placement="topRight"
+          title="좌클릭으로 포인트를 정하고 우클릭으로 마지막에 우클릭 해주세요."
+        >
+          <QuestionCircleOutlined style={{ fontSize: "40px" }} />
+        </Tooltip>
       </ButtonWrap>
-      <div id="SearchMap" style={{ width: '100%', height: 400 }}></div>
+      <div id="SearchMap" style={{ width: "100%", height: 400 }}></div>
       {isOpen && (
         <Modal open={true} onOk={onToggleModal} onCancel={onToggleModal}>
           <DaumPostcodeEmbed onComplete={handleComplete} />
@@ -388,15 +388,15 @@ export default function KaKaoMapPage() {
 }
 
 const Button = styled.button`
-  background-color: #0B0B0B;
+  background-color: #0b0b0b;
   color: white;
   width: 150px;
   height: 50px;
   border: none;
-`
+`;
 const ButtonWrap = styled.div`
   padding: 20px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-`
+`;

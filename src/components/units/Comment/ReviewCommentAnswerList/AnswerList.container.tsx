@@ -1,12 +1,18 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { IMutation, IMutationDeleteReviewNestedCommentArgs, IQuery, IQueryFetchReviewNestedCommentsArgs } from "../../../../commons/types/generated/types";
+import {
+  IMutation,
+  IMutationDeleteReviewNestedCommentArgs,
+  IQuery,
+  IQueryFetchReviewNestedCommentsArgs,
+} from "../../../../commons/types/generated/types";
 import AnswerListUI from "./AnswerList.presenter";
-import { DELETE_REVIEW_NESTED_COMMENT, FETCH_REVIEW_NESTED_COMMENTS } from "./AnswerList.query";
+import {
+  DELETE_REVIEW_NESTED_COMMENT,
+  FETCH_REVIEW_NESTED_COMMENTS,
+} from "./AnswerList.query";
 
-export default function AnswerList(props) {
-
-
-    const { data, fetchMore } = useQuery<
+export default function AnswerList(props: any) {
+  const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchReviewNestedComments">,
     IQueryFetchReviewNestedCommentsArgs
   >(FETCH_REVIEW_NESTED_COMMENTS, {
@@ -14,11 +20,11 @@ export default function AnswerList(props) {
   });
 
   const [deleteReviewNestedComment] = useMutation<
-  Pick<IMutation, "deleteReviewNestedComment">,
-  IMutationDeleteReviewNestedCommentArgs
->(DELETE_REVIEW_NESTED_COMMENT);
+    Pick<IMutation, "deleteReviewNestedComment">,
+    IMutationDeleteReviewNestedCommentArgs
+  >(DELETE_REVIEW_NESTED_COMMENT);
 
-  console.log(data)
+  console.log(data);
 
   const onLoadMore = () => {
     if (!data) return;
@@ -30,12 +36,10 @@ export default function AnswerList(props) {
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult?.fetchReviewNestedComments)
           return {
-            fetchReviewNestedComments: [
-              ...prev.fetchReviewNestedComments,
-            ],
+            fetchReviewNestedComments: [...prev.fetchReviewNestedComments],
           };
         return {
-            fetchReviewNestedComments: [
+          fetchReviewNestedComments: [
             ...prev.fetchReviewNestedComments,
             ...fetchMoreResult.fetchReviewNestedComments,
           ],
@@ -43,11 +47,11 @@ export default function AnswerList(props) {
       },
     });
   };
-  const onClickDelete = (reviewNestedCommentId) => async (event) => {
+  const onClickDelete = (reviewNestedCommentId: any) => async (event: any) => {
     try {
       await deleteReviewNestedComment({
         variables: {
-          reviewNestedComment: reviewNestedCommentId,
+          reviewNestedCommentId: reviewNestedCommentId,
         },
         refetchQueries: [
           {
@@ -60,11 +64,11 @@ export default function AnswerList(props) {
       if (error instanceof Error) alert(error.message);
     }
   };
-    return(
-        <AnswerListUI
-        onClickDelete={onClickDelete}
-        data={data}
-        onLoadMore={onLoadMore}
-        />
-    )
+  return (
+    <AnswerListUI
+      onClickDelete={onClickDelete}
+      data={data}
+      onLoadMore={onLoadMore}
+    />
+  );
 }
