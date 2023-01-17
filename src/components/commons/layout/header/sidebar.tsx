@@ -36,17 +36,28 @@ const Menu = styled.div`
   font-weight: 400;
   letter-spacing: -0.011em;
   text-align: end;
+  cursor: pointer;
   color: #151515;
-  &::after {
-    transform: scale(0, 1);
-    transform-origin: 0% 100%;
-    transition: transform 0.3 ease;
-    background: black;
-    bottom: 0;
+  padding-right: 15px;
+  /* transform: scale(0, 0); */
+
+  /* background: black; */
+  /* bottom: 0; */
+  /* transition: transform 0.3 ease; */
+  transition: all 0.2s ease-in-out;
+  width: 0;
+
+  p {
+    padding: 5px 2%;
   }
 
-  &:hover::after {
-    transform: scale(1, 1);
+  &:hover {
+    background-color: #333;
+    color: #fff;
+    /* transform: scale(0, 1); */
+    /* background: black; */
+    transform-origin: 0% 100%;
+    width: 100%;
   }
 `;
 

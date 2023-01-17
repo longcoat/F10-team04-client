@@ -35,7 +35,7 @@ export const FETCH_FOLLOW_COUNT = gql`
   }
 `;
 
-export default function FollowingList(props) {
+export default function FollowingList(props: any) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);

@@ -7,7 +7,7 @@ import { Modal } from "antd";
 import { useRecoilState } from "recoil";
 import { FETCH_USER_LOGGED_IN } from "../../layout/header/header";
 
-export default function Uploads00(props) {
+export default function Uploads00(props: any) {
   const [image, setImage] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploadFile] = useMutation(UPLOAD_FILE);
@@ -17,21 +17,21 @@ export default function Uploads00(props) {
     fileRef.current?.click();
   };
 
-  useEffect(() =>{
-    if(data?.fetchUserLoggedIn.image?.imgUrl) {
-      setImage(data?.fetchUserLoggedIn.image?.imgUrl)
+  useEffect(() => {
+    if (data?.fetchUserLoggedIn.image?.imgUrl) {
+      setImage(data?.fetchUserLoggedIn.image?.imgUrl);
     }
-  },[data])
-console.log(image)
+  }, [data]);
+  console.log(image);
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value)
+    console.log(event.target.value);
     const file = checkValidationImage(event.target.files?.[0]);
     if (!file) return;
 
     try {
       const result = await uploadFile({ variables: { file } });
-      setImage(result.data.uploadFile)
-      console.log(result.data)
+      setImage(result.data.uploadFile);
+      console.log(result.data);
       props.onChangeImage(result.data.uploadFile);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });

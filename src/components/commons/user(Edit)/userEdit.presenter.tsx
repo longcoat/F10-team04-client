@@ -36,8 +36,7 @@ const FavOption = [
   { value: "야구", label: "야구" },
 ];
 
-export default function UserEditUI(props) {
-
+export default function UserEditUI(props: any) {
   return (
     <S.Container>
       <S.JoinForm>
@@ -54,7 +53,11 @@ export default function UserEditUI(props) {
           <S.Title>RunGether</S.Title>
         </S.TitleBox>
         <S.ImgBox>
-          <Uploads00 image={props.image} onChangeImage={props.onChangeImage} data={props.data}/>
+          <Uploads00
+            image={props.image}
+            onChangeImage={props.onChangeImage}
+            data={props.data}
+          />
         </S.ImgBox>
         <S.ProfileTextBox>
           <S.ProfileText>프로필 사진 등록</S.ProfileText>
