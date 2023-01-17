@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { JSXElementConstructor, MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useState } from "react";
 import {
   IQuery,
   IQueryFetchFollowingArgs,
@@ -101,7 +101,8 @@ export default function Members() {
 
   
  
-  return (<MembersUi 
+  return (
+  <MembersUi 
   onLoadMore={onLoadMore}
   loading={loading}
   following={following}
@@ -113,8 +114,6 @@ export default function Members() {
   onChangeAge={onChangeAge}
   onChangeFav={onChangeFav}
   onClickBtn={onClickBtn}
-  />;
-
-
+  />
   );
 }

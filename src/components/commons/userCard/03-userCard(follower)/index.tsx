@@ -54,14 +54,14 @@ export default function FollowerList(props: any) {
     Pick<IQuery, "fetchFollowCount">,
     IQueryFetchFollowCountArgs
   >(FETCH_FOLLOW_COUNT, {
-    variables: { userId: props.el.id },
+    variables: { userId: props.el?.id },
   });
 
-  console.log(data);
+  console.log(props.el);
   const { data: userData } = useQuery(FETCH_USER, {
-    variables: { userId: props.el.id },
+    variables: { userId: props.el?.id },
   });
-  console.log(userData);
+  
   const [followUser] = useMutation(FOLLOW_USER);
 
   const onClickHeart = () => {
@@ -91,15 +91,15 @@ export default function FollowerList(props: any) {
   return (
     <Wrapper>
       <ImgBox>
-        <Img src={props.el.image?.imgUrl || "/profile.png"} />
+        <Img src={props.el?.image?.imgUrl || "/profile.png"} />
       </ImgBox>
-      <Name>{props.el.nickname}</Name>
+      <Name>{props.el?.nickname}</Name>
       <UserInfo>
-        <Item>#{props.el.prefer}</Item>
-        <Item>#{props.el.age}</Item>
-        <Item>#{props.el.region}</Item>
+        <Item>#{props.el?.prefer}</Item>
+        <Item>#{props.el?.age}</Item>
+        <Item>#{props.el?.region}</Item>
       </UserInfo>
-      <Item>#{props.el.grade}</Item>
+      <Item>#{props.el?.grade}</Item>
       <HeartWrap>
         <Level>{data?.fetchFollowCount?.followerCount}팔로워</Level>
         <Level>{data?.fetchFollowCount?.followCount}팔로잉</Level>
@@ -107,7 +107,7 @@ export default function FollowerList(props: any) {
       <ButtonWrap>
         {!addActive ? (
           <FollowButton
-            onClick={onClickAdd(props.el.id)}
+            onClick={onClickAdd(props.el?.id)}
             style={{
               width: "160px",
               fontSize: "16px",
@@ -122,7 +122,7 @@ export default function FollowerList(props: any) {
           </FollowButton>
         ) : (
           <FollowButton
-            onClick={onClickAdd(props.el.id)}
+            onClick={onClickAdd(props.el?.id)}
             style={{
               width: "160px",
               fontSize: "16px",

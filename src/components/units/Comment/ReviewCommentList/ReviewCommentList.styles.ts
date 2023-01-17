@@ -7,13 +7,12 @@ import * as M from "../../../../commons/styles/mediaQueries";
 
 export const Wrap = styled.div`
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   width: 100%;
   margin-top: 30px;
 `;
 export const IconWrap = styled.div`
-  background-color: gray;
-  border-radius: 100%;
+padding-top: 7px;
   width: 35px;
   height: 35px;
   ${M.mediaM} {
@@ -24,7 +23,7 @@ export const IconWrap = styled.div`
   }
 `;
 export const ContentWrap = styled.div`
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   padding-left: 10px;
@@ -78,3 +77,8 @@ export const firstLine = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+export const ImageProfile = styled.img`
+  width: 35px;
+  height: 35px;
+  border-radius: 100px;
+`
