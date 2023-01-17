@@ -364,7 +364,7 @@ export default function KaKaoMapPage() {
   useEffect(() => {
     setPath1(JSON.stringify(path));
     setCenter1(JSON.stringify(center));
-  }, [path, center]);
+  }, [path, center, setPath1, setCenter1]);
 
   return (
     <>

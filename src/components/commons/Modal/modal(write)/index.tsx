@@ -26,7 +26,6 @@ import {
   IMutation,
   IMutationCreateBoardArgs,
 } from "../../../../commons/types/generated/types";
-import { withAuth } from "../../hocs/withAuth";
 import { FETCH_USER_LOGGED_IN } from "../../layout/header/header";
 import { FETCH_MY_All_BOARDS } from "../../../units/MyPageA/MyBoardList";
 
@@ -158,43 +157,52 @@ export default function InModalWrite(props: any) {
       void router.push("/login");
       setModalOpen(false);
     } else return;
-  });
+  }, [router, setModalOpen]);
 
-  const onClickSubmit = async () => { 
-    if (title && content && appointment && recruitSports && recruitGrade && recruitRegion
-      && recruitPeople && path && center) {
-    try {
-      const result = await createBoard({
-        variables: {
-          createBoardInput: {
-            title,
-            content,
-            appointment,
-            recruitSports,
-            recruitGrade,
-            recruitRegion,
-            image,
-            recruitPeople: Number(recruitPeople),
-            location: {
-              path,
-              center,
+  const onClickSubmit = async () => {
+    if (
+      title &&
+      content &&
+      appointment &&
+      recruitSports &&
+      recruitGrade &&
+      recruitRegion &&
+      recruitPeople &&
+      path &&
+      center
+    ) {
+      try {
+        const result = await createBoard({
+          variables: {
+            createBoardInput: {
+              title,
+              content,
+              appointment,
+              recruitSports,
+              recruitGrade,
+              recruitRegion,
+              image,
+              recruitPeople: Number(recruitPeople),
+              location: {
+                path,
+                center,
+              },
             },
           },
-        },
-        refetchQueries: [
-          { query: FETCH_ALL_BOARDS },
-          { query: FETCH_MY_All_BOARDS },
-          { query: FETCH_ALL_BOARDS_WITH_PICK_BOARD },
-        ],
-      });
-      Modal.success({ content: "게시물 작성 완료!" });
-      setModalOpen(false);
-      router.push(`/community/`);
-    } catch (error) {
-      if (error instanceof Error) Modal.error({ content: error });
-    }
-    }else{
-      alert("이미지를 제외한 모든 정보는 필수입니다.")
+          refetchQueries: [
+            { query: FETCH_ALL_BOARDS },
+            { query: FETCH_MY_All_BOARDS },
+            { query: FETCH_ALL_BOARDS_WITH_PICK_BOARD },
+          ],
+        });
+        Modal.success({ content: "게시물 작성 완료!" });
+        setModalOpen(false);
+        router.push(`/community/`);
+      } catch (error) {
+        if (error instanceof Error) Modal.error({ content: error });
+      }
+    } else {
+      alert("이미지를 제외한 모든 정보는 필수입니다.");
     }
   };
   const onChangePeople = (e: any) => {
@@ -223,6 +231,9 @@ export default function InModalWrite(props: any) {
     const newFile = fileUrl;
     setImage(newFile);
   };
+
+  const defaultValue: dayjs.Dayjs = dayjs("00:00:00", "HH:mm:ss");
+  let showTime = { defaultValue: dayjs("00:00:00", "HH:mm:ss") };
 
   return (
     <S.Wrapper>
@@ -285,7 +296,7 @@ export default function InModalWrite(props: any) {
                 format="YYYY-MM-DD HH:mm:ss"
                 disabledDate={disabledDate}
                 disabledTime={disabledDateTime}
-                showTime={{ defaultValue: dayjs("00:00:00", "HH:mm:ss") }}
+                showTime
               />
             </S.InputWrapper>
             <S.Category>

@@ -30,8 +30,6 @@ export default function Livechat(props: IPropsLiveChat) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
-
-
   const { register, handleSubmit, resetField } = useForm({
     mode: "onChange",
     defaultValues: {
@@ -43,17 +41,15 @@ export default function Livechat(props: IPropsLiveChat) {
     socket.on(room, (data) => {
       setResultMsg((prev: string[]) => [...prev, data]);
     });
-  }, [room]);
+  }, [room, socket]);
 
   useEffect(() => {
     setUserId(props.userData?.fetchUserLoggedIn.id);
     setRoom(String(props.data?.fetchBoard?.id));
     setNickName(props.userData?.fetchUserLoggedIn.nickname);
-  }, [props.userData]);
+  }, [props.data?.fetchBoard?.id, props.userData]);
   useEffect(() => {
-   
     setRoom(String(props.data?.fetchBoard?.id));
-   
   }, [props.data]);
 
   const onClickSubmit = async (data: IFormValueChat) => {
