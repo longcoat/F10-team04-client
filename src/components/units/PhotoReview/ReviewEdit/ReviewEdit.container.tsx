@@ -48,7 +48,7 @@ export default function ReviewEdit(props: any) {
       setContent(props.data?.fetchReviewBoard.content);
     }
     setReviewImage(props.image);
-  }, [props.image]);
+  }, [props.data, props.image]);
 
   const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...reviewImage];
