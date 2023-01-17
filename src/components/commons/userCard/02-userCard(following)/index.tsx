@@ -5,17 +5,19 @@ import { HeartFilled, HeartOutlined, UserAddOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { FETCH_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail.queries";
 import { Modal } from "antd";
 
-import ChattingBtn from "../../chattingBtn/indx";
 import { IMutation, IMutationFollowUserArgs, IQuery, IQueryFetchFollowCountArgs } from "../../../../commons/types/generated/types";
+
+import { FETCH_FOLLOWING } from "../../../units/PhotoReview/ReviewList/Review.query";
+import { FETCH_USER_LOGGED_IN } from "../../layout/header/header";
 
 export const FOLLOW_USER = gql`
   mutation followUser($userId: String!) {
     followUser(userId: $userId)
   }
 `;
+
 export const FETCH_FOLLOW_COUNT = gql`
   query fetchFollowCount($userId: String!) {
     fetchFollowCount(userId: $userId) {
@@ -28,61 +30,40 @@ export const FETCH_FOLLOW_COUNT = gql`
     }
   }
 `;
-export const FETCH_USER = gql`
-  query fetchUser($userId: String!) {
-    fetchUser(userId: $userId) {
-      id
-      email
-      nickname
-      age
-      gender
-      region
-      prefer
-      grade
-    }
-  }
-`;
-export default function FollowingList(props) {
+
+export default function FollowingList(props: any) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);
+  const { data: fetchUser } = useQuery(FETCH_USER_LOGGED_IN);
   const { data } = useQuery<
-  Pick<IQuery, "fetchFollowCount">,
-  IQueryFetchFollowCountArgs
->(FETCH_FOLLOW_COUNT, {
+    Pick<IQuery, "fetchFollowCount">,
+    IQueryFetchFollowCountArgs
+  >(FETCH_FOLLOW_COUNT, {
     variables: { userId: props.el.id },
   });
 
-  console.log(data);
-  const { data: userData } = useQuery(FETCH_USER, {
-    variables: { userId: props.el.id },
-  });
-  console.log(userData);
   const [followUser] = useMutation(FOLLOW_USER);
 
-  const onClickHeart = () => {
-    setIsActive((prev) => !prev);
-  };
   const onClickAdd = (userId) => async () => {
     setAddActive((prev) => !prev);
-    await followUser({
+    const result = await followUser({
       variables: { userId: userId },
       refetchQueries: [
         {
-          query: FETCH_FOLLOW_COUNT,
-          variables: { userId: userId },
+          query: FETCH_FOLLOWING,
+          variables: { userId: String(fetchUser.fetchUserLoggedIn.id) },
         },
       ],
     });
-    if (addActive === false) {
-      Modal.success({ content: "팔로우 완료!" });
-    } else if (addActive === true) {
       Modal.error({ content: "팔로우 취소!" });
-    }
+
   };
   return (
     <Wrapper>
-      <Img></Img>
+      <ImgBox>
+        <Img src={props.el.image?.imgUrl || "/profile.png"} />
+      </ImgBox>
       <Name>{props.el.nickname}</Name>
       <UserInfo>
         <Item>#{props.el.prefer}</Item>
@@ -95,31 +76,20 @@ export default function FollowingList(props) {
         <Level>{data?.fetchFollowCount?.followCount}팔로잉</Level>
       </HeartWrap>
       <ButtonWrap>
-        {!addActive ? (
-          <UserAddOutlined
-            onClick={onClickAdd(props.el.id)}
-            style={{
-              width: "20%",
-              fontSize: "22px",
-              paddingTop: "6px",
-              height: "35px",
-              borderRadius: "16px",
-            }}
-          />
-        ) : (
-          <UserAddOutlined
-            onClick={onClickAdd(props.el.id)}
-            style={{
-              width: "20%",
-              fontSize: "22px",
-              paddingTop: "6px",
-              height: "35px",
-              borderRadius: "16px",
-              color: "#3C59A6",
-            }}
-          />
-        )}
-        <ChattingBtn userData={userData} />
+        <FollowButton
+          onClick={onClickAdd(props.el.id)}
+          style={{
+            width: "160px",
+            fontSize: "16px",
+            height: "35px",
+            borderRadius: "16px",
+            border: "2px solid black",
+            backgroundColor: "black",
+            color: "White",
+          }}
+        >
+          팔로우 취소
+        </FollowButton>
       </ButtonWrap>
     </Wrapper>
   );
@@ -139,11 +109,15 @@ const Wrapper = styled.div`
   margin: 23px;
   cursor: pointer;
 `;
-const Img = styled.div`
+const ImgBox = styled.div`
   width: 103px;
   height: 103px;
   border-radius: 100%;
-  border: 1px solid black;
+`;
+const Img = styled.img`
+  width: 103px;
+  height: 103px;
+  border-radius: 100%;
 `;
 const Name = styled.div`
   font-size: 24px;
@@ -160,7 +134,7 @@ const Item = styled.span`
   margin-right: 7px;
   color: #bbbbbb;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 20px;
   letter-spacing: -0.47999998927116394px;
   text-align: left;
@@ -181,17 +155,14 @@ const Level = styled.div`
   letter-spacing: -0.47999998927116394px;
   text-align: left;
 `;
-const Button = styled.button`
-  width: 75%;
-  height: 35px;
-  color: #fafafa;
-  background-color: #0b0b0b;
-  border-radius: 16px;
-  cursor: pointer;
+const FollowButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const ButtonWrap = styled.div`
   width: 75%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 `;

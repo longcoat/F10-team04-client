@@ -1,68 +1,62 @@
 import { useQuery } from "@apollo/client";
-import { useRouter } from "next/router";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { modalDetailState } from "../../../../commons/stores";
-import { FETCH_BOARD } from "../detail/CommunityDetail.queries";
+import {
+  AttendState,
+  modalDetailState,
+  PickState,
+  ToggleState,
+} from "../../../../commons/stores";
 import CommunityListUi from "./CommunityList.presenter";
-
 import {
   FETCH_ALL_BOARDS,
   FETCH_ALL_BOARDS_WITH_PICK_BOARD,
   SEARCH_BOARDS,
 } from "./CommunityList.queries";
 import _ from "lodash";
-import { IQuery, IQueryFetchAllBoardsArgs, IQueryFetchAllBoardsWithPickCountArgs, IQuerySerchBoardsArgs } from "../../../../commons/types/generated/types";
+import {
+  IQuery,
+  IQueryFetchAllBoardsArgs,
+  IQuerySearchBoardsArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function CommunityList() {
   const [keyword, setKeyword] = useState("");
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
+  const [pick, setPick] = useRecoilState(PickState);
+  const [attend, setAttend] = useRecoilState(AttendState);
+  const [Toggle, setToggle] = useRecoilState(ToggleState);
   const [boardId, setBoardId] = useState("");
   const [level, setLevel] = useState("");
   const [Lo, setLo] = useState("");
-  const [word, setWord] = useState("")
-  const [isSearch, setIsSearch] = useState(false)
+  const [word, setWord] = useState("");
   const result = [];
   const result2 = [];
 
-
   const { data, refetch, fetchMore } = useQuery<
-  Pick<IQuery, "fetchAllBoards">,
-  IQueryFetchAllBoardsArgs
->(FETCH_ALL_BOARDS);
+    Pick<IQuery, "fetchAllBoards">,
+    IQueryFetchAllBoardsArgs
+  >(FETCH_ALL_BOARDS);
   const {
     data: Pick,
     refetch: pickRefetch,
     fetchMore: pickFetchMore,
   } = useQuery(FETCH_ALL_BOARDS_WITH_PICK_BOARD);
   const { data: search } = useQuery<
-  Pick<IQuery, "serchBoards">,
-  IQuerySerchBoardsArgs
->(SEARCH_BOARDS, {
+    Pick<IQuery, "searchBoards">,
+    IQuerySearchBoardsArgs
+  >(SEARCH_BOARDS, {
     variables: {
-      word
+      word,
     },
   });
-  
-  useEffect(() => {
-    if(search) {
-      setIsSearch(true)
-    }
-  },[word])
-
-
-const onClickBtn = () => {
-
-}
-  // console.log(search)
-
 
   const onLoadMore = () => {
     if (!data) return;
 
     fetchMore({
       variables: {
-        page: Math.ceil(data?.fetchAllBoards.length / 9) + 1,
+        page: Math.ceil(data?.fetchAllBoards.length / 8) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (fetchMoreResult.fetchAllBoards == undefined) {
@@ -85,7 +79,7 @@ const onClickBtn = () => {
 
     pickFetchMore({
       variables: {
-        page: Math.ceil(Pick?.fetchAllBoardsWithPickCount.length / 9) + 1,
+        page: Math.ceil(Pick?.fetchAllBoardsWithPickCount.length / 8) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (fetchMoreResult.fetchAllBoardsWithPickCount == undefined) {
@@ -102,19 +96,17 @@ const onClickBtn = () => {
       },
     });
   };
-  const onClickDetail = (boardId) => () => {
+  const onClickDetail = (boardId: any) => () => {
     setModalOpen((prev) => !prev);
     setBoardId(boardId);
   };
-  const onChangeLevel = (e) => {
-    setLevel(e);
+  const onChangeLevel = (e: MouseEvent) => {
+    setLevel(String(e));
   };
-  const onChangeLo = (e) => {
-    setLo(e);
+  const onChangeLo = (e: MouseEvent) => {
+    setLo(String(e));
   };
-  const onChangeWord = (e) => {
-    setWord(e.target.value)
-  }
+
   data?.fetchAllBoards.forEach((el) => {
     if (
       el.recruitRegion?.includes(Lo) === true &&
@@ -123,7 +115,7 @@ const onClickBtn = () => {
       result.push(el);
     }
   });
-  Pick?.fetchAllBoardsWithPickCount.forEach((el) => {
+  Pick?.fetchAllBoardsWithPickCount.forEach((el: any) => {
     if (
       el.recruitRegion?.includes(Lo) === true &&
       el.recruitGrade?.includes(level) === true
@@ -132,14 +124,6 @@ const onClickBtn = () => {
     }
   });
 
-  const getDebounce = _.debounce((value) => {
-    void refetch({ search: value, page: 1 });
-    setKeyword(value);
-  }, 500);
-
-  const onChangeSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    getDebounce(event.currentTarget.value);
-  };
   return (
     <CommunityListUi
       result={result}
@@ -147,15 +131,15 @@ const onClickBtn = () => {
       boardId={boardId}
       Pick={Pick}
       data={data}
-      isSearch={isSearch}
-      onChangeWord={onChangeWord}
+      word={word}
+      search={search}
+      setWord={setWord}
       onLoadMore2={onLoadMore2}
       onChangeLevel={onChangeLevel}
       onChangeLo={onChangeLo}
       onLoadMore={onLoadMore}
       onClickDetail={onClickDetail}
       keyword={keyword}
-      onChangeSearch={onChangeSearch}
     />
   );
 }

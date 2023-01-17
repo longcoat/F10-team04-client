@@ -28,9 +28,10 @@ export default function Review() {
   >(FETCH_FOLLOWER, {
       variables: { userId: String(fetchUser?.fetchUserLoggedIn.id) },
     });
+
+
+    console.log("follower",followerList)
     console.log(followingList)
-    console.log(data)
-    console.log(fetchUser)
 
     const onClickMore = (reviewBoardId) => () =>{
         setReviewId(reviewBoardId)

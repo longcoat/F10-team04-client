@@ -37,7 +37,7 @@ export const FETCH_ALL_REVIEW_BOARD_IMAGE = gql`
 
 export const LiKE_REVIEW_BOARD = gql`
   mutation likeReviewBoard($reviewBoardId: String!) {
-    likeReviewBoard(reviewBoardId: $reviewBoardId)
+    likeReviewBoard(reviewBoardId: $reviewBoardId) 
   }
 `;
 export const DELETE_REVIEW_BOARD = gql`

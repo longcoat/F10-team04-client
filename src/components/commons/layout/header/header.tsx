@@ -19,7 +19,7 @@ export const FETCH_USER_LOGGED_IN = gql`
       region
       prefer
       grade
-      image{
+      image {
         id
         imgUrl
       }
@@ -43,11 +43,9 @@ export default function LayoutHeader() {
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
 
   useEffect(() => {
-    setId(data?.fetchUserLoggedIn.id)
-  },[data])
+    setId(data?.fetchUserLoggedIn.id);
+  }, [data]);
 
-  console.log(data)
-  
   const onClickMoveToLogin = () => {
     if (!data) {
       router.push("/login");
@@ -74,39 +72,41 @@ export default function LayoutHeader() {
   };
 
   return (
-    <S.Wrapper>
-      <S.LeftSide>
-        <S.Logo onClick={() => router.push("/")} className="logo">
-          Rungether
-        </S.Logo>
-      </S.LeftSide>
-      <S.RightSide>
-      <S.Menu onClick={() => router.push("/photoReview")} className="menu">
-          PhotoReview
-        </S.Menu>
-        <S.Menu onClick={() => router.push("/members")} className="menu">
-          Members
-        </S.Menu>
-        <S.Menu onClick={() => router.push("/community")} className="menu">
-          Community
-        </S.Menu>
-        <S.Menu onClick={onClcikMoveToUser} className="menu">
-          {data ? "Mypage" : "Sign up"}
-        </S.Menu>
-        <S.Menu
-          onClick={data ? onClickLogOut : onClickMoveToLogin}
-          className="menu"
-        >
-          {data ? "Logout" : "Login"}
-        </S.Menu>
+    <>
+      <S.Wrapper>
+        <S.LeftSide>
+          <S.Logo onClick={() => router.push("/")} className="logo">
+            Rungether
+          </S.Logo>
+        </S.LeftSide>
+        <S.RightSide>
+          <S.Menu onClick={() => router.push("/photoReview")} className="menu">
+            <p style={{ marginBottom: "0em" }}>PhotoReview</p>
+          </S.Menu>
+          <S.Menu onClick={() => router.push("/members")} className="menu">
+            <p style={{ marginBottom: "0em" }}>Members</p>
+          </S.Menu>
+          <S.Menu onClick={() => router.push("/community")} className="menu">
+            Community
+          </S.Menu>
+          <S.Menu onClick={onClcikMoveToUser} className="menu">
+            {data ? "Mypage" : "Sign up"}
+          </S.Menu>
+          <S.Menu
+            onClick={data ? onClickLogOut : onClickMoveToLogin}
+            className="menu"
+          >
+            {data ? "Logout" : "Login"}
+          </S.Menu>
 
-        <S.Menu2>
-          <MenuOutlined className="sidemenu" onClick={toggleSide} />
-        </S.Menu2>
-        <S.SidebarWrap>
-          <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
-        </S.SidebarWrap>
-      </S.RightSide>
-    </S.Wrapper>
+          <S.Menu2>
+            <MenuOutlined className="sidemenu" onClick={toggleSide} />
+          </S.Menu2>
+        </S.RightSide>
+      </S.Wrapper>
+      <S.SidebarWrap>
+        <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+      </S.SidebarWrap>
+    </>
   );
 }

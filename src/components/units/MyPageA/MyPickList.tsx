@@ -23,11 +23,23 @@ export const FETCH_MY_PICK_BOARDS = gql`
         content
         attendCount
         appointment
+        user {
+          id
+          nickname
+          image {
+            id
+            imgUrl
+          }
+        }
       }
       user {
         id
         email
         nickname
+        image {
+          id
+          imgUrl
+        }
       }
     }
   }
@@ -54,7 +66,7 @@ export default function MyPickList() {
     setBoardId(boardId);
   };
 
-  const onClickPick = (boardId) => async (e) => {
+  const onClickPick = (boardId) => async (e: any) => {
     e.stopPropagation();
     console.log(boardId);
     setPick((prev) => !prev);
@@ -93,7 +105,9 @@ export default function MyPickList() {
         <BoardListWrapper key={el.id} onClick={onClickDetail(el.board.id)}>
           <BoardList>
             <ImageListProfileBox>
-              <ImageListProfile src="/profile.png" />
+              <ImageListProfile
+                src={el.board.user?.image?.imgUrl || "/profile.png"}
+              />
             </ImageListProfileBox>
             <InfoTextWrapper>
               <InfoTextBox>
@@ -156,6 +170,8 @@ export const ImageListProfileBox = styled.div`
 
 export const ImageListProfile = styled.img`
   width: 64px;
+  height: 64px;
+  border-radius: 100px;
 `;
 
 export const InfoTextWrapper = styled.div`
@@ -234,7 +250,7 @@ export const ReviewBtn = styled.button`
   justify-content: center;
   background: none;
   border-radius: 8px;
-  padding-bottom: 22px;
+  padding-bottom: 4px;
   color: white;
   font-size: 14px;
   border: none;

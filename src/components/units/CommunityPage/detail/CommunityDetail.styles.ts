@@ -1,3 +1,4 @@
+import { HeartFilled } from "@ant-design/icons";
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
@@ -12,11 +13,26 @@ export const Img = styled.img`
   width: 100%;
   height: 300px;
 `;
+export const UserWrap = styled.div`
+  display: flex;
+`;
+export const AttendListBtn = styled.button`
+  background-color: white;
+  margin-left: 10px;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+`;
 export const IconWarp = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
   font-size: 20px;
+`;
+export const Map_Chat = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 export const Head = styled.div`
   padding-top: 30px;
@@ -30,6 +46,8 @@ export const AvatarWrap = styled.div`
 
 export const Avatar = styled.img`
   width: 100%;
+  height: 110px;
+  border-radius: 100px;
 `;
 
 export const UerInfo = styled.div`
@@ -184,8 +202,13 @@ export const BtnWrap = styled.div`
   padding-top: 20px;
   font-size: 16px;
 `;
+export const BtnWrap1 = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+  font-size: 16px;
+`;
 export const Button1 = styled.button`
-
   width: 161px;
   height: 63px;
   background-color: #f6f6f6;
@@ -199,7 +222,6 @@ export const Button1 = styled.button`
 `;
 
 export const Button2 = styled.button`
-
   width: 161px;
   height: 63px;
   background-color: #000;
@@ -208,16 +230,13 @@ export const Button2 = styled.button`
   cursor: pointer;
 `;
 export const Button3 = styled.button`
-
   width: 161px;
   height: 63px;
-  background-color: #000;
-  color: #fff;
+  background-color: ${(props: { isActive: boolean }) =>
+    props.isActive ? "black" : "#f6f6f6"};
+  color: ${(props) => (props.isActive ? "#fff" : "black")};
   border: none;
-
   border-radius: 12px;
   font-size: 18px;
-  color: #fff;
   cursor: pointer;
 `;
-

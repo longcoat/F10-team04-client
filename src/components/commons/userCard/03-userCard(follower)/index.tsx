@@ -8,8 +8,10 @@ import { useRouter } from "next/router";
 import { FETCH_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail.queries";
 import { Modal } from "antd";
 
-import ChattingBtn from "../../chattingBtn/indx";
 import { IMutation, IMutationFollowUserArgs, IQuery, IQueryFetchFollowCountArgs } from "../../../../commons/types/generated/types";
+
+import { LoggedInUserId } from "../../../../commons/stores";
+import { useRecoilState } from "recoil";
 
 export const FOLLOW_USER = gql`
   mutation followUser($userId: String!) {
@@ -42,28 +44,34 @@ export const FETCH_USER = gql`
     }
   }
 `;
-export default function FollowerList(props) {
+export default function FollowerList(props: any) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);
+  const [loggedInId, setLoggedInId] = useRecoilState(LoggedInUserId);
+
   const { data } = useQuery<
-  Pick<IQuery, "fetchFollowCount">,
-  IQueryFetchFollowCountArgs
->(FETCH_FOLLOW_COUNT, {
-    variables: { userId: props.el.id },
+    Pick<IQuery, "fetchFollowCount">,
+    IQueryFetchFollowCountArgs
+  >(FETCH_FOLLOW_COUNT, {
+    variables: { userId: props.el?.id },
   });
 
-  console.log(data);
+  console.log(props.el);
   const { data: userData } = useQuery(FETCH_USER, {
-    variables: { userId: props.el.id },
+    variables: { userId: props.el?.id },
   });
-  console.log(userData);
+  
   const [followUser] = useMutation(FOLLOW_USER);
 
   const onClickHeart = () => {
     setIsActive((prev) => !prev);
   };
   const onClickAdd = (userId) => async () => {
+    if (loggedInId === userId) {
+      alert("자기 자신은 팔로우 할 수 없습니다 !");
+      return;
+    }
     setAddActive((prev) => !prev);
     await followUser({
       variables: { userId: userId },
@@ -82,44 +90,54 @@ export default function FollowerList(props) {
   };
   return (
     <Wrapper>
-      <Img></Img>
-      <Name>{props.el.nickname}</Name>
+      <ImgBox>
+        <Img src={props.el?.image?.imgUrl || "/profile.png"} />
+      </ImgBox>
+      <Name>{props.el?.nickname}</Name>
       <UserInfo>
-        <Item>#{props.el.prefer}</Item>
-        <Item>#{props.el.age}</Item>
-        <Item>#{props.el.region}</Item>
+        <Item>#{props.el?.prefer}</Item>
+        <Item>#{props.el?.age}</Item>
+        <Item>#{props.el?.region}</Item>
       </UserInfo>
-      <Item>#{props.el.grade}</Item>
+      <Item>#{props.el?.grade}</Item>
       <HeartWrap>
         <Level>{data?.fetchFollowCount?.followerCount}팔로워</Level>
         <Level>{data?.fetchFollowCount?.followCount}팔로잉</Level>
       </HeartWrap>
       <ButtonWrap>
         {!addActive ? (
-          <UserAddOutlined
-            onClick={onClickAdd(props.el.id)}
+          <FollowButton
+            onClick={onClickAdd(props.el?.id)}
             style={{
-              width: "20%",
-              fontSize: "22px",
-              paddingTop: "6px",
+              width: "160px",
+              fontSize: "16px",
               height: "35px",
               borderRadius: "16px",
+              border: "2px solid black",
+              backgroundColor: "black",
+              color: "White",
             }}
-          />
+          >
+            팔로우
+          </FollowButton>
         ) : (
-          <UserAddOutlined
-            onClick={onClickAdd(props.el.id)}
+          <FollowButton
+            onClick={onClickAdd(props.el?.id)}
             style={{
-              width: "20%",
-              fontSize: "22px",
-              paddingTop: "6px",
+              width: "160px",
+              fontSize: "16px",
               height: "35px",
+              border: "2px solid black",
+              boxShadow:
+                "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
               borderRadius: "16px",
-              color: "#3C59A6",
+              backgroundColor: "#f6f6f6",
+              color: "black",
             }}
-          />
+          >
+            팔로우 취소
+          </FollowButton>
         )}
-        <ChattingBtn userData={userData} />
       </ButtonWrap>
     </Wrapper>
   );
@@ -139,11 +157,15 @@ const Wrapper = styled.div`
   margin: 23px;
   cursor: pointer;
 `;
-const Img = styled.div`
+const ImgBox = styled.div`
   width: 103px;
   height: 103px;
   border-radius: 100%;
-  border: 1px solid black;
+`;
+const Img = styled.img`
+  width: 103px;
+  height: 103px;
+  border-radius: 100%;
 `;
 const Name = styled.div`
   font-size: 24px;
@@ -160,7 +182,7 @@ const Item = styled.span`
   margin-right: 7px;
   color: #bbbbbb;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 20px;
   letter-spacing: -0.47999998927116394px;
   text-align: left;
@@ -181,17 +203,14 @@ const Level = styled.div`
   letter-spacing: -0.47999998927116394px;
   text-align: left;
 `;
-const Button = styled.button`
-  width: 75%;
-  height: 35px;
-  color: #fafafa;
-  background-color: #0b0b0b;
-  border-radius: 16px;
-  cursor: pointer;
+const FollowButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const ButtonWrap = styled.div`
   width: 75%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 `;

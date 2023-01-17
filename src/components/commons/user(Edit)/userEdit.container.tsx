@@ -1,16 +1,21 @@
 import { useMutation } from "@apollo/client";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { modalEditState } from "../../../commons/stores";
-import { IMutation, IMutationCheckNickNameArgs, IMutationUpdateUserArgs } from "../../../commons/types/generated/types";
+import { modalEditState, userEditState } from "../../../commons/stores";
+import {
+  IMutation,
+  IMutationCheckNickNameArgs,
+  IMutationUpdateUserArgs,
+} from "../../../commons/types/generated/types";
+import { FETCH_USER_LOGGED_IN } from "../layout/header/header";
 import UserEditUI from "./userEdit.presenter";
 import { CHECK_NICK_NAME, UPDATE_USER } from "./userEdit.query";
 
-export default function UserEdit(props) {
+export default function UserEdit(props: any) {
   console.log(props.data);
-  const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
+  const [ModalOpen, setModalOpen] = useRecoilState(userEditState);
   const router = useRouter();
   const [NicknameAct, setNickNameAct] = useState(false);
   const [gender, setGender] = useState("");
@@ -28,43 +33,42 @@ export default function UserEdit(props) {
   const [age, setAge] = useState("");
   const [region, setRegion] = useState("");
   const [prefer, setPrefer] = useState("");
-  const [image, setImage] = useState("/profile.png")
+  const [image, setImage] = useState("/profile.png");
   useEffect(() => {
-    if(props.data?.fetchUserLoggedIn.gender === "남성") {
-      setClickLeft(true)
-    }else{
-      setClickRight(true)
+    if (props.data?.fetchUserLoggedIn.gender === "남성") {
+      setClickLeft(true);
+    } else {
+      setClickRight(true);
     }
-    if(props.data?.fetchUserLoggedIn.grade === "Beginner") {
-      setLevel1(true)
-    }else if(props.data?.fetchUserLoggedIn.grade === "Amateur") {
-      setLevel2(true)
-    }else {
-      setLevel3(true)
+    if (props.data?.fetchUserLoggedIn.grade === "Beginner") {
+      setLevel1(true);
+    } else if (props.data?.fetchUserLoggedIn.grade === "Amateur") {
+      setLevel2(true);
+    } else {
+      setLevel3(true);
     }
-    if(props.data) {
-      setGrade(props.data?.fetchUserLoggedIn.grade)
-      setNickname(props.data?.fetchUserLoggedIn.nickname)
-      setPrefer(props.data?.fetchUserLoggedIn.prefer)
-      setRegion(props.data?.fetchUserLoggedIn.region)
-      setGender(props.data?.fetchUserLoggedIn.gender)
-      setAge(props.data?.fetchUserLoggedIn.age)
+    if (props.data) {
+      setGrade(props.data?.fetchUserLoggedIn.grade);
+      setNickname(props.data?.fetchUserLoggedIn.nickname);
+      setPrefer(props.data?.fetchUserLoggedIn.prefer);
+      setRegion(props.data?.fetchUserLoggedIn.region);
+      setGender(props.data?.fetchUserLoggedIn.gender);
+      setAge(props.data?.fetchUserLoggedIn.age);
     }
-  },[props.data])
-console.log(props.data)
-  
-  const [checkNickName] = useMutation<
-  Pick<IMutation, "checkNickName">,
-  IMutationCheckNickNameArgs
->(CHECK_NICK_NAME);
- 
-  const [updateUser] = useMutation<
-  Pick<IMutation, "updateUser">,
-  IMutationUpdateUserArgs
->(UPDATE_USER);
-  
+  }, [props.data]);
+  console.log(props.data);
 
-  const onChangeNickName = (e) => {
+  const [checkNickName] = useMutation<
+    Pick<IMutation, "checkNickName">,
+    IMutationCheckNickNameArgs
+  >(CHECK_NICK_NAME);
+
+  const [updateUser] = useMutation<
+    Pick<IMutation, "updateUser">,
+    IMutationUpdateUserArgs
+  >(UPDATE_USER);
+
+  const onChangeNickName = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
     if (e.target.value !== "") {
       setNickNameAct(true);
@@ -72,7 +76,8 @@ console.log(props.data)
       setNickNameAct(false);
     }
   };
-  const onClickLeft = (e) => {
+  const onClickLeft = (e: any) => {
+    console.log(e);
     setGenderAct(true);
     if (!clickLeft) {
       if (clickRight) {
@@ -86,7 +91,7 @@ console.log(props.data)
     }
   };
 
-  const onClickRight = (e) => {
+  const onClickRight = (e: any) => {
     setGenderAct(true);
     if (!clickRight) {
       if (clickLeft) {
@@ -100,7 +105,7 @@ console.log(props.data)
     }
   };
 
-  const onClickLevel1 = (e) => {
+  const onClickLevel1 = (e: any) => {
     setLevelAct(true);
     if (!level1) {
       if (level2) {
@@ -117,7 +122,7 @@ console.log(props.data)
       }
     }
   };
-  const onClickLevel2 = (e) => {
+  const onClickLevel2 = (e: any) => {
     setLevelAct(true);
     if (!level2) {
       if (level1) {
@@ -134,7 +139,7 @@ console.log(props.data)
       }
     }
   };
-  const onClickLevel3 = (e) => {
+  const onClickLevel3 = (e: any) => {
     setLevelAct(true);
     if (!level3) {
       if (level1) {
@@ -151,14 +156,14 @@ console.log(props.data)
       }
     }
   };
-  const onChangeAge = (e) => {
-    setAge(e);
+  const onChangeAge = (e: MouseEvent) => {
+    setAge(String(e));
   };
-  const onChangeLo = (e) => {
-    setRegion(e);
+  const onChangeLo = (e: MouseEvent) => {
+    setRegion(String(e));
   };
-  const onChangeFav = (e) => {
-    setPrefer(e);
+  const onChangeFav = (e: MouseEvent) => {
+    setPrefer(String(e));
   };
 
   const onClickCheckNickname = async () => {
@@ -174,9 +179,8 @@ console.log(props.data)
       alert("사용 가능한 닉네임입니다.");
     }
   };
-  
-  const onClickSubmit = async () => {
 
+  const onClickSubmit = async () => {
     try {
       const result = await updateUser({
         variables: {
@@ -187,9 +191,11 @@ console.log(props.data)
             prefer,
             age,
             gender,
-            image
+            image,
           },
-        },
+        }, refetchQueries: [
+          { query: FETCH_USER_LOGGED_IN }
+        ],
       });
       console.log(result);
       setModalOpen(false);

@@ -1,6 +1,9 @@
 import { gql, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { IQuery, IQueryFetchMyAllBoardsArgs } from "../../../commons/types/generated/types";
+import {
+  IQuery,
+  IQueryFetchMyAllBoardsArgs,
+} from "../../../commons/types/generated/types";
 
 export const FETCH_MY_All_BOARDS = gql`
   query fetchMyAllBoards($page: Int) {
@@ -16,19 +19,29 @@ export const FETCH_MY_All_BOARDS = gql`
         grade
         prefer
       }
+      attendList {
+        id
+        user {
+          id
+          nickname
+          region
+          prefer
+        }
+      }
     }
   }
 `;
 
 export default function AttendPeople() {
-  const { data } = useQuery<
-  Pick<IQuery, "fetchMyAllBoards">,
-  IQueryFetchMyAllBoardsArgs
->(FETCH_MY_All_BOARDS);
+  const { data } = useQuery(FETCH_MY_All_BOARDS);
+
+  console.log("=============");
+  console.log(data?.fetchMyAllBoards);
+  console.log("=============");
 
   return (
     <>
-      {data?.fetchMyAllBoards?.map((el: any, index) => (
+      {data?.fetchMyAllBoards?.map((el: any, index: any) => (
         <BoardListWrapper key={el.id}>
           <BoardList>
             <ImageListProfileBox>

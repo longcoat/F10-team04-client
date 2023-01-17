@@ -1,47 +1,50 @@
 import { useMutation } from "@apollo/client";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import { IMutation, IMutationCreateReviewCommentArgs } from "../../../../commons/types/generated/types";
+import { useForm } from "react-hook-form";
+import {
+  IMutation,
+  IMutationCreateReviewCommentArgs,
+} from "../../../../commons/types/generated/types";
 import { FETCH_REVIEW_COMMENTS } from "../ReviewCommentList/ReviewCommentList.query";
 import ReviewCommentWriteUI from "./reviewComment.presenter";
 import { CREATE_REVIEW_COMMENT } from "./reviewComment.query";
+import { schema } from "./reviewComment.validation";
 
-export default function ReviewCommentWrite(props) {
-    const [content, setContent] = useState("")
-
-    const [createReviewComment] = useMutation<
+export default function ReviewCommentWrite(props: any) {
+  const [createReviewComment] = useMutation<
     Pick<IMutation, "createReviewComment">,
     IMutationCreateReviewCommentArgs
   >(CREATE_REVIEW_COMMENT);
 
-    const onChangeContent = (e) => {
-        setContent(e.target.value)
-    }
+  const { register, handleSubmit, formState, setValue, trigger, getValues } =
+    useForm({
+      resolver: yupResolver(schema),
+    });
 
-    const onClickSubmit = async () => {
-        if (content) {
-            const result = await createReviewComment({
-              variables: {
-                reviewComment: content,
-                reviewBoardId: String(props.id)
-              },
-              refetchQueries: [
-                {
-                  query: FETCH_REVIEW_COMMENTS,
-                  variables: { reviewBoardId: String(props.id) },
-                },
-              ],
-            })
-            setContent("");
-            console.log(result)
-          } else if (!content) {
-            alert("내용을 입력해주세요.");
-          }
+  const onClickSubmit = async (data: any) => {
+    if (data.content) {
+      const result = await createReviewComment({
+        variables: {
+          reviewComment: data.content,
+          reviewBoardId: String(props.id),
+        },
+        refetchQueries: [
+          {
+            query: FETCH_REVIEW_COMMENTS,
+            variables: { reviewBoardId: String(props.id) },
+          },
+        ],
+      });
+      console.log(result);
+      setValue("content", "");
     }
-    return(
-        <ReviewCommentWriteUI
-        content={content}
-        onChangeContent={onChangeContent}
-        onClickSubmit={onClickSubmit}
-        />
-    )
+  };
+  return (
+    <ReviewCommentWriteUI
+      register={register}
+      handleSubmit={handleSubmit}
+      onClickSubmit={onClickSubmit}
+    />
+  );
 }

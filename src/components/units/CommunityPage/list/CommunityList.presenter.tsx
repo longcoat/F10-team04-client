@@ -1,6 +1,6 @@
 import { RightOutlined, SearchOutlined } from "@ant-design/icons";
 import * as S from "./CommunityList.styles";
-import React, { useState } from "react";
+import React, { ChangeEvent, MouseEvent, useState } from "react";
 import CommunityWrite from "../write/CommunityWrite.container";
 import CommunityDetailPage from "../detail/CommunityDetail.container";
 import InfiniteScroll from "react-infinite-scroller";
@@ -33,42 +33,77 @@ const levelOption = [
 
 export default function CommunityListUi(props: any) {
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
-  const [first, setFirst] = useState(true);
-  const [second, setSecond] = useState(false);
+  const [newest, setNewest] = useState(true);
+  const [orderPick, setOrderPick] = useState(false);
   const [ModalEsc, setModalEsc] = useState(true);
+  const [isSearch, setIsSearch] = useState(false);
 
-  const onClickfirst = (e) => {
-    if (!first) {
-      if (second) {
-        setFirst((prev) => !prev);
-        setSecond((prev) => !prev);
+  const onClickNew = (e: MouseEvent) => {
+    if (!newest) {
+      if (orderPick) {
+        setNewest(true);
+        setOrderPick(false);
+        setIsSearch(false);
+      } else if (isSearch) {
+        setNewest(true);
+        setOrderPick(false);
+        setIsSearch(false);
       } else {
-        setFirst((prev) => !prev);
+        setNewest(true);
       }
     }
   };
-  const onClicksecond = (e) => {
-    if (!second) {
-      if (first) {
-        setFirst((prev) => !prev);
-        setSecond((prev) => !prev);
+  const onClickPick = (e: MouseEvent) => {
+    if (!orderPick) {
+      if (newest) {
+        setNewest(false);
+        setOrderPick(true);
+        setIsSearch(false);
+      } else if (isSearch) {
+        setNewest(false);
+        setOrderPick(true);
+        setIsSearch(false);
       } else {
-        setSecond((prev) => !prev);
+        setOrderPick(true);
       }
     }
+  };
+
+  const onClickSearch = () => {
+    if (!isSearch) {
+      if (newest) {
+        setNewest(false);
+        setOrderPick(false);
+        setIsSearch(true);
+      } else if (orderPick) {
+        setNewest(false);
+        setOrderPick(false);
+        setIsSearch(true);
+      } else {
+        setIsSearch(true);
+      }
+    }
+  };
+  const onChangeWord = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsSearch(false);
+    setNewest(true);
+    props.setWord(e.target.value);
   };
   const handleCancel = () => {
     setModalOpen(false);
   };
 
-
   return (
     <>
-
-      <S.ModalCustom centered open={ModalOpen} width={900} onCancel={handleCancel}>
-
+      <S.ModalCustom
+        centered
+        open={ModalOpen}
+        width={900}
+        onCancel={handleCancel}
+      >
         <CommunityDetailPage boardId={props.boardId} />
       </S.ModalCustom>
+
       <S.Wrapper>
         <S.SearchWrap>
           <S.SelectSide>
@@ -99,14 +134,14 @@ export default function CommunityListUi(props: any) {
               <S.Selectbar>
                 <S.Input
                   type="text"
-                  onChange={props.onChangeWord}
+                  onChange={onChangeWord}
                   placeholder="제목을 입력해주세요."
                 />
               </S.Selectbar>
             </S.InputWrap>
           </S.SelectSide>
           <S.ButtonSide>
-            <S.SearchButton>검색하기</S.SearchButton>
+            <S.SearchButton onClick={onClickSearch}>검색하기</S.SearchButton>
           </S.ButtonSide>
         </S.SearchWrap>
         <S.ResultWrap>
@@ -115,24 +150,83 @@ export default function CommunityListUi(props: any) {
           </S.ResultWrite>
           <S.TabMenu>
             <S.Menu1>
-              <S.Item1 isActive={first} onClick={onClickfirst}>
+              <S.Item1 isActive={newest} onClick={onClickNew}>
                 최신순
               </S.Item1>
-              <S.Item1 isActive={second} onClick={onClicksecond}>
+              <S.Item1 isActive={orderPick} onClick={onClickPick}>
                 인기순
               </S.Item1>
             </S.Menu1>
             <CommunityWrite />
           </S.TabMenu>
 
-          {first ? (
+          {newest ? (
             <InfiniteScroll
               pageStart={0}
               loadMore={props.onLoadMore}
               hasMore={true}
             >
               <S.Items>
-                {props.result.map((el, index) => (
+                {props.result.map((el: any, index: any) => (
+                  <S.Item key={el.id}>
+                    <S.Img
+                      style={{
+                        backgroundImage:
+                          el.image?.imgUrl === undefined ||
+                          el.image?.imgUrl === ""
+                            ? "url(./images/basic.png)"
+                            : `url(${el.image?.imgUrl})`,
+                        backgroundPosition: "center",
+                      }}
+                    ></S.Img>
+                    <S.Main>
+                      <S.Title2>
+                        {el.title
+                          .replaceAll(props.keyword, `%^&${props.keyword}%^&`)
+                          .split("%^&")
+                          .map((el: any) => (
+                            <span
+                              key={uuidv4()}
+                              style={{
+                                color: el === props.keyword ? "red" : "black",
+                              }}
+                            >
+                              {el}
+                            </span>
+                          ))}
+                      </S.Title2>
+                      <S.Tag>
+                        <S.Level>#{el.recruitGrade}</S.Level>
+                      </S.Tag>
+                      <S.SpoDate>
+                        <S.Sports>{el.recruitSports}</S.Sports>
+                        <S.Date>
+                          {el.attendCount}/{el.recruitPeople}
+                        </S.Date>
+                      </S.SpoDate>
+                      <S.Footer>
+                        <S.Location>
+                          <S.Icon src="./images/list/map.png"></S.Icon>
+                          <S.LocaionText>{el.recruitRegion}</S.LocaionText>
+                        </S.Location>
+                        <RightOutlined onClick={props.onClickDetail(el.id)} />
+                      </S.Footer>
+                    </S.Main>
+                  </S.Item>
+                ))}
+              </S.Items>
+            </InfiniteScroll>
+          ) : (
+            ""
+          )}
+          {orderPick ? (
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={props.onLoadMore2}
+              hasMore={true}
+            >
+              <S.Items>
+                {props.result2.map((el: any) => (
                   <S.Item key={el.id}>
                     <S.Img
                       style={{
@@ -182,13 +276,16 @@ export default function CommunityListUi(props: any) {
               </S.Items>
             </InfiniteScroll>
           ) : (
+            ""
+          )}
+          {isSearch ? (
             <InfiniteScroll
               pageStart={0}
               loadMore={props.onLoadMore}
               hasMore={true}
             >
               <S.Items>
-                {props.result2.map((el) => (
+                {props.search?.searchBoards.map((el: any) => (
                   <S.Item key={el.id}>
                     <S.Img
                       style={{
@@ -205,7 +302,7 @@ export default function CommunityListUi(props: any) {
                         {el.title
                           .replaceAll(props.keyword, `%^&${props.keyword}%^&`)
                           .split("%^&")
-                          .map((el) => (
+                          .map((el: any) => (
                             <span
                               key={uuidv4()}
                               style={{
@@ -237,6 +334,8 @@ export default function CommunityListUi(props: any) {
                 ))}
               </S.Items>
             </InfiniteScroll>
+          ) : (
+            ""
           )}
         </S.ResultWrap>
       </S.Wrapper>

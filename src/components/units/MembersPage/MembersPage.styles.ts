@@ -92,6 +92,7 @@ export const Ctg_title1 = styled.div`
 export const Selectbar = styled.div`
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     /* width: 40px; */
+    border-radius: 10px;
   }
 
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
@@ -115,7 +116,6 @@ export const Selectbar = styled.div`
 `;
 export const SelectArea = styled(Select)`
   width: 100%;
-  border: 2px solid #d9d9d9;
   color: #8b8b8b;
 `;
 // export const ButtonSide = styled.div`
@@ -248,7 +248,8 @@ export const TabMenu = styled.div`
   }
 `;
 export const Item = styled.div`
-  border-bottom: ${(props) => (props.isActive ? "2px solid #C71515" : "none")};
+  border-bottom: ${(props: { isActive: boolean }) =>
+    props.isActive ? "2px solid #C71515" : "none"};
   padding: 0px 15px 10px 15px;
   font-size: 20px;
   font-weight: 400;

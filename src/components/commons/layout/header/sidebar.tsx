@@ -9,11 +9,12 @@ import { Modal } from "antd";
 const SideBarWrap = styled.div`
   display: none;
   z-index: 5;
-  padding: 12px;
-  border-radius: 15px 0 0 15px;
-  background-color: rgba(254, 254, 254, 0.5);
+  padding: 12px 30px 12px 12px;
+  /* border-radius: 15px 0 0 15px; */
+  /* background-color: rgba(254, 254, 254, 0.5); */
+  background-color: #ffffff;
   height: 100%;
-  width: 30%;
+  width: 19%;
   right: -55%;
   top: 0;
   position: fixed;
@@ -31,11 +32,35 @@ const SideBarWrap = styled.div`
 const Menu = styled.div`
   margin: 30px 8px;
   font-family: "Code Next-Trial";
-  font-size: 32px;
+  font-size: 22px;
   font-weight: 400;
   letter-spacing: -0.011em;
-  text-align: center;
+  text-align: end;
+  cursor: pointer;
   color: #151515;
+  padding-right: 15px;
+  /* transform: scale(0, 0); */
+
+  /* background: black; */
+  /* bottom: 0; */
+  /* transition: transform 0.3 ease; */
+  transition: all 0.2s ease-in-out;
+  width: 0;
+
+  p {
+    padding: 0px 2%;
+    margin-top: 0;
+    margin-bottom: 0em;
+  }
+
+  &:hover {
+    background-color: #333;
+    color: #fff;
+    /* transform: scale(0, 1); */
+    /* background: black; */
+    transform-origin: 0% 100%;
+    width: 100%;
+  }
 `;
 
 const ExitMenu = styled.span`
@@ -50,6 +75,15 @@ const FETCH_USER_LOGGED_IN = gql`
       id
       email
       nickname
+      age
+      gender
+      region
+      prefer
+      grade
+      image {
+        id
+        imgUrl
+      }
     }
   }
 `;

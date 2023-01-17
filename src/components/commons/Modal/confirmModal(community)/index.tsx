@@ -1,89 +1,94 @@
-import { ExclamationCircleFilled} from "@ant-design/icons";
+import { ExclamationCircleFilled } from "@ant-design/icons";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Modal } from "antd";
 import { useRecoilState } from "recoil";
-import { confirmModalState, modalDetailState } from "../../../../commons/stores";
-import { IMutation, IMutationDeleteBoardArgs } from "../../../../commons/types/generated/types";
+import {
+  confirmModalState,
+  modalDetailState,
+} from "../../../../commons/stores";
+import {
+  IMutation,
+  IMutationDeleteBoardArgs,
+} from "../../../../commons/types/generated/types";
 import { DELETE_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail.queries";
 import { FETCH_ALL_BOARDS } from "../../../units/CommunityPage/list/CommunityList.queries";
 
-export default function ConfirmModal(props) {
-    const [isModalOpen, setIsModalOpen] = useRecoilState(confirmModalState)
-    const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState)
+export default function ConfirmModal(props: any) {
+  const [isModalOpen, setIsModalOpen] = useRecoilState(confirmModalState);
+  const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
 
-    const [deleteBoard] = useMutation<
+  const [deleteBoard] = useMutation<
     Pick<IMutation, "deleteBoard">,
     IMutationDeleteBoardArgs
   >(DELETE_BOARD);
 
-    const onClickClose = () => {
-        setIsModalOpen(false)
-    }
+  const onClickClose = () => {
+    setIsModalOpen(false);
+  };
 
-    const onClickDelete = () => {
-          try {
+  const onClickDelete = () => {
+    try {
       void deleteBoard({
         variables: {
           boardId: String(props.data?.fetchBoard.id),
         },
         refetchQueries: [{ query: FETCH_ALL_BOARDS }],
       });
-      setIsModalOpen(false)
-      setModalOpen(false)
+      setIsModalOpen(false);
+      setModalOpen(false);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
 
     // router.push("/community/");
-    
-    }
-    return(
-        <>
-          <Icon/>
-            <Content>정말 삭제 하시겠습니까?</Content>
-            <BtnWrap>
-                <Button onClick={onClickClose}>닫기</Button>
-                <ButtonDel onClick={onClickDelete}>삭제하기</ButtonDel>
-            </BtnWrap>
-        </>
-    )
+  };
+  return (
+    <>
+      <Icon />
+      <Content>정말 삭제 하시겠습니까?</Content>
+      <BtnWrap>
+        <Button onClick={onClickClose}>닫기</Button>
+        <ButtonDel onClick={onClickDelete}>삭제하기</ButtonDel>
+      </BtnWrap>
+    </>
+  );
 }
 const Icon = styled(ExclamationCircleFilled)`
-    font-size: 70px;
-    margin-top: 25px;
-    display: flex;
-    justify-content: center;
-`
+  font-size: 70px;
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+`;
 const Content = styled.div`
-margin: 30px auto;
-font-size: 30px;
-text-align: center;
-`
+  margin: 30px auto;
+  font-size: 30px;
+  text-align: center;
+`;
 const BtnWrap = styled.div`
-width: 60%;
-margin: 0px auto;
-display: flex;
-justify-content: space-between;
-`
+  width: 60%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: space-between;
+`;
 const Button = styled.button`
-background-color: #D3D3D3;
-border: none;
-width: 120px;
-height: 40px;
-border-radius: 12px;
-color: white;
-cursor: pointer;
-`
+  background-color: #d3d3d3;
+  border: none;
+  width: 120px;
+  height: 40px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+`;
 const ButtonDel = styled.button`
-background-color: #151515;
-border: none;
-color: white;
-width: 120px;
-height: 40px;
-border-radius: 12px;
-cursor: pointer;
-`
+  background-color: #151515;
+  border: none;
+  color: white;
+  width: 120px;
+  height: 40px;
+  border-radius: 12px;
+  cursor: pointer;
+`;
 
 export const ConfirmCus = styled(Modal)`
   padding-top: 60px;
@@ -140,8 +145,7 @@ export const ConfirmCus = styled(Modal)`
   .ant-btn {
     visibility: hidden;
   }
-  .ant-modal-close-x{
+  .ant-modal-close-x {
     display: none;
   }
- 
 `;

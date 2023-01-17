@@ -2,19 +2,23 @@ import styled from "@emotion/styled";
 
 import { HeartFilled, HeartOutlined, UserAddOutlined } from "@ant-design/icons";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { FETCH_BOARD } from "../../../units/CommunityPage/detail/CommunityDetail.queries";
 import { Modal } from "antd";
 
-import ChattingBtn from "../../chattingBtn/indx";
 import {
   IMutation,
   IMutationFollowUserArgs,
   IQuery,
   IQueryFetchFollowCountArgs,
+  IQueryFetchFollowingArgs,
 } from "../../../../commons/types/generated/types";
+import { useRecoilState } from "recoil";
+import { LoggedInUserId } from "../../../../commons/stores";
+import { FETCH_FOLLOWING } from "../../../units/PhotoReview/ReviewList/Review.query";
+import { FETCH_USER_LOGGED_IN } from "../../layout/header/header";
 
 export const FOLLOW_USER = gql`
   mutation followUser($userId: String!) {
@@ -47,10 +51,11 @@ export const FETCH_USER = gql`
     }
   }
 `;
-export default function UserCard(props) {
+export default function UserCard(props: any) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);
+  const [loggedInId, setLoggedInId] = useRecoilState(LoggedInUserId);
   const { data } = useQuery<
     Pick<IQuery, "fetchFollowCount">,
     IQueryFetchFollowCountArgs
@@ -58,36 +63,64 @@ export default function UserCard(props) {
     variables: { userId: props.el.id },
   });
 
-  console.log(data);
+  //   const { data: LoggedIn} =
+  //   useQuery(FETCH_USER_LOGGED_IN);
+
+  //   const { data:followingList ,fetchMore: followingMore } = useQuery<
+  //   Pick<IQuery, "fetchFollowing">,
+  //   IQueryFetchFollowingArgs
+  // >(FETCH_FOLLOWING, {
+  //     variables: { userId: String(LoggedIn?.fetchUserLoggedIn.id) },
+  //   });
+
+  // useEffect(() =>{
+  //   props.result.forEach((el, index) =>{
+  //     followingList?.fetchFollowing.forEach((el_F) =>{
+  //       if(el.id === el_F.user2.id){
+  //         setIsActive(true)
+  //       }
+  //     })
+  //   })
+
+  // },[props.result])
+
   const { data: userData } = useQuery(FETCH_USER, {
     variables: { userId: props.el.id },
   });
-  console.log(userData);
   const [followUser] = useMutation(FOLLOW_USER);
 
-  const onClickHeart = () => {
-    setIsActive((prev) => !prev);
-  };
   const onClickAdd = (userId) => async () => {
+    if (loggedInId === userId) {
+      alert("자기 자신은 팔로우 할 수 없습니다 !");
+      return;
+    }
     setAddActive((prev) => !prev);
-    await followUser({
+    const result = await followUser({
       variables: { userId: userId },
       refetchQueries: [
+        {
+          query: FETCH_FOLLOWING,
+          variables: { userId: String(loggedInId) },
+        },
         {
           query: FETCH_FOLLOW_COUNT,
           variables: { userId: userId },
         },
       ],
     });
+    console.log(result);
     if (addActive === false) {
       Modal.success({ content: "팔로우 완료!" });
     } else if (addActive === true) {
       Modal.error({ content: "팔로우 취소!" });
     }
   };
+
   return (
     <Wrapper>
-      <Img></Img>
+      <ImgBox>
+        <Img src={props.el.image?.imgUrl || "/profile.png"} />
+      </ImgBox>
       <Name>{props.el.nickname}</Name>
       <UserInfo>
         <Item>#{props.el.prefer}</Item>
@@ -101,30 +134,38 @@ export default function UserCard(props) {
       </HeartWrap>
       <ButtonWrap>
         {!addActive ? (
-          <UserAddOutlined
+          <FollowButton
             onClick={onClickAdd(props.el.id)}
             style={{
-              width: "20%",
-              fontSize: "22px",
-              paddingTop: "6px",
+              width: "160px",
+              fontSize: "16px",
               height: "35px",
               borderRadius: "16px",
+              border: "2px solid black",
+              backgroundColor: "black",
+              color: "White",
             }}
-          />
+          >
+            팔로우
+          </FollowButton>
         ) : (
-          <UserAddOutlined
+          <FollowButton
             onClick={onClickAdd(props.el.id)}
             style={{
-              width: "20%",
-              fontSize: "22px",
-              paddingTop: "6px",
+              width: "160px",
+              fontSize: "16px",
               height: "35px",
+              border: "2px solid black",
+              boxShadow:
+                "rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset",
               borderRadius: "16px",
-              color: "#3C59A6",
+              backgroundColor: "#f6f6f6",
+              color: "black",
             }}
-          />
+          >
+            팔로우 취소
+          </FollowButton>
         )}
-        <ChattingBtn userData={userData} />
       </ButtonWrap>
     </Wrapper>
   );
@@ -144,11 +185,15 @@ const Wrapper = styled.div`
   margin: 23px;
   cursor: pointer;
 `;
-const Img = styled.div`
+const ImgBox = styled.div`
   width: 103px;
   height: 103px;
   border-radius: 100%;
-  border: 1px solid black;
+`;
+const Img = styled.img`
+  width: 103px;
+  height: 103px;
+  border-radius: 100%;
 `;
 const Name = styled.div`
   font-size: 24px;
@@ -165,7 +210,7 @@ const Item = styled.span`
   margin-right: 7px;
   color: #bbbbbb;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 20px;
   letter-spacing: -0.47999998927116394px;
   text-align: left;
@@ -195,8 +240,14 @@ const Button = styled.button`
   cursor: pointer;
 `;
 const ButtonWrap = styled.div`
-  width: 75%;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+`;
+
+const FollowButton = styled.button`
+  display: flex;
+  justify-content: center;
   align-items: center;
 `;

@@ -36,6 +36,13 @@ export const FETCH_MY_All_BOARDS = gql`
       image {
         imgUrl
       }
+      user{
+        id
+        image{
+          id
+          imgUrl
+        }
+      }
     }
   }
 `;
@@ -86,7 +93,7 @@ export default function MyBoardList() {
         <BoardListWrapper key={el.id}>
           <BoardList onClick={onClickDetail(el.id)}>
             <ImageListProfileBox>
-              <ImageListProfile src="/profile.png" />
+              <ImageListProfile src={el.user?.image?.imgUrl || "/profile.png"} />
             </ImageListProfileBox>
             <InfoTextWrapper>
               <InfoTextBox>
@@ -156,6 +163,8 @@ export const ImageListProfileBox = styled.div`
 
 export const ImageListProfile = styled.img`
   width: 64px;
+  height: 64px;
+  border-radius: 100px;
 `;
 
 export const InfoTextWrapper = styled.div`

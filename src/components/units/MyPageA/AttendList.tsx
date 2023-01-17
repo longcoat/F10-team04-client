@@ -28,12 +28,23 @@ export const FETCH_ATTEND_LIST = gql`
         nickname
         age
         gender
+        image{
+          id
+          imgUrl
+        }
       }
       board {
         id
         title
         content
         appointment
+        user{
+          id
+          image{
+            id
+            imgUrl
+          }
+        }
       }
       createdAt
       updatedAt
@@ -84,7 +95,7 @@ export default function AttendList() {
         <BoardListWrapper key={el.id}>
           <BoardList key={el.id} onClick={onClickDetail(el.board.id)}>
             <ImageListProfileBox>
-              <ImageListProfile src="/profile.png" />
+              <ImageListProfile src={el.board.user?.image?.imgUrl || "/profile.png"} />
             </ImageListProfileBox>
             <InfoTextWrapper>
               <InfoTextBox>
@@ -140,6 +151,8 @@ export const ImageListProfileBox = styled.div`
 
 export const ImageListProfile = styled.img`
   width: 64px;
+  height: 64px;
+  border-radius: 100px;
 `;
 
 export const InfoTextWrapper = styled.div`

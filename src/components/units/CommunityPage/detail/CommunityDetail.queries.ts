@@ -18,6 +18,10 @@ export const FETCH_BOARD = gql`
         id
         email
         nickname
+        image {
+        id
+        imgUrl
+      }
       }
       image {
         id
@@ -26,6 +30,19 @@ export const FETCH_BOARD = gql`
       location {
         center
         path
+      }
+      attendList{
+        user{
+          id
+          nickname
+          prefer
+          region
+          gender
+          image{
+            id
+            imgUrl
+          }
+        }
       }
     }
   }
@@ -57,6 +74,10 @@ export const FETCH_USER_LOGGED_IN = gql`
       gender
       prefer
       region
+      image{
+        id
+        imgUrl
+      }
     }
   }
 `;

@@ -1,20 +1,17 @@
-import UserCard from "../../commons/userCard/01-userCard";
 import * as S from "./MyPage.styles";
 import { BiUserPlus } from "react-icons/bi";
-import { FaRegHeart } from "react-icons/bi";
-import { useState } from "react";
-import { RightOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import AttendList from "./AttendList";
 import MyPickList from "./MyPickList";
 import MyBoardList from "./MyBoardList";
-import AttendPeople from "./AttendPeople";
 import { useRecoilState } from "recoil";
-import { modalEditState } from "../../../commons/stores";
+import { userEditState } from "../../../commons/stores";
 import styled from "@emotion/styled";
 import UserEdit from "../../commons/user(Edit)/userEdit.container";
 import { Modal } from "antd";
-import { IQuery } from "../../../commons/types/generated/types";
+import { withAuth } from "../../commons/hocs/withAuth";
+import { useRouter } from "next/router";
 
 export const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
@@ -27,7 +24,7 @@ export const FETCH_USER_LOGGED_IN = gql`
       region
       prefer
       grade
-      image{
+      image {
         id
         imgUrl
       }
@@ -46,26 +43,38 @@ const FETCH_MY_FOLLOW_COUNT = gql`
     }
   }
 `;
-
-export default function MyPageA(props) {
+export default function MyPageA(props: any) {
   const [isOpen, setIsOpen] = useState(false);
-  const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
+  const [ModalOpen, setModalOpen] = useRecoilState(userEditState);
   const [color1, setColor1] = useState(true);
   const [color2, setColor2] = useState(false);
   const [color3, setColor3] = useState(false);
   const [color4, setColor4] = useState(false);
+  const router = useRouter();
 
-  const { data } = useQuery(FETCH_USER_LOGGED_IN);
-console.log(data)
+  const { data, loading } = useQuery(FETCH_USER_LOGGED_IN);
+
   const { data: fetchMyFollowCount } = useQuery(FETCH_MY_FOLLOW_COUNT);
 
+  useEffect(() => {
+    if (localStorage.getItem("accessToken") === null) {
+      alert("로그인 후 이용 가능합니다!!!");
+      void router.push("/login");
+    } else return;
+  });
 
+  useEffect(() => {
+    console.log(data)
+    if(data?.fetchUserLoggedIn?.image === null) {
+      console.log(111)
+    }
+  }, [data]);
 
   const onClickEdit = () => {
     setModalOpen((prev) => !prev);
   };
 
-  const onClickColorfirst = (e) => {
+  const onClickColorfirst = () => {
     if (!color1) {
       if (color2) {
         setColor1((prev) => !prev);
@@ -82,7 +91,7 @@ console.log(data)
     }
   };
 
-  const onClickColorSecond = (e) => {
+  const onClickColorSecond = () => {
     if (!color2) {
       if (color1) {
         setColor1((prev) => !prev);
@@ -99,7 +108,7 @@ console.log(data)
     }
   };
 
-  const onClickColorThird = (e) => {
+  const onClickColorThird = () => {
     if (!color3) {
       if (color1) {
         setColor1((prev) => !prev);
@@ -115,36 +124,26 @@ console.log(data)
       }
     }
   };
-
-  const onClickColorFourth = (e) => {
-    if (!color4) {
-      if (color1) {
-        setColor1((prev) => !prev);
-        setColor4((prev) => !prev);
-      } else if (color2) {
-        setColor2((prev) => !prev);
-        setColor4((prev) => !prev);
-      } else if (color3) {
-        setColor3((prev) => !prev);
-        setColor4((prev) => !prev);
-      } else {
-        setColor4((prev) => !prev);
-      }
-    }
-  };
+  const handleCancel = () => {
+    setModalOpen(false)
+  }
 
   return (
     <S.Containerbox>
       {ModalOpen && (
-        <ModalCustom title="회원정보 수정" centered open={true} width={1000}>
+        <ModalCustom title="회원정보 수정" centered open={true} width={1000}  onCancel={handleCancel}>
           <UserEdit data={data} />
         </ModalCustom>
       )}
+      {loading ? ""
+      :
       <S.Container>
         <S.Wrapper>
           <S.ProfileBox>
             <S.ProfileImageAvatarBox>
-              <S.ImageAvatar src="/profile.png" />
+              <S.ImageAvatar
+                src={data?.fetchUserLoggedIn?.image?.imgUrl || "/profile.png"}
+              />
             </S.ProfileImageAvatarBox>
             <S.InfoBox>
               <S.NickInfoBox>
@@ -206,24 +205,17 @@ console.log(data)
                 </S.PickListText>
               </S.PickList>
             </S.PickListBox>
-            <S.PickListBox>
-              <S.PickList>
-                <S.JoinCrewText onClick={onClickColorFourth} isActive={color4}>
-                  참가인원
-                </S.JoinCrewText>
-              </S.PickList>
-            </S.PickListBox>
           </S.BoardBox>
         </S.BoardCategoryWrapper>
         <S.ListContainer>
           {color1 ? <MyBoardList /> : ""}
           {color2 ? <AttendList /> : ""}
           {color3 ? <MyPickList /> : ""}
-          {color4 ? <AttendPeople /> : ""}
         </S.ListContainer>
         {/* 보드리스트 게시글목록 할 때 부분 */}
       </S.Container>
-    </S.Containerbox>
+}
+    </S.Containerbox>  
   );
 }
 
@@ -268,3 +260,5 @@ const ModalCustom = styled(Modal)`
     visibility: hidden;
   }
 `;
+
+

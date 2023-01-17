@@ -5,3 +5,4 @@ generates:
       - typescript
     config:
       typesPrefix: I
+

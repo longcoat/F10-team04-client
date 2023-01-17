@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import KakaoMapUI from "../../map/mapsearch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   mapCenterState,
   mapPathState,
@@ -13,13 +13,22 @@ import {
 } from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
 import { CREATE_BOARD } from "../../../units/CommunityPage/write/CommunityWrite.queries";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import Uploads01 from "../../uploads/01/Uploads01.container";
 import dynamic from "next/dynamic";
-import { FETCH_ALL_BOARDS } from "../../../units/CommunityPage/list/CommunityList.queries";
+import {
+  FETCH_ALL_BOARDS,
+  FETCH_ALL_BOARDS_WITH_PICK_BOARD,
+} from "../../../units/CommunityPage/list/CommunityList.queries";
 import { useRouter } from "next/router";
 import KaKaoMapPage from "../../map/mapsearch";
-import { IMutation, IMutationCreateBoardArgs } from "../../../../commons/types/generated/types";
+import {
+  IMutation,
+  IMutationCreateBoardArgs,
+} from "../../../../commons/types/generated/types";
+import { withAuth } from "../../hocs/withAuth";
+import { FETCH_USER_LOGGED_IN } from "../../layout/header/header";
+import { FETCH_MY_All_BOARDS } from "../../../units/MyPageA/MyBoardList";
 
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
@@ -122,8 +131,7 @@ const disabledRangeTime: RangePickerProps["disabledTime"] = (_, type) => {
     disabledSeconds: () => [55, 56],
   };
 };
-
-export default function InModalWrite(props) {
+export default function InModalWrite(props: any) {
   const router = useRouter();
   const [center, setCenter] = useRecoilState(mapCenterState);
   const [path, setPath] = useRecoilState(mapPathState);
@@ -142,7 +150,19 @@ export default function InModalWrite(props) {
     IMutationCreateBoardArgs
   >(CREATE_BOARD);
 
-  const onClickSubmit = async () => {
+  // 로그인 체크
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken") === null) {
+      alert("로그인 후 이용 가능합니다!!!");
+      void router.push("/login");
+      setModalOpen(false);
+    } else return;
+  });
+
+  const onClickSubmit = async () => { 
+    if (title && content && appointment && recruitSports && recruitGrade && recruitRegion
+      && recruitPeople && path && center) {
     try {
       const result = await createBoard({
         variables: {
@@ -160,8 +180,12 @@ export default function InModalWrite(props) {
               center,
             },
           },
-         
-        }, refetchQueries: [{ query: FETCH_ALL_BOARDS }],
+        },
+        refetchQueries: [
+          { query: FETCH_ALL_BOARDS },
+          { query: FETCH_MY_All_BOARDS },
+          { query: FETCH_ALL_BOARDS_WITH_PICK_BOARD },
+        ],
       });
       Modal.success({ content: "게시물 작성 완료!" });
       setModalOpen(false);
@@ -169,34 +193,36 @@ export default function InModalWrite(props) {
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
     }
+    }else{
+      alert("이미지를 제외한 모든 정보는 필수입니다.")
+    }
   };
-  const onChangePeople = (e) => {
+  const onChangePeople = (e: any) => {
     setRecruitPeople(e.target.value);
   };
-  const onChangeTitle = (e) => {
+  const onChangeTitle = (e: any) => {
     setTitle(e.target.value);
   };
-  const onChangeSports = (e) => {
+  const onChangeSports = (e: any) => {
     setRecruitSports(e.target.value);
   };
-  const onChangeDate = (e) => {
+  const onChangeDate = (e: any) => {
     setAppointment(e?._d);
   };
-  const onChangeContent = (value) => {
+  const onChangeContent = (value: any) => {
     // event가 들어오는 것이 아니다. html의 속성이 아닌 ReactQuill의 속성이기 때문이다. value가 바로 들어온다.
     setContent(value === "<p><br></p>" ? "" : value); // setValue를 사용하면 register로 등록하지 않고 강제로 값을 넣어줄 수 있다.
   };
-  const onChangeLo = (e) => {
+  const onChangeLo = (e: any) => {
     setRecruitRegion(e);
   };
-  const onChangeGrade = (e) => {
+  const onChangeGrade = (e: any) => {
     setRecruitGrade(e);
   };
-  const onChangeImage = (fileUrl) => {
+  const onChangeImage = (fileUrl: any) => {
     const newFile = fileUrl;
     setImage(newFile);
   };
-
 
   return (
     <S.Wrapper>
@@ -290,11 +316,13 @@ export default function InModalWrite(props) {
       </S.InputWrapper1>
       <KaKaoMapPage />
       <S.ButtonWrap>
+        <S.Button2 onClick={onClickSubmit}>작성하기</S.Button2>
         <S.Button1 type="button" onClick={() => setModalOpen(false)}>
           취소하기
         </S.Button1>
-        <S.Button2 onClick={onClickSubmit}>작성하기</S.Button2>
       </S.ButtonWrap>
     </S.Wrapper>
   );
 }
+
+// export default withAuth(InModalWrite);

@@ -1,6 +1,7 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { result } from "lodash";
 import { useState } from "react";
+import InfiniteScroll from "react-infinite-scroller";
 import UserCard from "../../commons/userCard/01-userCard";
 import * as S from "./MembersPage.styles";
 
@@ -137,7 +138,7 @@ const levelOption = [
   },
 ];
 
-export default function MembersUi(props) {
+export default function MembersUi(props: any) {
   const [menuAct, setMenuAct] = useState(true);
   const [menuAct1, setMenuAct1] = useState(false);
   const onClickMenu1 = () => {
@@ -160,7 +161,9 @@ export default function MembersUi(props) {
       }
     }
   };
-  return (
+  return props.loading ? (
+    ""
+  ) : (
     <S.Wrapper>
       <S.SearchWrap>
         {/* <S.SelectSide> */}
@@ -226,19 +229,22 @@ export default function MembersUi(props) {
       ) : (
         <S.ResultWrap>
           <S.ResultTitle>검색결과</S.ResultTitle>
-          <S.TabMenu>
-            <S.Item isActive={menuAct} onClick={onClickMenu1}>
-              최신순
-            </S.Item>
-            <S.Item isActive={menuAct1} onClick={onClickMenu2}>
-              인기순
-            </S.Item>
-          </S.TabMenu>
-          <S.Items>
-            {props.result?.map((el) => (
-              <UserCard key={el.id} el={el} />
-            ))}
-          </S.Items>
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={props.onLoadMore}
+            hasMore={true}
+          >
+            <S.Items>
+              {props.result?.map((el, index) => (
+                <UserCard
+                  key={index}
+                  el={el}
+                  result={props.result}
+                  following={props.following}
+                />
+              ))}
+            </S.Items>
+          </InfiniteScroll>
         </S.ResultWrap>
       )}
     </S.Wrapper>
