@@ -31,7 +31,7 @@ export default function KaKaoMapPage() {
     setIsOpen((prev) => !prev);
   };
 
-  const handleComplete = (data) => {
+  const handleComplete = (data: any) => {
     onToggleModal();
     setAddress(data.address);
   };

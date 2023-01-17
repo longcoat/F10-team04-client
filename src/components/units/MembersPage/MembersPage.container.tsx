@@ -23,12 +23,14 @@ export default function Members() {
   const result = [];
   const following = [];
 
+
   const { data, loading, fetchMore } = useQuery<
     Pick<IQuery, "fetchUsers">,
     IQueryFetchUserArgs
   >(FETCH_USERS);
 
   console.log(data)
+
 
   const onLoadMore = () => {
     if (!data) return;
@@ -55,7 +57,6 @@ export default function Members() {
 
 
   const { data: LoggedIn } = useQuery(FETCH_USER_LOGGED_IN);
-
 
   const { data: followingList, fetchMore: followingMore } = useQuery<
     Pick<IQuery, "fetchFollowing">,
@@ -84,34 +85,23 @@ export default function Members() {
     if (result.length === 0 && setIsNo) {
       setIsNo((prev) => !prev);
     }
+  };
 
-}
-
-  data?.fetchUsers.forEach((el)=> {
-    if(el.region?.includes(Lo) === true &&
+  data?.fetchUsers.forEach((el) => {
+    if (
+      el.region?.includes(Lo) === true &&
       el.age?.includes(age) === true &&
       el.grade?.includes(level) === true &&
       el.prefer?.includes(fav) === true
-      ) {
-          result.push(el) 
-      }
-      
-  })
-  
-  useEffect(() =>{
-    if(result.length === 0
-      ) {
-         setIsNo(true)
-         return
-      }else{
-        setIsNo(false)
-      }
-  },[result])
+    ) {
+      result.push(el);
+    }
+  });
 
 
   
  
-  return <MembersUi 
+  return (<MembersUi 
   onLoadMore={onLoadMore}
   loading={loading}
   following={following}
@@ -125,4 +115,6 @@ export default function Members() {
   onClickBtn={onClickBtn}
   />;
 
+
+  );
 }

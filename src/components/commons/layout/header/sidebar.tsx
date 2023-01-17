@@ -48,7 +48,9 @@ const Menu = styled.div`
   width: 0;
 
   p {
-    padding: 5px 2%;
+    padding: 0px 2%;
+    margin-top: 0;
+    margin-bottom: 0em;
   }
 
   &:hover {

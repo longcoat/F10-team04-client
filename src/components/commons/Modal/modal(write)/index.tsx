@@ -16,7 +16,10 @@ import { CREATE_BOARD } from "../../../units/CommunityPage/write/CommunityWrite.
 import { useMutation, useQuery } from "@apollo/client";
 import Uploads01 from "../../uploads/01/Uploads01.container";
 import dynamic from "next/dynamic";
-import { FETCH_ALL_BOARDS, FETCH_ALL_BOARDS_WITH_PICK_BOARD } from "../../../units/CommunityPage/list/CommunityList.queries";
+import {
+  FETCH_ALL_BOARDS,
+  FETCH_ALL_BOARDS_WITH_PICK_BOARD,
+} from "../../../units/CommunityPage/list/CommunityList.queries";
 import { useRouter } from "next/router";
 import KaKaoMapPage from "../../map/mapsearch";
 import {
@@ -177,12 +180,11 @@ export default function InModalWrite(props: any) {
               center,
             },
           },
-
-         
-        }, refetchQueries: [
+        },
+        refetchQueries: [
           { query: FETCH_ALL_BOARDS },
           { query: FETCH_MY_All_BOARDS },
-          { query: FETCH_ALL_BOARDS_WITH_PICK_BOARD }
+          { query: FETCH_ALL_BOARDS_WITH_PICK_BOARD },
         ],
       });
       Modal.success({ content: "게시물 작성 완료!" });
@@ -195,29 +197,29 @@ export default function InModalWrite(props: any) {
       alert("이미지를 제외한 모든 정보는 필수입니다.")
     }
   };
-  const onChangePeople = (e) => {
+  const onChangePeople = (e: any) => {
     setRecruitPeople(e.target.value);
   };
-  const onChangeTitle = (e) => {
+  const onChangeTitle = (e: any) => {
     setTitle(e.target.value);
   };
-  const onChangeSports = (e) => {
+  const onChangeSports = (e: any) => {
     setRecruitSports(e.target.value);
   };
-  const onChangeDate = (e) => {
+  const onChangeDate = (e: any) => {
     setAppointment(e?._d);
   };
-  const onChangeContent = (value) => {
+  const onChangeContent = (value: any) => {
     // event가 들어오는 것이 아니다. html의 속성이 아닌 ReactQuill의 속성이기 때문이다. value가 바로 들어온다.
     setContent(value === "<p><br></p>" ? "" : value); // setValue를 사용하면 register로 등록하지 않고 강제로 값을 넣어줄 수 있다.
   };
-  const onChangeLo = (e) => {
+  const onChangeLo = (e: any) => {
     setRecruitRegion(e);
   };
-  const onChangeGrade = (e) => {
+  const onChangeGrade = (e: any) => {
     setRecruitGrade(e);
   };
-  const onChangeImage = (fileUrl) => {
+  const onChangeImage = (fileUrl: any) => {
     const newFile = fileUrl;
     setImage(newFile);
   };

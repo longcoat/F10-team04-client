@@ -1,6 +1,6 @@
 import * as S from "./JoinPage.styles";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import JoinPageUi from "./JoinPage.presenter";
 import {
   CHECK_NICK_NAME,
@@ -10,7 +10,13 @@ import {
 } from "./joinPage.query";
 import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
-import { IMutation, IMutationCheckNickNameArgs, IMutationCheckTokenEmailArgs, IMutationCreateUserArgs, IMutationSendTokenToEmailArgs } from "../../../commons/types/generated/types";
+import {
+  IMutation,
+  IMutationCheckNickNameArgs,
+  IMutationCheckTokenEmailArgs,
+  IMutationCreateUserArgs,
+  IMutationSendTokenToEmailArgs,
+} from "../../../commons/types/generated/types";
 import Image from "next/image";
 
 export default function JoinPageA() {
@@ -48,30 +54,30 @@ export default function JoinPageA() {
   const [token, setToken] = useState("");
 
   const [createUser] = useMutation<
-  Pick<IMutation, "createUser">,
-  IMutationCreateUserArgs
->(CREATE_USER);
+    Pick<IMutation, "createUser">,
+    IMutationCreateUserArgs
+  >(CREATE_USER);
 
   const [sendTokenToEmail] = useMutation<
-  Pick<IMutation, "sendTokenToEmail">,
-  IMutationSendTokenToEmailArgs
->(SEND_TOKEN_TO_EMAIL);
+    Pick<IMutation, "sendTokenToEmail">,
+    IMutationSendTokenToEmailArgs
+  >(SEND_TOKEN_TO_EMAIL);
 
   const [checkTokenEmail] = useMutation<
-  Pick<IMutation, "checkTokenEmail">,
-  IMutationCheckTokenEmailArgs
->(CHECK_TOKEN_EMAIL);
+    Pick<IMutation, "checkTokenEmail">,
+    IMutationCheckTokenEmailArgs
+  >(CHECK_TOKEN_EMAIL);
 
   const [checkNickName] = useMutation<
-  Pick<IMutation, "checkNickName">,
-  IMutationCheckNickNameArgs
->(CHECK_NICK_NAME);
+    Pick<IMutation, "checkNickName">,
+    IMutationCheckNickNameArgs
+  >(CHECK_NICK_NAME);
 
-  const onChangeEmailToken = (e) => {
+  const onChangeEmailToken = (e: ChangeEvent<HTMLInputElement>) => {
     setToken(e.target.value);
   };
 
-  const onChangeEmail = (e) => {
+  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     if (e.target.value !== "") {
       setEmailAct(true);
@@ -79,7 +85,7 @@ export default function JoinPageA() {
       setEmailAct(false);
     }
   };
-  const onChangePwCon = (e) => {
+  const onChangePwCon = (e: ChangeEvent<HTMLInputElement>) => {
     setCPassword(e.target.value);
     if (e.target.value !== "") {
       setPwCon(true);
@@ -87,7 +93,7 @@ export default function JoinPageA() {
       setPwCon(false);
     }
   };
-  const onChangeNickName = (e) => {
+  const onChangeNickName = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
     if (e.target.value !== "") {
       setNickNameAct(true);
@@ -95,7 +101,7 @@ export default function JoinPageA() {
       setNickNameAct(false);
     }
   };
-  const onChangePw = (e) => {
+  const onChangePw = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
     if (e.target.value !== "") {
       setPwAct(true);
@@ -123,7 +129,7 @@ export default function JoinPageA() {
       setPwAct4(false);
     }
   };
-  const onChangeName = (e) => {
+  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
     if (e.target.value !== "") {
       setNameAct(true);
@@ -131,7 +137,7 @@ export default function JoinPageA() {
       setNameAct(false);
     }
   };
-  const onClickLeft = (e) => {
+  const onClickLeft = (e: any) => {
     setGenderAct(true);
     if (!clickLeft) {
       if (clickRight) {
@@ -144,7 +150,7 @@ export default function JoinPageA() {
       }
     }
   };
-  const onClickRight = (e) => {
+  const onClickRight = (e: any) => {
     setGenderAct(true);
     if (!clickRight) {
       if (clickLeft) {
@@ -157,7 +163,7 @@ export default function JoinPageA() {
       }
     }
   };
-  const onClickLevel1 = (e) => {
+  const onClickLevel1 = (e: any) => {
     setLevelAct(true);
     if (!level1) {
       if (level2) {
@@ -174,7 +180,7 @@ export default function JoinPageA() {
       }
     }
   };
-  const onClickLevel2 = (e) => {
+  const onClickLevel2 = (e: any) => {
     setLevelAct(true);
     if (!level2) {
       if (level1) {
@@ -191,7 +197,7 @@ export default function JoinPageA() {
       }
     }
   };
-  const onClickLevel3 = (e) => {
+  const onClickLevel3 = (e: any) => {
     setLevelAct(true);
     if (!level3) {
       if (level1) {
@@ -208,17 +214,17 @@ export default function JoinPageA() {
       }
     }
   };
-  const onChangeAge = (e) => {
-    setAge(e);
+  const onChangeAge = (e: MouseEvent) => {
+    setAge(String(e));
   };
-  const onChangeLo = (e) => {
-    setRegion(e);
+  const onChangeLo = (e: MouseEvent) => {
+    setRegion(String(e));
   };
-  const onChangeFav = (e) => {
-    setPrefer(e);
+  const onChangeFav = (e: MouseEvent) => {
+    setPrefer(String(e));
   };
 
-  const onChangeImage = (fileUrl) => {
+  const onChangeImage = (fileUrl: any) => {
     const newFile = fileUrl;
     setImage(newFile);
   };
@@ -231,7 +237,7 @@ export default function JoinPageA() {
         },
       });
       setSendEmail(true);
-      alert("인증번호가 전송되었습니다.")
+      alert("인증번호가 전송되었습니다.");
     } catch (error) {
       if (error instanceof Error)
         Modal.error({ content: "이메일 형식이 올바르지 않습니다." });
@@ -262,7 +268,7 @@ export default function JoinPageA() {
     }
   };
   const onClickSubmit = async () => {
-    console.log(typeof(image))
+    console.log(typeof image);
     try {
       const result = await createUser({
         variables: {
@@ -276,7 +282,7 @@ export default function JoinPageA() {
             prefer,
             age,
             gender,
-            image
+            image,
           },
         },
       });

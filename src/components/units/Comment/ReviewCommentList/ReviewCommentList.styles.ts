@@ -27,7 +27,7 @@ export const ContentWrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding-left: 15px;
+  padding-left: 10px;
 
   ${M.mediaL} {
     padding: 10px 0 10px 10px;
