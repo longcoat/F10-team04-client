@@ -162,6 +162,7 @@ export default function CommunityDetailPage(props: any) {
   const onClickAttendList = () => {
     setAttendList(true);
   };
+
   return (
     <CommunityDetailUIPage
     loading={loading}

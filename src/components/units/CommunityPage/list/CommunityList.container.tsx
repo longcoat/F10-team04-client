@@ -124,6 +124,7 @@ export default function CommunityList() {
     }
   });
 
+  console.log(data)
   return (
     <CommunityListUi
       result={result}
