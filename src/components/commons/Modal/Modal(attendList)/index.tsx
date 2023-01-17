@@ -1,72 +1,76 @@
-import { ExclamationCircleFilled} from "@ant-design/icons";
+import { ExclamationCircleFilled } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import { Modal } from "antd";
 import { useRecoilState } from "recoil";
-import { attendListModalState, modalDetailState } from "../../../../commons/stores";
+import {
+  attendListModalState,
+  modalDetailState,
+} from "../../../../commons/stores";
 
 export default function AttendList(props: any) {
-    const [isModalOpen, setIsModalOpen] = useRecoilState(attendListModalState)
-    const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState)
+  const [isModalOpen, setIsModalOpen] = useRecoilState(attendListModalState);
+  const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
 
-    const onClickClose = () => {
-        setIsModalOpen(false)
-    }
-    return(
-        <>
-            <Content>참가자 명단</Content>
-            <Main>
-            {props.data?.fetchBoard.attendList.map((el) =>(
-              <BoardListWrapper key={el.id}>
-              <BoardList>
-                <ImageListProfileBox>
-                  <ImageListProfile src={el.user.image.imgUrl || "/profile.png"} />
-                </ImageListProfileBox>
-                <Profile1>
-                  <InfoTextBox1>
-                    <Title1>{el.user.nickname}</Title1>
-                    <Nim1>님</Nim1>
-                  </InfoTextBox1>
-                  <Content1>
-                    <Exercise>#{el.user.prefer}</Exercise>
-                    <Section2>#{el.user.region}</Section2>
-                    <Sex1>#{el.user.gender}</Sex1>
-                  </Content1>
-                </Profile1>
-              </BoardList>
-            </BoardListWrapper>
-            ))}
-            </Main>
-            <BtnWrap>
-                <Button onClick={onClickClose}>확인</Button>
-            </BtnWrap>
-        </>
-    )
+  const onClickClose = () => {
+    setIsModalOpen(false);
+  };
+  return (
+    <>
+      <Content>참가자 명단</Content>
+      <Main>
+        {props.data?.fetchBoard.attendList.map((el: any) => (
+          <BoardListWrapper key={el.id}>
+            <BoardList>
+              <ImageListProfileBox>
+                <ImageListProfile
+                  src={el.user.image.imgUrl || "/profile.png"}
+                />
+              </ImageListProfileBox>
+              <Profile1>
+                <InfoTextBox1>
+                  <Title1>{el.user.nickname}</Title1>
+                  <Nim1>님</Nim1>
+                </InfoTextBox1>
+                <Content1>
+                  <Exercise>#{el.user.prefer}</Exercise>
+                  <Section2>#{el.user.region}</Section2>
+                  <Sex1>#{el.user.gender}</Sex1>
+                </Content1>
+              </Profile1>
+            </BoardList>
+          </BoardListWrapper>
+        ))}
+      </Main>
+      <BtnWrap>
+        <Button onClick={onClickClose}>확인</Button>
+      </BtnWrap>
+    </>
+  );
 }
 const Main = styled.div`
   margin-top: 10px;
   height: 170px;
   overflow: auto;
-  
-`
+`;
 
 const Content = styled.div`
-font-size: 30px;
-text-align: center;
-`
+  font-size: 30px;
+  text-align: center;
+`;
 const BtnWrap = styled.div`
-width: 90%;
-margin: 0px auto;
-display: flex;
-justify-content: flex-end;
-`
+  width: 90%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: flex-end;
+`;
 const Button = styled.button`
-background-color: #151515;
-color: white;
-width: 120px;
-height: 40px;
-border-radius:12px;
-cursor: pointer;
-`
+  background-color: #151515;
+  color: white;
+  width: 120px;
+  height: 40px;
+  border-radius: 12px;
+  cursor: pointer;
+`;
 
 export const ConfirmCus = styled(Modal)`
   padding-top: 60px;
@@ -84,7 +88,7 @@ export const ConfirmCus = styled(Modal)`
     border-radius: 20px;
   }
 
-  .ant-modal-body{
+  .ant-modal-body {
     height: 500px;
   }
   .ant-modal-header {
@@ -126,8 +130,6 @@ export const ConfirmCus = styled(Modal)`
   .ant-btn {
     visibility: hidden;
   }
-
- 
 `;
 export const BoardListWrapper = styled.div`
   padding: 0 30px 0 30px;
@@ -197,4 +199,5 @@ export const Section2 = styled.div`
   color: #8b8b8b;
 `;
 export const Sex1 = styled.div`
-  color: #8b8b8b;`;
+  color: #8b8b8b;
+`;

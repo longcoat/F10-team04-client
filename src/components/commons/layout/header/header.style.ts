@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   position: fixed;
   justify-content: space-between;
   align-items: center;
+
   &:hover {
     background-color: rgba(255, 255, 255, 0.6);
     transition: all 0.3s;

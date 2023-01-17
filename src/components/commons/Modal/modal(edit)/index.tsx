@@ -23,7 +23,10 @@ import { useRouter } from "next/router";
 import { IUpdateUseditemInput } from "../../../units/CommunityPage/write/Community.type";
 import KaKaoMapEdit from "../../map/mapsearch(edit)";
 
-import { IMutation, IMutationUpdateBoardArgs } from "../../../../commons/types/generated/types";
+import {
+  IMutation,
+  IMutationUpdateBoardArgs,
+} from "../../../../commons/types/generated/types";
 import { IUpdateBoardInput } from "../../../units/CommunityPage/write/CommunityWrite.types";
 
 const ReactQuill = dynamic(async () => await import("react-quill"), {
@@ -143,39 +146,47 @@ export default function InModalEdit(props) {
   const [recruitPeople, setRecruitPeople] = useState(0);
   const [image, setImage] = useState("");
 
-useEffect(() => {
-  if(props.data){
-      setImage(props.data.fetchBoard.image?.imgUrl)
-      setTitle(props.data.fetchBoard.title)
-      setContent(props.data.fetchBoard.content)
-      setAppointment(props.data.fetchBoard.appointment)
-      setRecruitSports(props.data.fetchBoard.recruitSports)
-      setRecruitPeople(props.data.fetchBoard.recruitPeople)
-      setRecruitGrade(props.data.fetchBoard.recruitGrade)
-      setRecruitRegion(props.data.fetchBoard.recruitRegion)
-      if(props.data.fetchBoard.location?.center !==center ||
-         props.data.fetchBoard.location?.path !== path ) {
-          return
-        }else{
-          setCenter(props.data.fetchBoard.location?.center)
-          setPath(props.data.fetchBoard.location?.path)
-        }
+  useEffect(() => {
+    if (props.data) {
+      setImage(props.data.fetchBoard.image?.imgUrl);
+      setTitle(props.data.fetchBoard.title);
+      setContent(props.data.fetchBoard.content);
+      setAppointment(props.data.fetchBoard.appointment);
+      setRecruitSports(props.data.fetchBoard.recruitSports);
+      setRecruitPeople(props.data.fetchBoard.recruitPeople);
+      setRecruitGrade(props.data.fetchBoard.recruitGrade);
+      setRecruitRegion(props.data.fetchBoard.recruitRegion);
+      if (
+        props.data.fetchBoard.location?.center !== center ||
+        props.data.fetchBoard.location?.path !== path
+      ) {
+        return;
+      } else {
+        setCenter(props.data.fetchBoard.location?.center);
+        setPath(props.data.fetchBoard.location?.path);
+      }
     }
-},[props.data, path, center])
-const [updateBoard] = useMutation<
-Pick<IMutation, "updateBoard">,
-IMutationUpdateBoardArgs
->(UPDATE_BOARD);
-  console.log(props.data?.fetchBoard.image?.id)
+  }, [props.data, path, center]);
+  const [updateBoard] = useMutation<
+    Pick<IMutation, "updateBoard">,
+    IMutationUpdateBoardArgs
+  >(UPDATE_BOARD);
+  console.log(props.data?.fetchBoard.image?.id);
   const onClickUpdate = async () => {
-    const updateBoardInput: IUpdateBoardInput= {};
-    if (props.data?.fetchBoard.title) updateBoardInput.title = props.data.fetchBoard.title;
-    if (props.data?.fetchBoard.content) updateBoardInput.content = props.data.fetchBoard.content;
-    if (props.data?.fetchBoard.recruitSports) updateBoardInput.recruitSports = props.data.fetchBoard.recruitSports;
-    if (props.data?.fetchBoard.recruitGrade) updateBoardInput.recruitGrade = props.data.fetchBoard.recruitGrade;
-    if (props.data?.fetchBoard.recruitRegion) updateBoardInput.recruitRegion = props.data.fetchBoard.recruitRegion;
-    if (props.data?.fetchBoard.recruitPeople) updateBoardInput.recruitPeople = props.data.fetchBoard.recruitPeople;
-    
+    const updateBoardInput: IUpdateBoardInput = {};
+    if (props.data?.fetchBoard.title)
+      updateBoardInput.title = props.data.fetchBoard.title;
+    if (props.data?.fetchBoard.content)
+      updateBoardInput.content = props.data.fetchBoard.content;
+    if (props.data?.fetchBoard.recruitSports)
+      updateBoardInput.recruitSports = props.data.fetchBoard.recruitSports;
+    if (props.data?.fetchBoard.recruitGrade)
+      updateBoardInput.recruitGrade = props.data.fetchBoard.recruitGrade;
+    if (props.data?.fetchBoard.recruitRegion)
+      updateBoardInput.recruitRegion = props.data.fetchBoard.recruitRegion;
+    if (props.data?.fetchBoard.recruitPeople)
+      updateBoardInput.recruitPeople = props.data.fetchBoard.recruitPeople;
+
     try {
       const result = await updateBoard({
         variables: {
@@ -207,32 +218,34 @@ IMutationUpdateBoardArgs
     setModalOpen((prev) => !prev);
   };
 
-  const onChangePeople = (e) => {
+  const onChangePeople = (e: any) => {
     setRecruitPeople(e.target.value);
   };
-  const onChangeTitle = (e) => {
+  const onChangeTitle = (e: any) => {
     setTitle(e.target.value);
   };
-  const onChangeSports = (e) => {
+  const onChangeSports = (e: any) => {
     setRecruitSports(e.target.value);
   };
-  const onChangeDate = (e) => {
+  const onChangeDate = (e: any) => {
     setAppointment(e?._d);
   };
-  const onChangeContent = (value) => {
+  const onChangeContent = (value: any) => {
     setContent(value === "<p><br></p>" ? "" : value);
   };
-  const onChangeLo = (e) => {
+  const onChangeLo = (e: any) => {
     setRecruitRegion(e);
   };
-  const onChangeGrade = (e) => {
+  const onChangeGrade = (e: any) => {
     setRecruitGrade(e);
   };
-  const onChangeImage = (fileUrl) => {
+  const onChangeImage = (fileUrl: any) => {
     const newFile = fileUrl;
     setImage(newFile);
   };
 
+  const defaultValue: dayjs.Dayjs = dayjs("00:00:00", "HH:mm:ss");
+  let showTime = { defaultValue: dayjs("00:00:00", "HH:mm:ss") };
   return (
     <S.Wrapper>
       <S.Header>
@@ -300,7 +313,7 @@ IMutationUpdateBoardArgs
                 format="YYYY-MM-DD HH:mm:ss"
                 disabledDate={disabledDate}
                 disabledTime={disabledDateTime}
-                showTime={{ defaultValue: dayjs("00:00:00", "HH:mm:ss") }}
+                showTime
               />
             </S.InputWrapper>
             <S.Category>
