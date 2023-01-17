@@ -11,6 +11,7 @@ import {
   EditBoardId,
   modalDetailState,
   modalEditState,
+  okModalState,
   PickState,
   ToggleState,
 } from "../../../../commons/stores";
@@ -54,6 +55,7 @@ export default function CommunityDetailPage(props: any) {
   const [editBoardId, setEditBoardId] = useRecoilState(EditBoardId);
   const [attendList, setAttendList] = useRecoilState(attendListModalState);
   const [confirmModal, setConfirmModal] = useRecoilState(confirmModalState);
+  const [isModalOpen, setIsModalOpen] = useRecoilState(okModalState);
   const [Toggle, setToggle] = useRecoilState(ToggleState);
   const [pick, setPick] = useRecoilState(PickState);
   const [attend, setAttend] = useRecoilState(AttendState);

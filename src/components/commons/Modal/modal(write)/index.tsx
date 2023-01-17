@@ -157,7 +157,9 @@ export default function InModalWrite(props: any) {
     } else return;
   });
 
-  const onClickSubmit = async () => {
+  const onClickSubmit = async () => { 
+    if (title && content && appointment && recruitSports && recruitGrade && recruitRegion
+      && recruitPeople && path && center) {
     try {
       const result = await createBoard({
         variables: {
@@ -188,6 +190,9 @@ export default function InModalWrite(props: any) {
       router.push(`/community/`);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error });
+    }
+    }else{
+      alert("이미지를 제외한 모든 정보는 필수입니다.")
     }
   };
   const onChangePeople = (e) => {
@@ -309,10 +314,10 @@ export default function InModalWrite(props: any) {
       </S.InputWrapper1>
       <KaKaoMapPage />
       <S.ButtonWrap>
+        <S.Button2 onClick={onClickSubmit}>작성하기</S.Button2>
         <S.Button1 type="button" onClick={() => setModalOpen(false)}>
           취소하기
         </S.Button1>
-        <S.Button2 onClick={onClickSubmit}>작성하기</S.Button2>
       </S.ButtonWrap>
     </S.Wrapper>
   );

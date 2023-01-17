@@ -23,17 +23,36 @@ export default function Members() {
   const result = [];
   const following = [];
 
-  const { data } = useQuery<Pick<IQuery, "fetchUsers">, IQueryFetchUserArgs>(
-    FETCH_USERS
-  );
-  console.log(data);
-
-
-  const { data, loading } = useQuery<
+  const { data, loading, fetchMore } = useQuery<
     Pick<IQuery, "fetchUsers">,
     IQueryFetchUserArgs
   >(FETCH_USERS);
+
   console.log(data)
+
+  const onLoadMore = () => {
+    if (!data) return;
+
+    fetchMore({
+      variables: {
+        page: Math.ceil(data?.fetchUsers.length / 8) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (fetchMoreResult.fetchUsers == undefined) {
+          return {
+            fetchUsers: [...prev.fetchUsers],
+          };
+        }
+        return {
+          fetchUsers: [
+            ...prev.fetchUsers,
+            ...fetchMoreResult?.fetchUsers,
+          ],
+        };
+      },
+    });
+  };
+
 
   const { data: LoggedIn } = useQuery(FETCH_USER_LOGGED_IN);
 
@@ -93,6 +112,7 @@ export default function Members() {
   
  
   return <MembersUi 
+  onLoadMore={onLoadMore}
   loading={loading}
   following={following}
   isNo={isNo} 

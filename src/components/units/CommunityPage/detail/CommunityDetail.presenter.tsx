@@ -16,6 +16,9 @@ import styled from "@emotion/styled";
 import ConfirmModal, {
   ConfirmCus,
 } from "../../../commons/Modal/confirmModal(community)";
+import OkModal, {
+  OkCus,
+} from "../../../commons/Modal/okModal";
 import Livechat from "../../../commons/livechat/LivechatContainer";
 import AttendList from "../../../commons/Modal/Modal(attendList)";
 
@@ -27,7 +30,6 @@ export default function CommunityDetailUIPage(props: any) {
   const [id, setId] = useRecoilState(LoggedInUserId);
   const [path, setPath] = useState([]);
   const [center, setCenter] = useState([]);
-
   const [isOpen, setIsOpen] = useState(false);
   const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
 
@@ -208,9 +210,11 @@ export default function CommunityDetailUIPage(props: any) {
   }, [path, center]);
   return (
     <>
+      {/* <OkCus>
+        <OkModal centered open={true} width={500} onCancel={handleCancel}/>
+      </OkCus> */}
       {props.EditModalOpen && (
         <ModalCustom
-          title="게시물 수정"
           centered
           open={true}
           width={1000}

@@ -22,6 +22,10 @@ export const modalEditState = atom({
   key: "modalEditState",
   default: false,
 });
+export const userEditState = atom({
+  key: "userEditState",
+  default: false,
+});
 export const modalDetailState = atom({
   key: "modalDetailState",
   default: false,
@@ -101,6 +105,10 @@ export const PickState = atom({
 });
 export const AttendState = atom({
   key: "AttendState",
+  default: false,
+});
+export const okModalState = atom({
+  key: "okModalState",
   default: false,
 });
 

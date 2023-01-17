@@ -3,18 +3,19 @@ import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { modalEditState } from "../../../commons/stores";
+import { modalEditState, userEditState } from "../../../commons/stores";
 import {
   IMutation,
   IMutationCheckNickNameArgs,
   IMutationUpdateUserArgs,
 } from "../../../commons/types/generated/types";
+import { FETCH_USER_LOGGED_IN } from "../layout/header/header";
 import UserEditUI from "./userEdit.presenter";
 import { CHECK_NICK_NAME, UPDATE_USER } from "./userEdit.query";
 
 export default function UserEdit(props: any) {
   console.log(props.data);
-  const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
+  const [ModalOpen, setModalOpen] = useRecoilState(userEditState);
   const router = useRouter();
   const [NicknameAct, setNickNameAct] = useState(false);
   const [gender, setGender] = useState("");
@@ -192,7 +193,9 @@ export default function UserEdit(props: any) {
             gender,
             image,
           },
-        },
+        }, refetchQueries: [
+          { query: FETCH_USER_LOGGED_IN }
+        ],
       });
       console.log(result);
       setModalOpen(false);
