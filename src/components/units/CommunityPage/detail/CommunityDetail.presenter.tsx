@@ -23,7 +23,7 @@ declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function CommunityDetailUIPage(props) {
+export default function CommunityDetailUIPage(props: any) {
   const [id, setId] = useRecoilState(LoggedInUserId);
   const [path, setPath] = useState([]);
   const [center, setCenter] = useState([]);
@@ -238,13 +238,20 @@ export default function CommunityDetailUIPage(props) {
         </S.Header>
         <S.Head>
           <S.AvatarWrap>
-            <S.Avatar src={props.data?.fetchBoard.user.image?.imgUrl || "./images/avatar.png"} />
+            <S.Avatar
+              src={
+                props.data?.fetchBoard.user.image?.imgUrl ||
+                "./images/avatar.png"
+              }
+            />
           </S.AvatarWrap>
           <S.UerInfo>
             <S.Left>
               <S.UserWrap>
-              <S.UserName>{props.data?.fetchBoard.user.nickname}</S.UserName>
-              <S.AttendListBtn onClick={props.onClickAttendList}>현재 참가 인원</S.AttendListBtn>
+                <S.UserName>{props.data?.fetchBoard.user.nickname}</S.UserName>
+                <S.AttendListBtn onClick={props.onClickAttendList}>
+                  현재 참가 인원
+                </S.AttendListBtn>
               </S.UserWrap>
               <S.MapWrap>
                 <S.MapIcon src="./images/list/map.png"></S.MapIcon>
@@ -312,37 +319,32 @@ export default function CommunityDetailUIPage(props) {
             />
           </S.Contents>
           <S.Map_Chat>
-          <div
-            id="map"
-            style={{ width: "68%", height: 400, marginTop: "20px" }}
-          ></div>
-     <Livechat 
-     userData={props.userData} data={props.data} />
+            <div
+              id="map"
+              style={{ width: "68%", height: 400, marginTop: "20px" }}
+            ></div>
+            <Livechat userData={props.userData} data={props.data} />
           </S.Map_Chat>
-      {props.data?.fetchBoard.user.id !== id ? 
-          <S.BtnWrap>
-                <S.Button3
+          {props.data?.fetchBoard.user.id !== id ? (
+            <S.BtnWrap>
+              <S.Button3
                 isActive={props.attend}
-              onClick={
-                props.data?.fetchBoard.recruitPeople ===
-                props.data?.fetchBoard.attendCount 
-                  ? props.onClickNoAtt
-                  : props.onClickAttend(props.data?.fetchBoard.id)
-              }
-            >
-              {props.attend ? "참가취소" : "참여하기"}
-            </S.Button3>
-             <S.Button1 onClick={props.onClickClose}>닫기</S.Button1>
-          </S.BtnWrap>
-             :
-             <S.BtnWrap1>
-            <S.Button1
-              onClick={props.onClickClose}
-            >
-              닫기
-            </S.Button1>
-          </S.BtnWrap1>
-            }
+                onClick={
+                  props.data?.fetchBoard.recruitPeople ===
+                  props.data?.fetchBoard.attendCount
+                    ? props.onClickNoAtt
+                    : props.onClickAttend(props.data?.fetchBoard.id)
+                }
+              >
+                {props.attend ? "참가취소" : "참여하기"}
+              </S.Button3>
+              <S.Button1 onClick={props.onClickClose}>닫기</S.Button1>
+            </S.BtnWrap>
+          ) : (
+            <S.BtnWrap1>
+              <S.Button1 onClick={props.onClickClose}>닫기</S.Button1>
+            </S.BtnWrap1>
+          )}
         </S.Main>
       </S.Wrapper>
       

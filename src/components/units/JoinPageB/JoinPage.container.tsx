@@ -1,6 +1,6 @@
 import * as S from "./JoinPage.styles";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import JoinPageUi from "./JoinPage.presenter";
 import {
   CHECK_NICK_NAME,
@@ -10,7 +10,13 @@ import {
 } from "./joinPage.query";
 import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
-import { IMutation, IMutationCheckNickNameArgs, IMutationCheckTokenEmailArgs, IMutationCreateUserArgs, IMutationSendTokenToEmailArgs } from "../../../commons/types/generated/types";
+import {
+  IMutation,
+  IMutationCheckNickNameArgs,
+  IMutationCheckTokenEmailArgs,
+  IMutationCreateUserArgs,
+  IMutationSendTokenToEmailArgs,
+} from "../../../commons/types/generated/types";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IFormData } from "./joinPage.types";
@@ -51,33 +57,32 @@ export default function JoinPageB() {
   const [token, setToken] = useState("");
 
   const [createUser] = useMutation<
-  Pick<IMutation, "createUser">,
-  IMutationCreateUserArgs
->(CREATE_USER);
+    Pick<IMutation, "createUser">,
+    IMutationCreateUserArgs
+  >(CREATE_USER);
 
   const [sendTokenToEmail] = useMutation<
-  Pick<IMutation, "sendTokenToEmail">,
-  IMutationSendTokenToEmailArgs
->(SEND_TOKEN_TO_EMAIL);
+    Pick<IMutation, "sendTokenToEmail">,
+    IMutationSendTokenToEmailArgs
+  >(SEND_TOKEN_TO_EMAIL);
 
   const [checkTokenEmail] = useMutation<
-  Pick<IMutation, "checkTokenEmail">,
-  IMutationCheckTokenEmailArgs
->(CHECK_TOKEN_EMAIL);
+    Pick<IMutation, "checkTokenEmail">,
+    IMutationCheckTokenEmailArgs
+  >(CHECK_TOKEN_EMAIL);
 
   const [checkNickName] = useMutation<
-  Pick<IMutation, "checkNickName">,
-  IMutationCheckNickNameArgs
->(CHECK_NICK_NAME);
+    Pick<IMutation, "checkNickName">,
+    IMutationCheckNickNameArgs
+  >(CHECK_NICK_NAME);
 
-  const onChangeEmailToken = (e) => {
+  const onChangeEmailToken = (e: ChangeEvent<HTMLInputElement>) => {
     setToken(e.target.value);
   };
 
   const { register, handleSubmit, formState } = useForm<IFormData>({
     resolver: yupResolver(schema),
   });
-
 
   // const onChangeEmail = (e) => {
   //   setEmail(e.target.value);
@@ -95,7 +100,7 @@ export default function JoinPageB() {
   //     setPwCon(false);
   //   }
   // };
-  const onChangeNickName = (e) => {
+  const onChangeNickName = (e: ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
     if (e.target.value !== "") {
       setNickNameAct(true);
@@ -227,7 +232,7 @@ export default function JoinPageB() {
   };
 
   const onClickSendEmail = async (data) => {
-    console.log(data.email)
+    console.log(data.email);
     // try {
     //   const result = await sendTokenToEmail({
     //     variables: {
@@ -267,7 +272,7 @@ export default function JoinPageB() {
   };
 
   const onClickSubmit = async (data) => {
-    console.log(data)
+    console.log(data);
     // try {
     //   const result = await createUser({
     //     variables: {
@@ -294,8 +299,8 @@ export default function JoinPageB() {
 
   return (
     <JoinPageUi
-    register={register}
-    handleSubmit={handleSubmit}
+      register={register}
+      handleSubmit={handleSubmit}
       sendEmail={sendEmail}
       emailAct={emailAct}
       pwAct={pwAct}

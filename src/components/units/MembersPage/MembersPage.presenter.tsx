@@ -137,7 +137,7 @@ const levelOption = [
   },
 ];
 
-export default function MembersUi(props) {
+export default function MembersUi(props: any) {
   const [menuAct, setMenuAct] = useState(true);
   const [menuAct1, setMenuAct1] = useState(false);
   const onClickMenu1 = () => {

@@ -19,7 +19,10 @@ import dynamic from "next/dynamic";
 import { FETCH_ALL_BOARDS, FETCH_ALL_BOARDS_WITH_PICK_BOARD } from "../../../units/CommunityPage/list/CommunityList.queries";
 import { useRouter } from "next/router";
 import KaKaoMapPage from "../../map/mapsearch";
-import { IMutation, IMutationCreateBoardArgs } from "../../../../commons/types/generated/types";
+import {
+  IMutation,
+  IMutationCreateBoardArgs,
+} from "../../../../commons/types/generated/types";
 import { withAuth } from "../../hocs/withAuth";
 import { FETCH_USER_LOGGED_IN } from "../../layout/header/header";
 import { FETCH_MY_All_BOARDS } from "../../../units/MyPageA/MyBoardList";
@@ -125,7 +128,7 @@ const disabledRangeTime: RangePickerProps["disabledTime"] = (_, type) => {
     disabledSeconds: () => [55, 56],
   };
 };
-export default function InModalWrite(props) {
+export default function InModalWrite(props: any) {
   const router = useRouter();
   const [center, setCenter] = useRecoilState(mapCenterState);
   const [path, setPath] = useRecoilState(mapPathState);
@@ -147,12 +150,11 @@ export default function InModalWrite(props) {
   // 로그인 체크
 
   useEffect(() => {
-    
     if (localStorage.getItem("accessToken") === null) {
       alert("로그인 후 이용 가능합니다!!!");
       void router.push("/login");
-      setModalOpen(false)
-    }else return
+      setModalOpen(false);
+    } else return;
   });
 
   const onClickSubmit = async () => {
@@ -173,6 +175,7 @@ export default function InModalWrite(props) {
               center,
             },
           },
+
          
         }, refetchQueries: [
           { query: FETCH_ALL_BOARDS },
@@ -213,7 +216,6 @@ export default function InModalWrite(props) {
     const newFile = fileUrl;
     setImage(newFile);
   };
-
 
   return (
     <S.Wrapper>
