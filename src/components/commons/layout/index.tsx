@@ -68,3 +68,7 @@ export default function Layout(props: ILayoutProps) {
 const Contents = styled.div`
   overflow: hidden;
 `;
+
+function addToast(arg0: string, arg1: { appearance: string }): void {
+  throw new Error("Function not implemented.");
+}

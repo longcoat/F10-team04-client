@@ -17,8 +17,9 @@ export const Container = styled.div`
   padding: 0 120px;
 `;
 export const LoginWrapper = styled.form`
-  /* width: 754px; */
+  width: 754px;
   background-color: #fff;
+  padding-bottom: 140px;
 `;
 export const Title = styled.div`
   padding-top: 135px;

@@ -26,8 +26,8 @@ export const IconWrap = styled.div`
 export const ContentWrap = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 15px;
-  width: 100%;
+  padding-left: 10px;
+  width: 89%;
   ${M.mediaL} {
     padding-left: 10px;
   }

@@ -83,10 +83,10 @@ export default function LayoutHeader() {
         </S.LeftSide>
         <S.RightSide>
           <S.Menu onClick={() => router.push("/photoReview")} className="menu">
-            <p>PhotoReview</p>
+            <p style={{ marginBottom: "0em" }}>PhotoReview</p>
           </S.Menu>
           <S.Menu onClick={() => router.push("/members")} className="menu">
-            <p>Members</p>
+            <p style={{ marginBottom: "0em" }}>Members</p>
           </S.Menu>
           <S.Menu onClick={() => router.push("/community")} className="menu">
             Community

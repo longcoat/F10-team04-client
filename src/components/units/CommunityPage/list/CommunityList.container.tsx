@@ -51,7 +51,6 @@ export default function CommunityList() {
     },
   });
 
-
   const onLoadMore = () => {
     if (!data) return;
 
@@ -97,7 +96,7 @@ export default function CommunityList() {
       },
     });
   };
-  const onClickDetail = (boardId) => () => {
+  const onClickDetail = (boardId: any) => () => {
     setModalOpen((prev) => !prev);
     setBoardId(boardId);
   };
