@@ -81,7 +81,7 @@ export default function CommunityDetailPage(props: any) {
         setPick(false);
       }
     }
-  }, [PickList.fetchMyPickBoards, data, props.boardId, setPick]);
+  }, [PickList?.fetchMyPickBoards, data, props.boardId, setPick]);
   useEffect(() => {
     for (let i = 0; i < AttendList?.fetchAttendList.length; i++) {
       if (AttendList.fetchAttendList[i].board.id === props.boardId) {
@@ -91,9 +91,15 @@ export default function CommunityDetailPage(props: any) {
         setAttend(false);
       }
     }
-  }, [AttendList.fetchAttendList, data, props.boardId, setAttend]);
+  }, [AttendList?.fetchAttendList, data, props.boardId, setAttend]);
 
   const onClickAttend = (boardId) => async () => {
+    if (localStorage.getItem("accessToken") === null) {
+      alert("로그인 후 이용 가능합니다!!!");
+      void router.push("/login");
+      setModalOpen(false);
+      return
+    } 
     try {
       const result = await attendBoard({
         variables: {
@@ -133,6 +139,12 @@ export default function CommunityDetailPage(props: any) {
     setConfirmModal(true);
   };
   const onClickPick = (boardId) => async () => {
+    if (localStorage.getItem("accessToken") === null) {
+      alert("로그인 후 이용 가능합니다!!!");
+      void router.push("/login");
+      setModalOpen(false);
+      return
+    } 
     try {
       const result = await pickBoard({
         variables: {
