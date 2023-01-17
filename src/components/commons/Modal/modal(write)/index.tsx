@@ -13,7 +13,7 @@ import {
 } from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
 import { CREATE_BOARD } from "../../../units/CommunityPage/write/CommunityWrite.queries";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import Uploads01 from "../../uploads/01/Uploads01.container";
 import dynamic from "next/dynamic";
 import {
@@ -26,7 +26,9 @@ import {
   IMutation,
   IMutationCreateBoardArgs,
 } from "../../../../commons/types/generated/types";
+
 import { FETCH_USER_LOGGED_IN } from "../../layout/header/header";
+
 import { FETCH_MY_All_BOARDS } from "../../../units/MyPageA/MyBoardList";
 
 const ReactQuill = dynamic(async () => await import("react-quill"), {
