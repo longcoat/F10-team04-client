@@ -35,11 +35,11 @@ export default function ReviewUI(props: any) {
             </S.ItemWrap>
             <S.ItemWrap>
               <UserOutlined style={{ fontSize: "20px" }} />
-              <S.Item onClick={props.onClickFollowing}>팔로잉 {props.followingList?.fetchFollowing.length}</S.Item>
+              <S.Item onClick={props.onClickFollowing}>팔로잉 {props.followingList?.fetchFollowing.length === 0 ? 0 :props.followingList?.fetchFollowing.length}</S.Item>
             </S.ItemWrap>
             <S.ItemWrap>
               <UserOutlined style={{ fontSize: "20px" }} />
-              <S.Item onClick={props.onClickFollower}>팔로워 {props.followerList?.fetchFollower.length}</S.Item>
+              <S.Item onClick={props.onClickFollower}>팔로워 {props.followerList?.fetchFollower.length === 0 ? 0 :props.followerList?.fetchFollower.length}</S.Item>
             </S.ItemWrap>
           </S.DDD>
         </S.SideBar>
