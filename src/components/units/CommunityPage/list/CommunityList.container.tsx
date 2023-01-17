@@ -51,12 +51,13 @@ export default function CommunityList() {
     },
   });
 
+
   const onLoadMore = () => {
     if (!data) return;
 
     fetchMore({
       variables: {
-        page: Math.ceil(data?.fetchAllBoards.length / 9) + 1,
+        page: Math.ceil(data?.fetchAllBoards.length / 8) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (fetchMoreResult.fetchAllBoards == undefined) {
@@ -79,7 +80,7 @@ export default function CommunityList() {
 
     pickFetchMore({
       variables: {
-        page: Math.ceil(Pick?.fetchAllBoardsWithPickCount.length / 9) + 1,
+        page: Math.ceil(Pick?.fetchAllBoardsWithPickCount.length / 8) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
         if (fetchMoreResult.fetchAllBoardsWithPickCount == undefined) {

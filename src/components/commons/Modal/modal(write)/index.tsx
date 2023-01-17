@@ -16,7 +16,7 @@ import { CREATE_BOARD } from "../../../units/CommunityPage/write/CommunityWrite.
 import { useMutation, useQuery } from "@apollo/client";
 import Uploads01 from "../../uploads/01/Uploads01.container";
 import dynamic from "next/dynamic";
-import { FETCH_ALL_BOARDS } from "../../../units/CommunityPage/list/CommunityList.queries";
+import { FETCH_ALL_BOARDS, FETCH_ALL_BOARDS_WITH_PICK_BOARD } from "../../../units/CommunityPage/list/CommunityList.queries";
 import { useRouter } from "next/router";
 import KaKaoMapPage from "../../map/mapsearch";
 import {
@@ -25,6 +25,7 @@ import {
 } from "../../../../commons/types/generated/types";
 import { withAuth } from "../../hocs/withAuth";
 import { FETCH_USER_LOGGED_IN } from "../../layout/header/header";
+import { FETCH_MY_All_BOARDS } from "../../../units/MyPageA/MyBoardList";
 
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
@@ -174,8 +175,13 @@ export default function InModalWrite(props: any) {
               center,
             },
           },
-        },
-        refetchQueries: [{ query: FETCH_ALL_BOARDS }],
+
+         
+        }, refetchQueries: [
+          { query: FETCH_ALL_BOARDS },
+          { query: FETCH_MY_All_BOARDS },
+          { query: FETCH_ALL_BOARDS_WITH_PICK_BOARD }
+        ],
       });
       Modal.success({ content: "게시물 작성 완료!" });
       setModalOpen(false);

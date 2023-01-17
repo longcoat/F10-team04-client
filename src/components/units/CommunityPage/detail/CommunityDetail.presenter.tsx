@@ -230,6 +230,8 @@ export default function CommunityDetailUIPage(props: any) {
           <AttendList data={props.data} />
         </ConfirmCus>
       )}
+      {props.loading ? ""
+      :
       <S.Wrapper>
         <S.Header>
           <S.Img src={"./images/example.png"}></S.Img>
@@ -345,6 +347,9 @@ export default function CommunityDetailUIPage(props: any) {
           )}
         </S.Main>
       </S.Wrapper>
+      
+      }
+      
     </>
   );
 }

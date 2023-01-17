@@ -222,7 +222,7 @@ export default function CommunityListUi(props: any) {
           {orderPick ? (
             <InfiniteScroll
               pageStart={0}
-              loadMore={props.onLoadMore}
+              loadMore={props.onLoadMore2}
               hasMore={true}
             >
               <S.Items>

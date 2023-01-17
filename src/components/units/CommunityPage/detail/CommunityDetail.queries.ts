@@ -38,6 +38,10 @@ export const FETCH_BOARD = gql`
           prefer
           region
           gender
+          image{
+            id
+            imgUrl
+          }
         }
       }
     }
