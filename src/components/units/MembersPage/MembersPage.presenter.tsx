@@ -161,9 +161,9 @@ export default function MembersUi(props: any) {
       }
     }
   };
-  return (
-    props.loading ? ""
-    :
+  return props.loading ? (
+    ""
+  ) : (
     <S.Wrapper>
       <S.SearchWrap>
         {/* <S.SelectSide> */}
@@ -229,17 +229,21 @@ export default function MembersUi(props: any) {
       ) : (
         <S.ResultWrap>
           <S.ResultTitle>검색결과</S.ResultTitle>
-          <InfiniteScroll pageStart={0} loadMore={props.onLoadMore} hasMore={true}>
-          <S.Items>
-            {props.result?.map((el, index) => (
-              <UserCard
-                key={index}
-                el={el}
-                result={props.result}
-                following={props.following}
-              />
-            ))}
-          </S.Items>
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={props.onLoadMore}
+            hasMore={true}
+          >
+            <S.Items>
+              {props.result?.map((el, index) => (
+                <UserCard
+                  key={index}
+                  el={el}
+                  result={props.result}
+                  following={props.following}
+                />
+              ))}
+            </S.Items>
           </InfiniteScroll>
         </S.ResultWrap>
       )}

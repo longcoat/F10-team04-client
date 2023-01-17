@@ -18,11 +18,12 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-position-y:-120px ;
+  background-position-y: -120px;
   /* @media only screen and (max-width: 1024px) {
     background-position-x: -130px;
   } */
   ${M.mediaL} {
+    background-position-y: 0px;
   }
 `;
 export const MainTextBox = styled.div`
