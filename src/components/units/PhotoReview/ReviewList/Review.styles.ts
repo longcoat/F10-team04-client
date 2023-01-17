@@ -73,6 +73,7 @@ export const ItemWrap = styled.div`
 export const Item = styled.div`
   font-size: 20px;
   margin-left: 10px;
+  cursor: pointer;
 `;
 export const DDD = styled.div`
   height: 50%;

@@ -20,7 +20,7 @@ export default function Members() {
   const following =[]
 
 
-  const { data } = useQuery<
+  const { data, loading } = useQuery<
     Pick<IQuery, "fetchUsers">,
     IQueryFetchUserArgs
   >(FETCH_USERS);
@@ -59,6 +59,7 @@ export default function Members() {
       setIsNo(prev => !prev)
     }
 }
+
   data?.fetchUsers.forEach((el)=> {
     if(el.region?.includes(Lo) === true &&
       el.age?.includes(age) === true &&
@@ -69,6 +70,7 @@ export default function Members() {
       }
       
   })
+  
   useEffect(() =>{
     if(result.length === 0
       ) {
@@ -78,19 +80,12 @@ export default function Members() {
         setIsNo(false)
       }
   },[result])
-  useEffect(() =>{
-    result.forEach((el) =>{
-      followingList?.fetchFollowing.forEach((el_F) =>{
-        if(el.id === el_F.user2.id){
-          following.push(el.id)
-        }
-      })
-    })
-  },[result])
+
 
   
  
   return <MembersUi 
+  loading={loading}
   following={following}
   isNo={isNo} 
   data={data}

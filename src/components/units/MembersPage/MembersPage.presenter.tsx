@@ -161,6 +161,8 @@ export default function MembersUi(props) {
     }
   };
   return (
+    props.loading ? ""
+    :
     <S.Wrapper>
       <S.SearchWrap>
         {/* <S.SelectSide> */}

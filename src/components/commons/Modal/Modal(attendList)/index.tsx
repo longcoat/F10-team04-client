@@ -19,7 +19,7 @@ export default function AttendList(props: any) {
               <BoardListWrapper key={el.id}>
               <BoardList>
                 <ImageListProfileBox>
-                  <ImageListProfile src="/profile.png" />
+                  <ImageListProfile src={el.user.image.imgUrl || "/profile.png"} />
                 </ImageListProfileBox>
                 <Profile1>
                   <InfoTextBox1>
@@ -141,10 +141,12 @@ export const BoardList = styled.div`
   margin-bottom: 10px;
 `;
 export const ImageListProfileBox = styled.div`
-  padding: 10px 10px 10px 0;
+  padding: 5px 15px 10px 0;
 `;
 export const ImageListProfile = styled.img`
   width: 40px;
+  height: 40px;
+  border-radius: 100px;
 `;
 export const Profile1 = styled.div`
   width: 100%;

@@ -49,26 +49,24 @@ export default function JoinPageUi(props) {
     const newFile = fileUrl;
     setImage(newFile);
   };
-  console.log(props.data?.checkNickName);
   const onClickNext = () => {
-    // if (
-    //   props.email.includes("@") &&
-    //   props.password.match(/^(?=.*[a-zA-Z]).{0,16}$/) &&
-    //   props.password.match(/^(?=.*[0-9]).{0,16}$/) &&
-    //   props.password.match(/^(?=.*[!@#$%^*+=-]).{0,16}$/) &&
-    //   props.password.match(/^.{8,16}$/) &&
-    //   props.password === props.cpassword &&
-    //   props.nickNameCheck
-    // ) {
-    //   setIsNext((prev) => !prev);
-    // } else if (!props.email.includes("@")) {
-    //   alert("이메일 형식을 확인해주세요.");
-    // } else if (!props.nickNameCheck) {
-    //   alert("닉네임 중복을 확인하세요.");
-    // } else {
-    //   alert("비밀번호를 확인해주세요.");
-    // }
-    setIsNext((prev) => !prev);
+    if (
+      props.email.includes("@") &&
+      props.password.match(/^(?=.*[a-zA-Z]).{0,16}$/) &&
+      props.password.match(/^(?=.*[0-9]).{0,16}$/) &&
+      props.password.match(/^(?=.*[!@#$%^*+=-]).{0,16}$/) &&
+      props.password.match(/^.{8,16}$/) &&
+      props.password === props.cpassword &&
+      props.nickNameCheck
+    ) {
+      setIsNext((prev) => !prev);
+    } else if (!props.email.includes("@")) {
+      alert("이메일 형식을 확인해주세요.");
+    } else if (!props.nickNameCheck) {
+      alert("닉네임 중복을 확인하세요.");
+    } else {
+      alert("비밀번호를 확인해주세요.");
+    }
   };
   const onClickBack = () => {
     setIsNext(false);
