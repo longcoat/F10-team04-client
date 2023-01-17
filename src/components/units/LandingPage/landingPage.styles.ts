@@ -12,13 +12,12 @@ export const Wrapper = styled(globalContainer)`
 `;
 export const Container = styled.div`
   width: 100%;
-  background-image: url("/banner-5.jpg");
+  background-image: url("/images/main.png");
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-position-y: -120px;
   /* @media only screen and (max-width: 1024px) {
     background-position-x: -130px;
   } */

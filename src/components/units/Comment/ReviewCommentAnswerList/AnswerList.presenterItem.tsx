@@ -10,7 +10,11 @@ export default function AnswerListItem(props: any) {
   return (
     <>
       <S.Wrap>
-        <S.IconWrap></S.IconWrap>
+        <S.IconWrap>
+        <S.ImageProfile
+                  src={props.el.user.image?.imgUrl || "/profile.png"}
+                />
+        </S.IconWrap>
         <S.ContentWrap>
           <S.firstLine>
             <S.MainWrap>

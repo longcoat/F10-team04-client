@@ -30,7 +30,7 @@ export default function Review() {
     });
 
 
-    console.log(followerList)
+    console.log("follower",followerList)
     console.log(followingList)
 
     const onClickMore = (reviewBoardId) => () =>{

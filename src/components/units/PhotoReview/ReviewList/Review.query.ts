@@ -56,7 +56,7 @@ export const FETCH_FOLLOWER = gql`
   query fetchFollower($userId: String!,$page: Int){
     fetchFollower(userId:$userId,page:$page) {
       id
-      user2{
+      user1{
         id
         nickname
         age
