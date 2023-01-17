@@ -23,14 +23,12 @@ export default function Members() {
   const result = [];
   const following = [];
 
-
   const { data, loading, fetchMore } = useQuery<
     Pick<IQuery, "fetchUsers">,
     IQueryFetchUserArgs
   >(FETCH_USERS);
 
-  console.log(data)
-
+  console.log(data);
 
   const onLoadMore = () => {
     if (!data) return;
@@ -46,15 +44,11 @@ export default function Members() {
           };
         }
         return {
-          fetchUsers: [
-            ...prev.fetchUsers,
-            ...fetchMoreResult?.fetchUsers,
-          ],
+          fetchUsers: [...prev.fetchUsers, ...fetchMoreResult?.fetchUsers],
         };
       },
     });
   };
-
 
   const { data: LoggedIn } = useQuery(FETCH_USER_LOGGED_IN);
 
@@ -115,5 +109,6 @@ export default function Members() {
   onChangeFav={onChangeFav}
   onClickBtn={onClickBtn}
   />
+
   );
 }

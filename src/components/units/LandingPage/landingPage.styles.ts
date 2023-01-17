@@ -22,6 +22,7 @@ export const Container = styled.div`
     background-position-x: -130px;
   } */
   ${M.mediaL} {
+    background-position-y: 0px;
   }
 `;
 export const MainTextBox = styled.div`
