@@ -44,7 +44,7 @@ export const FETCH_USER = gql`
     }
   }
 `;
-export default function FollowerList(props) {
+export default function FollowerList(props: any) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);

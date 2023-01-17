@@ -1,6 +1,6 @@
 import { RightOutlined, SearchOutlined } from "@ant-design/icons";
 import * as S from "./CommunityList.styles";
-import React, { useState } from "react";
+import React, { ChangeEvent, MouseEvent, useState } from "react";
 import CommunityWrite from "../write/CommunityWrite.container";
 import CommunityDetailPage from "../detail/CommunityDetail.container";
 import InfiniteScroll from "react-infinite-scroller";
@@ -36,34 +36,34 @@ export default function CommunityListUi(props: any) {
   const [newest, setNewest] = useState(true);
   const [orderPick, setOrderPick] = useState(false);
   const [ModalEsc, setModalEsc] = useState(true);
-  const [isSearch, setIsSearch] = useState(false)
+  const [isSearch, setIsSearch] = useState(false);
 
-  const onClickNew = (e) => {
+  const onClickNew = (e: MouseEvent) => {
     if (!newest) {
       if (orderPick) {
         setNewest(true);
         setOrderPick(false);
-        setIsSearch(false)
-      } else if(isSearch){
+        setIsSearch(false);
+      } else if (isSearch) {
         setNewest(true);
         setOrderPick(false);
-        setIsSearch(false)
-      }else{
+        setIsSearch(false);
+      } else {
         setNewest(true);
       }
     }
   };
-  const onClickPick = (e) => {
+  const onClickPick = (e: MouseEvent) => {
     if (!orderPick) {
       if (newest) {
         setNewest(false);
         setOrderPick(true);
-        setIsSearch(false)
-      } else if(isSearch){
+        setIsSearch(false);
+      } else if (isSearch) {
         setNewest(false);
         setOrderPick(true);
-        setIsSearch(false)
-      }else{
+        setIsSearch(false);
+      } else {
         setOrderPick(true);
       }
     }
@@ -74,30 +74,33 @@ export default function CommunityListUi(props: any) {
       if (newest) {
         setNewest(false);
         setOrderPick(false);
-        setIsSearch(true)
-      } else if(orderPick){
+        setIsSearch(true);
+      } else if (orderPick) {
         setNewest(false);
         setOrderPick(false);
-        setIsSearch(true)
-      }else{
+        setIsSearch(true);
+      } else {
         setIsSearch(true);
       }
     }
-}
-const onChangeWord = (e) => {
-  setIsSearch(false)
-  setNewest(true);
-  props.setWord(e.target.value)
-}
+  };
+  const onChangeWord = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsSearch(false);
+    setNewest(true);
+    props.setWord(e.target.value);
+  };
   const handleCancel = () => {
     setModalOpen(false);
   };
 
-
   return (
     <>
-
-      <S.ModalCustom centered open={ModalOpen} width={900} onCancel={handleCancel}>
+      <S.ModalCustom
+        centered
+        open={ModalOpen}
+        width={900}
+        onCancel={handleCancel}
+      >
         <CommunityDetailPage boardId={props.boardId} />
       </S.ModalCustom>
 
@@ -164,7 +167,7 @@ const onChangeWord = (e) => {
               hasMore={true}
             >
               <S.Items>
-                {props.result.map((el, index) => (
+                {props.result.map((el: any, index: any) => (
                   <S.Item key={el.id}>
                     <S.Img
                       style={{
@@ -181,7 +184,7 @@ const onChangeWord = (e) => {
                         {el.title
                           .replaceAll(props.keyword, `%^&${props.keyword}%^&`)
                           .split("%^&")
-                          .map((el) => (
+                          .map((el: any) => (
                             <span
                               key={uuidv4()}
                               style={{
@@ -213,15 +216,17 @@ const onChangeWord = (e) => {
                 ))}
               </S.Items>
             </InfiniteScroll>
-          ) : ""}
-          {orderPick ? ( 
+          ) : (
+            ""
+          )}
+          {orderPick ? (
             <InfiniteScroll
               pageStart={0}
               loadMore={props.onLoadMore}
               hasMore={true}
             >
               <S.Items>
-                {props.result2.map((el) => (
+                {props.result2.map((el: any) => (
                   <S.Item key={el.id}>
                     <S.Img
                       style={{
@@ -270,15 +275,17 @@ const onChangeWord = (e) => {
                 ))}
               </S.Items>
             </InfiniteScroll>
-           ) : ""}
-             {isSearch ? ( 
+          ) : (
+            ""
+          )}
+          {isSearch ? (
             <InfiniteScroll
               pageStart={0}
               loadMore={props.onLoadMore}
               hasMore={true}
             >
               <S.Items>
-                {props.search?.searchBoards.map((el) => (
+                {props.search?.searchBoards.map((el: any) => (
                   <S.Item key={el.id}>
                     <S.Img
                       style={{
@@ -295,7 +302,7 @@ const onChangeWord = (e) => {
                         {el.title
                           .replaceAll(props.keyword, `%^&${props.keyword}%^&`)
                           .split("%^&")
-                          .map((el) => (
+                          .map((el: any) => (
                             <span
                               key={uuidv4()}
                               style={{
@@ -327,7 +334,9 @@ const onChangeWord = (e) => {
                 ))}
               </S.Items>
             </InfiniteScroll>
-           ) : ""}
+          ) : (
+            ""
+          )}
         </S.ResultWrap>
       </S.Wrapper>
     </>

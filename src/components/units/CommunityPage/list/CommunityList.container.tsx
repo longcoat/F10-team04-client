@@ -1,7 +1,12 @@
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { AttendState, modalDetailState, PickState, ToggleState } from "../../../../commons/stores";
+import {
+  AttendState,
+  modalDetailState,
+  PickState,
+  ToggleState,
+} from "../../../../commons/stores";
 import CommunityListUi from "./CommunityList.presenter";
 import {
   FETCH_ALL_BOARDS,
@@ -9,42 +14,42 @@ import {
   SEARCH_BOARDS,
 } from "./CommunityList.queries";
 import _ from "lodash";
-import { IQuery, IQueryFetchAllBoardsArgs } from "../../../../commons/types/generated/types";
-
+import {
+  IQuery,
+  IQueryFetchAllBoardsArgs,
+  IQuerySearchBoardsArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function CommunityList() {
   const [keyword, setKeyword] = useState("");
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);
-  const [pick, setPick] = useRecoilState(PickState)
+  const [pick, setPick] = useRecoilState(PickState);
   const [attend, setAttend] = useRecoilState(AttendState);
   const [Toggle, setToggle] = useRecoilState(ToggleState);
   const [boardId, setBoardId] = useState("");
   const [level, setLevel] = useState("");
   const [Lo, setLo] = useState("");
-  const [word, setWord] = useState("")
+  const [word, setWord] = useState("");
   const result = [];
   const result2 = [];
 
-
   const { data, refetch, fetchMore } = useQuery<
-  Pick<IQuery, "fetchAllBoards">,
-  IQueryFetchAllBoardsArgs
->(FETCH_ALL_BOARDS);
+    Pick<IQuery, "fetchAllBoards">,
+    IQueryFetchAllBoardsArgs
+  >(FETCH_ALL_BOARDS);
   const {
     data: Pick,
     refetch: pickRefetch,
     fetchMore: pickFetchMore,
   } = useQuery(FETCH_ALL_BOARDS_WITH_PICK_BOARD);
   const { data: search } = useQuery<
-  Pick<IQuery, "serchBoards">,
-  IQuerySerchBoardsArgs
->(SEARCH_BOARDS, {
+    Pick<IQuery, "searchBoards">,
+    IQuerySearchBoardsArgs
+  >(SEARCH_BOARDS, {
     variables: {
-      word
+      word,
     },
   });
-
-
 
   const onLoadMore = () => {
     if (!data) return;
@@ -95,13 +100,13 @@ export default function CommunityList() {
     setModalOpen((prev) => !prev);
     setBoardId(boardId);
   };
-  const onChangeLevel = (e) => {
-    setLevel(e);
+  const onChangeLevel = (e: MouseEvent) => {
+    setLevel(String(e));
   };
-  const onChangeLo = (e) => {
-    setLo(e);
+  const onChangeLo = (e: MouseEvent) => {
+    setLo(String(e));
   };
- 
+
   data?.fetchAllBoards.forEach((el) => {
     if (
       el.recruitRegion?.includes(Lo) === true &&
@@ -110,7 +115,7 @@ export default function CommunityList() {
       result.push(el);
     }
   });
-  Pick?.fetchAllBoardsWithPickCount.forEach((el) => {
+  Pick?.fetchAllBoardsWithPickCount.forEach((el: any) => {
     if (
       el.recruitRegion?.includes(Lo) === true &&
       el.recruitGrade?.includes(level) === true

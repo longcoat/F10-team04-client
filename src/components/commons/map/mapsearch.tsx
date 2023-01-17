@@ -5,6 +5,7 @@ import DaumPostcodeEmbed from "react-daum-postcode";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { useRecoilState } from "recoil";
 import { mapCenterState, mapPathState } from "../../../commons/stores";
+import { Address } from "cluster";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -19,7 +20,9 @@ export default function KaKaoMapPage() {
   const [path, setPath] = useState([]);
   const [center, setCenter] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [address, setAddress] = useState("제주특별자치도 제주시 첨단로 242");
+  const [address, setAddress] = useState<string>(
+    "제주특별자치도 제주시 첨단로 242"
+  );
   const [center1, setCenter1] = useRecoilState(mapCenterState);
   const [path1, setPath1] = useRecoilState(mapPathState);
   // let geocoder:any
@@ -28,7 +31,7 @@ export default function KaKaoMapPage() {
     setIsOpen((prev) => !prev);
   };
 
-  const handleComplete = (data: string) => {
+  const handleComplete = (data) => {
     onToggleModal();
     setAddress(data.address);
   };
@@ -52,7 +55,7 @@ export default function KaKaoMapPage() {
         let moveLine; // 선이 그려지고 있을때 마우스 움직임에 따라 그려질 선 객체 입니다
         let clickLine; // 마우스로 클릭한 좌표로 그려질 선 객체입니다
         let distanceOverlay; // 선의 거리정보를 표시할 커스텀오버레이 입니다
-        let dots = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
+        let dots: any = {}; // 선이 그려지고 있을때 클릭할 때마다 클릭 지점과 거리를 표시하는 커스텀 오버레이 배열입니다.
 
         let geocoder = new window.kakao.maps.services.Geocoder();
 

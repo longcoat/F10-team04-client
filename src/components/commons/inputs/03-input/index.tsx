@@ -18,6 +18,9 @@ export const UPLOAD_FILE = gql`
 interface IInputProps {
   type: "file";
   register: UseFormRegisterReturn;
+  onChangeFileUrls: any;
+  fileUrl: "file" | any;
+  index: [];
 }
 
 export default function Input03(props: IInputProps) {

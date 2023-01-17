@@ -51,7 +51,7 @@ export const FETCH_USER = gql`
     }
   }
 `;
-export default function UserCard(props) {
+export default function UserCard(props: any) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
   const [addActive, setAddActive] = useState(false);

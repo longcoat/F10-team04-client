@@ -272,7 +272,8 @@ export const SexButton1 = styled.button`
   font-size: 20px; */
   border: ${(props) =>
     props.isActive ? "2px solid black" : "2px solid #d9d9d9"};
-  background-color: ${(props) => (props.isActive ? "#0b0b0b" : "white")};
+  background-color: ${(props: { isActive: boolean }) =>
+    props.isActive ? "#0b0b0b" : "white"};
   border-radius: 9px;
   cursor: pointer;
   width: 50%;
@@ -282,7 +283,7 @@ export const SexButton1 = styled.button`
 `;
 
 export const SexButton2 = styled.button`
-  border: ${(props) =>
+  border: ${(props: { isActive: boolean }) =>
     props.isActive ? "2px solid black" : "2px solid #d9d9d9"};
   background-color: ${(props) => (props.isActive ? "#0b0b0b" : "white")};
   border-radius: 9px;
@@ -311,7 +312,8 @@ export const ExerciseButton1 = styled.button`
   border-radius: 9px;
   cursor: pointer;
   padding: 14px 0;
-  background-color: ${(props) => (props.isActive ? "#0b0b0b" : "white")};
+  background-color: ${(props: { isActive: boolean }) =>
+    props.isActive ? "#0b0b0b" : "white"};
   font-size: 20px;
   color: ${(props) => (props.isActive ? "white" : "#d9d9d9")};
   border: ${(props) =>
@@ -327,7 +329,8 @@ export const ExerciseButton2 = styled.button`
   padding: 14px 0;
   color: white;
   font-size: 20px;
-  background-color: ${(props) => (props.isActive ? "#0b0b0b" : "white")};
+  background-color: ${(props: { isActive: boolean }) =>
+    props.isActive ? "#0b0b0b" : "white"};
   border: ${(props) =>
     props.isActive ? "2px solid black" : "2px solid #d9d9d9"};
   color: ${(props) => (props.isActive ? "white" : "#d9d9d9")};
@@ -336,7 +339,8 @@ export const ExerciseButton2 = styled.button`
 export const ExerciseButton3 = styled.button`
   width: 33%;
   margin-left: 20px;
-  background-color: ${(props) => (props.isActive ? "#0b0b0b" : "white")};
+  background-color: ${(props: { isActive: boolean }) =>
+    props.isActive ? "#0b0b0b" : "white"};
   border-radius: 9px;
   cursor: pointer;
   border: ${(props) =>

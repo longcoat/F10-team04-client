@@ -5,7 +5,10 @@ import Uploads01UI from "./Uploads01.presenter";
 import { UPLOAD_FILE } from "./Uploads01.queries";
 import { Modal } from "antd";
 
-export default function Uploads01(props) {
+interface IImage {}
+
+export default function Uploads01(props: any) {
+  console.log(props, "==============");
   const [image, setImage] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploadFile] = useMutation(UPLOAD_FILE);
@@ -14,21 +17,21 @@ export default function Uploads01(props) {
     fileRef.current?.click();
   };
 
-  useEffect(() =>{
-    if(props.data) {
-      setImage(props.data.fetchBoard.image?.imgUrl)
+  useEffect(() => {
+    if (props.data) {
+      setImage(props.data.fetchBoard.image?.imgUrl);
     }
-  },[props.data])
-console.log(image)
+  }, [props.data]);
+  console.log(image);
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value)
+    console.log(event.target.value);
     const file = checkValidationImage(event.target.files?.[0]);
     if (!file) return;
 
     try {
       const result = await uploadFile({ variables: { file } });
-      setImage(result.data.uploadFile)
-      console.log(result.data)
+      setImage(result.data.uploadFile);
+      console.log(result.data);
       props.onChangeImage(result.data.uploadFile);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });

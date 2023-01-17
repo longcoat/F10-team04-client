@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { MouseEvent, MouseEventHandler } from "react";
 import * as M from "../../../../src/commons/styles/mediaQueries";
 import {
   globalContainer,

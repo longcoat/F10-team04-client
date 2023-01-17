@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import LoginUIPage from "./LoginPage.presenter";
 import { schema } from "./LoginPage.validation";
@@ -9,7 +9,10 @@ import { Modal } from "antd";
 import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../../commons/stores";
 import { useRouter } from "next/router";
-import { IMutation, IMutationLoginArgs } from "../../../commons/types/generated/types";
+import {
+  IMutation,
+  IMutationLoginArgs,
+} from "../../../commons/types/generated/types";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -24,10 +27,9 @@ export default function LoginPage() {
     resolver: yupResolver(schema),
   });
 
-  const [loginUser] = useMutation<
-  Pick<IMutation, "login">,
-  IMutationLoginArgs
->(LOGIN);
+  const [loginUser] = useMutation<Pick<IMutation, "login">, IMutationLoginArgs>(
+    LOGIN
+  );
 
   const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const onClickSubmit = async (data: any) => {
@@ -47,19 +49,18 @@ export default function LoginPage() {
       Modal.success({ content: "로그인을 성공하였습니다." });
       router.push("/");
     } catch (error) {
-      if (error instanceof Error)
-        Modal.error({ content: error.message });
+      if (error instanceof Error) Modal.error({ content: error.message });
     }
   };
 
-  const onChangeEmail = (e) => {
+  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== "") {
       setEmailAct(true);
     } else {
       setEmailAct(false);
     }
   };
-  const onChangePw = (e) => {
+  const onChangePw = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== "") {
       setPwAct(true);
     } else {

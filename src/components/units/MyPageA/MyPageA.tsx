@@ -44,7 +44,7 @@ const FETCH_MY_FOLLOW_COUNT = gql`
     }
   }
 `;
-function MyPageA(props) {
+function MyPageA(props: any) {
   const [isOpen, setIsOpen] = useState(false);
   const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
   const [color1, setColor1] = useState(true);
@@ -64,7 +64,7 @@ function MyPageA(props) {
     setModalOpen((prev) => !prev);
   };
 
-  const onClickColorfirst = (e) => {
+  const onClickColorfirst = () => {
     if (!color1) {
       if (color2) {
         setColor1((prev) => !prev);
@@ -81,7 +81,7 @@ function MyPageA(props) {
     }
   };
 
-  const onClickColorSecond = (e) => {
+  const onClickColorSecond = () => {
     if (!color2) {
       if (color1) {
         setColor1((prev) => !prev);
@@ -98,7 +98,7 @@ function MyPageA(props) {
     }
   };
 
-  const onClickColorThird = (e) => {
+  const onClickColorThird = () => {
     if (!color3) {
       if (color1) {
         setColor1((prev) => !prev);

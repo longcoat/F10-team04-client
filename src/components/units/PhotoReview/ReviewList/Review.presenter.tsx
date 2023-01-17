@@ -8,7 +8,7 @@ import FollowingList from "../../../commons/userCard/02-userCard(following)";
 import FollowerList from "../../../commons/userCard/03-userCard(follower)";
 import * as M from "../../../../commons/styles/mediaQueries";
 
-export default function ReviewUI(props) {
+export default function ReviewUI(props: any) {
   return (
     <>
       {props.isModalOpen && (
