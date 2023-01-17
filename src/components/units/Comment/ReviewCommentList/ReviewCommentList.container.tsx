@@ -20,14 +20,13 @@ export default function ReviewCommentList(props: any) {
     variables: { reviewBoardId: String(props.id) },
   });
 
-  console.log(data);
   const [deleteReviewComment] = useMutation<
     Pick<IMutation, "deleteReviewComment">,
     IMutationDeleteReviewCommentArgs
   >(DELETE_REVIEW_COMMENT);
 
   const onLoadMore = () => {
-    if (data === undefined) return;
+    if (!data) return;
 
     fetchMore({
       variables: {
@@ -41,15 +40,15 @@ export default function ReviewCommentList(props: any) {
         }
         return {
           fetchReviewComments: [
-            ...prev.fetchReviewComments,
+              ...prev?.fetchReviewComments,
             ...fetchMoreResult?.fetchReviewComments,
           ],
         };
       },
     });
   };
-  const onClickDelete =
-    (reviewCommentId) => async (event: MouseEvent<HTMLElement>) => {
+
+  const onClickDelete = (reviewCommentId) => async (event: MouseEvent<HTMLElement>) => {
       try {
         await deleteReviewComment({
           variables: {

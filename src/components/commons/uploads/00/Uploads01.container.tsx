@@ -22,7 +22,7 @@ export default function Uploads00(props: any) {
       setImage(data?.fetchUserLoggedIn.image?.imgUrl);
     }
   }, [data]);
-  console.log(image);
+
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.value);
     const file = checkValidationImage(event.target.files?.[0]);
@@ -40,7 +40,7 @@ export default function Uploads00(props: any) {
   return (
     <Uploads01UI
       fileRef={fileRef}
-      fileUrl={props.image}
+      fileUrl={image}
       defaultFileUrl={props.defaultFileUrl}
       onClickUpload={onClickUpload}
       onChangeFile={onChangeFile}

@@ -182,7 +182,7 @@ const Item = styled.span`
   margin-right: 7px;
   color: #bbbbbb;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 20px;
   letter-spacing: -0.47999998927116394px;
   text-align: left;

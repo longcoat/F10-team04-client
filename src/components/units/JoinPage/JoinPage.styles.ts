@@ -180,7 +180,7 @@ export const Footer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  padding-top: 50px;
+  padding-top: 100px;
 `;
 export const NextButton = styled.button`
   width: 100%;

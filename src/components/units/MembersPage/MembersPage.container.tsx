@@ -23,11 +23,38 @@ export default function Members() {
   const result = [];
   const following = [];
 
-  const { data, loading } = useQuery<
+
+  const { data, loading, fetchMore } = useQuery<
     Pick<IQuery, "fetchUsers">,
     IQueryFetchUserArgs
   >(FETCH_USERS);
-  console.log(data);
+
+  console.log(data)
+
+
+  const onLoadMore = () => {
+    if (!data) return;
+
+    fetchMore({
+      variables: {
+        page: Math.ceil(data?.fetchUsers.length / 8) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (fetchMoreResult.fetchUsers == undefined) {
+          return {
+            fetchUsers: [...prev.fetchUsers],
+          };
+        }
+        return {
+          fetchUsers: [
+            ...prev.fetchUsers,
+            ...fetchMoreResult?.fetchUsers,
+          ],
+        };
+      },
+    });
+  };
+
 
   const { data: LoggedIn } = useQuery(FETCH_USER_LOGGED_IN);
 
@@ -71,27 +98,23 @@ export default function Members() {
     }
   });
 
-  useEffect(() => {
-    if (result.length === 0) {
-      setIsNo(true);
-      return;
-    } else {
-      setIsNo(false);
-    }
-  }, [result]);
 
-  return (
-    <MembersUi
-      loading={loading}
-      following={following}
-      isNo={isNo}
-      data={data}
-      result={result}
-      onChangeLevel={onChangeLevel}
-      onChangeLo={onChangeLo}
-      onChangeAge={onChangeAge}
-      onChangeFav={onChangeFav}
-      onClickBtn={onClickBtn}
-    />
+  
+ 
+  return (<MembersUi 
+  onLoadMore={onLoadMore}
+  loading={loading}
+  following={following}
+  isNo={isNo} 
+  data={data}
+  result={result}
+  onChangeLevel={onChangeLevel}
+  onChangeLo={onChangeLo}
+  onChangeAge={onChangeAge}
+  onChangeFav={onChangeFav}
+  onClickBtn={onClickBtn}
+  />;
+
+
   );
 }

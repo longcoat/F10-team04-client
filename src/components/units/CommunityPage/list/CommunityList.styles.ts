@@ -384,7 +384,6 @@ export const Items = styled.div`
   flex-wrap: wrap;
   /* justify-content: flex-start; */
   margin-bottom: 200px;
-
   ${M.mediaL} {
     width: 100%;
   }

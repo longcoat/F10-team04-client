@@ -1,6 +1,7 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { result } from "lodash";
 import { useState } from "react";
+import InfiniteScroll from "react-infinite-scroller";
 import UserCard from "../../commons/userCard/01-userCard";
 import * as S from "./MembersPage.styles";
 
@@ -228,14 +229,7 @@ export default function MembersUi(props: any) {
       ) : (
         <S.ResultWrap>
           <S.ResultTitle>검색결과</S.ResultTitle>
-          <S.TabMenu>
-            <S.Item isActive={menuAct} onClick={onClickMenu1}>
-              최신순
-            </S.Item>
-            <S.Item isActive={menuAct1} onClick={onClickMenu2}>
-              인기순
-            </S.Item>
-          </S.TabMenu>
+          <InfiniteScroll pageStart={0} loadMore={props.onLoadMore} hasMore={true}>
           <S.Items>
             {props.result?.map((el, index) => (
               <UserCard
@@ -246,6 +240,7 @@ export default function MembersUi(props: any) {
               />
             ))}
           </S.Items>
+          </InfiniteScroll>
         </S.ResultWrap>
       )}
     </S.Wrapper>

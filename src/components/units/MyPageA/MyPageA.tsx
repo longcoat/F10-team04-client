@@ -5,14 +5,13 @@ import { gql, useQuery } from "@apollo/client";
 import AttendList from "./AttendList";
 import MyPickList from "./MyPickList";
 import MyBoardList from "./MyBoardList";
-import AttendPeople from "./AttendPeople";
 import { useRecoilState } from "recoil";
-import { modalEditState } from "../../../commons/stores";
+import { userEditState } from "../../../commons/stores";
 import styled from "@emotion/styled";
 import UserEdit from "../../commons/user(Edit)/userEdit.container";
 import { Modal } from "antd";
-import { IQuery } from "../../../commons/types/generated/types";
 import { withAuth } from "../../commons/hocs/withAuth";
+import { useRouter } from "next/router";
 
 export const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
@@ -44,20 +43,31 @@ const FETCH_MY_FOLLOW_COUNT = gql`
     }
   }
 `;
-function MyPageA(props: any) {
+export default function MyPageA(props: any) {
   const [isOpen, setIsOpen] = useState(false);
-  const [ModalOpen, setModalOpen] = useRecoilState(modalEditState);
+  const [ModalOpen, setModalOpen] = useRecoilState(userEditState);
   const [color1, setColor1] = useState(true);
   const [color2, setColor2] = useState(false);
   const [color3, setColor3] = useState(false);
   const [color4, setColor4] = useState(false);
+  const router = useRouter();
 
-  const { data } = useQuery(FETCH_USER_LOGGED_IN);
+  const { data, loading } = useQuery(FETCH_USER_LOGGED_IN);
 
   const { data: fetchMyFollowCount } = useQuery(FETCH_MY_FOLLOW_COUNT);
 
   useEffect(() => {
-    console.log(data);
+    if (localStorage.getItem("accessToken") === null) {
+      alert("로그인 후 이용 가능합니다!!!");
+      void router.push("/login");
+    } else return;
+  });
+
+  useEffect(() => {
+    console.log(data)
+    if(data?.fetchUserLoggedIn?.image === null) {
+      console.log(111)
+    }
   }, [data]);
 
   const onClickEdit = () => {
@@ -114,14 +124,19 @@ function MyPageA(props: any) {
       }
     }
   };
+  const handleCancel = () => {
+    setModalOpen(false)
+  }
 
   return (
     <S.Containerbox>
       {ModalOpen && (
-        <ModalCustom title="회원정보 수정" centered open={true} width={1000}>
+        <ModalCustom title="회원정보 수정" centered open={true} width={1000}  onCancel={handleCancel}>
           <UserEdit data={data} />
         </ModalCustom>
       )}
+      {loading ? ""
+      :
       <S.Container>
         <S.Wrapper>
           <S.ProfileBox>
@@ -199,7 +214,8 @@ function MyPageA(props: any) {
         </S.ListContainer>
         {/* 보드리스트 게시글목록 할 때 부분 */}
       </S.Container>
-    </S.Containerbox>
+}
+    </S.Containerbox>  
   );
 }
 
@@ -245,4 +261,4 @@ const ModalCustom = styled(Modal)`
   }
 `;
 
-export default withAuth(MyPageA);
+
