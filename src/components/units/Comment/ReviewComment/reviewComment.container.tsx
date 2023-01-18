@@ -34,7 +34,7 @@ export default function ReviewCommentWrite(props: any) {
     void router.push("/login");
     setIsModalOpen(false);
     return
-  } 
+  }else{
     if (data.content) {
       const result = await createReviewComment({
         variables: {
@@ -54,6 +54,8 @@ export default function ReviewCommentWrite(props: any) {
       });
       setValue("content", "");
     }
+  } 
+    
   };
   return (
     <ReviewCommentWriteUI

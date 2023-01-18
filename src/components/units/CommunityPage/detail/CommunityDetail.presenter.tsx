@@ -68,7 +68,7 @@ export default function CommunityDetailUIPage(props: any) {
   useEffect(() => {
     const script = document.createElement("script"); // <script></script> 랑 동일
     script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=b64e0417ea88d2dc43bf2b70b73cafae&libraries=services,drawing&autoload=false";
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=60d701217f2e5767f7f2323406c17e5a&libraries=services,drawing&autoload=false";
     document.head.appendChild(script);
 
     script.onload = () => {
