@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const FETCH_REVIEW_NESTED_COMMENTS = gql`
-  query fetchReviewNestedComments($reviewCommentId: String!, $page: Int) {
+  query fetchReviewNestedComments($reviewCommentId: String!) {
     fetchReviewNestedComments(
         reviewCommentId: $reviewCommentId
         page: $page

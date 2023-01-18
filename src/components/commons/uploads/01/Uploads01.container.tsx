@@ -8,7 +8,6 @@ import { Modal } from "antd";
 interface IImage {}
 
 export default function Uploads01(props: any) {
-  console.log(props, "==============");
   const [image, setImage] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
   const [uploadFile] = useMutation(UPLOAD_FILE);
