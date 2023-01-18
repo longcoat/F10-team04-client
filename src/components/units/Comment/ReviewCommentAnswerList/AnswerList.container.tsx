@@ -24,27 +24,7 @@ export default function AnswerList(props: any) {
     IMutationDeleteReviewNestedCommentArgs
   >(DELETE_REVIEW_NESTED_COMMENT);
 
-  const onLoadMore = () => {
-    if (!data) return;
-
-    void fetchMore({
-      variables: {
-        page: Math.ceil(data?.fetchReviewNestedComments.length / 9) + 1,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult?.fetchReviewNestedComments)
-          return {
-            fetchReviewNestedComments: [...prev.fetchReviewNestedComments],
-          };
-        return {
-          fetchReviewNestedComments: [
-            ...prev.fetchReviewNestedComments,
-            ...fetchMoreResult.fetchReviewNestedComments,
-          ],
-        };
-      },
-    });
-  };
+  
   const onClickDelete = (reviewNestedCommentId: any) => async (event: any) => {
     try {
       await deleteReviewNestedComment({
@@ -66,7 +46,6 @@ export default function AnswerList(props: any) {
     <AnswerListUI
       onClickDelete={onClickDelete}
       data={data}
-      onLoadMore={onLoadMore}
     />
   );
 }
