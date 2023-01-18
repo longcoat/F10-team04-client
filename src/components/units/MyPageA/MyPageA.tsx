@@ -62,12 +62,6 @@ export default function MyPageA(props: any) {
     } else return;
   });
 
-  useEffect(() => {
-    console.log(data);
-    if (data?.fetchUserLoggedIn?.image === null) {
-      console.log(111);
-    }
-  }, [data]);
 
   const onClickEdit = () => {
     setModalOpen((prev) => !prev);

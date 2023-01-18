@@ -28,8 +28,6 @@ export default function Members() {
     IQueryFetchUserArgs
   >(FETCH_USERS);
 
-  console.log(data);
-
   const onLoadMore = () => {
     if (!data) return;
 
