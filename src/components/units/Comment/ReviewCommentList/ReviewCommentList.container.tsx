@@ -25,9 +25,10 @@ export default function ReviewCommentList(props: any) {
     IMutationDeleteReviewCommentArgs
   >(DELETE_REVIEW_COMMENT);
 
-  
 
-  const onClickDelete = (reviewCommentId) => async (event: MouseEvent<HTMLElement>) => {
+
+  const onClickDelete =
+    (reviewCommentId) => async (event: MouseEvent<HTMLElement>) => {
       try {
         await deleteReviewComment({
           variables: {
@@ -48,6 +49,7 @@ export default function ReviewCommentList(props: any) {
   return (
     <ReviewCommentListUI
       onClickDelete={onClickDelete}
+
       data={data}
     />
   );
