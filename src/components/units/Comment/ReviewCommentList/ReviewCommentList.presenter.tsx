@@ -10,6 +10,7 @@ export default function ReviewCommentListUI(props: any) {
         hasMore={true}
         useWindow={true}
       >
+        <div>
         {props.data?.fetchReviewComments.map((el: any) => (
           <ReviewCommentListItem
             key={el.id}
@@ -17,6 +18,7 @@ export default function ReviewCommentListUI(props: any) {
             onClickDelete={props.onClickDelete}
           />
         ))}
+        </div>
       </InfiniteScroll>
     </>
   );

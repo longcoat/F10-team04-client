@@ -36,7 +36,7 @@ export default function Livechat(props: IPropsLiveChat) {
       contents: "",
     },
   });
-
+  console.log(data);
   useEffect(() => {
     socket.on(room, (data) => {
       setResultMsg((prev: string[]) => [...prev, data]);
