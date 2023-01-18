@@ -56,7 +56,6 @@ export default function MyBoardList() {
     Pick<IQuery, "fetchMyAllBoards">,
     IQueryFetchMyAllBoardsArgs
   >(FETCH_MY_All_BOARDS);
-  console.log(data);
 
   // 리스트 클릭시 디테일 로 넘어가게
   const [ModalOpen, setModalOpen] = useRecoilState(modalDetailState);

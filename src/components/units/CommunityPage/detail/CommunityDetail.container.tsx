@@ -66,8 +66,6 @@ export default function CommunityDetailPage(props: any) {
     IQueryFetchMyPickBoardsArgs
   >(FETCH_MY_PICK_BOARDS);
 
-  console.log(AttendList);
-
   const [attendBoard] = useMutation(ATTEND_LIST);
 
   const { data: userData } = useQuery(FETCH_USER_LOGGED_IN);

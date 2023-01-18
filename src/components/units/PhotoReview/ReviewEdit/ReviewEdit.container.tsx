@@ -54,7 +54,6 @@ export default function ReviewEdit(props: any) {
     const newFileUrls = [...reviewImage];
     newFileUrls[index] = fileUrl;
     setReviewImage(newFileUrls);
-    console.log(reviewImage);
   };
 
   const onClickUpdate = async () => {
@@ -75,7 +74,7 @@ export default function ReviewEdit(props: any) {
         },
         refetchQueries: [{ query: FETCH_ALL_REVIEW_BOARDS }],
       });
-      console.log(result);
+
       setIsModalOpen(false);
       setIsDetailModalOpen(false);
       alert("리뷰수정이 완료되었습니다.");

@@ -8,6 +8,7 @@ import {
   IMutation,
   IMutationCreateReviewCommentArgs,
 } from "../../../../commons/types/generated/types";
+import { FETCH_REVIEW_BOARD } from "../../PhotoReview/ReviewDetail/ReviewDetail.query";
 import { FETCH_REVIEW_COMMENTS } from "../ReviewCommentList/ReviewCommentList.query";
 import ReviewCommentWriteUI from "./reviewComment.presenter";
 import { CREATE_REVIEW_COMMENT } from "./reviewComment.query";
@@ -45,9 +46,12 @@ export default function ReviewCommentWrite(props: any) {
             query: FETCH_REVIEW_COMMENTS,
             variables: { reviewBoardId: String(props.id) },
           },
+          {
+            query: FETCH_REVIEW_BOARD,
+            variables: { reviewBoardId: props.id },
+          },
         ],
       });
-      console.log(result);
       setValue("content", "");
     }
   };
