@@ -37,17 +37,31 @@ export default function Livechat(props: IPropsLiveChat) {
     },
   });
   console.log(data);
+  // useEffect(() => {
+  //   socket.on(room, (data) => {
+  //     setResultMsg((prev: string[]) => [...prev, data]);
+  //   });
+  // }, [room, socket]);
+
+  // useEffect(() => {
+  //   setUserId(props.userData?.fetchUserLoggedIn.id);
+  //   setRoom(String(props.data?.fetchBoard?.id));
+  //   setNickName(props.userData?.fetchUserLoggedIn.nickname);
+  // }, [props.data?.fetchBoard?.id, props.userData]);
+  // useEffect(() => {
+  //   setRoom(String(props.data?.fetchBoard?.id));
+  // }, [props.data]);
   useEffect(() => {
     socket.on(room, (data) => {
       setResultMsg((prev: string[]) => [...prev, data]);
     });
-  }, [room, socket]);
+  }, [room]);
 
   useEffect(() => {
     setUserId(props.userData?.fetchUserLoggedIn.id);
     setRoom(String(props.data?.fetchBoard?.id));
     setNickName(props.userData?.fetchUserLoggedIn.nickname);
-  }, [props.data?.fetchBoard?.id, props.userData]);
+  }, [props.userData]);
   useEffect(() => {
     setRoom(String(props.data?.fetchBoard?.id));
   }, [props.data]);
