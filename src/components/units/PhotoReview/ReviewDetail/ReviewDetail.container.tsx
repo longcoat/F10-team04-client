@@ -85,7 +85,6 @@ export default function ReviewDetail(props: any) {
           },
         ],
       });
-      console.log(result);
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
     }
