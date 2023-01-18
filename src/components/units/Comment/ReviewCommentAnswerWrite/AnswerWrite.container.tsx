@@ -4,6 +4,7 @@ import {
   IMutation,
   IMutationCreateReviewNestedCommentArgs,
 } from "../../../../commons/types/generated/types";
+import { FETCH_REVIEW_BOARD } from "../../PhotoReview/ReviewDetail/ReviewDetail.query";
 import { FETCH_REVIEW_NESTED_COMMENTS } from "../ReviewCommentAnswerList/AnswerList.query";
 import AnswerWriteUI from "./AnswerWrite.presenter";
 import { CREATE_REVIEW_NESTED_COMMENT } from "./AnswerWrite.query";
